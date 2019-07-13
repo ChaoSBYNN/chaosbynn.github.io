@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="为什么会存在十六进制并且广泛使用？  我的理解是十进制描述的是纯数值型，十六进制是标称型+数值型，标称型用于处理状态机。人有十个手指，这可能是十进制最早起源的原因，但是无法表示状态。我们如何记录正负，甚至是虚数、复数。如果不加入额外标识无法表示吧，那机器呢，他可是只能运算二进制信号，所以最合适的描述载体有两个必要条件：  二的直系等比倍数； 大于十并且越小越好。  那么十六是最合适的选择。">
+<meta name="keywords" content="Think">
+<meta property="og:type" content="article">
+<meta property="og:title" content="位运算">
+<meta property="og:url" content="https://chaosbynn.github.io/2017/04/03/位运算/index.html">
+<meta property="og:site_name" content="ChaoS_Zhang Site">
+<meta property="og:description" content="为什么会存在十六进制并且广泛使用？  我的理解是十进制描述的是纯数值型，十六进制是标称型+数值型，标称型用于处理状态机。人有十个手指，这可能是十进制最早起源的原因，但是无法表示状态。我们如何记录正负，甚至是虚数、复数。如果不加入额外标识无法表示吧，那机器呢，他可是只能运算二进制信号，所以最合适的描述载体有两个必要条件：  二的直系等比倍数； 大于十并且越小越好。  那么十六是最合适的选择。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-13T01:58:23.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="位运算">
+<meta name="twitter:description" content="为什么会存在十六进制并且广泛使用？  我的理解是十进制描述的是纯数值型，十六进制是标称型+数值型，标称型用于处理状态机。人有十个手指，这可能是十进制最早起源的原因，但是无法表示状态。我们如何记录正负，甚至是虚数、复数。如果不加入额外标识无法表示吧，那机器呢，他可是只能运算二进制信号，所以最合适的描述载体有两个必要条件：  二的直系等比倍数； 大于十并且越小越好。  那么十六是最合适的选择。">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="../../../../images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="../../../../images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>位运算</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="../../../../css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="../../../../css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="../../15/Git-flow/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="../../../03/28/数据挖掘-Spark/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/04/03/位运算/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/04/03/位运算/&text=位运算"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/04/03/位运算/&is_video=false&description=位运算"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=位运算&body=Check out this article: https://chaosbynn.github.io/2017/04/03/位运算/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/04/03/位运算/&name=位运算&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BIN-OCT-HEX-DEC"><span class="toc-number">1.</span> <span class="toc-text">BIN_OCT_HEX_DEC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#与-and运算-amp"><span class="toc-number">2.</span> <span class="toc-text">与 and运算 &amp;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-amp-3"><span class="toc-number">2.0.1.</span> <span class="toc-text">5 &amp; 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-amp-1"><span class="toc-number">2.0.2.</span> <span class="toc-text">4 &amp; 1</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#或-or运算"><span class="toc-number">3.</span> <span class="toc-text">或 or运算 |</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3"><span class="toc-number">3.0.1.</span> <span class="toc-text">5 | 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-5"><span class="toc-number">3.0.2.</span> <span class="toc-text">10 | 5</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#异或-xor运算"><span class="toc-number">4.</span> <span class="toc-text">异或 xor运算 ^</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-1"><span class="toc-number">4.0.1.</span> <span class="toc-text">5 ^ 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-5-1"><span class="toc-number">4.0.2.</span> <span class="toc-text">10 ^ 5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-10"><span class="toc-number">4.0.3.</span> <span class="toc-text">10 ^ 10</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非-not运算"><span class="toc-number">5.</span> <span class="toc-text">非 not运算 ~</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5"><span class="toc-number">5.0.1.</span> <span class="toc-text">~ 5</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#左移位-shl运算-lt-lt"><span class="toc-number">6.</span> <span class="toc-text">左移位 shl运算 &lt;&lt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-lt-lt-2"><span class="toc-number">6.0.1.</span> <span class="toc-text">5 &lt;&lt; 2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#右移位-shr运算-gt-gt"><span class="toc-number">7.</span> <span class="toc-text">右移位 shr运算 &gt;&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-gt-gt-2"><span class="toc-number">7.0.1.</span> <span class="toc-text">4 &gt;&gt; 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-gt-gt-2"><span class="toc-number">7.0.2.</span> <span class="toc-text">5 &gt;&gt; 2</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        位运算
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ChaoS_Zhang Site</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-04-03T11:36:48.000Z" itemprop="datePublished">2017-04-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="../../../../tags/Think/">Think</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>为什么会存在十六进制并且广泛使用？</p>
+</blockquote>
+<p>我的理解是十进制描述的是纯数值型，十六进制是标称型+数值型，标称型用于处理状态机。人有十个手指，这可能是十进制最早起源的原因，但是无法表示状态。我们如何记录正负，甚至是虚数、复数。如果不加入额外标识无法表示吧，那机器呢，他可是只能运算二进制信号，所以最合适的描述载体有两个必要条件：</p>
+<ol>
+<li>二的直系等比倍数；</li>
+<li>大于十并且越小越好。</li>
+</ol>
+<p>那么十六是最合适的选择。</p>
+<hr>
+<blockquote>
+<p>计算机通信的基本原理是将电信号转换为逻辑信号，其转换方式是将高低电频表示为二进制数中的1和0, 再通过不同的二进制序列来表示所有的信息。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">Pascal语言</th>
+<th style="text-align:center">C语言</th>
+<th style="text-align:center">Java</th>
+<th style="text-align:center">Scala</th>
+<th style="text-align:center">Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">按位与</td>
+<td style="text-align:center">a and b</td>
+<td style="text-align:center">a &amp; b</td>
+<td style="text-align:center">a &amp; b</td>
+<td style="text-align:center">a &amp; b</td>
+<td style="text-align:center">a &amp; b</td>
+</tr>
+<tr>
+<td style="text-align:center">按位或</td>
+<td style="text-align:center">a or b</td>
+<td style="text-align:center">a &brvbar; b</td>
+<td style="text-align:center">a &brvbar; b</td>
+<td style="text-align:center">a &brvbar; b</td>
+<td style="text-align:center">a &brvbar; b</td>
+</tr>
+<tr>
+<td style="text-align:center">按位异或</td>
+<td style="text-align:center">a xor b</td>
+<td style="text-align:center">a ^ b</td>
+<td style="text-align:center">a ^ b</td>
+<td style="text-align:center">a ^ b</td>
+<td style="text-align:center">a ^ b</td>
+</tr>
+<tr>
+<td style="text-align:center">按位取反</td>
+<td style="text-align:center">not a</td>
+<td style="text-align:center">~a</td>
+<td style="text-align:center">~a</td>
+<td style="text-align:center">~a</td>
+<td style="text-align:center">~a</td>
+</tr>
+<tr>
+<td style="text-align:center">左移</td>
+<td style="text-align:center">a shl b</td>
+<td style="text-align:center">a &lt;&lt; b</td>
+<td style="text-align:center">a &lt;&lt; b</td>
+<td style="text-align:center">a &lt;&lt; b</td>
+<td style="text-align:center">a &lt;&lt; b</td>
+</tr>
+<tr>
+<td style="text-align:center">带符号右移</td>
+<td style="text-align:center">a shr b</td>
+<td style="text-align:center">a &gt;&gt; b</td>
+<td style="text-align:center">a &gt;&gt; b</td>
+<td style="text-align:center">a &gt;&gt; b</td>
+<td style="text-align:center">a &gt;&gt; b</td>
+</tr>
+<tr>
+<td style="text-align:center">无符号右移</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">a &gt;&gt;&gt; b</td>
+<td style="text-align:center">a &gt;&gt;&gt; b</td>
+<td style="text-align:center">a &gt;&gt;&gt; b</td>
+</tr>
+</tbody>
+</table>
+<h1 id="BIN-OCT-HEX-DEC"><a href="#BIN-OCT-HEX-DEC" class="headerlink" title="BIN_OCT_HEX_DEC"></a>BIN_OCT_HEX_DEC</h1><ul>
+<li>BIN : binary 二进制</li>
+<li>OCT : octal 八进制</li>
+<li>DEC : decimal 十进制</li>
+<li>HEX : hexadecimal 十六进制</li>
+</ul>
+<pre><code>位运算基于二进制
+</code></pre><h1 id="与-and运算-amp"><a href="#与-and运算-amp" class="headerlink" title="与 and运算 &amp;"></a>与 and运算 &amp;</h1><blockquote>
+<p>同位同为1结果为1</p>
+</blockquote>
+<h3 id="5-amp-3"><a href="#5-amp-3" class="headerlink" title="5 &amp; 3"></a>5 &amp; 3</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0101</td>
+</tr>
+<tr>
+<td style="text-align:center">数二</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0011</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0001</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-amp-1"><a href="#4-amp-1" class="headerlink" title="4 &amp; 1"></a>4 &amp; 1</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0100</td>
+</tr>
+<tr>
+<td style="text-align:center">数二</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0001</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0000</td>
+</tr>
+</tbody>
+</table>
+<h1 id="或-or运算"><a href="#或-or运算" class="headerlink" title="或 or运算 |"></a>或 or运算 |</h1><blockquote>
+<p>同位存在1结果为1</p>
+</blockquote>
+<h3 id="5-3"><a href="#5-3" class="headerlink" title="5 | 3"></a>5 | 3</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0101</td>
+</tr>
+<tr>
+<td style="text-align:center">数二</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0011</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0111</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-5"><a href="#10-5" class="headerlink" title="10 | 5"></a>10 | 5</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0010</td>
+</tr>
+<tr>
+<td style="text-align:center">数二</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0101</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0111</td>
+</tr>
+</tbody>
+</table>
+<h1 id="异或-xor运算"><a href="#异或-xor运算" class="headerlink" title="异或 xor运算 ^"></a>异或 xor运算 ^</h1><blockquote>
+<p>同位不同结果为1</p>
+</blockquote>
+<h3 id="5-3-1"><a href="#5-3-1" class="headerlink" title="5 ^ 3"></a>5 ^ 3</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0101</td>
+</tr>
+<tr>
+<td style="text-align:center">数二</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0011</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0110</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-5-1"><a href="#10-5-1" class="headerlink" title="10 ^ 5"></a>10 ^ 5</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0010</td>
+</tr>
+<tr>
+<td style="text-align:center">数二</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0101</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0111</td>
+</tr>
+</tbody>
+</table>
+<h3 id="10-10"><a href="#10-10" class="headerlink" title="10 ^ 10"></a>10 ^ 10</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0111</td>
+</tr>
+<tr>
+<td style="text-align:center">数二</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center">0111</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0000</td>
+</tr>
+</tbody>
+</table>
+<h1 id="非-not运算"><a href="#非-not运算" class="headerlink" title="非 not运算 ~"></a>非 not运算 ~</h1><blockquote>
+<p>按位取反</p>
+</blockquote>
+<h3 id="5"><a href="#5" class="headerlink" title="~ 5"></a>~ 5</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0101</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">-6</td>
+<td style="text-align:center">1010</td>
+</tr>
+</tbody>
+</table>
+<h1 id="左移位-shl运算-lt-lt"><a href="#左移位-shl运算-lt-lt" class="headerlink" title="左移位 shl运算 &lt;&lt;"></a>左移位 shl运算 &lt;&lt;</h1><blockquote>
+<p>左移2n位后，低位补0</p>
+</blockquote>
+<h3 id="5-lt-lt-2"><a href="#5-lt-lt-2" class="headerlink" title="5 &lt;&lt; 2"></a>5 &lt;&lt; 2</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0000 0101</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">0000 1010</td>
+</tr>
+</tbody>
+</table>
+<h1 id="右移位-shr运算-gt-gt"><a href="#右移位-shr运算-gt-gt" class="headerlink" title="右移位 shr运算 &gt;&gt;"></a>右移位 shr运算 &gt;&gt;</h1><blockquote>
+<p>右移2n位，高位补0</p>
+</blockquote>
+<h3 id="4-gt-gt-2"><a href="#4-gt-gt-2" class="headerlink" title="4 &gt;&gt; 2"></a>4 &gt;&gt; 2</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0000 0100</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0000 0010</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>易失去精度，无法恢复</p>
+</blockquote>
+<h3 id="5-gt-gt-2"><a href="#5-gt-gt-2" class="headerlink" title="5 &gt;&gt; 2"></a>5 &gt;&gt; 2</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">标识</th>
+<th style="text-align:center">DEC</th>
+<th style="text-align:center">BIN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数一</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0000 0101</td>
+</tr>
+<tr>
+<td style="text-align:center">结果</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0000 0010</td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BIN-OCT-HEX-DEC"><span class="toc-number">1.</span> <span class="toc-text">BIN_OCT_HEX_DEC</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#与-and运算-amp"><span class="toc-number">2.</span> <span class="toc-text">与 and运算 &amp;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-amp-3"><span class="toc-number">2.0.1.</span> <span class="toc-text">5 &amp; 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-amp-1"><span class="toc-number">2.0.2.</span> <span class="toc-text">4 &amp; 1</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#或-or运算"><span class="toc-number">3.</span> <span class="toc-text">或 or运算 |</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3"><span class="toc-number">3.0.1.</span> <span class="toc-text">5 | 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-5"><span class="toc-number">3.0.2.</span> <span class="toc-text">10 | 5</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#异或-xor运算"><span class="toc-number">4.</span> <span class="toc-text">异或 xor运算 ^</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-1"><span class="toc-number">4.0.1.</span> <span class="toc-text">5 ^ 3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-5-1"><span class="toc-number">4.0.2.</span> <span class="toc-text">10 ^ 5</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-10"><span class="toc-number">4.0.3.</span> <span class="toc-text">10 ^ 10</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#非-not运算"><span class="toc-number">5.</span> <span class="toc-text">非 not运算 ~</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5"><span class="toc-number">5.0.1.</span> <span class="toc-text">~ 5</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#左移位-shl运算-lt-lt"><span class="toc-number">6.</span> <span class="toc-text">左移位 shl运算 &lt;&lt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-lt-lt-2"><span class="toc-number">6.0.1.</span> <span class="toc-text">5 &lt;&lt; 2</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#右移位-shr运算-gt-gt"><span class="toc-number">7.</span> <span class="toc-text">右移位 shr运算 &gt;&gt;</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-gt-gt-2"><span class="toc-number">7.0.1.</span> <span class="toc-text">4 &gt;&gt; 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-gt-gt-2"><span class="toc-number">7.0.2.</span> <span class="toc-text">5 &gt;&gt; 2</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/04/03/位运算/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/04/03/位运算/&text=位运算"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/04/03/位运算/&is_video=false&description=位运算"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=位运算&body=Check out this article: https://chaosbynn.github.io/2017/04/03/位运算/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/04/03/位运算/&title=位运算"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/04/03/位运算/&name=位运算&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 ChaoS_Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="../../../../lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="../../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../../lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="../../../../js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

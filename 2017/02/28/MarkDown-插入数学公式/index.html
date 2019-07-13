@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="使用Google Chart的服务器 提示：若无法正确打开在hosts 文件中添加  161.91.161.217	chart.googleapis.com 1&amp;lt;img src=&quot;http://chart.googleapis.com/chart?cht=tx&amp;amp;chl= 在此插入Latex公式&quot; style=&quot;border:none;&quot;&amp;gt; 一个例子， 1&amp;lt;img src=">
+<meta name="keywords" content="MarkDown,LaTeX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MarkDown 插入数学公式">
+<meta property="og:url" content="https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/index.html">
+<meta property="og:site_name" content="ChaoS_Zhang Site">
+<meta property="og:description" content="使用Google Chart的服务器 提示：若无法正确打开在hosts 文件中添加  161.91.161.217	chart.googleapis.com 1&amp;lt;img src=&quot;http://chart.googleapis.com/chart?cht=tx&amp;amp;chl= 在此插入Latex公式&quot; style=&quot;border:none;&quot;&amp;gt; 一个例子， 1&amp;lt;img src=">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=x^{y^z}=(1%2B{\rm e}^x)^{-2xy^w}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=f(x,y,z) = 3y^2z \left( 3%2B\frac{7x%2B5}{1%2By^2} \right)">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\frac{1}{3} ">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=1 \over 3">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\sqrt{2}  ">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\sqrt[n]{3} ">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=f(x<em>1,x</em>2,\ldots,x<em>n) = x</em>1^2 %2B x<em>2^2 %2B \cdots %2B x</em>n^2">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\vec{a} \cdot \vec{b}=0">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\int_0^1 x^2 {\rm d}x">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\lim_{n \rightarrow %2B\infty} \frac{1}{n(n%2B1)}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\sum{i=0}^n \frac{1}{i^2}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\prod{i=0}^n \frac{1}{i^2}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\alpha">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\beta">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\gamma">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\delta">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\epsilon">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\varepsilon">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\zeta">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\eta">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\theta">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\vartheta">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\iota">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\kappa">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\lambda">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\mu">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\nu">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\xi">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\pi">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\varpi">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\rho">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\varrho">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\sigma">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\varsigma">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\tau">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\upsilon">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\phi">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\varphi">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\chi">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\psi">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\omega">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\pm">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\times">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\div">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\mid">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\nmid">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\cdot">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\circ">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\ast">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigodot">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigotimes">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigoplus">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\leq">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\geq">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\neq">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\approx">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\equiv">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\sum">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\prod">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\coprod">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\emptyset">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\in">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\notin">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\subset">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\supset">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\subseteq">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\supseteq">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigcap">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigcup">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigvee">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigwedge">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\biguplus">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bigsqcup">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\log">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\lg">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\ln">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\bot">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\angle">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=30^\circ">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\sin">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\cos">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\tan">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\cot">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\sec">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\csc">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\prime">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\int">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\iint">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\iiint">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\iiiint">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\oint">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\lim">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\infty">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\nabla">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\therefore">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\forall">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\exists">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\not=">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\not>">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\not\subset">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\hat{y}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\check{y}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\breve{y}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\overline{a+b+c+d}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\underline{a+b+c+d}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\overbrace{a+\underbrace{b+c}{1.0}+d}^{2.0}">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\uparrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\downarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Uparrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Downarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\rightarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\leftarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Rightarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Leftarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\longrightarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\longleftarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Longrightarrow">
+<meta property="og:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Longleftarrow">
+<meta property="og:updated_time" content="2019-07-13T01:58:23.399Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MarkDown 插入数学公式">
+<meta name="twitter:description" content="使用Google Chart的服务器 提示：若无法正确打开在hosts 文件中添加  161.91.161.217	chart.googleapis.com 1&amp;lt;img src=&quot;http://chart.googleapis.com/chart?cht=tx&amp;amp;chl= 在此插入Latex公式&quot; style=&quot;border:none;&quot;&amp;gt; 一个例子， 1&amp;lt;img src=">
+<meta name="twitter:image" content="http://chart.googleapis.com/chart?cht=tx&chl=\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="../../../../images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="../../../../images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>MarkDown 插入数学公式</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="../../../../css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="../../../../css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="../个人简历/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="../../27/MarkDown-支持的语言/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&text=MarkDown 插入数学公式"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&is_video=false&description=MarkDown 插入数学公式"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MarkDown 插入数学公式&body=Check out this article: https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&name=MarkDown 插入数学公式&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Google-Chart的服务器"><span class="toc-number">1.</span> <span class="toc-text">使用Google Chart的服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号对照表"><span class="toc-number">2.</span> <span class="toc-text">符号对照表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入上下标"><span class="toc-number">2.0.1.</span> <span class="toc-text">如何输入上下标</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入括号和分隔符"><span class="toc-number">2.0.2.</span> <span class="toc-text">如何输入括号和分隔符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入分数"><span class="toc-number">2.0.3.</span> <span class="toc-text">如何输入分数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入开方"><span class="toc-number">2.0.4.</span> <span class="toc-text">如何输入开方</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入省略号"><span class="toc-number">2.0.5.</span> <span class="toc-text">如何输入省略号</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入矢量"><span class="toc-number">2.0.6.</span> <span class="toc-text">如何输入矢量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入积分"><span class="toc-number">2.0.7.</span> <span class="toc-text">如何输入积分</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入极限运算"><span class="toc-number">2.0.8.</span> <span class="toc-text">如何输入极限运算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入累加、累乘运算"><span class="toc-number">2.0.9.</span> <span class="toc-text">如何输入累加、累乘运算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入希腊字母"><span class="toc-number">2.0.10.</span> <span class="toc-text">如何输入希腊字母</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入其它特殊字符"><span class="toc-number">2.0.11.</span> <span class="toc-text">如何输入其它特殊字符</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        MarkDown 插入数学公式
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ChaoS_Zhang Site</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-02-28T12:08:20.000Z" itemprop="datePublished">2017-02-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="../../../../tags/LaTeX/">LaTeX</a>, <a class="tag-link" href="../../../../tags/MarkDown/">MarkDown</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="使用Google-Chart的服务器"><a href="#使用Google-Chart的服务器" class="headerlink" title="使用Google Chart的服务器"></a>使用Google Chart的服务器</h3><blockquote>
+<p>提示：若无法正确打开<br>在hosts 文件中添加</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">61.91.161.217	chart.googleapis.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://chart.googleapis.com/chart?cht=tx&amp;chl= 在此插入Latex公式"</span> <span class="attr">style</span>=<span class="string">"border:none;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>一个例子，</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"http://chart.googleapis.com/chart?cht=tx&amp;chl=\Large x=\frac&#123;-b\pm\sqrt&#123;b^2-4ac&#125;&#125;&#123;2a&#125;"</span> <span class="attr">style</span>=<span class="string">"border:none;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>公式显示结果为：</p>
+<p><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" style="border:none;"></p>
+<h3 id="符号对照表"><a href="#符号对照表" class="headerlink" title="符号对照表"></a>符号对照表</h3><blockquote>
+<p>注意：不知什么原因 “+” 无法编译 ，后面 “+” 使用 %2B 代替即可</p>
+</blockquote>
+<h5 id="如何输入上下标"><a href="#如何输入上下标" class="headerlink" title="如何输入上下标"></a>如何输入上下标</h5><blockquote>
+<p>^表示上标, _表示下标。如果上下标的内容多于一个字符，要用{}把这些内容括起来当成一个整体。上下标是可以嵌套的，也可以同时使用。</p>
+</blockquote>
+<p>例子：x^{y^z}=(1+{\rm e}^x)^{-2xy^w}</p>
+<p>显示：<br><img src="http://chart.googleapis.com/chart?cht=tx&chl=x^{y^z}=(1%2B{\rm e}^x)^{-2xy^w}" style="border:none;"></p>
+<h5 id="如何输入括号和分隔符"><a href="#如何输入括号和分隔符" class="headerlink" title="如何输入括号和分隔符"></a>如何输入括号和分隔符</h5><blockquote>
+<p>()、[]和|表示自己，{}表示{}。当要显示大号的括号或分隔符时，要用\left和\right命令。</p>
+</blockquote>
+<p>例子：f(x,y,z) = 3y^2z \left( 3+\frac{7x+5}{1+y^2} \right)</p>
+<p>显示：<br><img src="http://chart.googleapis.com/chart?cht=tx&chl=f(x,y,z) = 3y^2z \left( 3%2B\frac{7x%2B5}{1%2By^2} \right)" style="border:none;"></p>
+<h5 id="如何输入分数"><a href="#如何输入分数" class="headerlink" title="如何输入分数"></a>如何输入分数</h5><p>例子：\frac{1}{3}　或　1 \over 3</p>
+<p>显示： <img src="http://chart.googleapis.com/chart?cht=tx&chl=\frac{1}{3} " style="border:none;"> 　或  <img src="http://chart.googleapis.com/chart?cht=tx&chl=1 \over 3" style="border:none;"></p>
+<h5 id="如何输入开方"><a href="#如何输入开方" class="headerlink" title="如何输入开方"></a>如何输入开方</h5><p>例子：\sqrt{2}　和　\sqrt[n]{3}</p>
+<p>显示： <img src="http://chart.googleapis.com/chart?cht=tx&chl=\sqrt{2}  " style="border:none;">　和　 <img src="http://chart.googleapis.com/chart?cht=tx&chl=\sqrt[n]{3} " style="border:none;"></p>
+<h5 id="如何输入省略号"><a href="#如何输入省略号" class="headerlink" title="如何输入省略号"></a>如何输入省略号</h5><blockquote>
+<p>数学公式中常见的省略号有两种，\ldots表示与文本底线对齐的省略号，\cdots表示与文本中线对齐的省略号。</p>
+</blockquote>
+<p>例子：f(x1,x2,\ldots,xn) = x1^2 + x2^2 + \cdots + xn^2</p>
+<p>显示：<br><img src="http://chart.googleapis.com/chart?cht=tx&chl=f(x<em>1,x</em>2,\ldots,x<em>n) = x</em>1^2 %2B x<em>2^2 %2B \cdots %2B x</em>n^2" style="border:none;"></p>
+<h5 id="如何输入矢量"><a href="#如何输入矢量" class="headerlink" title="如何输入矢量"></a>如何输入矢量</h5><p>例子：\vec{a} \cdot \vec{b}=0</p>
+<p>显示：<br><img src="http://chart.googleapis.com/chart?cht=tx&chl=\vec{a} \cdot \vec{b}=0" style="border:none;"></p>
+<h5 id="如何输入积分"><a href="#如何输入积分" class="headerlink" title="如何输入积分"></a>如何输入积分</h5><p>例子：\int_0^1 x^2 {\rm d}x</p>
+<p>显示： <img src="http://chart.googleapis.com/chart?cht=tx&chl=\int_0^1 x^2 {\rm d}x" style="border:none;"></p>
+<h5 id="如何输入极限运算"><a href="#如何输入极限运算" class="headerlink" title="如何输入极限运算"></a>如何输入极限运算</h5><p>例子：\lim_{n \rightarrow +\infty} \frac{1}{n(n+1)}</p>
+<p>显示： <img src="http://chart.googleapis.com/chart?cht=tx&chl=\lim_{n \rightarrow %2B\infty} \frac{1}{n(n%2B1)}" style="border:none;"></p>
+<h5 id="如何输入累加、累乘运算"><a href="#如何输入累加、累乘运算" class="headerlink" title="如何输入累加、累乘运算"></a>如何输入累加、累乘运算</h5><p>例子：\sum{i=0}^n \frac{1}{i^2}　和　\prod{i=0}^n \frac{1}{i^2}</p>
+<p>显示： <img src="http://chart.googleapis.com/chart?cht=tx&chl=\sum{i=0}^n \frac{1}{i^2}" style="border:none;"> 　和　 <img src="http://chart.googleapis.com/chart?cht=tx&chl=\prod{i=0}^n \frac{1}{i^2}" style="border:none;"></p>
+<h5 id="如何输入希腊字母"><a href="#如何输入希腊字母" class="headerlink" title="如何输入希腊字母"></a>如何输入希腊字母</h5><table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\alpha</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\alpha" style="border:none;"></td>
+<td style="text-align:center">\beta</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\beta" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\gamma</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\gamma" style="border:none;"></td>
+<td style="text-align:center">\delta</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\delta" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\epsilon</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\epsilon" style="border:none;"></td>
+<td style="text-align:center">\varepsilon</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\varepsilon" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\zeta</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\zeta" style="border:none;"></td>
+<td style="text-align:center">\eta</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\eta" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\theta</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\theta" style="border:none;"></td>
+<td style="text-align:center">\vartheta</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\vartheta" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\iota</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\iota" style="border:none;"></td>
+<td style="text-align:center">\kappa</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\kappa" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\lambda</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\lambda" style="border:none;"></td>
+<td style="text-align:center">\mu</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\mu" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\nu</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\nu" style="border:none;"></td>
+<td style="text-align:center">\xi</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\xi" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\pi</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\pi" style="border:none;"></td>
+<td style="text-align:center">\varpi</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\varpi" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\rho</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\rho" style="border:none;"></td>
+<td style="text-align:center">\varrho</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\varrho" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\sigma</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\sigma" style="border:none;"></td>
+<td style="text-align:center">\varsigma</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\varsigma" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\tau</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\tau" style="border:none;"></td>
+<td style="text-align:center">\upsilon</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\upsilon" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\phi</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\phi" style="border:none;"></td>
+<td style="text-align:center">\varphi</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\varphi" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\chi</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\chi" style="border:none;"></td>
+<td style="text-align:center">\psi</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\psi" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\omega</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\omega" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<h5 id="如何输入其它特殊字符"><a href="#如何输入其它特殊字符" class="headerlink" title="如何输入其它特殊字符"></a>如何输入其它特殊字符</h5><p>关系运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\pm</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\pm" style="border:none;"></td>
+<td style="text-align:center">\times</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\times" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\div</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\div" style="border:none;"></td>
+<td style="text-align:center">\mid</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\mid" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\nmid</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\nmid" style="border:none;"></td>
+<td style="text-align:center">\cdot</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\cdot" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\circ</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\circ" style="border:none;"></td>
+<td style="text-align:center">\ast</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\ast" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\bigodot</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigodot" style="border:none;"></td>
+<td style="text-align:center">\bigotimes</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigotimes" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\bigoplus</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigoplus" style="border:none;"></td>
+<td style="text-align:center">\leq</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\leq" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\geq</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\geq" style="border:none;"></td>
+<td style="text-align:center">\neq</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\neq" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\approx</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\approx" style="border:none;"></td>
+<td style="text-align:center">\equiv</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\equiv" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\sum</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\sum" style="border:none;"></td>
+<td style="text-align:center">\prod</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\prod" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\coprod</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\coprod" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>集合运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\emptyset</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\emptyset" style="border:none;"></td>
+<td style="text-align:center">\in</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\in" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\notin</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\notin" style="border:none;"></td>
+<td style="text-align:center">\subset</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\subset" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\supset</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\supset" style="border:none;"></td>
+<td style="text-align:center">\subseteq</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\subseteq" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\supseteq</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\supseteq" style="border:none;"></td>
+<td style="text-align:center">\bigcap</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigcap" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\bigcup</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigcup" style="border:none;"></td>
+<td style="text-align:center">\bigvee</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigvee" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\bigwedge</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigwedge" style="border:none;"></td>
+<td style="text-align:center">\biguplus</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\biguplus" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\bigsqcup</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bigsqcup" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>对数运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\log</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\log" style="border:none;"></td>
+<td style="text-align:center">\lg</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\lg" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\ln</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\ln" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>三角运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\bot</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\bot" style="border:none;"></td>
+<td style="text-align:center">\angle</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\angle" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">30^\circ</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=30^\circ" style="border:none;"></td>
+<td style="text-align:center">\sin</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\sin" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\cos</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\cos" style="border:none;"></td>
+<td style="text-align:center">\tan</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\tan" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\cot</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\cot" style="border:none;"></td>
+<td style="text-align:center">\sec</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\sec" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\csc</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\csc" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>微积分运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\prime</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\prime" style="border:none;"></td>
+<td style="text-align:center">\int</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\int" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\iint</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\iint" style="border:none;"></td>
+<td style="text-align:center">\iiint</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\iiint" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\iiiint</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\iiiint" style="border:none;"></td>
+<td style="text-align:center">\oint</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\oint" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\lim</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\lim" style="border:none;"></td>
+<td style="text-align:center">\infty</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\infty" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\nabla</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\nabla" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>逻辑运算符</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\because</td>
+<td style="text-align:center"><strong>未找到</strong></td>
+<td style="text-align:center">\therefore</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\therefore" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\forall</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\forall" style="border:none;"></td>
+<td style="text-align:center">\exists</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\exists" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\not=</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\not=" style="border:none;"></td>
+<td style="text-align:center">\not&gt;</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\not>" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\not\subset</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\not\subset" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>戴帽符号</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\hat{y}</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\hat{y}" style="border:none;"></td>
+<td style="text-align:center">\check{y}</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\check{y}" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\breve{y}</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\breve{y}" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>连线符号</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\overline{a+b+c+d}</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\overline{a+b+c+d}" style="border:none;"></td>
+<td style="text-align:center">\underline{a+b+c+d}</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\underline{a+b+c+d}" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\overbrace{a+\underbrace{b+c}<em>{1.0}+d}^{2.0}</em></td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\overbrace{a+\underbrace{b+c}{1.0}+d}^{2.0}" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+<p>箭头符号</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+<th style="text-align:center">符号</th>
+<th style="text-align:center">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">\uparrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\uparrow" style="border:none;"></td>
+<td style="text-align:center">\downarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\downarrow" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\Uparrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Uparrow" style="border:none;"></td>
+<td style="text-align:center">\Downarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Downarrow" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\rightarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\rightarrow" style="border:none;"></td>
+<td style="text-align:center">\leftarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\leftarrow" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\Rightarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Rightarrow" style="border:none;"></td>
+<td style="text-align:center">\Leftarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Leftarrow" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\longrightarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\longrightarrow" style="border:none;"></td>
+<td style="text-align:center">\longleftarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\longleftarrow" style="border:none;"></td>
+</tr>
+<tr>
+<td style="text-align:center">\Longrightarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Longrightarrow" style="border:none;"></td>
+<td style="text-align:center">\Longleftarrow</td>
+<td style="text-align:center"><img src="http://chart.googleapis.com/chart?cht=tx&chl=\Longleftarrow" style="border:none;"></td>
+</tr>
+</tbody>
+</table>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Google-Chart的服务器"><span class="toc-number">1.</span> <span class="toc-text">使用Google Chart的服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号对照表"><span class="toc-number">2.</span> <span class="toc-text">符号对照表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入上下标"><span class="toc-number">2.0.1.</span> <span class="toc-text">如何输入上下标</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入括号和分隔符"><span class="toc-number">2.0.2.</span> <span class="toc-text">如何输入括号和分隔符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入分数"><span class="toc-number">2.0.3.</span> <span class="toc-text">如何输入分数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入开方"><span class="toc-number">2.0.4.</span> <span class="toc-text">如何输入开方</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入省略号"><span class="toc-number">2.0.5.</span> <span class="toc-text">如何输入省略号</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入矢量"><span class="toc-number">2.0.6.</span> <span class="toc-text">如何输入矢量</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入积分"><span class="toc-number">2.0.7.</span> <span class="toc-text">如何输入积分</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入极限运算"><span class="toc-number">2.0.8.</span> <span class="toc-text">如何输入极限运算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入累加、累乘运算"><span class="toc-number">2.0.9.</span> <span class="toc-text">如何输入累加、累乘运算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入希腊字母"><span class="toc-number">2.0.10.</span> <span class="toc-text">如何输入希腊字母</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#如何输入其它特殊字符"><span class="toc-number">2.0.11.</span> <span class="toc-text">如何输入其它特殊字符</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&text=MarkDown 插入数学公式"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&is_video=false&description=MarkDown 插入数学公式"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=MarkDown 插入数学公式&body=Check out this article: https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&title=MarkDown 插入数学公式"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/02/28/MarkDown-插入数学公式/&name=MarkDown 插入数学公式&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 ChaoS_Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="../../../../lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="../../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../../lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="../../../../js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

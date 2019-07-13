@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="五种开源协议的比较(BSD，Apache，GPL，LGPL，MIT)什么是软件许可协议？通俗来讲，许可协议是指用来授权其他人具有某种使用你的作品的权利。 依靠许可协议将你的作品对外开源或者对你的作品的各个方面逐一进行授权，是一个不错的方法(WordPress, Drupal 和许多其它的内容管理系统都是开源软件)。一旦对外开源，你将失去所有对你的作品的版权，别人也没有义务将你标注为作品的原创者或捐">
+<meta name="keywords" content="LICENES">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开源协议比较">
+<meta property="og:url" content="https://chaosbynn.github.io/2017/02/22/开源协议比较/index.html">
+<meta property="og:site_name" content="ChaoS_Zhang Site">
+<meta property="og:description" content="五种开源协议的比较(BSD，Apache，GPL，LGPL，MIT)什么是软件许可协议？通俗来讲，许可协议是指用来授权其他人具有某种使用你的作品的权利。 依靠许可协议将你的作品对外开源或者对你的作品的各个方面逐一进行授权，是一个不错的方法(WordPress, Drupal 和许多其它的内容管理系统都是开源软件)。一旦对外开源，你将失去所有对你的作品的版权，别人也没有义务将你标注为作品的原创者或捐">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/LICENES.png">
+<meta property="og:updated_time" content="2019-07-13T01:58:23.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开源协议比较">
+<meta name="twitter:description" content="五种开源协议的比较(BSD，Apache，GPL，LGPL，MIT)什么是软件许可协议？通俗来讲，许可协议是指用来授权其他人具有某种使用你的作品的权利。 依靠许可协议将你的作品对外开源或者对你的作品的各个方面逐一进行授权，是一个不错的方法(WordPress, Drupal 和许多其它的内容管理系统都是开源软件)。一旦对外开源，你将失去所有对你的作品的版权，别人也没有义务将你标注为作品的原创者或捐">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/LICENES.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="../../../../images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="../../../../images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>开源协议比较</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="../../../../css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="../../../../css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="../Do-have-faith-in-what-you-are-doing-All-for-a-better-world/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="../JSSDK-微信接口与-Java-结合/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/02/22/开源协议比较/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&text=开源协议比较"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&is_video=false&description=开源协议比较"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=开源协议比较&body=Check out this article: https://chaosbynn.github.io/2017/02/22/开源协议比较/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&name=开源协议比较&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#五种开源协议的比较-BSD，Apache，GPL，LGPL，MIT"><span class="toc-number">1.</span> <span class="toc-text">五种开源协议的比较(BSD，Apache，GPL，LGPL，MIT)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是软件许可协议？"><span class="toc-number">1.0.1.</span> <span class="toc-text">什么是软件许可协议？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BSD开源协议-original-BSD-license、FreeBSD-license、Original-BSD-license"><span class="toc-number">1.0.2.</span> <span class="toc-text">BSD开源协议(original BSD license、FreeBSD license、Original BSD license)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Licence-2-0-Apache-License，-Version-2-0、Apache-License，-Version-1-1、Apache-License，-Version-1-0"><span class="toc-number">1.0.3.</span> <span class="toc-text">Apache Licence 2.0(Apache License， Version 2.0、Apache License， Version 1.1、Apache License， Version 1.0)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPL-GNU-General-Public-License"><span class="toc-number">1.0.4.</span> <span class="toc-text">GPL(GNU General Public License)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LGPL-GNU-Lesser-General-Public-License"><span class="toc-number">1.0.5.</span> <span class="toc-text">LGPL(GNU Lesser General Public License)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIT-MIT"><span class="toc-number">1.0.6.</span> <span class="toc-text">MIT(MIT)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图示"><span class="toc-number">1.0.7.</span> <span class="toc-text">图示</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        开源协议比较
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ChaoS_Zhang Site</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-02-22T11:54:04.000Z" itemprop="datePublished">2017-02-22</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="../../../../tags/LICENES/">LICENES</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="五种开源协议的比较-BSD，Apache，GPL，LGPL，MIT"><a href="#五种开源协议的比较-BSD，Apache，GPL，LGPL，MIT" class="headerlink" title="五种开源协议的比较(BSD，Apache，GPL，LGPL，MIT)"></a>五种开源协议的比较(BSD，Apache，GPL，LGPL，MIT)</h1><h3 id="什么是软件许可协议？"><a href="#什么是软件许可协议？" class="headerlink" title="什么是软件许可协议？"></a>什么是软件许可协议？</h3><pre><code>通俗来讲，许可协议是指用来授权其他人具有某种使用你的作品的权利。
+</code></pre><p>依靠许可协议将你的作品对外开源或者对你的作品的各个方面逐一进行授权，是一个不错的方法(WordPress, Drupal 和许多其它的内容管理系统都是开源软件)。一旦对外开源，你将失去所有对你的作品的版权，别人也没有义务将你标注为作品的原创者或捐献者。</p>
+<p>开源许可协议 使人们免去了研究那些专业的许可条款的麻烦，使人们更方便的对开源项目贡献出自己的代码。而且它还能保护你作为作品的原创作者，确保你至少拥有由于贡献参与而带来的署名荣誉。它还能用来阻止其他人企图声明对你的作品拥有所有权的行为。</p>
+<p>但是很多的软件作者和设计者都对各种不同的开源许可协议的内容和含义不甚了了。当你选择了某种开源许可协议时，你都放弃了哪些权力？在没有能明白各种开源协议的确切含义前，在不知道它们最适用于什么情况下时，软件开发者不可能在关于哪个许可协议最适合自己的软件的问题上做出准确的抉择。</p>
+<h3 id="BSD开源协议-original-BSD-license、FreeBSD-license、Original-BSD-license"><a href="#BSD开源协议-original-BSD-license、FreeBSD-license、Original-BSD-license" class="headerlink" title="BSD开源协议(original BSD license、FreeBSD license、Original BSD license)"></a>BSD开源协议(original BSD license、FreeBSD license、Original BSD license)</h3><blockquote>
+<p>BSD开源协议是一个给于使用者很大自由的协议。基本上使用者可以”为所欲为”，可以自由的使用，修改源代码，也可以将修改后的代码作为开源或者专有软件再发布。</p>
+</blockquote>
+<blockquote>
+<p>但”为所欲为”的前提当你发布使用了BSD协议的代码，或则以BSD协议代码为基础做二次开发自己的产品时，需要满足三个条件：</p>
+</blockquote>
+<blockquote>
+<p>如果再发布的产品中包含源代码，则在源代码中必须带有原来代码中的BSD协议。如果再发布的只是二进制类库/软件，则需要在类库/软件的文档和版权声明中包含原来代码中的BSD协议。</p>
+</blockquote>
+<blockquote>
+<p>不可以用开源代码的作者/机构名字和原来产品的名字做市场推广。</p>
+</blockquote>
+<blockquote>
+<p>BSD代码鼓励代码共享，但需要尊重代码作者的著作权。BSD由于允许使用者修改和重新发布代码，也允许使用或在BSD代码上开发商业软件发布和销售，因此是对商业集成很友好的协议。而很多的公司企业在选用开源产品的时候都首选BSD协议，因为可以完全控制这些第三方的代码，在必要的时候可以修改或者二次开发。</p>
+</blockquote>
+<h3 id="Apache-Licence-2-0-Apache-License，-Version-2-0、Apache-License，-Version-1-1、Apache-License，-Version-1-0"><a href="#Apache-Licence-2-0-Apache-License，-Version-2-0、Apache-License，-Version-1-1、Apache-License，-Version-1-0" class="headerlink" title="Apache Licence 2.0(Apache License， Version 2.0、Apache License， Version 1.1、Apache License， Version 1.0)"></a>Apache Licence 2.0(Apache License， Version 2.0、Apache License， Version 1.1、Apache License， Version 1.0)</h3><blockquote>
+<p>Apache Licence是著名的非盈利开源组织Apache采用的协议。该协议和BSD类似，同样鼓励代码共享和尊重原作者的著作权，同样允许代码修改，再发布(作为开源或商业软件)。需要满足的条件也和BSD类似：</p>
+</blockquote>
+<blockquote>
+<p>需要给代码的用户一份Apache Licence，如果你修改了代码，需要在被修改的文件中说明。<br>在延伸的代码中(修改和有源代码衍生的代码中)需要带有原来代码中的协议，商标，专利声明和其他原来作者规定需要包含的说明。</p>
+</blockquote>
+<blockquote>
+<p>如果再发布的产品中包含一个Notice文件，则在Notice文件中需要带有Apache Licence。你可以在Notice中增加自己的许可，但不可以表现为对Apache Licence构成更改。</p>
+</blockquote>
+<blockquote>
+<p>Apache Licence也是对商业应用友好的许可。使用者也可以在需要的时候修改代码来满足需要并作为开源或商业产品发布/销售。</p>
+</blockquote>
+<h3 id="GPL-GNU-General-Public-License"><a href="#GPL-GNU-General-Public-License" class="headerlink" title="GPL(GNU General Public License)"></a>GPL(GNU General Public License)</h3><blockquote>
+<p>我们很熟悉的Linux就是采用了GPL。GPL协议和BSD，Apache Licence等鼓励代码重用的许可很不一样。GPL的出发点是代码的开源/免费使用和引用/修改/衍生代码的开源/免费使用，但不允许修改后和衍生的代码做为闭源的商业软件发布和销售。这也就是为什么我们能用免费的各种linux，包括商业公司的linux和linux上各种各样的由个人，组织，以及商业软件公司开发的免费软<br>件了。</p>
+</blockquote>
+<blockquote>
+<p>GPL协议的主要内容是只要在一个软件中使用(”使用”指类库引用，修改后的代码或者衍生代码)GPL协议的产品，则该软件产品必须也采用GPL协议，既必须也是开源和免费。这就是所谓的”传染性”。GPL协议的产品作为一个单独的产品使用没有任何问题，还可以享受免费的优势。</p>
+</blockquote>
+<blockquote>
+<p>由于GPL严格要求使用了GPL类库的软件产品必须使用GPL协议，对于使用GPL协议的开源代码，商业软件或者对代码有保密要求的部门就不适合集成/采用作为类库和二次开发的基础。</p>
+</blockquote>
+<blockquote>
+<p>其它细节如再发布的时候需要伴随GPL协议等和BSD/Apache等类似。</p>
+</blockquote>
+<h3 id="LGPL-GNU-Lesser-General-Public-License"><a href="#LGPL-GNU-Lesser-General-Public-License" class="headerlink" title="LGPL(GNU Lesser General Public License)"></a>LGPL(GNU Lesser General Public License)</h3><blockquote>
+<p>LGPL是GPL的一个为主要为类库使用设计的开源协议。和GPL要求任何使用/修改/衍生之GPL类库的的软件必须采用GPL协议不同。LGPL允许商业软件通过类库引用(link)方式使用LGPL类库而不需要开源商业软件的代码。这使得采用LGPL协议的开源代码可以被商业软件作为类库引用<br>并发布和销售。</p>
+</blockquote>
+<blockquote>
+<p>但是如果修改LGPL协议的代码或者衍生，则所有修改的代码，涉及修改部分的额外代码和衍生的代码都必须采用LGPL协议。因此LGPL协议的开源代码很适合作为第三方类库被商业软件引用，但不适合希望以LGPL协议代码为基础，通过修改和衍生的方式做二次开发的商业软件采用。</p>
+</blockquote>
+<blockquote>
+<p>GPL/LGPL都保障原作者的知识产权，避免有人利用开源代码复制并开发类似的产品</p>
+</blockquote>
+<h3 id="MIT-MIT"><a href="#MIT-MIT" class="headerlink" title="MIT(MIT)"></a>MIT(MIT)</h3><blockquote>
+<p>MIT是和BSD一样宽范的许可协议，作者只想保留版权，而无任何其他了限制.也就是说，你必须在你的发行版里包含原许可协议的声明，无论你是以二进制发布的还是以源代码发布的。</p>
+</blockquote>
+<h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p><img src="/images/LICENES.png" alt="LICENES"></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#五种开源协议的比较-BSD，Apache，GPL，LGPL，MIT"><span class="toc-number">1.</span> <span class="toc-text">五种开源协议的比较(BSD，Apache，GPL，LGPL，MIT)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是软件许可协议？"><span class="toc-number">1.0.1.</span> <span class="toc-text">什么是软件许可协议？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BSD开源协议-original-BSD-license、FreeBSD-license、Original-BSD-license"><span class="toc-number">1.0.2.</span> <span class="toc-text">BSD开源协议(original BSD license、FreeBSD license、Original BSD license)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Licence-2-0-Apache-License，-Version-2-0、Apache-License，-Version-1-1、Apache-License，-Version-1-0"><span class="toc-number">1.0.3.</span> <span class="toc-text">Apache Licence 2.0(Apache License， Version 2.0、Apache License， Version 1.1、Apache License， Version 1.0)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GPL-GNU-General-Public-License"><span class="toc-number">1.0.4.</span> <span class="toc-text">GPL(GNU General Public License)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LGPL-GNU-Lesser-General-Public-License"><span class="toc-number">1.0.5.</span> <span class="toc-text">LGPL(GNU Lesser General Public License)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MIT-MIT"><span class="toc-number">1.0.6.</span> <span class="toc-text">MIT(MIT)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图示"><span class="toc-number">1.0.7.</span> <span class="toc-text">图示</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/02/22/开源协议比较/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&text=开源协议比较"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&is_video=false&description=开源协议比较"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=开源协议比较&body=Check out this article: https://chaosbynn.github.io/2017/02/22/开源协议比较/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&title=开源协议比较"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/02/22/开源协议比较/&name=开源协议比较&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 ChaoS_Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="../../../../lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="../../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../../lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="../../../../js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

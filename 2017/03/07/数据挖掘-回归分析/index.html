@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="原文https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/译文http://blog.csdn.net/lynnucas/article/details/47948639    回归分析 : 是一种预测性的建模技术,使用曲线拟合数据点，最终获取到数据点的距离差异最小的曲线  回归主要三个度量：自变量">
+<meta name="keywords" content="DataMining,转载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据挖掘-回归分析">
+<meta property="og:url" content="https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/index.html">
+<meta property="og:site_name" content="ChaoS_Zhang Site">
+<meta property="og:description" content="原文https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/译文http://blog.csdn.net/lynnucas/article/details/47948639    回归分析 : 是一种预测性的建模技术,使用曲线拟合数据点，最终获取到数据点的距离差异最小的曲线  回归主要三个度量：自变量">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-13T01:58:23.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据挖掘-回归分析">
+<meta name="twitter:description" content="原文https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/译文http://blog.csdn.net/lynnucas/article/details/47948639    回归分析 : 是一种预测性的建模技术,使用曲线拟合数据点，最终获取到数据点的距离差异最小的曲线  回归主要三个度量：自变量">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="../../../../images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="../../../../images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="../../../../images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>数据挖掘-回归分析</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="../../../../css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="../../../../css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="../../08/数据挖掘-欠拟合与过拟合/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="../../06/数据挖掘-KNN/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&text=数据挖掘-回归分析"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&is_video=false&description=数据挖掘-回归分析"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据挖掘-回归分析&body=Check out this article: https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&name=数据挖掘-回归分析&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#线性回归-（Linear-Regression）"><span class="toc-number">1.</span> <span class="toc-text">线性回归 （Linear Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归-（Logistic-Regression）"><span class="toc-number">2.</span> <span class="toc-text">逻辑回归 （Logistic Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多项式回归-（Polynomial-Regression）"><span class="toc-number">3.</span> <span class="toc-text">多项式回归 （Polynomial Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逐步回归-（Stepwise-Regression）"><span class="toc-number">4.</span> <span class="toc-text">逐步回归 （Stepwise Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#岭回归-（Ridge-Regression）"><span class="toc-number">5.</span> <span class="toc-text">岭回归 （Ridge Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#套索回归-（Lasso-Regression）"><span class="toc-number">6.</span> <span class="toc-text">套索回归 （Lasso Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#弹性网络回归（ElasticNet-Regression）"><span class="toc-number">7.</span> <span class="toc-text">弹性网络回归（ElasticNet Regression）</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        数据挖掘-回归分析
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">ChaoS_Zhang Site</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2017-03-07T12:39:09.000Z" itemprop="datePublished">2017-03-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="../../../../tags/DataMining/">DataMining</a>, <a class="tag-link" href="../../../../tags/转载/">转载</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <blockquote>
+<p>原文<br><a href="https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/" target="_blank" rel="noopener">https://www.analyticsvidhya.com/blog/2015/08/comprehensive-guide-regression/</a><br>译文<br><a href="http://blog.csdn.net/lynnucas/article/details/47948639" target="_blank" rel="noopener">http://blog.csdn.net/lynnucas/article/details/47948639</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>回归分析 : 是一种预测性的建模技术,使用曲线拟合数据点，最终获取到数据点的距离差异最小的曲线</p>
+</blockquote>
+<pre><code>回归主要三个度量：自变量的个数，因变量的类型以及回归线的形状
+</code></pre><h1 id="线性回归-（Linear-Regression）"><a href="#线性回归-（Linear-Regression）" class="headerlink" title="线性回归 （Linear Regression）"></a>线性回归 （Linear Regression）</h1><blockquote>
+<p>因变量是连续的，自变量可以是连续的也可以是离散的，回归线的性质是线性的。</p>
+</blockquote>
+<p>线性回归使用最佳的拟合直线（也就是回归线）在因变量（Y）和一个或多个自变量（X）之间建立一种关系。</p>
+<p>用一个方程式来表示它，即Y=a+b*X + e，其中a表示截距，b表示直线的斜率，e是误差项。这个方程可以根据给定的预测变量（s）来预测目标变量的值。</p>
+<p>一元线性回归和多元线性回归的区别在于，多元线性回归有（&gt;1）个自变量，而一元线性回归通常只有1个自变量。</p>
+<ul>
+<li>自变量与因变量之间必须有线性关系</li>
+<li>多元回归存在多重共线性，自相关性和异方差性。</li>
+<li>线性回归对异常值非常敏感。它会严重影响回归线，最终影响预测值。</li>
+<li>多重共线性会增加系数估计值的方差，使得在模型轻微变化下，估计非常敏感。结果就是系数估计值不稳定</li>
+<li>在多个自变量的情况下，我们可以使用向前选择法，向后剔除法和逐步筛选法来选择最重要的自变量。</li>
+</ul>
+<h1 id="逻辑回归-（Logistic-Regression）"><a href="#逻辑回归-（Logistic-Regression）" class="headerlink" title="逻辑回归 （Logistic Regression）"></a>逻辑回归 （Logistic Regression）</h1><blockquote>
+<p>逻辑回归是用来计算“事件=Success”和“事件=Failure”的概率。当因变量的类型属于二元（1 / 0，真/假，是/否）变量时，我们就应该使用逻辑回归。</p>
+</blockquote>
+<p>因为在这里我们使用的是的二项分布（因变量），我们需要选择一个对于这个分布最佳的连结函数。它就是Logit函数。在上述方程中，通过观测样本的极大似然估计值来选择参数，而不是最小化平方和误差（如在普通回归使用的）。</p>
+<ul>
+<li>它广泛的用于分类问题。</li>
+<li>逻辑回归不要求自变量和因变量是线性关系。它可以处理各种类型的关系，因为它对预测的相对风险指数OR使用了一个非线性的log转换。</li>
+<li>为了避免过拟合和欠拟合，我们应该包括所有重要的变量。有一个很好的方法来确保这种情况，就是使用逐步筛选方法来估计逻辑回归。</li>
+<li>它需要大的样本量，因为在样本数量较少的情况下，极大似然估计的效果比普通的最小二乘法差。</li>
+<li>自变量不应该相互关联的，即不具有多重共线性。然而，在分析和建模中，我们可以选择包含分类变量相互作用的影响。</li>
+<li>如果因变量的值是定序变量，则称它为序逻辑回归。</li>
+<li>如果因变量是多类的话，则称它为多元逻辑回归。</li>
+</ul>
+<h1 id="多项式回归-（Polynomial-Regression）"><a href="#多项式回归-（Polynomial-Regression）" class="headerlink" title="多项式回归 （Polynomial Regression）"></a>多项式回归 （Polynomial Regression）</h1><blockquote>
+<p>对于一个回归方程，如果自变量的指数大于1，那么它就是多项式回归方程。</p>
+</blockquote>
+<p>在这种回归模型中，最佳拟合线不是直线。而是一个用于拟合数据点的曲线。</p>
+<ul>
+<li>虽然会有一个诱导可以拟合一个高次多项式并得到较低的错误，但这可能会导致过拟合。你需要经常画出关系图来查看拟合情况，并且专注于保证拟合合理，既没有过拟合又没有欠拟合。</li>
+<li>明显地向两端寻找曲线点，看看这些形状和趋势是否有意义。更高次的多项式最后可能产生怪异的推断结果。</li>
+</ul>
+<h1 id="逐步回归-（Stepwise-Regression）"><a href="#逐步回归-（Stepwise-Regression）" class="headerlink" title="逐步回归 （Stepwise Regression）"></a>逐步回归 （Stepwise Regression）</h1><blockquote>
+<p>在处理多个自变量时，我们可以使用这种形式的回归。</p>
+</blockquote>
+<p>这一壮举是通过观察统计的值，如R-square，t-stats和AIC指标，来识别重要的变量。逐步回归通过同时添加/删除基于指定标准的协变量来拟合模型。下面列出了一些最常用的逐步回归方法：</p>
+<ul>
+<li>标准逐步回归法做两件事情。即增加和删除每个步骤所需的预测。</li>
+<li>向前选择法从模型中最显著的预测开始，然后为每一步添加变量。</li>
+<li>向后剔除法与模型的所有预测同时开始，然后在每一步消除最小显着性的变量。</li>
+</ul>
+<p>这种建模技术的目的是使用最少的预测变量数来最大化预测能力。这也是处理高维数据集的方法之一。</p>
+<h1 id="岭回归-（Ridge-Regression）"><a href="#岭回归-（Ridge-Regression）" class="headerlink" title="岭回归 （Ridge Regression）"></a>岭回归 （Ridge Regression）</h1><blockquote>
+<p>岭回归分析是一种用于存在多重共线性（自变量高度相关）数据的技术。</p>
+</blockquote>
+<p>在多重共线性情况下，尽管最小二乘法（OLS）对每个变量很公平，但它们的差异很大，使得观测值偏移并远离真实值。岭回归通过给回归估计上增加一个偏差度，来降低标准误差。</p>
+<p>在一个线性方程中，预测误差可以分解为2个子分量。一个是偏差，一个是方差。预测错误可能会由这两个分量或者这两个中的任何一个造成。</p>
+<ul>
+<li>除常数项以外，这种回归的假设与最小二乘回归类似；</li>
+<li>它收缩了相关系数的值，但没有达到零，这表明它没有特征选择功能</li>
+<li>这是一个正则化方法，并且使用的是L2正则化。</li>
+</ul>
+<h1 id="套索回归-（Lasso-Regression）"><a href="#套索回归-（Lasso-Regression）" class="headerlink" title="套索回归 （Lasso Regression）"></a>套索回归 （Lasso Regression）</h1><blockquote>
+<p>它类似于岭回归，Lasso （Least Absolute Shrinkage and Selection Operator）也会惩罚回归系数的绝对值大小。</p>
+</blockquote>
+<p>此外，它能够减少变化程度并提高线性回归模型的精度。</p>
+<p>Lasso 回归与Ridge回归有一点不同，它使用的惩罚函数是绝对值，而不是平方。这导致惩罚（或等于约束估计的绝对值之和）值使一些参数估计结果等于零。使用惩罚值越大，进一步估计会使得缩小值趋近于零。这将导致我们要从给定的n个变量中选择变量。</p>
+<ul>
+<li>除常数项以外，这种回归的假设与最小二乘回归类似；</li>
+<li>它收缩系数接近零（等于零），这确实有助于特征选择；</li>
+<li>这是一个正则化方法，使用的是L1正则化；</li>
+</ul>
+<p>如果预测的一组变量是高度相关的，Lasso 会选出其中一个变量并且将其它的收缩为零。</p>
+<h1 id="弹性网络回归（ElasticNet-Regression）"><a href="#弹性网络回归（ElasticNet-Regression）" class="headerlink" title="弹性网络回归（ElasticNet Regression）"></a>弹性网络回归（ElasticNet Regression）</h1><blockquote>
+<p>ElasticNet是Lasso和Ridge回归技术的混合体。</p>
+</blockquote>
+<p>它使用L1来训练并且L2优先作为正则化矩阵。当有多个相关的特征时，ElasticNet是很有用的。Lasso 会随机挑选他们其中的一个，而ElasticNet则会选择两个。</p>
+<p>Lasso和Ridge之间的实际的优点是，它允许ElasticNet继承循环状态下Ridge的一些稳定性。</p>
+<ul>
+<li>在高度相关变量的情况下，它会产生群体效应；</li>
+<li>选择变量的数目没有限制；</li>
+<li>它可以承受双重收缩。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#线性回归-（Linear-Regression）"><span class="toc-number">1.</span> <span class="toc-text">线性回归 （Linear Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逻辑回归-（Logistic-Regression）"><span class="toc-number">2.</span> <span class="toc-text">逻辑回归 （Logistic Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#多项式回归-（Polynomial-Regression）"><span class="toc-number">3.</span> <span class="toc-text">多项式回归 （Polynomial Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#逐步回归-（Stepwise-Regression）"><span class="toc-number">4.</span> <span class="toc-text">逐步回归 （Stepwise Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#岭回归-（Ridge-Regression）"><span class="toc-number">5.</span> <span class="toc-text">岭回归 （Ridge Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#套索回归-（Lasso-Regression）"><span class="toc-number">6.</span> <span class="toc-text">套索回归 （Lasso Regression）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#弹性网络回归（ElasticNet-Regression）"><span class="toc-number">7.</span> <span class="toc-text">弹性网络回归（ElasticNet Regression）</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&text=数据挖掘-回归分析"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&is_video=false&description=数据挖掘-回归分析"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数据挖掘-回归分析&body=Check out this article: https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&title=数据挖掘-回归分析"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://chaosbynn.github.io/2017/03/07/数据挖掘-回归分析/&name=数据挖掘-回归分析&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 ChaoS_Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="../../../../index.html">首页</a></li>
+         
+          <li><a href="../../../../about/">关于</a></li>
+         
+          <li><a href="../../../../archives/">归档</a></li>
+         
+          <li><a href="../../../../projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="../../../../lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="../../../../lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="../../../../lib/jquery/jquery.min.js"></script>
+<script src="../../../../lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<script src="../../../../js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
