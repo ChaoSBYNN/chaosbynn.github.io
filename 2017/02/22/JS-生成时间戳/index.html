@@ -6,18 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="JS生成时间戳三种方式  123var timestamp1 = Date.parse(new Date());var timestamp2 = (new Date()).valueOf();var timestamp3 = new Date().getTime()； 方式一1var timestamp1 = Date.parse(new Date()); 指定的日期和时间据 1970/1/1">
+    <meta name="description" content="JS生成时间戳三种方式  var timestamp1 = Date.parse(new Date());var timestamp2 = (new Date()).valueOf();var timestamp3 = new Date().getTime()； 方式一var timestamp1 = Date.parse(new Date()); 指定的日期和时间据 1970/1/1 午夜（G">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS 生成时间戳">
 <meta property="og:url" content="https://chaosbynn.github.io/2017/02/22/JS-生成时间戳/index.html">
 <meta property="og:site_name" content="ChaoS_Zhang Site">
-<meta property="og:description" content="JS生成时间戳三种方式  123var timestamp1 = Date.parse(new Date());var timestamp2 = (new Date()).valueOf();var timestamp3 = new Date().getTime()； 方式一1var timestamp1 = Date.parse(new Date()); 指定的日期和时间据 1970/1/1">
+<meta property="og:description" content="JS生成时间戳三种方式  var timestamp1 = Date.parse(new Date());var timestamp2 = (new Date()).valueOf();var timestamp3 = new Date().getTime()； 方式一var timestamp1 = Date.parse(new Date()); 指定的日期和时间据 1970/1/1 午夜（G">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-07-13T01:58:23.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS 生成时间戳">
-<meta name="twitter:description" content="JS生成时间戳三种方式  123var timestamp1 = Date.parse(new Date());var timestamp2 = (new Date()).valueOf();var timestamp3 = new Date().getTime()； 方式一1var timestamp1 = Date.parse(new Date()); 指定的日期和时间据 1970/1/1">
+<meta name="twitter:description" content="JS生成时间戳三种方式  var timestamp1 = Date.parse(new Date());var timestamp2 = (new Date()).valueOf();var timestamp3 = new Date().getTime()； 方式一var timestamp1 = Date.parse(new Date()); 指定的日期和时间据 1970/1/1 午夜（G">
     
     
         
@@ -149,18 +149,18 @@
     <blockquote>
 <p>JS生成时间戳三种方式</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="built_in">Date</span>.parse(<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="built_in">Date</span>()).valueOf();</span><br><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()；</span><br></pre></td></tr></table></figure>
-<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="built_in">Date</span>.parse(<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="built_in">Date</span>.parse(<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="built_in">Date</span>()).valueOf();</span><br><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()；</span><br></pre></td></tr></table></figure>
+<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="built_in">Date</span>.parse(<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br></pre></td></tr></table></figure>
 <pre><code>指定的日期和时间据 1970/1/1 午夜（GMT 时间）之间的毫秒数。
 </code></pre><h5 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h5><blockquote>
 <p>1120752000000</p>
 </blockquote>
-<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="built_in">Date</span>()).valueOf();</span><br></pre></td></tr></table></figure>
+<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="built_in">Date</span>()).valueOf();</span><br></pre></td></tr></table></figure>
 <pre><code>返回 1970 年 1 月 1 日至今的毫秒数。
 </code></pre><h5 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h5><blockquote>
 <p>1120752000234</p>
 </blockquote>
-<h3 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()；</span><br></pre></td></tr></table></figure>
+<h3 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime()；</span><br></pre></td></tr></table></figure>
 <pre><code>返回 Date 对象的原始值。
 </code></pre><h5 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h5><blockquote>
 <p>1120752000234</p>

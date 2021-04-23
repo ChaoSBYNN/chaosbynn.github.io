@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="第一步 下载tomcat1wget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz  或者在本地下载好tomcat安装包  第二步 将tomcat移动放置到 /usr/local/ 目录下1mv apache-tomcat-*.*.**.tar.gz /usr/local/ 第三步 将t">
+    <meta name="description" content="第一步 下载tomcatwget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz  或者在本地下载好tomcat安装包  第二步 将tomcat移动放置到 /usr/local/ 目录下mv apache-tomcat-*.*.**.tar.gz /usr/local/ 第三步 将tom">
 <meta name="keywords" content="Linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 下Tomcat安装">
 <meta property="og:url" content="https://chaosbynn.github.io/2017/02/26/Linux-下Tomcat安装/index.html">
 <meta property="og:site_name" content="ChaoS_Zhang Site">
-<meta property="og:description" content="第一步 下载tomcat1wget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz  或者在本地下载好tomcat安装包  第二步 将tomcat移动放置到 /usr/local/ 目录下1mv apache-tomcat-*.*.**.tar.gz /usr/local/ 第三步 将t">
+<meta property="og:description" content="第一步 下载tomcatwget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz  或者在本地下载好tomcat安装包  第二步 将tomcat移动放置到 /usr/local/ 目录下mv apache-tomcat-*.*.**.tar.gz /usr/local/ 第三步 将tom">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://chaosbynn.github.io/images/2017_02_26_01.jpg">
 <meta property="og:image" content="https://chaosbynn.github.io/images/2017_02_26_02.jpg">
@@ -28,7 +28,7 @@
 <meta property="og:updated_time" content="2019-07-13T01:58:23.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 下Tomcat安装">
-<meta name="twitter:description" content="第一步 下载tomcat1wget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz  或者在本地下载好tomcat安装包  第二步 将tomcat移动放置到 /usr/local/ 目录下1mv apache-tomcat-*.*.**.tar.gz /usr/local/ 第三步 将t">
+<meta name="twitter:description" content="第一步 下载tomcatwget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz  或者在本地下载好tomcat安装包  第二步 将tomcat移动放置到 /usr/local/ 目录下mv apache-tomcat-*.*.**.tar.gz /usr/local/ 第三步 将tom">
 <meta name="twitter:image" content="https://chaosbynn.github.io/images/2017_02_26_01.jpg">
     
     
@@ -158,44 +158,44 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h3 id="第一步-下载tomcat"><a href="#第一步-下载tomcat" class="headerlink" title="第一步 下载tomcat"></a>第一步 下载tomcat</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz</span><br></pre></td></tr></table></figure>
+    <h3 id="第一步-下载tomcat"><a href="#第一步-下载tomcat" class="headerlink" title="第一步 下载tomcat"></a>第一步 下载tomcat</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://apache.fayea.com/tomcat/tomcat-*/v*.*.**/bin/apache-tomcat-*.*.**.tar.gz</span><br></pre></td></tr></table></figure>
 <p> 或者在本地下载好tomcat安装包</p>
 <p><img src="/images/2017_02_26_01.jpg" alt></p>
-<h3 id="第二步-将tomcat移动放置到-usr-local-目录下"><a href="#第二步-将tomcat移动放置到-usr-local-目录下" class="headerlink" title="第二步 将tomcat移动放置到 /usr/local/ 目录下"></a>第二步 将tomcat移动放置到 /usr/local/ 目录下</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv apache-tomcat-*.*.**.tar.gz /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
-<h3 id="第三步-将tomcat解压缩"><a href="#第三步-将tomcat解压缩" class="headerlink" title="第三步 将tomcat解压缩"></a>第三步 将tomcat解压缩</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvzf /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="第二步-将tomcat移动放置到-usr-local-目录下"><a href="#第二步-将tomcat移动放置到-usr-local-目录下" class="headerlink" title="第二步 将tomcat移动放置到 /usr/local/ 目录下"></a>第二步 将tomcat移动放置到 /usr/local/ 目录下</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mv apache-tomcat-*.*.**.tar.gz /usr/<span class="built_in">local</span>/</span><br></pre></td></tr></table></figure>
+<h3 id="第三步-将tomcat解压缩"><a href="#第三步-将tomcat解压缩" class="headerlink" title="第三步 将tomcat解压缩"></a>第三步 将tomcat解压缩</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">tar -xvzf /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**.tar.gz</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_02.jpg" alt></p>
 <h3 id="第四步-设置tomcat开机自启动，"><a href="#第四步-设置tomcat开机自启动，" class="headerlink" title="第四步 设置tomcat开机自启动，"></a>第四步 设置tomcat开机自启动，</h3><p>编辑/usr/local/apache-tomcat-<em>.</em>.**.tar.gz/bin/startup.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/startup.sh</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_03.jpg" alt></p>
 <p>添加</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#chkconfig: 2345 80 90</span></span><br><span class="line"><span class="comment">#description:tomcat auto start</span></span><br><span class="line"><span class="comment">#processname: tomcat</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#chkconfig: 2345 80 90</span></span><br><span class="line"><span class="comment">#description:tomcat auto start</span></span><br><span class="line"><span class="comment">#processname: tomcat</span></span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_04.jpg" alt></p>
 <p>编辑/usr/local/apache-tomcat-<em>.</em>.**/bin/catalina.sh</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/catalina.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/catalina.sh</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_05.jpg" alt></p>
 <p>搜索export关键字，加入如下行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CATALINA_BASE=/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**</span><br><span class="line"><span class="built_in">export</span> CATALINA_HOME=/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**</span><br><span class="line"><span class="built_in">export</span> CATALINA_TMPDIR=/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> CATALINA_BASE=/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**</span><br><span class="line"><span class="built_in">export</span> CATALINA_HOME=/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**</span><br><span class="line"><span class="built_in">export</span> CATALINA_TMPDIR=/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_06.jpg" alt></p>
 <p>将tomcat加入开机自启动</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi /etc/rc.d/rc.local</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_07.jpg" alt></p>
 <p>加入如下内容：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/jdk*.*.*_**</span><br><span class="line">/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/startup.sh start</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/usr/<span class="built_in">local</span>/jdk*.*.*_**</span><br><span class="line">/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/startup.sh start</span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_08.jpg" alt></p>
 <h3 id="第五步-测试Tomcat运行"><a href="#第五步-测试Tomcat运行" class="headerlink" title="第五步 测试Tomcat运行"></a>第五步 测试Tomcat运行</h3><p>执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/startup.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/startup.sh</span><br></pre></td></tr></table></figure>
 <p>启动tomcat</p>
 <p>打开浏览器测试：</p>
 <p><img src="/images/2017_02_26_09.jpg" alt> </p>
 <p>执行</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/shutdown.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/bin/shutdown.sh</span><br></pre></td></tr></table></figure>
 <p>关闭tomcat</p>
 <h3 id="第六步-修改端口"><a href="#第六步-修改端口" class="headerlink" title="第六步 修改端口"></a>第六步 修改端口</h3><p>tomcat默认监听8080端口，如果要修改成为80端口，按如下步骤修改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/conf/server.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vi /usr/<span class="built_in">local</span>/apache-tomcat-*.*.**/conf/server.xml</span><br></pre></td></tr></table></figure>
 <p>将</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">executor</span>=<span class="string">"tomcatThreadPool"</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">executor</span>=<span class="string">"tomcatThreadPool"</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>修改为：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"80"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">executor</span>=<span class="string">"tomcatThreadPool"</span> <span class="attr">port</span>=<span class="string">"80"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"80"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">executor</span>=<span class="string">"tomcatThreadPool"</span> <span class="attr">port</span>=<span class="string">"80"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p><img src="/images/2017_02_26_10.jpg" alt></p>
 <p>重启tomcat生效。</p>
 <p>测试Tomcat：</p>

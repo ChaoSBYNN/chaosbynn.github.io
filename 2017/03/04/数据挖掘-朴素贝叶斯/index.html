@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="朴素贝叶斯 (Naive Bayesian) : 通过随机事件A和B的条件概率（或边缘概率）判断规则是否可信     属性 描述     优点 数据较少仍然有效，可以处理多类别问题   缺点 对于输入数据敏感   适用 标称型    公式 伪代码123456789计算每个类别特征数目对每个训练集：	对每个特征：		如果特征出现在集合中-&amp;gt;增加该特征计数值		增加所有特征计数值	对每个特征：">
+    <meta name="description" content="朴素贝叶斯 (Naive Bayesian) : 通过随机事件A和B的条件概率（或边缘概率）判断规则是否可信     属性 描述     优点 数据较少仍然有效，可以处理多类别问题   缺点 对于输入数据敏感   适用 标称型    公式 伪代码计算每个类别特征数目对每个训练集：	对每个特征：		如果特征出现在集合中-&amp;gt;增加该特征计数值		增加所有特征计数值	对每个特征：		对每条数据：">
 <meta name="keywords" content="DataMining">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据挖掘-朴素贝叶斯">
 <meta property="og:url" content="https://chaosbynn.github.io/2017/03/04/数据挖掘-朴素贝叶斯/index.html">
 <meta property="og:site_name" content="ChaoS_Zhang Site">
-<meta property="og:description" content="朴素贝叶斯 (Naive Bayesian) : 通过随机事件A和B的条件概率（或边缘概率）判断规则是否可信     属性 描述     优点 数据较少仍然有效，可以处理多类别问题   缺点 对于输入数据敏感   适用 标称型    公式 伪代码123456789计算每个类别特征数目对每个训练集：	对每个特征：		如果特征出现在集合中-&amp;gt;增加该特征计数值		增加所有特征计数值	对每个特征：">
+<meta property="og:description" content="朴素贝叶斯 (Naive Bayesian) : 通过随机事件A和B的条件概率（或边缘概率）判断规则是否可信     属性 描述     优点 数据较少仍然有效，可以处理多类别问题   缺点 对于输入数据敏感   适用 标称型    公式 伪代码计算每个类别特征数目对每个训练集：	对每个特征：		如果特征出现在集合中-&amp;gt;增加该特征计数值		增加所有特征计数值	对每个特征：		对每条数据：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://61.91.161.217/chart?cht=tx&chl=\Large p(y|x)=\frac{p(x|y)p(y)}{p(x)}">
 <meta property="og:updated_time" content="2019-07-13T01:58:23.402Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据挖掘-朴素贝叶斯">
-<meta name="twitter:description" content="朴素贝叶斯 (Naive Bayesian) : 通过随机事件A和B的条件概率（或边缘概率）判断规则是否可信     属性 描述     优点 数据较少仍然有效，可以处理多类别问题   缺点 对于输入数据敏感   适用 标称型    公式 伪代码123456789计算每个类别特征数目对每个训练集：	对每个特征：		如果特征出现在集合中-&amp;gt;增加该特征计数值		增加所有特征计数值	对每个特征：">
+<meta name="twitter:description" content="朴素贝叶斯 (Naive Bayesian) : 通过随机事件A和B的条件概率（或边缘概率）判断规则是否可信     属性 描述     优点 数据较少仍然有效，可以处理多类别问题   缺点 对于输入数据敏感   适用 标称型    公式 伪代码计算每个类别特征数目对每个训练集：	对每个特征：		如果特征出现在集合中-&amp;gt;增加该特征计数值		增加所有特征计数值	对每个特征：		对每条数据：">
 <meta name="twitter:image" content="http://61.91.161.217/chart?cht=tx&chl=\Large p(y|x)=\frac{p(x|y)p(y)}{p(x)}">
     
     
@@ -174,7 +174,7 @@
 </tbody>
 </table>
 <h1 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h1><p><img src="http://61.91.161.217/chart?cht=tx&chl=\Large p(y|x)=\frac{p(x|y)p(y)}{p(x)}" style="border:none;"></p>
-<h1 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h1><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">计算每个类别特征数目</span><br><span class="line">对每个训练集：</span><br><span class="line">	对每个特征：</span><br><span class="line">		如果特征出现在集合中-&gt;增加该特征计数值</span><br><span class="line">		增加所有特征计数值</span><br><span class="line">	对每个特征：</span><br><span class="line">		对每条数据：</span><br><span class="line">			将该数据的数目除以总数据数目得到条件概率</span><br><span class="line">	返回每个特征的条件概率</span><br></pre></td></tr></table></figure>
+<h1 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">计算每个类别特征数目</span><br><span class="line">对每个训练集：</span><br><span class="line">	对每个特征：</span><br><span class="line">		如果特征出现在集合中-&gt;增加该特征计数值</span><br><span class="line">		增加所有特征计数值</span><br><span class="line">	对每个特征：</span><br><span class="line">		对每条数据：</span><br><span class="line">			将该数据的数目除以总数据数目得到条件概率</span><br><span class="line">	返回每个特征的条件概率</span><br></pre></td></tr></table></figure>
   </div>
 </article>
 
