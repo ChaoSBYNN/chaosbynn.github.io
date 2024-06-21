@@ -3793,4 +3793,101 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>HTTP</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Spring 状态机</title>
+    <url>/2024/06/21/Spring-%E7%8A%B6%E6%80%81%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="Spring-状态机"><a href="#Spring-状态机" class="headerlink" title="Spring 状态机"></a>Spring 状态机</h1><h2 id="什么是状态机"><a href="#什么是状态机" class="headerlink" title="什么是状态机"></a>什么是状态机</h2><blockquote>
+<p>先来解释什么是”状态”（ State ）。现实事物是有不同状态的，例如一个自动门，就有 open 和 closed 两种状态。我们通常所说的状态机是有限状态机，也就是被描述的事物的状态的数量是有限个，例如自动门的状态就是两个 open 和 closed 。</p>
+</blockquote>
+<p>状态机，也就是 State Machine ，不是指一台实际机器，而是指一个数学模型。<br>说白了，一般就是指一张状态转换图。例如，根据自动门的运行规则，我们可以抽象出下面这么一个图。<br>自动门有两个状态，open 和 closed ，closed 状态下，如果读取开门信号，那么状态就会切换为 open 。<br>open 状态下如果读取关门信号，状态就会切换为 closed 。<br>状态机的全称是有限状态自动机，自动两个字也是包含重要含义的。<br>给定一个状态机，同时给定它的当前状态以及输入，那么输出状态时可以明确的运算出来的。例如对于自动门，给定初始状态 closed ，给定输入”开门”，那么下一个状态时可以运算出来的。<br>重复一下：状态机是有限状态自动机的简称，是现实事物运行规则抽象而成的一个数学模型。</p>
+<h2 id="四大概念"><a href="#四大概念" class="headerlink" title="四大概念"></a>四大概念</h2><ul>
+<li>状态 : 一个状态机至少要包含两个状态。例如上面自动门的例子，有 open 和 closed 两个状态。</li>
+<li>事件 : 事件就是执行某个操作的触发条件或者口令。对于自动门，”按下开门按钮”就是一个事件。</li>
+<li>动作 : 事件发生以后要执行动作。例如事件是”按开门按钮”，动作是”开门”。编程的时候，一个 Action一般就对应一个函数。</li>
+<li>转变 : 也就是从一个状态变化为另一个状态。例如”开门过程”就是一个变换。</li>
+</ul>
+<p>有限状态机（Finite-state machine,FSM），又称有限状态自动机，简称状态机，是表示有限个状态以及在这些状态之间的转移和动作等行为的数学模型。<br>FSM是一种算法思想，简单而言，有限状态机由一组状态、一个初始状态、输入和根据输入及现有状态转换为下一个状态的转换函数组成。<br>其作用主要是描述对象在它的生命周期内所经历的状态序列，以及如何响应来自外界的各种事件。</p>
+<p>①现态：是指当前所处的状态。待支付<br>②条件：又称为”事件”，当一个条件被满足，将会触发一个动作，或者执行一次状态的迁移。支付事件<br>③动作：条件满足后执行的动作。动作执行完毕后，可以迁移到新的状态，也可以仍旧保持原状态。动作不是必需的，当条件满足后，也可以不执行任何动作，直接迁移到新状态。状态转换为待发货<br>④次态：条件满足后要迁往的新状态。”次态”是相对于”现态”而言的，”次态”一旦被激活，就转变成新的”现态”了。待发货 注意事项</p>
+<p><a class="link"   href="https://mp.weixin.qq.com/s/PNYpCWw_7HIDevMLv4-QxA" >Spring状态机 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring IoC 控制反转</title>
+    <url>/2024/06/21/Spring-IoC-%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/</url>
+    <content><![CDATA[<h1 id="Spring-IoC-控制反转"><a href="#Spring-IoC-控制反转" class="headerlink" title="Spring IoC 控制反转"></a>Spring IoC 控制反转</h1><h2 id="控制反转（IoC）"><a href="#控制反转（IoC）" class="headerlink" title="控制反转（IoC）"></a>控制反转（IoC）</h2><blockquote>
+<p>在传统的 Java 应用中，一个类想要调用另一个类中的属性或方法，通常会先在其代码中通过 new Object() 的方式将后者的对象创建出来，然后才能实现属性或方法的调用。为了方便理解和描述，我们可以将前者称为“调用者”，将后者称为“被调用者”。也就是说，调用者掌握着被调用者对象创建的控制权。</p>
+</blockquote>
+<p>但在 Spring 应用中，Java 对象创建的控制权是掌握在 IoC 容器手里的，其大致步骤如下。</p>
+<ol>
+<li>开发人员通过 XML 配置文件、注解、Java 配置类等方式，对 Java 对象进行定义，例如在 XML 配置文件中使用 <bean> 标签、在 Java 类上使用 @Component 注解等。</li>
+<li>Spring 启动时，IoC 容器会自动根据对象定义，将这些对象创建并管理起来。这些被 IoC 容器创建并管理的对象被称为 Spring Bean。</li>
+<li>当我们想要使用某个 Bean 时，可以直接从 IoC 容器中获取（例如通过 ApplicationContext 的 getBean() 方法），而不需要手动通过代码（例如 new Obejct() 的方式）创建。</li>
+</ol>
+<p>IoC 带来的最大改变不是代码层面的，而是从思想层面上发生了“主从换位”的改变。原本调用者是主动的一方，它想要使用什么资源就会主动出击，自己创建；但在 Spring 应用中，IoC 容器掌握着主动权，调用者则变成了被动的一方，被动的等待 IoC 容器创建它所需要的对象（Bean）。</p>
+<p>这个过程在职责层面发生了控制权的反转，把原本调用者通过代码实现的对象的创建，反转给 IoC 容器来帮忙实现，因此我们将这个过程称为 Spring 的“控制反转”。</p>
+<h2 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h2><p>在了解了 IoC 之后，我们还需要了解另外一个非常重要的概念：依赖注入。</p>
+<p>依赖注入（Denpendency Injection，简写为 DI）是 Martin Fowler 在 2004 年在对“控制反转”进行解释时提出的。Martin Fowler 认为“控制反转”一词很晦涩，无法让人很直接的理解“到底是哪里反转了”，因此他建议使用“依赖注入”来代替“控制反转”。</p>
+<p>在面向对象中，对象和对象之间是存在一种叫做“依赖”的关系。简单来说，依赖关系就是在一个对象中需要用到另外一个对象，即对象中存在一个属性，该属性是另外一个类的对象。</p>
+<p>例如，有一个名为 B 的 Java 类，它的代码如下。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    A a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>从代码可以看出，B 中存在一个 A 类型的对象属性 a，此时我们就可以说 B 的对象依赖于对象 a。而依赖注入就是就是基于这种“依赖关系”而产生的。</p>
+<p>我们知道，控制反转核心思想就是由 Spring 负责对象的创建。在对象创建过程中，Spring 会自动根据依赖关系，将它依赖的对象注入到当前对象中，这就是所谓的“依赖注入”。</p>
+<p>依赖注入本质上是 Spring Bean 属性注入的一种，只不过这个属性是一个对象属性而已。</p>
+<h2 id="IoC-的工作原理"><a href="#IoC-的工作原理" class="headerlink" title="IoC 的工作原理"></a>IoC 的工作原理</h2><p>在 Java 软件开发过程中，系统中的各个对象之间、各个模块之间、软件系统和硬件系统之间，或多或少都存在一定的耦合关系。</p>
+<p>若一个系统的耦合度过高，那么就会造成难以维护的问题，但完全没有耦合的代码几乎无法完成任何工作，这是由于几乎所有的功能都需要代码之间相互协作、相互依赖才能完成。因此我们在程序设计时，所秉承的思想一般都是在不影响系统功能的前提下，最大限度的降低耦合度。</p>
+<p>IoC 底层通过工厂模式、Java 的反射机制、XML 解析等技术，将代码的耦合度降低到最低限度，其主要步骤如下。</p>
+<ol>
+<li>在配置文件（例如 Bean.xml）中，对各个对象以及它们之间的依赖关系进行配置；</li>
+<li>我们可以把 IoC 容器当做一个工厂，这个工厂的产品就是 Spring Bean；</li>
+<li>容器启动时会加载并解析这些配置文件，得到对象的基本信息以及它们之间的依赖关系；</li>
+<li>IoC 利用 Java 的反射机制，根据类名生成相应的对象（即 Spring Bean），并根据依赖关系将这个对象注入到依赖它的对象中。</li>
+</ol>
+<p>由于对象的基本信息、对象之间的依赖关系都是在配置文件中定义的，并没有在代码中紧密耦合，因此即使对象发生改变，我们也只需要在配置文件中进行修改即可，而无须对 Java 代码进行修改，这就是 Spring IoC 实现解耦的原理。</p>
+<h2 id="IoC-容器的两种实现"><a href="#IoC-容器的两种实现" class="headerlink" title="IoC 容器的两种实现"></a>IoC 容器的两种实现</h2><p>IoC 思想基于 IoC 容器实现的，IoC 容器底层其实就是一个 Bean 工厂。Spring 框架为我们提供了两种不同类型 IoC 容器，它们分别是 BeanFactory 和 ApplicationContext。</p>
+<h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>BeanFactory 是 IoC 容器的基本实现，也是 Spring 提供的最简单的 IoC 容器，它提供了 IoC 容器最基本的功能，由 org.springframework.beans.factory.BeanFactory 接口定义。</p>
+<p>BeanFactory 采用懒加载（lazy-load）机制，容器在加载配置文件时并不会立刻创建 Java 对象，只有程序中获取（使用）这个对对象时才会创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h3><p>ApplicationContext 是 BeanFactory 接口的子接口，是对 BeanFactory 的扩展。ApplicationContext 在 BeanFactory 的基础上增加了许多企业级的功能，例如 AOP（面向切面编程）、国际化、事务支持等。</p>
+<p>ApplicationContext 接口有两个常用的实现类，具体如下表。</p>
+<table>
+<thead>
+<tr>
+<th align="center">实现类</th>
+<th align="center">描述</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ClassPathXmlApplicationContext</td>
+<td align="center">加载类路径 ClassPath 下指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
+<td align="center">ApplicationContext applicationContext &#x3D; new ClassPathXmlApplicationContext(String configLocation);</td>
+</tr>
+<tr>
+<td align="center">FileSystemXmlApplicationContext</td>
+<td align="center">加载指定的文件系统路径中指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
+<td align="center">ApplicationContext applicationContext &#x3D; new FileSystemXmlApplicationContext(String configLocation);</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>在上表的示例代码中，参数 configLocation 用于指定 Spring 配置文件的名称和位置，如 Beans.xml。</p>
+</blockquote>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//使用 FileSystemXmlApplicationContext 加载指定路径下的配置文件 Bean.xml</span></span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(<span class="string">&quot;D:\\eclipe workspace\\spring workspace\\HelloSpring\\src\\Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
 </search>
