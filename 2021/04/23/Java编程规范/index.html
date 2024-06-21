@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Spike Zhang">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2021/04/23/java编程规范/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="Java开发规范题外话 你想成为什么样的开发 你现在是什么样的开发 下面所写的不需要每句都熟读 希望即使读了其中某一段 也会有原来如此的收获即可 如果下面描述存在问题 评论署名    [toc] 前言 为什么需要编码规范1为什么需要编码规范，借用《Java编程语言代码规范》一段开场白：  一个软件需要花费80%的生命周期成本去维护。 　　几乎没有任何软件的整个生命周期仅由其原作者来维护。 　　编码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java编程规范">
+<meta property="og:url" content="https://chaosbynn.github.io/2021/04/23/Java%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Java开发规范题外话 你想成为什么样的开发 你现在是什么样的开发 下面所写的不需要每句都熟读 希望即使读了其中某一段 也会有原来如此的收获即可 如果下面描述存在问题 评论署名    [toc] 前言 为什么需要编码规范1为什么需要编码规范，借用《Java编程语言代码规范》一段开场白：  一个软件需要花费80%的生命周期成本去维护。 　　几乎没有任何软件的整个生命周期仅由其原作者来维护。 　　编码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/2021-04-23-0.png">
+<meta property="article:published_time" content="2021-04-23T06:15:55.000Z">
+<meta property="article:modified_time" content="2024-06-21T06:31:36.169Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/2021-04-23-0.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Java编程规范 -
+        
+        Spike_Zhang Site
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/assets/build/styles.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    
+        
+<script src="/js/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Spike Zhang","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.6.3","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+<!--        <span class="swup-progress-icon">-->
+<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+<!--        </span>-->
+    
+</div>
+
+
+
+    <style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({loop: true})
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [40,0],
+                translateZ: 0,
+                opacity: [0,1],
+                filter: ['blur(5px)', 'blur(0px)'], // Starting from blurred to unblurred
+                easing: "easeOutExpo",
+                duration: 1400,
+                delay: (el, i) => 300 + 30 * i,
+            }).add({
+                targets: '.ml13 .letter',
+                translateY: [0,-40],
+                opacity: [1,0],
+                filter: ['blur(0px)', 'blur(5px)'], // Ending from unblurred to blurred
+                easing: "easeInExpo",
+                duration: 1200,
+                delay: (el, i) => 100 + 30 * i,
+                complete: function() {
+                    hidePreloader(); // Call hidePreloader after the animation completes
+                }
+            });
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+    
+
+    <div class="main-content-container">
+
+
+        <div class="main-content-header">
+            <header class="navbar-container px-6 md:px-12">
+
+    <div class="navbar-content ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-screen w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">16</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">32</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="post-page-container flex relative justify-between box-border w-full h-full">
+    <div class="article-content-container">
+
+        <div class="article-title relative w-full">
+            
+                <div class="w-full flex items-center pt-6 justify-start">
+                    <h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Java编程规范</h1>
+                </div>
+            
+            </div>
+
+        
+            <div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+                <div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+                    <img src="/images/avatar.jpg">
+                </div>
+                <div class="info flex flex-col justify-between">
+                    <div class="author flex items-center">
+                        <span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+                        
+                            <span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv4</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2021-04-23 14:15:55</span>
+        <span class="mobile">2021-04-23 14:15:55</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-06-21 14:31:36</span>
+            <span class="mobile">2024-06-21 14:31:36</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        
+
+
+        <div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+            <h1 id="Java开发规范"><a href="#Java开发规范" class="headerlink" title="Java开发规范"></a>Java开发规范</h1><p><code>题外话 你想成为什么样的开发 你现在是什么样的开发 下面所写的不需要每句都熟读 希望即使读了其中某一段 也会有原来如此的收获即可 如果下面描述存在问题 评论署名</code></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/2021-04-23-0.png"
+                      height="300" width="1070" 
+                >
+
+<hr>
+<p>[toc]</p>
+<h2 id="前言-为什么需要编码规范1"><a href="#前言-为什么需要编码规范1" class="headerlink" title="前言 为什么需要编码规范1"></a>前言 为什么需要编码规范<a href="#refer-anchor-1"><sup>1</sup></a></h2><p>为什么需要编码规范，借用《Java编程语言代码规范》一段开场白：</p>
+<blockquote>
+<p>一个软件需要花费80%的生命周期成本去维护。 　　<br>几乎没有任何软件的整个生命周期仅由其原作者来维护。 　　<br>编码规范改善软件的可读性,让工程师更快更彻底地理解新的代码。 　　<br>如果你将源代码转变为一个产品,那么您需要确保它和你创建的其它产品一样是干净且包装良好的。</p>
+</blockquote>
+<p>好的代码结构和代码风格一般bug也相对少，当然除了编码规范，也少不了充分自测。[<sub>写代码一部分是完成工作用来给机器执行, 另一部分是给人使用的(我们都是创造者), 无论未来的维护这是不是你, 一段程序的健壮、扩展、灵活是很重要的一件事, 虽然它可有可无,也不会记录KPI,但是何必有杂念呢    — Sp!ke</sub>]</p>
+<h2 id="1-如何命名"><a href="#1-如何命名" class="headerlink" title="1 如何命名"></a>1 如何命名</h2><blockquote>
+<p>代码就是最好的注释[<sub>我们是如何读文章的, 你又是怎么样读懂我写的这句话的 —Sp!ke</sub>]</p>
+</blockquote>
+<h3 id="1-1-命名"><a href="#1-1-命名" class="headerlink" title="1.1 命名"></a>1.1 命名</h3><ol>
+<li>如果模块、接口、类、方法使用了设计模式，在命名时体现出具体模式。</li>
+<li>变量名应该简短且有意义，并能够顾名思义。简单并不意味着越短越好，比如一个字符的变量名是不允许的，很影响代码的可读性。</li>
+</ol>
+<p>[<sub>哪里是用缩写,哪里使用全拼,命名其他人能见词知义么,非英语母语的地区会有下一个问题<code>select get query find | selectOne getData queryInfo | findAll queryList getDatas</code>,是不是每个人都需一本字典才能开发,如果有是不是特定的字典 —Sp!ke</sub>]</p>
+<h4 id="1-1-1-命名风格"><a href="#1-1-1-命名风格" class="headerlink" title="1.1.1 命名风格"></a>1.1.1 命名风格</h4><ol>
+<li><p>代码中的命名均不能以$\color{CornflowerBlue}{下划线或美元符号}$ 开始，也不能以$\color{CornflowerBlue}{下划线或美元}$符号结束<br> $\color{OrangeRed}{反例:}  $ <code>_name / __name / $name / name_ / name$ / name__</code></p>
+</li>
+<li><p>代码中的命名均不能包含$\color{CornflowerBlue}{魔法数字或无意义的数字}$, 但是允许有意义的<br> $\color{MediumSeaGreen}{正例:}$ <code>timeout3s / list2Map / string2List</code><br> $\color{OrangeRed}{反例:}$ <code>table1 / i1 / a123aaa / str1</code></p>
+</li>
+<li><p>类名使用UpperCamelCase风格，但以下情形例外：DO &#x2F; BO &#x2F; DTO &#x2F; VO &#x2F; AO &#x2F; PO &#x2F; UID等<br> $\color{MediumSeaGreen}{正例:} $ <code>MarcoPolo / UserDO / XmlService / TcpUdpDeal / TaPromotion</code><br> $\color{OrangeRed}{反例:}$ <code>macroPolo / UserDo / XMLService / TCPUDPDeal / TAPromotion</code></p>
+</li>
+<li><p>方法名、参数名、成员变量、局部变量都统一使用lowerCamelCase风格，必须遵从驼峰形式<br> $\color{MediumSeaGreen}{正例:}$ <code>localValue / getHttpMessage() / inputUserId</code><br>[<sub>其实我并不是很热衷写这种用例, 虽然它很直观,但是阿里巴巴已经写好了,感兴趣可以直接下载附件,更多的是我们每书写一段代码是否有认真思考过,有些人没有命名意识会做错,有些人不知道但是拷贝的做会正确,有些人通过经验习惯做会正确,但是有没有停下来归纳一下正确的写法有哪些通用的,这会比写出一百两百个用例更有效 —Sp!ke</sub>]</p>
+</li>
+</ol>
+<h4 id="1-1-2-常量、变量命名"><a href="#1-1-2-常量、变量命名" class="headerlink" title="1.1.2 常量、变量命名"></a>1.1.2 常量、变量命名</h4><p>[<sub>常量与变量命名并没有太多的点只是罗列几点 —Sp!ke</sub>]</p>
+<p>变量:</p>
+<ol>
+<li>驼峰命名规则</li>
+<li>第一个首字母小写后续单词首字母大写</li>
+<li>减少不通用的缩写</li>
+<li>命名需要满足阅读顺序 <code>actorListName</code> -&gt; <code>actorNameList</code>,  <code>sourcePrefixActorList</code>-&gt;<code>actorSourcePerfixList</code></li>
+<li>不要加入无意义的魔法数字或者符号 <code>str1</code> -&gt; <code>origin</code> , <code>table13</code> -&gt; <code>mainTable</code></li>
+<li>歧义的变量 例如：<code>logger</code> <code>LOGGER</code> 根据实际情况处理</li>
+</ol>
+<p>常量</p>
+<ol>
+<li>全大写</li>
+<li>单词之间使用下划线做分割</li>
+<li>其他规则参考变量</li>
+</ol>
+<h4 id="1-1-3-类命名"><a href="#1-1-3-类命名" class="headerlink" title="1.1.3 类命名"></a>1.1.3 类命名</h4><p>[<sub>类的命名是很重要的，但是不单单是命名更多的是名字就是他的职责与功能，类有两个点需要时刻注意 1.类型 2.命名 —Sp!ke</sub>]</p>
+<h5 id="1-1-3-1-类型"><a href="#1-1-3-1-类型" class="headerlink" title="1.1.3.1 类型"></a>1.1.3.1 类型</h5><p>[<sub>无论下面哪种类型在编译之后都会以.class形式存在， 那么为什么又要拆分成不同类型呢，不同类型负责的职责也不同，当然你也可以混用但是不建议，失去了真正职责的类相当于，使用饭碗装排泄物 —Sp!ke</sub>]</p>
+<ol>
+<li><code>Class</code> 类 : 更泛泛的通用的容器，可以理解为 normal</li>
+<li><code>Enum</code> 枚举类 : 枚举的特性在于内部的强关联，以及元素之间的规律性 <code>RED, BLUE, BLACK</code> 可以做一组枚举， 但是 <code>RED, NAME, JAVA</code>一组枚举就会莫名其妙</li>
+<li><code>Interface</code> 接口类 : 接口在Java中作用其一是弥补Java单继承的不足，作用其二是更好实现OOP的多态[<sub>我们的代码中有将常量放在interface里定义的情况，并不是说这种不可以，首先不建议因为失去了Interface的真正意义，其次如何给Interface命名呢<code>UserConstant</code>么，还是需要思考一下吧 —Sp!ke</sub>]</li>
+<li><code>Annotation</code> 注解类 : 注解类不做太多阐述，他的使用会使程序更加灵活，但也不可控[<sub>事物都存在双面性 —Sp!ke</sub>]</li>
+</ol>
+<h5 id="1-1-3-2-命名"><a href="#1-1-3-2-命名" class="headerlink" title="1.1.3.2 命名"></a>1.1.3.2 命名</h5><p>[<sub>我们所期待的良好的类命名是为了看到名字就知道作用 —Sp!ke</sub>]</p>
+<p>包名 <code>(packages)</code> 建议后面追加<code>s</code>, 例如<code>Utils</code> <code>Constants</code> <code>Enums</code></p>
+<hr>
+<p>基础层 [<sub>每一层完成他自己的事情,不要越级处理 —Sp!ke</sub>]</p>
+<ol>
+<li><code>Controller</code>	$\color{CornflowerBlue}{后缀}$ Web控制层 负责请求分配, 具体交给<code>Service</code>还是重定向有具体业务判断, 建议只包含<code>Request</code> <code>Response</code>(可自定义) 数据的封装与下发 [<sub>上层、下层、底层、业务 Whatever —Sp!ke</sub>]</li>
+<li><code>Service</code> $\color{CornflowerBlue}{后缀}$ 业务层 具体业务处理 由入口输入(<code>Controller</code> <code>Executer</code> 等进入 ) 负责加工、执行、处理调用数据层(<code>DAO</code> <code>Manager</code> <code>RedisTemplate</code> <code>Service</code>等)</li>
+<li><code>DAO</code> <code>Dao</code> $\color{CornflowerBlue}{后缀}$ 数据持久层 与持久化层对接 只处理数据的 <code>CURD</code>操作、以及数据源使用[<sub>我理解一个完整的<code>DAO</code>包含了<code>MySQL</code> <code>Redis</code> <code>Mongo</code>等等的集成 而不是单一的处理 —Sp!ke</sub>]</li>
+</ol>
+<hr>
+<p>常见类命名</p>
+<ol>
+<li><code>Application</code> $\color{CornflowerBlue}{后缀}$ 启动类 项目唯一主入口 [<sub>我建议业务类型服务只用<code>Application</code>命名即可,不需要加入具体业务前缀, 可以规范运维启动脚本 —Sp!ke</sub>]</li>
+<li><code>Config</code> <code>Configuration</code> $\color{CornflowerBlue}{后缀}$ 配置类</li>
+<li><code>Constant</code> $\color{CornflowerBlue}{后缀}$ 常量类 建议同一个常量类中常量具有相关性,便于管理以及类的命名 [<sub> 这个是否是常量<code>int timeout = 3;</code> —Sp!ke </sub>]</li>
+<li><code>Enum</code> $\color{CornflowerBlue}{后缀}$ 枚举类 内部强关联 便于数据整理相当于多维<code>Constant</code></li>
+<li><code>Interface</code> $\color{CornflowerBlue}{后缀}$ 接口 [<sub>接口是用来实现的, 失去了行为的接口是没有意义的</sub>]</li>
+<li><code>Base</code> <code>Common</code> <code>Super</code> <code>Abstract</code> $\color{CornflowerBlue}{前后缀均可} $ <code>Abstract</code> $\color{CornflowerBlue}{前缀}$父类或基础类</li>
+<li><code>Exception</code> $\color{CornflowerBlue}{后缀}$  异常类 异常类多指自定义异常</li>
+<li><code>Impl</code> $\color{CornflowerBlue}{后缀}$  实现类 与 <code>Interface</code>相关,子母关系缺一不可 使用<code>extends</code>不要加<code>Impl</code>后缀</li>
+<li><code>Utils</code>  $\color{CornflowerBlue}{后缀}$ 工具类 工具类<code>pulibc</code>修饰应加入 <code>static</code> 内部 <code>private</code>为特有</li>
+<li><code>Data</code> <code>Entity</code> <code>Bean</code> <code>Domain</code> <code>Model</code> <code>POJO</code>  $\color{CornflowerBlue}{后缀}$ 实体</li>
+</ol>
+<p>[<sub>有一种说法 <code>Data</code> <code>Model</code> 修饰不需要加, 这是一种累赘的命名 类似<code>actorNameString</code> —Sp!ke</sub>]</p>
+<p>实体、数据对象[<sup>4</sup>] (#refer-anchor-4) [<sup>5</sup>] (#refer-anchor-5)</p>
+<blockquote>
+<ol>
+<li><code>Data</code> <code>Info</code> <code>Detail</code> [<sub>不好说没有这个规则, 只能说能看懂 —Sp!ke</sub>]<ol>
+<li><code>Entity</code> 就是实体的意思，所以也是最常用到的，<code>Entity</code>包中的类是必须和数据库相对应的</li>
+<li><code>Model</code> 最早与WEB相关, 是为页面提供数据和数据校验的</li>
+<li><code>Domain</code> 代表一个对象模块, 这个包国外很多项目经常用到，字面意思是域的意思, 比如一个商城的项目，商城主要的模块就是用户，订单，商品三大模块，那么这三块数据就可以叫做三个域</li>
+<li><code>POJO</code> <code>Plain OrdinaryJava Object</code>的缩写不错，但是它通指没有使用<code>Entity</code> <code>Beans</code>的普通java对象，可以把<code>POJO</code>作为支持业务逻辑的协助类</li>
+<li><code>VO</code>  <code>View Object</code> 视图对象，用于展示层，它的作用是把某个指定页面（或组件）的所有数据封装起来</li>
+<li><code>DTO</code> <code>Data Transfer Object</code> 数据传输对象，这个概念来源于J2EE的设计模式，原来的目的是为了EJB的分布式应用提供粗粒度的数据实体，以减少分布式调用的次数，从而提高分布式调用的性能和降低网络负载，但在这里，我泛指用于展示层与服务层之间的数据传输对象</li>
+<li><code>DO</code> <code>Domain Object</code> 领域对象，就是从现实世界中抽象出来的有形或无形的业务实体</li>
+<li><code>PO</code> <code>Persistent Object</code> 持久化对象，它跟持久层（通常是关系型数据库）的数据结构形成一一对应的映射关系，如果持久层是关系型数据库，那么，数据表中的每个字段（或若干个）就对应PO的一个（或若干个）属性。</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<hr>
+<p>对于常量<code>Class</code> <code>Interface</code>进行了一些文献查询，还是众说纷纭，只能说建议</p>
+<blockquote>
+<p>常量接口模式<br><strong>The constant interface pattern is a poor use of interfaces</strong> . That a class uses some constants internally is an implementation detail.<br>Implementing a constant interface causes this implementation detail to leak into the class’s exported API.<br>It is of no consequence to the users of a class that the class implements a constant interface. In fact, it may even confuse them.<br>Worse, it represents a commitment: if in a future release the class is modified so that it no longer needs to use the constants, it still must implement the interface to ensure binary compatibility.<br>If a nonfinal class implements a constant interface, all of its subclasses will have their namespaces polluted by the constants in the interface.<br>There are several constant interfaces in the java platform libraries, such as  <code>java.io.ObjectStreamConstants</code> .<br>These interfaces should be regarded as anomalies and should not be emulated.<br><strong>原文出自see <a class="link"   target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/effectivejava-136174.html" >Effective Java <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></strong></p>
+</blockquote>
+<p>一下连接仅供参考</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/wanqieddy/p/9051568.html" >https://www.cnblogs.com/wanqieddy/p/9051568.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/voo00oov/article/details/50433672" >https://blog.csdn.net/voo00oov/article/details/50433672 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/2659593/what-is-the-use-of-interface-constants" >https://stackoverflow.com/questions/2659593/what-is-the-use-of-interface-constants <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/java/IandI/interfaceDef.html" >https://docs.oracle.com/javase/tutorial/java/IandI/interfaceDef.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>也有一种优雅的写法</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public final class Constants &#123;</span><br><span class="line"></span><br><span class="line">    private Constants() &#123;</span><br><span class="line">        // restrict instantiation</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static final double PI = 3.14159;</span><br><span class="line">    public static final double PLANCK_CONSTANT = 6.62606896e-34;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<p>管理类命名</p>
+<ol>
+<li><code>Pool</code>  $\color{CornflowerBlue}{后缀}$ 池</li>
+<li><code>Manager</code> <code>Mgr</code>  $\color{CornflowerBlue}{后缀}$ 管理器</li>
+<li><code>Group</code>  $\color{CornflowerBlue}{后缀}$ 群</li>
+<li><code>Proxy</code>  $\color{CornflowerBlue}{后缀}$ 代理类</li>
+<li><code>Balance</code>  $\color{CornflowerBlue}{后缀}$ 均衡器</li>
+<li><code>Container</code>  $\color{CornflowerBlue}{后缀}$ 容器</li>
+</ol>
+<hr>
+<p>创建类命名</p>
+<ol>
+<li><code>Generator</code>  $\color{CornflowerBlue}{后缀}$ 生成器</li>
+<li><code>Builder</code>  $\color{CornflowerBlue}{后缀}$ 构建器</li>
+<li><code>Factory</code>  $\color{CornflowerBlue}{后缀}$ 工厂</li>
+</ol>
+<hr>
+<p>协议通讯相关功能</p>
+<ol>
+<li><code>Msg</code> <code>Ack</code> <code>Req</code> <code>Resp</code>  $\color{CornflowerBlue}{前后缀均可,推荐后缀}$ 消息类</li>
+<li><code>Header</code> <code>Body</code>  $\color{CornflowerBlue}{后缀}$ 头部 主体</li>
+<li><code>Proto</code> <code>Protobuf</code>  $\color{CornflowerBlue}{后缀}$ 协议类</li>
+<li><code>Sender</code>  $\color{CornflowerBlue}{后缀}$ 发送者</li>
+<li><code>Receiver</code>  $\color{CornflowerBlue}{后缀}$ 接收者</li>
+</ol>
+<hr>
+<p>其他功能</p>
+<ol>
+<li><p><code>Listener</code>  $\color{CornflowerBlue}{后缀}$ 监听</p>
+</li>
+<li><p><code>Filter</code>  $\color{CornflowerBlue}{后缀}$ 过滤器 Java中起源于Servlet</p>
+</li>
+<li><p><code>Interceptor</code>  $\color{CornflowerBlue}{后缀}$ 拦截器 Java中起源于Spring<br>[<sub>从某种意义上来说 <code>Filter</code> <code>Interceptor</code> 并没有冲突 他们是两个容器的筛选 存在顺序关系 可以查看容器的结构 —Sp!ke</sub>]</p>
+</li>
+<li><p><code>Executer</code>  $\color{CornflowerBlue}{后缀}$ 处理器 [<sub><code>Executer</code>与<code>Service</code>在于 <code>Service</code>可以拥有独立的规范函数 <code>Executer</code> 则具有集体特性 —Sp!ke</sub>]</p>
+</li>
+<li><p><code>Templater</code>  $\color{CornflowerBlue}{后缀}$ 模板</p>
+</li>
+<li><p><code>Converter</code>  $\color{CornflowerBlue}{后缀}$ 转换器</p>
+</li>
+<li><p><code>Connector</code>  $\color{CornflowerBlue}{后缀}$ 连接器</p>
+</li>
+<li><p><code>Recorder</code>  $\color{CornflowerBlue}{后缀}$ 记录器</p>
+</li>
+<li><p><code>Monitor</code>  $\color{CornflowerBlue}{后缀}$ 监控器</p>
+</li>
+<li><p><code>Server</code>  $\color{CornflowerBlue}{后缀}$ 服务器 注意<code>Server</code>代表一个大型的容器概念 , <code>Service</code>代表某个具体的业务</p>
+</li>
+<li><p><code>Client</code>  $\color{CornflowerBlue}{后缀}$ 终端类</p>
+</li>
+</ol>
+<hr>
+<p><code>er</code> <code>or</code> 尾缀代表执行者关系类似 <code>TaskPool</code> <code>Tasker</code>或者<code>ExecutorGroup</code> <code>Executor</code><br>[<sub>更多的命名可以参考设计模式名称, 核心是见词知意 —Sp!ke</sub>]<br>(<code>Singleton</code> <code>Prototype</code> <code>Adapter</code> <code>Bridge</code> <code>Decorator</code> <code>Interpreter</code> <code>Command</code> <code>Mediator</code> <code>State</code> <code>Visitor</code> <code>Strategy</code> <code>Memento</code> <code>...</code>)[<sup>7</sup>] (#refer-anchor-7)</p>
+<blockquote>
+<p>思考: <code>DAO</code> <code>Dao</code>, <code>DTO</code> <code>Dto</code> 模棱两可的命名如何处理?</p>
+</blockquote>
+<h3 id="1-2-注释"><a href="#1-2-注释" class="headerlink" title="1.2 注释"></a>1.2 注释</h3><p>注释有利于帮助理解代码，如果使用不当，反而会影响代码的简洁性，不利于理解代码。注释在使用上笔者认为需要坚持三个原则：</p>
+<ol>
+<li>保持代码干净，消除不必要的注释：好的代码本身就是最好的注释，只在必要时通过注释协助理解代码，目的是保持代码的简洁性，增强代码的可读性；</li>
+<li>区分注释和JavaDoc：类、域、方法使用JavaDoc，方法内部使用注释；</li>
+<li>注释及时更新：注释也是代码的一部分，如果代码发生变更，注释也要跟着改；</li>
+</ol>
+<p>[<sub>我的理解注释的意义是补全,补全那些我们不能写成有效代码的片段、文字,也有人会指这我问为什么这个类没有一句注释, <code>String userLastName = &quot;zhang&quot;;</code> 需要注释么 —Sp!ke</sub>]</p>
+<p>例:<a href="#refer-anchor-2"><sup>2</sup></a> [<sup>3</sup>] (#refer-anchor-3)</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String unitAbbrev = &quot;μs&quot;;									| 赞，即使没有注释也非常清晰</span><br><span class="line">String unitAbbrev = &quot;\u03bcs&quot;; // &quot;μs&quot;						| 允许，但没有理由要这样做</span><br><span class="line">String unitAbbrev = &quot;\u03bcs&quot;; // Greek letter mu, &quot;s&quot;				| 允许，但这样做显得笨拙还容易出错</span><br><span class="line">String unitAbbrev = &quot;\u03bcs&quot;;								| 很糟，读者根本看不出这是什么</span><br><span class="line">return &#x27;\ufeff&#x27; + content; // byte order mark					| Good，对于非打印字符，使用转义，并在必要时写上注释</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="2-日志"><a href="#2-日志" class="headerlink" title="2 日志"></a>2 日志</h2><blockquote>
+<p>不管是使用何种编程语言，日志输出几乎无处不在。总结起来，日志大致有以下几种用途：<br>    * 问题跟踪：通过日志不仅仅包括我们程序的一些bug，也可以在安装配置时，通过日志可以发现问题。<br>    * 状态监控：通过实时分析日志，可以监控系统的运行状态，做到早发现问题，早处理问题。<br>    * 安全审计：审计主要体现在安全方面上，通过日志进行分析，可以发现是否存在非授权的操作。</p>
+</blockquote>
+<h3 id="2-1-级别"><a href="#2-1-级别" class="headerlink" title="2.1 级别"></a>2.1 级别</h3><ol>
+<li><code>fatal</code> - 严重的，造成服务中断的错误；</li>
+<li><code>error</code> - 其他错误运行期错误；</li>
+<li><code>warn</code> - 警告信息，如程序调用了一个即将作废的接口，接口的不当使用，运行状态不是期望的但仍可继续处理等；</li>
+<li><code>info</code> - 有意义的事件信息，如程序启动，关闭事件，收到请求事件等；</li>
+<li><code>debug</code> - 调试信息，可记录详细的业务处理到哪一步了，以及当前的变量状态；</li>
+<li><code>trace</code> - 更详细的跟踪信息；</li>
+</ol>
+<h3 id="2-2-基本的Logger编码规范"><a href="#2-2-基本的Logger编码规范" class="headerlink" title="2.2 基本的Logger编码规范"></a>2.2 基本的Logger编码规范</h3><ol>
+<li>在一个对象中通常只使用一个<code>Logger</code>对象，Logger应该是<code>static final</code>的，只有在少数需要在构造函数中传递<code>logger</code>的情况下才使用<code>private final</code>。</li>
+<li>输出<code>Exceptions</code>的全部<code>Throwable</code>信息，因为<code>logger.error(msg)</code>和<code>logger.error(msg,e.getMessage())</code>这样的日志输出方法会丢失掉最重要的StackTrace信息。</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">foo</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">// do something</span></span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		logger.error(e.getMessage()); <span class="comment">// 错误</span></span><br><span class="line">		logger.error(<span class="string">&quot;Bad things&quot;</span>, e.getMessage()); <span class="comment">// 错误</span></span><br><span class="line">		logger.error(<span class="string">&quot;Bad things&quot;</span>, e); <span class="comment">// 正确</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol start="3">
+<li>不允许记录日志后又抛出异常，因为这样会多次记录日志，只允许记录一次日志。</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">foo</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">// do something</span></span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		logger.error(e.getMessage());</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Exception</span>(<span class="string">&quot;Bad things&quot;</span>, e);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol start="4">
+<li>不允许出现System print(包括System.out.println和System.error.println)语句。</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">foo</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">// do something</span></span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		System.out.println(e.getMessage()); <span class="comment">// 错误</span></span><br><span class="line">		logger.error(<span class="string">&quot;Bad things&quot;</span>, e); <span class="comment">// 正确</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol start="5">
+<li>不允许出现printStackTrace。</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">foo</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="comment">// do something</span></span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">		e.printStackTrace(); <span class="comment">// 错误</span></span><br><span class="line">		logger.error(<span class="string">&quot;Bad things&quot;</span>, e); <span class="comment">// 正确</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol start="6">
+<li>日志性能的考虑，如果代码为核心代码，执行频率非常高，则输出日志建议增加判断，尤其是低级别的输出&lt;<code>debug</code>、<code>info</code>、<code>warn</code>&gt;。<br> debug日志太多后可能会影响性能，有一种改进方法是：</li>
+</ol>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">	logger.info(<span class="string">&quot;returning content: &quot;</span> + content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>但更好的方法是Slf4j提供的最佳实践:
+</code></pre>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.debug(<span class="string">&quot;returning content: &quot;</span> + content);</span><br></pre></td></tr></table></figure></div>
+
+<pre><code>一方面可以减少参数构造的开销，另一方面也不用多写两行代码。
+</code></pre>
+<ol start="7">
+<li>有意义的日志</li>
+</ol>
+<p>通常情况下在程序日志里记录一些比较有意义的状态数据：程序启动，退出的时间点；程序运行消耗时间；耗时程序的执行进度；重要变量的状态变化。<br>初次之外，在公共的日志里规避打印程序的调试或者提示信息。</p>
+<h3 id="2-3-日志的输出"><a href="#2-3-日志的输出" class="headerlink" title="2.3 日志的输出"></a>2.3 日志的输出</h3><h4 id="2-3-1-什么时候输出"><a href="#2-3-1-什么时候输出" class="headerlink" title="2.3.1 什么时候输出"></a>2.3.1 什么时候输出</h4><blockquote>
+<p>日志并不是越多越详细就越好。在分析运行日志，查找问题时，我们经常遇到该出现的日志没有，无用的日志一大堆，或者有效的日志被大量无意义的日志信息淹没，查找起来非常困难。那么什么时候输出日志呢？以下列出了一些常见的需要输出日志的情况，而且日志的级别基本都是<code>INFO</code>，至于<code>DEBUG</code>级别日志的使用场景，需要具体情况具体分析，但也是要追求“恰如其分”，不是越多越好。</p>
+</blockquote>
+<ol>
+<li>系统启动参数、环境变量 : 系统启动的参数、配置、环境变量、<code>System.Properties</code>等信息对于软件的正常运行至关重要，这些信息的输出有助于安装配置人员通过日志快速定位问题，所以程序有必要在启动过程中把使用到的关键参数、变量在日志中输出出来。在输出时需要注意，不是一股脑的全部输出，而是将软件运行涉及到的配置信息输出出来。比如，如果软件对jvm的内存参数比较敏感，对最低配置有要求，那么就需要在日志中将<code>-Xms -Xmx -XX:PermSize</code>这几个参数的值输出出来。</li>
+<li>异常捕获 : 在捕获异常处输出日志，大家在基本都能做到，唯一需要注意的是怎么输出一个简单明了的日志信息。这在后面的问题问题中有进一步说明。</li>
+<li>函数获得期望之外的结果时 : 一个函数，尤其是供外部系统或远程调用的函数，通常都会有一个期望的结果，但如果内部系统或输出参数发生错误时，函数将无法返回期望的正确结果，此时就需要记录日志，日志的基本通常是<code>WARN</code>。需要特别说明的是，这里的期望之外的结果不是说没有返回就不需要记录日志了，也不是说返回<code>false</code>就需要记录日志。比如函数：<code>isXXXXX()</code>，无论返回<code>true</code>、<code>false</code>记录日志都不是必须的，但是如果系统内部无法判断应该返回<code>true</code>还是<code>false</code>时，就需要记录日志，并且日志的级别应该至少是 <code>WARN</code>。</li>
+<li>关键操作 : 关键操作的日志一般是INFO级别，如果数量、频度很高，可以考虑使用DEBUG级别。以下是一些关键操作的举例，实际的关键操作肯定不止这么多。</li>
+</ol>
+<h4 id="2-3-2-输出什么"><a href="#2-3-2-输出什么" class="headerlink" title="2.3.2 输出什么"></a>2.3.2 输出什么</h4><ol>
+<li>关键路径 : 日志并不是独立存在的,而是以一片文章阅读方式存在的</li>
+<li>关键字段 : <code>UID</code> <code>CID</code> <code>AID</code> <code>RequestID</code> 一个链路上可以通过唯一一个值,即可将整个<code>I/O</code>操作串联起来的<code>Keyword</code>, 	扩展是跨项目、跨工程之间的思考</li>
+<li>关键描述 : 时间、地点、人物、事件大家都玩过这个游戏吧</li>
+</ol>
+<h2 id="3-代码"><a href="#3-代码" class="headerlink" title="3 代码"></a>3 代码</h2><blockquote>
+<p>代码! 代码! 代码!</p>
+</blockquote>
+<blockquote>
+<p>Error&#x3D;more code^2</p>
+</blockquote>
+<h2 id="4-如何优化"><a href="#4-如何优化" class="headerlink" title="4 如何优化"></a>4 如何优化</h2><h2 id="5-如何思考"><a href="#5-如何思考" class="headerlink" title="5 如何思考"></a>5 如何思考</h2><h2 id="6-如何避免陷入-牛角尖、瓶颈、自大、自卑、思维僵化"><a href="#6-如何避免陷入-牛角尖、瓶颈、自大、自卑、思维僵化" class="headerlink" title="6 如何避免陷入(牛角尖、瓶颈、自大、自卑、思维僵化)"></a>6 如何避免陷入(牛角尖、瓶颈、自大、自卑、思维僵化)</h2><video id="video" controls="" loop="loop" autoplay="autoplay" src="/images/2021-04-23-0.mp4" />
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><div id="refer-anchor-1"></div>
+
+<ul>
+<li>[1] <a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/104253155" >浅谈Java编码规范 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-2"></div>
+
+<ul>
+<li>[2] <a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/lanxuezaipiao/p/3534447.html" >Google Java编程风格指南中文版 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-3"></div>
+
+<ul>
+<li>[3] <a class="link"   target="_blank" rel="noopener" href="https://google.github.io/styleguide/javaguide.html" >Google Java Style Guide <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-4"></div>
+
+<ul>
+<li>[4] <a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/qianjinyan/p/10341710.html" >实体entity、JavaBean、Model、POJO、domain的区别 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-5"></div>
+
+<ul>
+<li>[5] <a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/huangwentian/p/10526917.html" >浅析VO、DTO、DO、PO的概念、区别和用处 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-6"></div>
+
+<ul>
+<li>[6] <a class="link"   target="_blank" rel="noopener" href="http://www.jizhuomi.com/software/402.html" >设计模式与追妹子(23种设计模式巧妙解析，趣味理解) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-7"></div>
+
+<ul>
+<li>[7] <a class="link"   target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/design-pattern-tutorial.html" >设计模式|菜鸟教程 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-8"></div>
+
+<ul>
+<li>[8] [阿里巴巴开发手册]</li>
+</ul>
+<div id="refer-anchor-9"></div>
+
+<ul>
+<li>[9] <a class="link"   target="_blank" rel="noopener" href="https://my.oschina.net/xiaominmin/blog/1599733" >java Log日志规范 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<div id="refer-anchor-10"></div>
+
+<ul>
+<li>[10] <a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/Farrell_zeng/article/details/99303649" >log日志输出规范 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+
+        </div>
+
+        
+            <div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Java编程规范</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2021-04-23 14:15:55</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2024-06-21 14:31:36
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2021/04/23/Java编程规范/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+                
+                    <li class="tag-item mx-0.5">
+                        <a href="/tags/Java/">#Java</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+
+        
+            <div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+                
+                
+                    <div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+                        <a class="next"
+                        rel="next"
+                        href="/2021/04/22/Maven-%E9%A1%B9%E7%9B%AE%E5%91%BD%E5%90%8D/"
+                        >
+                            <span class="title flex justify-center items-center">
+                                <span class="post-nav-title-item">Maven-项目命名</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex justify-center items-center">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+
+        
+            <div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+                <div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          recaptchaV3Key: "wasd",
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+
+    
+        <div class="toc-content-container">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">此页目录</div>
+        <div class="page-title">Java编程规范</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83"><span class="nav-text">Java开发规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%831"><span class="nav-text">前言 为什么需要编码规范1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E5%A6%82%E4%BD%95%E5%91%BD%E5%90%8D"><span class="nav-text">1 如何命名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%91%BD%E5%90%8D"><span class="nav-text">1.1 命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%B3%A8%E9%87%8A"><span class="nav-text">1.2 注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%97%A5%E5%BF%97"><span class="nav-text">2 日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%BA%A7%E5%88%AB"><span class="nav-text">2.1 级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%9F%BA%E6%9C%AC%E7%9A%84Logger%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83"><span class="nav-text">2.2 基本的Logger编码规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%97%A5%E5%BF%97%E7%9A%84%E8%BE%93%E5%87%BA"><span class="nav-text">2.3 日志的输出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BB%A3%E7%A0%81"><span class="nav-text">3 代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96"><span class="nav-text">4 如何优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E5%A6%82%E4%BD%95%E6%80%9D%E8%80%83"><span class="nav-text">5 如何思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%99%B7%E5%85%A5-%E7%89%9B%E8%A7%92%E5%B0%96%E3%80%81%E7%93%B6%E9%A2%88%E3%80%81%E8%87%AA%E5%A4%A7%E3%80%81%E8%87%AA%E5%8D%91%E3%80%81%E6%80%9D%E7%BB%B4%E5%83%B5%E5%8C%96"><span class="nav-text">6 如何避免陷入(牛角尖、瓶颈、自大、自卑、思维僵化)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-text">参考</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+        </div>
+    
+</div>
+
+
+
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共 32 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.6.3</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+    
+<script src="/js/libs/Swup.min.js"></script>
+
+<script src="/js/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+
+
+
+<script src="/js/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/utils.js" type="module"></script>
+
+<script src="/js/main.js" type="module"></script>
+
+<script src="/js/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+
+<div class="post-scripts" data-swup-reload-script>
+    
+        
+<script src="/js/tools/tocToggle.js" type="module"></script>
+
+<script src="/js/layouts/toc.js" type="module"></script>
+
+<script src="/js/plugins/tabs.js" type="module"></script>
+
+    
+</div>
+
+
+</body>
+</html>
