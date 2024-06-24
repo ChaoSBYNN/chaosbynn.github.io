@@ -4457,4 +4457,44 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Env</tag>
       </tags>
   </entry>
+  <entry>
+    <title>GitBash设置时间戳</title>
+    <url>/2024/06/24/GitBash%E8%AE%BE%E7%BD%AE%E6%97%B6%E9%97%B4%E6%88%B3/</url>
+    <content><![CDATA[<blockquote>
+<p>平时工作中，可能会同时处理几件事情，其中有一件要用到 <code>terminal</code>，有时候需要在 <code>terminal</code> 连续执行多次同个命令，但有时候你地工作被打断，等再回来看 <code>terminal</code> 的时候，就不确定工作被打断之前是否执行了命令，因为命令执行没有时间戳<br>比如下图，完全看不出来什么时候执行的命令行：</p>
+</blockquote>
+<h2 id="在命令行执行后面打印"><a href="#在命令行执行后面打印" class="headerlink" title="在命令行执行后面打印"></a>在命令行执行后面打印</h2><p>我的方案是在每行命令行执行结束后，打印一下当前的时间戳。具体方法：</p>
+<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><p>用编辑器打开 <code>git-prompt.sh</code> 文件，文件目录在 <code>git</code> 安装目录下（比如我的是 <code>D:\APP\Git\etc\profile.d\git-prompt.sh</code>）。这个文件用于定义打印“命令提示符”。</p>
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><p>找到 <code>PS1=&quot;$PS1&quot;&#39;\u@\h &#39; # user@host&lt;space&gt;</code> 这行（图中第 20 行），<br>在这行的上面的第 16 行前面加上时间戳的配置即可。<br>我加了下面的几行，重点是 <code>PS1=&quot;$PS1&quot;&#39;\t&#39;</code> 这个，一定要加上，用于获取当前时间，<br>其他几行是个性化颜色修饰，可有可无。</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">PS1=<span class="string">&quot;<span class="variable">$PS1</span>&quot;</span><span class="string">&#x27;\[\033[45m\]&#x27;</span>	<span class="comment"># change to Magenta</span></span><br><span class="line">PS1=<span class="string">&quot;<span class="variable">$PS1</span>&quot;</span><span class="string">&#x27;&gt;&gt;&gt;&#x27;</span>			    <span class="comment"># time</span></span><br><span class="line">PS1=<span class="string">&quot;<span class="variable">$PS1</span>&quot;</span><span class="string">&#x27; \t&#x27;</span>			    <span class="comment"># time</span></span><br><span class="line">PS1=<span class="string">&quot;<span class="variable">$PS1</span>&quot;</span><span class="string">&#x27;\[\033[0m\]&#x27;</span>		<span class="comment"># reset style</span></span><br><span class="line">PS1=<span class="string">&quot;<span class="variable">$PS1</span>&quot;</span><span class="string">&#x27;\n&#x27;</span>			    <span class="comment"># new line</span></span><br></pre></td></tr></table></figure></div>
+
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/git/git1.png"
+                      alt="配置"
+                ><figcaption>配置</figcaption></figure></p>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/git/git2.png"
+                      alt="效果图"
+                ><figcaption>效果图</figcaption></figure></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="ANSI-颜色编码"><a href="#ANSI-颜色编码" class="headerlink" title="ANSI 颜色编码"></a>ANSI 颜色编码</h3><ul>
+<li>ANSI 颜色编码可参考 <a class="link"   href="https://en.wikipedia.org/wiki/ANSI_escape_code" >ANSI escape code - Wikipedia <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>ANSI 控制码<br>  ANSI 控制码以Esc 作为控制码的开始标志。 Esc的ANS十进制码是 27 ， 八进制码是33， 使用\33 表示。主要的控制码有：</li>
+</ul>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">\033[0m 关闭所有属性</span><br><span class="line">\033[1m 设置高亮度</span><br><span class="line">\033[4m 下划线</span><br><span class="line">\033[5m 闪烁 ， 测试在在linux 显示效果是底色。</span><br><span class="line">\033[7m 反显</span><br><span class="line">\033[8m 消隐</span><br><span class="line">\033[nA 光标上移n行</span><br><span class="line">\033[nB 光标下移n行</span><br><span class="line">\033[nC 光标右移n行</span><br><span class="line">\033[nD 光标左移n行</span><br><span class="line">\033[y;xH 设置光标位置</span><br><span class="line">\033[2J 清屏</span><br><span class="line">\033[K 清除从光标到行尾的内容</span><br><span class="line">\033[s 保存光标位置</span><br><span class="line">\033[u 恢复光标位置</span><br><span class="line">\033[?25l 隐藏光标</span><br><span class="line">\033[?25h 显示光标</span><br><span class="line">\033[30m ~ \033[37m 设置前景色</span><br><span class="line">\033[40m ~ \033[47m 设置背景色</span><br></pre></td></tr></table></figure></div>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link"   href="https://zhuanlan.zhihu.com/p/536955408" >如何设置 Git Bash 终端命令行执行后打印当前时间 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://blog.csdn.net/weixin_69553582/article/details/125700943" >在终端输出彩色字体 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
 </search>
