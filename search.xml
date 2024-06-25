@@ -4497,4 +4497,39 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Idea Maven 新项目永久生效</title>
+    <url>/2024/06/25/Idea-Maven-%E6%96%B0%E9%A1%B9%E7%9B%AE%E6%B0%B8%E4%B9%85%E7%94%9F%E6%95%88/</url>
+    <content><![CDATA[<blockquote>
+<p>不同版本Idea会有差异</p>
+</blockquote>
+<div class="tabs" id="tab-setup版本"><ul class="nav-tabs"><li class="tab active"><a class="#setup版本-1">新版Idea</a></li><li class="tab"><a class="#setup版本-2">旧版Idea</a></li></ul><div class="tab-content"><div class="tab-pane active" id="setup版本-1"><p>新版 <code>File</code> -&gt; <code>New Projects Setup</code> -&gt; <code>Settings for New Projects</code><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/maven/new-version-maven.png"
+                      alt="New Setup"
+                ><figcaption>New Setup</figcaption></figure></p></div><div class="tab-pane" id="setup版本-2"><p>旧版 <code>File</code> -&gt; <code>Other Settings</code> -&gt; <code>Settings for New Projects</code></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/maven/old-version-maven.png"
+                      alt="Old Setup"
+                ><figcaption>Old Setup</figcaption></figure></p></div></div></div>
+
+<p>搜索 <code>mvn</code> 或 <code>Build, Execution, Deployment</code> -&gt; <code>Build Tools</code> -&gt; <code>Maven</code><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="/images/maven/maven-settings.png"
+                      alt="Settings"
+                ><figcaption>Settings</figcaption></figure></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+        <tag>Env</tag>
+        <tag>Idea</tag>
+      </tags>
+  </entry>
 </search>
