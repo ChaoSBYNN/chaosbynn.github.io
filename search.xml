@@ -4532,4 +4532,63 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Idea</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Git 配置多端多个账号</title>
+    <url>/2024/06/26/Git-%E9%85%8D%E7%BD%AE%E5%A4%9A%E7%AB%AF%E5%A4%9A%E4%B8%AA%E8%B4%A6%E5%8F%B7/</url>
+    <content><![CDATA[<h2 id="清空默认的全局-user-name-和-user-email"><a href="#清空默认的全局-user-name-和-user-email" class="headerlink" title="清空默认的全局 user.name 和 user.email"></a>清空默认的全局 user.name 和 user.email</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global --<span class="built_in">unset</span> user.name</span><br><span class="line">git config --global --<span class="built_in">unset</span> user.email</span><br></pre></td></tr></table></figure></div>
+
+<p>查看git配置</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global --list</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="配置多个git的用户名和邮箱"><a href="#配置多个git的用户名和邮箱" class="headerlink" title="配置多个git的用户名和邮箱"></a>配置多个git的用户名和邮箱</h2><ol>
+<li>单个全局配置</li>
+</ol>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;yourusername&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;youremail@email.com&quot;</span></span><br></pre></td></tr></table></figure></div>
+<ol start="2">
+<li>多个配置</li>
+</ol>
+<blockquote>
+<p>注意: 这里<code>git config</code>命令没有带<code>—global</code>,表示这是一个局部的设置,也就是这个用户是当前项目的,而不是全局的</p>
+</blockquote>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git config user.name <span class="string">&quot;yourusername&quot;</span></span><br><span class="line">git config user.email <span class="string">&quot;youremail@hotmail.com&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<ol start="3">
+<li>删除配置</li>
+</ol>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">git config --<span class="built_in">unset</span> user.name</span><br><span class="line">git config --<span class="built_in">unset</span> user.email</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="生成多个密钥"><a href="#生成多个密钥" class="headerlink" title="生成多个密钥"></a>生成多个密钥</h2><ol>
+<li>生成<code>gitlab</code>仓库的SSH</li>
+</ol>
+<p>指定文件路径,方便后面操作:<code>~/.ssh/id_rsa.gitlab</code>,<code>id_rsa.github</code>是秘钥的别名。</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ~/.ssh/id_rsa.gitlab -C <span class="string">&quot;gitlab@mail.com&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<ol start="2">
+<li>生成<code>github</code>仓库的SSH</li>
+</ol>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -f ~/.ssh/id_rsa.github -C <span class="string">&quot;github@mail.com&quot;</span></span><br></pre></td></tr></table></figure></div>
+<ol start="3">
+<li>将 <code>ssh-key</code> 分别添加到 <code>ssh-agent</code> 信任列表</li>
+</ol>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">ssh-agent bash</span><br><span class="line">ssh-add ~/.ssh/id_rsa.gitlab</span><br><span class="line">ssh-add ~/.ssh/id_rsa.github</span><br></pre></td></tr></table></figure></div>
+<p>如果看到 <code>Identitiy added: ~/.ssh/id_ras_github</code> 就表示添加成功了。</p>
+<ol start="4">
+<li><p>添加公钥到自己的 git 账户中</p>
+</li>
+<li><p>在 config 文件配置多个 ssh-key<br>在生成密钥的<code>.ssh</code> 目录下,新建一个<code>config</code>文件,然后配置不同的仓库</p>
+</li>
+</ol>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Default github user Self</span></span><br><span class="line">Host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    User git <span class="comment">#默认就是git,可以不写</span></span><br><span class="line">    IdentityFile ~/.ssh/id_rsa.github</span><br><span class="line"></span><br><span class="line"><span class="comment">#Add gitlab user </span></span><br><span class="line">Host gitlab.com  <span class="comment"># 别名,最好别改</span></span><br><span class="line">    HostName gitlab.com</span><br><span class="line">    User xxx@mail.com <span class="comment">#用户名</span></span><br><span class="line">	<span class="comment">#密钥文件的地址,注意是私钥</span></span><br><span class="line">	IdentityFile ~/.ssh/id_rsa_gitlab</span><br></pre></td></tr></table></figure></div>
+
+<ol start="6">
+<li>测试<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">ssh -T git@gitee.com</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
 </search>
