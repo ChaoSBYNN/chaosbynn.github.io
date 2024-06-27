@@ -4602,6 +4602,8 @@ a postriori 一个后验 使用结果作为条件检测
 <li><a class="link"   href="https://medium.com/@rakesh.open.source/time-based-one-time-password-totp-java-implementation-82a472bd6bf9" >Time-Based One-Time Password (TOTP) — Java Implementation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li><a class="link"   href="https://zhuanlan.zhihu.com/p/641587128" >基于 TOTP 实现多重身份(Multi-factor)认证 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 <li><a class="link"   href="https://stytch.com/blog/what-is-totp/" >What is TOTP and why does it matter? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://allthingsauth.com/2018/04/20/a-medium-dive-on-the-totp-spec/" >A medium dive on the Time-based One-time Passwords (TOTP) spec <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.twilio.com/docs/glossary/totp" >What is a Time-based One-time Password (TOTP)? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
 </ul>
 ]]></content>
       <categories>
