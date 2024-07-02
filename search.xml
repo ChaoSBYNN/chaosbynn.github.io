@@ -4708,7 +4708,7 @@ a postriori 一个后验 使用结果作为条件检测
     <content><![CDATA[<blockquote>
 <p>webp是Google推出的一种新式图片格式、相比于常用的jpg、png和gif格式，最大的优势就是同等质量下压缩率更高、图片文件更小、利于节约存储空间和网络带宽。</p>
 </blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><code>https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html</code></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a class="link"   href="https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html" >cwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>下载完成后解压至某个路径下,然后将其中的<code>bin</code>目录路径添加至环境变量<code>path</code>下即可</p>
 <h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">cwebp -version</span><br></pre></td></tr></table></figure></div>
 
@@ -4724,6 +4724,43 @@ a postriori 一个后验 使用结果作为条件检测
       </categories>
       <tags>
         <tag>Image</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Could not retrieve mirrorlist http://mirrorlist.centos.org</title>
+    <url>/2024/07/02/Could-not-retrieve-mirrorlist-http-mirrorlist-centos-org/</url>
+    <content><![CDATA[<blockquote>
+<p>Could not retrieve mirrorlist <a class="link"   href="http://mirrorlist.centos.org/" >http://mirrorlist.centos.org <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h2 id="替换-yum-软件源为阿里云镜像源"><a href="#替换-yum-软件源为阿里云镜像源" class="headerlink" title="替换 yum 软件源为阿里云镜像源"></a>替换 yum 软件源为阿里云镜像源</h2><h3 id="备份当前的-yum-软件源文件"><a href="#备份当前的-yum-软件源文件" class="headerlink" title="备份当前的 yum 软件源文件"></a>备份当前的 yum 软件源文件</h3><p>在进行修改之前，首先备份原始的 yum 软件源配置文件。打开终端，输入以下命令备份：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="编辑-yum-软件源配置文件"><a href="#编辑-yum-软件源配置文件" class="headerlink" title="编辑 yum 软件源配置文件"></a>编辑 yum 软件源配置文件</h3><p>使用文本编辑器(如 <code>vim</code> 或 <code>nano</code>)打开 <code>/etc/yum.repos.d/CentOS-Base.repo</code> 文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/yum.repos.d/CentOS-Base.repo</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="注释掉原有的镜像源配置"><a href="#注释掉原有的镜像源配置" class="headerlink" title="注释掉原有的镜像源配置"></a>注释掉原有的镜像源配置</h3><p>在打开的文件中，找到 <code>[base]</code>、<code>[updates]</code>、<code>[extras]</code> 和 <code>[centosplus]</code> 等节，将它们的 <code>baseurl</code> 行注释掉(在行首添加 <code>#</code>符号)，同时保留 <code>mirrorlist</code> 行(如果有)。</p>
+<p>例如:</p>
+<div class="highlight-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=os</span><br><span class="line"></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=updates</span><br><span class="line"></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=extras</span><br><span class="line"></span><br><span class="line"><span class="section">[centosplus]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=centosplus</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="添加阿里云镜像源配置"><a href="#添加阿里云镜像源配置" class="headerlink" title="添加阿里云镜像源配置"></a>添加阿里云镜像源配置</h3><div class="highlight-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Base - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Updates - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Extras - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[centosplus]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Plus - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>将 <code>$releasever</code> 替换为您当前系统的 CentOS 版本号,如 <code>7</code> 或 <code>8</code>。</li>
+<li>请确保 <code>gpgkey</code> 链接正确，以便验证下载的软件包。</li>
+</ul>
+<h3 id="保存并退出编辑器"><a href="#保存并退出编辑器" class="headerlink" title="保存并退出编辑器"></a>保存并退出编辑器</h3><p>在编辑完成后，保存文件并退出编辑器。</p>
+<h3 id="清理-yum-缓存"><a href="#清理-yum-缓存" class="headerlink" title="清理 yum 缓存"></a>清理 yum 缓存</h3><p>为了确保使用新的镜像源配置，清理当前的 yum 缓存</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="恢复原始配置-可选"><a href="#恢复原始配置-可选" class="headerlink" title="恢复原始配置(可选)"></a>恢复原始配置(可选)</h3><p>如果需要恢复到原始的 CentOS 官方源，可以将之前备份的 <code>/etc/yum.repos.d/CentOS-Base.repo.bak</code> 文件复制回去，并清理 yum 缓存再次测试。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
 </search>
