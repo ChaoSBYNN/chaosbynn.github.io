@@ -18,12 +18,12 @@
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="JSSDK微信接口 Java接入 转发分享信息   [ JSSDK文档 ]  微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。      [获取token文档 ]  JS-SDK获取access_token文档ChaoS_Zhang , 更多信息 , 具体请参考GitHub . [t7_chaos@163.com]  .  流程图 流程图：  123456789101">
+        <meta name="description" content="JSSDK微信接口 Java接入 转发分享信息   [ JSSDK文档 ]  微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。      [获取token文档 ]  JS-SDK获取access_token文档ChaoS_Zhang , 更多信息 , 具体请参考GitHub . [t7_chaos@163.com]  .  流程图 流程图：  flowchart LR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JSSDK 微信接口与 Java 结合">
 <meta property="og:url" content="https://chaosbynn.github.io/2017/02/22/JSSDK-%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%E4%B8%8E-Java-%E7%BB%93%E5%90%88/index.html">
 <meta property="og:site_name" content="Spike_Zhang Site">
-<meta property="og:description" content="JSSDK微信接口 Java接入 转发分享信息   [ JSSDK文档 ]  微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。      [获取token文档 ]  JS-SDK获取access_token文档ChaoS_Zhang , 更多信息 , 具体请参考GitHub . [t7_chaos@163.com]  .  流程图 流程图：  123456789101">
+<meta property="og:description" content="JSSDK微信接口 Java接入 转发分享信息   [ JSSDK文档 ]  微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。      [获取token文档 ]  JS-SDK获取access_token文档ChaoS_Zhang , 更多信息 , 具体请参考GitHub . [t7_chaos@163.com]  .  流程图 流程图：  flowchart LR">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-02-22T11:53:44.000Z">
 <meta property="article:modified_time" content="2024-06-24T00:28:05.264Z">
@@ -650,7 +650,25 @@
 <h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><blockquote>
 <p>流程图：</p>
 </blockquote>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">st=&gt;start: 开始</span><br><span class="line">e=&gt;end: 结束</span><br><span class="line">op1=&gt;operation: 获取本地存储token</span><br><span class="line">op2=&gt;operation: 通过微信公众号 </span><br><span class="line">				appid与secret </span><br><span class="line">				获取新的access_token</span><br><span class="line">op3=&gt;operation: 获取jsapi_ticket</span><br><span class="line">cond1=&gt;condition: 判断最近修改日期</span><br><span class="line">是否不超过7200秒？</span><br><span class="line">cond2=&gt;condition: 判断获取的</span><br><span class="line">				jsapi_ticket是否正常</span><br><span class="line">				[异常情况:token过期]</span><br><span class="line">st-&gt;op1-&gt;cond1-&gt;op3-&gt;cond2-&gt;e</span><br><span class="line">op2-&gt;op3</span><br><span class="line">cond1(no)-&gt;op2</span><br><span class="line">cond1(yes)-&gt;op3</span><br><span class="line">cond2(no)-&gt;op2</span><br><span class="line">cond2(yes)-&gt;e</span><br></pre></td></tr></table></figure></div>
+<pre class="mermaid">flowchart LR
+st=>start: 开始
+e=>end: 结束
+op1=>operation: 获取本地存储token
+op2=>operation: 通过微信公众号 
+                appid与secret 
+                获取新的access_token
+op3=>operation: 获取jsapi_ticket
+cond1=>condition: 判断最近修改日期
+是否不超过7200秒？
+cond2=>condition: 判断获取的
+                jsapi_ticket是否正常
+                [异常情况:token过期]
+st->op1->cond1->op3->cond2->e
+op2->op3
+cond1(no)->op2
+cond1(yes)->op3
+cond2(no)->op2
+cond2(yes)->e</pre>
 
 
 <blockquote>
