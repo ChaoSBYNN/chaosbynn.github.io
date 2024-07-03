@@ -4975,4 +4975,46 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>摄影</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Git Tips</title>
+    <url>/2024/07/03/Git-Tips/</url>
+    <content><![CDATA[<h2 id="workflow-工作流"><a href="#workflow-工作流" class="headerlink" title="workflow 工作流"></a>workflow 工作流</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git-workflow.png"
+                      alt="workflow"
+                ><figcaption>workflow</figcaption></figure></p>
+<h2 id="cheat-sheets-速查表"><a href="#cheat-sheets-速查表" class="headerlink" title="cheat sheets 速查表"></a>cheat sheets 速查表</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git_cheat_sheets.jpg"
+                      alt="cheat_sheets"
+                ><figcaption>cheat_sheets</figcaption></figure></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>HTTP status code</title>
+    <url>/2024/07/03/HTTP-status-code/</url>
+    <content><![CDATA[<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/http_status_code.jpg"
+                      alt="status code"
+                ><figcaption>status code</figcaption></figure></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>HTTP</category>
+      </categories>
+      <tags>
+        <tag>HTTP</tag>
+      </tags>
+  </entry>
 </search>
