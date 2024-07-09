@@ -5641,7 +5641,7 @@ a postriori 一个后验 使用结果作为条件检测
     <title>Elasticsearch(ES) 与 ClickHouse</title>
     <url>/2024/07/09/Elasticsearch-ES-%E4%B8%8E-ClickHouse/</url>
     <content><![CDATA[<blockquote>
-<p>Elasticsearch（ES）和 ClickHouse 都是优秀的数据存储和查询工具，但它们在适用场景和重点方面有所不同。具体来说，选择哪个工具更适合做业务数据查询取决于你的具体需求和业务情况。</p>
+<p>Elasticsearch（ES）与 ClickHouse 都是优秀的数据存储和查询工具，但它们在适用场景和重点方面有所不同。具体来说，选择哪个工具更适合做业务数据查询取决于你的具体需求和业务情况。</p>
 </blockquote>
 <h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p><strong>适用场景：</strong></p>
 <ol>
