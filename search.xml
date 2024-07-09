@@ -5637,4 +5637,155 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Spring</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Elasticsearch(ES) 与 ClickHouse</title>
+    <url>/2024/07/09/Elasticsearch-ES-%E4%B8%8E-ClickHouse/</url>
+    <content><![CDATA[<blockquote>
+<p>Elasticsearch（ES）和 ClickHouse 都是优秀的数据存储和查询工具，但它们在适用场景和重点方面有所不同。具体来说，选择哪个工具更适合做业务数据查询取决于你的具体需求和业务情况。</p>
+</blockquote>
+<h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p><strong>适用场景：</strong></p>
+<ol>
+<li><p><strong>全文搜索和复杂查询：</strong> Elasticsearch 最初设计用于文本搜索，它支持复杂的全文搜索查询，包括文本分析、词条查询、短语查询等。</p>
+</li>
+<li><p><strong>实时数据分析和监控：</strong> Elasticsearch 能够处理实时更新的数据，并且提供了强大的实时数据分析和聚合能力，适合于日志分析、实时指标监控等场景。</p>
+</li>
+<li><p><strong>高可用性和扩展性：</strong> Elasticsearch 具备高可用性和水平扩展的能力，可以构建分布式集群处理大规模数据。</p>
+</li>
+<li><p><strong>复杂数据结构支持：</strong> 支持复杂的数据结构和嵌套文档，能够存储和查询复杂的业务对象。</p>
+</li>
+<li><p><strong>搜索结果排序和分数计算：</strong> Elasticsearch 能够根据文档的相关性得分进行搜索结果排序，适合需要精细控制搜索结果的场景。</p>
+</li>
+</ol>
+<h3 id="ClickHouse"><a href="#ClickHouse" class="headerlink" title="ClickHouse"></a>ClickHouse</h3><p><strong>适用场景：</strong></p>
+<ol>
+<li><p><strong>大规模数据分析和聚合：</strong> ClickHouse 是一个专门用于数据分析和聚合的列式存储数据库，特别擅长处理大量的数据集。</p>
+</li>
+<li><p><strong>高性能的聚合查询：</strong> ClickHouse 提供了非常高效的聚合查询能力，支持快速的汇总和统计操作，适合于大数据量的统计分析。</p>
+</li>
+<li><p><strong>低延迟的复杂查询：</strong> ClickHouse 能够在处理大数据量时保持低延迟，特别适合需要在大数据集上执行复杂查询的场景。</p>
+</li>
+<li><p><strong>存储效率和压缩：</strong> ClickHouse 使用列式存储，能够提供高效的存储和数据压缩，节约存储空间和提高查询性能。</p>
+</li>
+<li><p><strong>数据仓库和数据湖支持：</strong> ClickHouse 可以作为数据仓库或者数据湖的一部分，支持高效的数据仓库查询和数据湖分析。</p>
+</li>
+</ol>
+<h3 id="选择哪个工具？"><a href="#选择哪个工具？" class="headerlink" title="选择哪个工具？"></a>选择哪个工具？</h3><ul>
+<li><p><strong>如果你的主要需求是进行复杂的全文搜索、实时数据分析和监控，或者需要处理复杂的数据结构，那么 Elasticsearch 更适合。</strong></p>
+</li>
+<li><p><strong>如果你的主要需求是大规模的数据分析、高性能的聚合查询和低延迟的复杂查询，特别是在数据量非常大的情况下，那么 ClickHouse 更适合。</strong></p>
+</li>
+</ul>
+<h3 id="综合考虑"><a href="#综合考虑" class="headerlink" title="综合考虑"></a>综合考虑</h3><p>在一些场景中，Elasticsearch 和 ClickHouse 可以结合使用，利用它们各自的优势来解决不同层面的数据需求。例如，可以使用 Elasticsearch 进行实时数据的搜索和分析，同时将历史数据存储在 ClickHouse 中，用于大规模的数据分析和复杂的查询操作。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Data</category>
+      </categories>
+      <tags>
+        <tag>Data</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 常见的分布式任务调度框架</title>
+    <url>/2024/07/09/Java-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>Quartz、XXL-Job、PowerJob 和 ElasticJob 都是常见的分布式任务调度框架，每个框架都有其特定的优势和适用场景。</p>
+</blockquote>
+<h3 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h3><ul>
+<li><strong>类型：</strong> Quartz 是一个轻量级的开源任务调度框架，适合用于传统的 Java 任务调度和定时任务管理。</li>
+<li><strong>特点：</strong><ul>
+<li>提供丰富的任务调度功能，支持多种触发器（SimpleTrigger、CronTrigger 等）。</li>
+<li>可以与 Spring 框架集成，支持声明式的配置。</li>
+<li>提供基于内存或 JDBC 的任务存储。</li>
+<li>可以独立使用或嵌入到应用中。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合小型到中型的任务调度场景，对任务调度的精确度和可靠性有较高要求的项目。</li>
+</ul>
+<h3 id="XXL-Job"><a href="#XXL-Job" class="headerlink" title="XXL-Job"></a>XXL-Job</h3><ul>
+<li><strong>类型：</strong> XXL-Job 是一个开源的分布式任务调度平台，专门为解决大规模任务调度问题设计。</li>
+<li><strong>特点：</strong><ul>
+<li>提供可视化的任务管理界面，支持在线配置任务和监控任务执行情况。</li>
+<li>支持分布式任务调度，可以部署多个执行器（Executor）实现任务分片。</li>
+<li>提供基于数据库存储任务信息，具备较好的扩展性和稳定性。</li>
+<li>内置了报警机制和任务失败重试机制。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合企业级应用，需要大规模、分布式任务调度和管理的场景，如数据处理、定时报表生成等。</li>
+</ul>
+<h3 id="PowerJob"><a href="#PowerJob" class="headerlink" title="PowerJob"></a>PowerJob</h3><ul>
+<li><strong>类型：</strong> PowerJob 是一个开源的分布式任务调度平台，具有简单易用和高扩展性的特点。</li>
+<li><strong>特点：</strong><ul>
+<li>提供 Web 可视化界面管理任务，支持在线配置、监控任务执行情况。</li>
+<li>支持分布式任务调度，可以水平扩展。</li>
+<li>提供基于数据库存储任务信息，并且支持多种存储引擎。</li>
+<li>内置了任务依赖管理和失败重试机制。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合需要可视化管理和高扩展性的分布式任务调度应用，如数据处理、消息处理等。</li>
+</ul>
+<h3 id="ElasticJob"><a href="#ElasticJob" class="headerlink" title="ElasticJob"></a>ElasticJob</h3><ul>
+<li><strong>类型：</strong> ElasticJob 是一个开源的分布式任务调度解决方案，主要用于处理大规模数据处理和分布式任务调度。</li>
+<li><strong>特点：</strong><ul>
+<li>提供了分布式作业的解决方案，支持数据分片和分布式调度。</li>
+<li>内置了多种作业类型，如简单作业、数据流作业、脚本作业等。</li>
+<li>可以与 ZooKeeper、Redis 等作为分布式协调服务进行集成。</li>
+<li>支持任务的弹性扩展和灵活配置。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合需要大规模数据处理和分布式任务调度的场景，如大数据处理、实时数据处理等。</li>
+</ul>
+<h3 id="选择适合的框架"><a href="#选择适合的框架" class="headerlink" title="选择适合的框架"></a>选择适合的框架</h3><ul>
+<li><strong>Quartz</strong> 是一个通用的任务调度框架，适合于传统的 Java 任务调度需求，特别是在单机或简单分布式场景下使用。</li>
+<li><strong>XXL-Job</strong> 和 <strong>PowerJob</strong> 都专注于企业级的大规模任务调度，提供了更强大的可视化管理和分布式调度能力。</li>
+<li><strong>ElasticJob</strong> 则更加注重于分布式任务处理和大数据处理场景，支持更灵活的作业类型和分布式协调。</li>
+</ul>
+<p>根据具体的项目需求和技术栈选择合适的框架是关键。例如，如果需要高度可视化的管理界面和企业级的分布式任务调度能力，可以考虑 XXL-Job 或 PowerJob；如果涉及到大规模数据处理和分布式任务，ElasticJob 是一个不错的选择。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Job</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Framework</tag>
+        <tag>Job</tag>
+        <tag>Distributed</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>npm 后台运行脚本</title>
+    <url>/2024/07/09/npm-%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<p>在 Windows 系统上，如果你想要通过 npm 运行脚本并且让其在后台运行，可以借助一些工具或命令来实现。以下是几种常见的方法：</p>
+<h3 id="1-使用-npm-命令"><a href="#1-使用-npm-命令" class="headerlink" title="1. 使用 npm 命令"></a>1. 使用 <code>npm</code> 命令</h3><p>通常情况下，<code>npm</code> 命令运行脚本时会在当前命令行窗口中执行，并且不会自动后台运行。但可以通过以下方法尝试：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm run your-script-name &amp;</span><br></pre></td></tr></table></figure></div>
+
+<p>在 Windows 中，<code>&amp;</code> 符号可以用来将命令放入后台运行。请注意，某些 npm 脚本可能会要求特定的终端支持。</p>
+<h3 id="2-使用-start-命令"><a href="#2-使用-start-命令" class="headerlink" title="2. 使用 start 命令"></a>2. 使用 <code>start</code> 命令</h3><p>在 Windows 中，<code>start</code> 命令可以启动一个新的命令行窗口并执行命令，允许命令在后台运行。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">start npm run your-script-name</span><br></pre></td></tr></table></figure></div>
+
+<p>这将在一个新的命令行窗口中启动 npm 脚本，并使其在后台运行。</p>
+<h3 id="3-使用第三方工具"><a href="#3-使用第三方工具" class="headerlink" title="3. 使用第三方工具"></a>3. 使用第三方工具</h3><p>如果以上方法无法满足需求，可以考虑使用第三方工具来将 npm 脚本或任何命令行进程后台运行，例如：</p>
+<ul>
+<li><p><strong><code>pm2</code></strong>: 是一个强大的进程管理工具，可以用来管理和监控 Node.js 应用程序，也可以用来运行 npm 脚本，并且支持后台运行。</p>
+  <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install pm2 -g</span><br><span class="line">pm2 start npm -- run your-script-name</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong><code>screen</code></strong>: 是一个在 Unix 和类 Unix 系统上运行命令的工具，但也有 Windows 版本或类似工具。它可以创建和管理多个虚拟控制台，并且可以在其中运行命令并将其保持在后台运行。</p>
+</li>
+</ul>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
+<li>在使用 <code>start</code> 命令或其他工具时，可能需要根据具体的 npm 脚本和环境进行适当的调整和配置。</li>
+<li>在后台运行命令时，要确保能够方便地查看输出和管理进程。</li>
+<li>对于长期运行的服务或进程，建议使用专门的进程管理工具，以便进行监控和管理。</li>
+</ul>
+<p>选择合适的方法取决于你的具体需求和环境。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>NPM</category>
+      </categories>
+      <tags>
+        <tag>NPM</tag>
+      </tags>
+  </entry>
 </search>
