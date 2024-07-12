@@ -5907,4 +5907,82 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>脚本</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Git 查看从某一日期开始变更的文件</title>
+    <url>/2024/07/12/Git-%E6%9F%A5%E7%9C%8B%E4%BB%8E%E6%9F%90%E4%B8%80%E6%97%A5%E6%9C%9F%E5%BC%80%E5%A7%8B%E5%8F%98%E6%9B%B4%E7%9A%84%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<p>要查看从某一日期开始变更的文件，可以使用 <code>git</code> 命令来列出这些变更。以下是一些常用的 <code>git</code> 命令和方法，用于查看自特定日期以来的文件变更记录。</p>
+<h3 id="1-列出从某一日期开始的所有提交记录"><a href="#1-列出从某一日期开始的所有提交记录" class="headerlink" title="1. 列出从某一日期开始的所有提交记录"></a>1. <strong>列出从某一日期开始的所有提交记录</strong></h3><p>首先，你可以使用 <code>git log</code> 命令来列出从某一日期开始的所有提交记录。这些提交记录会包含文件的变更信息。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;YYYY-MM-DD&quot;</span> --pretty=format:<span class="string">&quot;%h %s&quot;</span> --name-only</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>--since=&quot;YYYY-MM-DD&quot;</code>: 设定起始日期。</li>
+<li><code>--pretty=format:&quot;%h %s&quot;</code>: 以提交的简短哈希和提交信息的形式输出日志。</li>
+<li><code>--name-only</code>: 仅显示文件名，不显示详细的内容变更。</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;2024-01-01&quot;</span> --pretty=format:<span class="string">&quot;%h %s&quot;</span> --name-only</span><br></pre></td></tr></table></figure></div>
+
+<p>这会列出从 2024 年 1 月 1 日以来的所有提交记录，并显示涉及的文件。</p>
+<h3 id="2-列出从某一日期开始的文件变更记录"><a href="#2-列出从某一日期开始的文件变更记录" class="headerlink" title="2. 列出从某一日期开始的文件变更记录"></a>2. <strong>列出从某一日期开始的文件变更记录</strong></h3><p>如果你想要查看从某一日期开始每个文件的变更情况，可以使用以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;YYYY-MM-DD&quot;</span> --name-only --pretty=format:<span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>--pretty=format:&quot;&quot;</code>: 只显示文件名，不显示提交信息。</li>
+</ul>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;2024-01-01&quot;</span> --name-only --pretty=format:<span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3-查看从某一日期开始的每个文件的详细变更信息"><a href="#3-查看从某一日期开始的每个文件的详细变更信息" class="headerlink" title="3. 查看从某一日期开始的每个文件的详细变更信息"></a>3. <strong>查看从某一日期开始的每个文件的详细变更信息</strong></h3><p>如果你想要查看从某一日期开始的每个文件的详细变更信息，可以使用以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;YYYY-MM-DD&quot;</span> --<span class="built_in">stat</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>--stat</code>: 显示每次提交中修改的文件以及更改的行数。</li>
+</ul>
+<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;2024-01-01&quot;</span> --<span class="built_in">stat</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="4-查看从某一日期开始的每个文件的变更内容"><a href="#4-查看从某一日期开始的每个文件的变更内容" class="headerlink" title="4. 查看从某一日期开始的每个文件的变更内容"></a>4. <strong>查看从某一日期开始的每个文件的变更内容</strong></h3><p>如果你需要查看从某一日期开始的每个文件的实际变更内容，可以使用以下命令：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;YYYY-MM-DD&quot;</span> -p</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>-p</code>: 显示每个提交的差异。</li>
+</ul>
+<h3 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;2024-01-01&quot;</span> -p</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="5-查看从某一日期开始的所有变更文件及其详细信息"><a href="#5-查看从某一日期开始的所有变更文件及其详细信息" class="headerlink" title="5. 查看从某一日期开始的所有变更文件及其详细信息"></a>5. <strong>查看从某一日期开始的所有变更文件及其详细信息</strong></h3><p>结合 <code>grep</code> 命令，可以筛选出从某一日期开始的文件并查看详细的变更信息：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;YYYY-MM-DD&quot;</span> --name-only | grep -v <span class="string">&#x27;^$&#x27;</span> | xargs -I &#123;&#125; git <span class="built_in">log</span> --since=<span class="string">&quot;YYYY-MM-DD&quot;</span> --oneline -- &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>grep -v &#39;^$&#39;</code>: 去除空行。</li>
+<li><code>xargs -I &#123;&#125; git log --since=&quot;YYYY-MM-DD&quot; --oneline -- &#123;&#125;</code>: 对每个文件显示从该日期开始的提交记录。</li>
+</ul>
+<h3 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;2024-01-01&quot;</span> --name-only | grep -v <span class="string">&#x27;^$&#x27;</span> | xargs -I &#123;&#125; git <span class="built_in">log</span> --since=<span class="string">&quot;2024-01-01&quot;</span> --oneline -- &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="6-列出某一日期之后每个文件的所有变更记录"><a href="#6-列出某一日期之后每个文件的所有变更记录" class="headerlink" title="6. 列出某一日期之后每个文件的所有变更记录"></a>6. <strong>列出某一日期之后每个文件的所有变更记录</strong></h3><p>你可以使用 <code>git diff</code> 命令来比较某一日期之前和之后的所有变更记录：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git diff --name-only $(git rev-list -n 1 --before=<span class="string">&quot;YYYY-MM-DD&quot;</span> master) HEAD</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li><code>$(git rev-list -n 1 --before=&quot;YYYY-MM-DD&quot; master)</code>: 获取指定日期之前的最后一次提交的哈希值。</li>
+<li><code>HEAD</code>: 当前最新提交的哈希值。</li>
+</ul>
+<h3 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git diff --name-only $(git rev-list -n 1 --before=<span class="string">&quot;2024-01-01&quot;</span> master) HEAD</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="7-查看从某一日期开始的所有文件变更记录（包含每个提交的文件变更内容）"><a href="#7-查看从某一日期开始的所有文件变更记录（包含每个提交的文件变更内容）" class="headerlink" title="7. 查看从某一日期开始的所有文件变更记录（包含每个提交的文件变更内容）"></a>7. <strong>查看从某一日期开始的所有文件变更记录（包含每个提交的文件变更内容）</strong></h3><p>你还可以结合 <code>grep</code> 和 <code>awk</code> 命令来提取从某一日期开始的文件变更记录及其详细内容：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;YYYY-MM-DD&quot;</span> --pretty=format:<span class="string">&quot;%h %s&quot;</span> --name-only | awk <span class="string">&#x27;NF&#123;print $0&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="示例-6"><a href="#示例-6" class="headerlink" title="示例"></a>示例</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span> --since=<span class="string">&quot;2024-01-01&quot;</span> --pretty=format:<span class="string">&quot;%h %s&quot;</span> --name-only | awk <span class="string">&#x27;NF&#123;print $0&#125;&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li><a class="link"   href="https://git-scm.com/docs/git-log" >Git log Documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://git-scm.com/docs/git-diff" >Git Diff Documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://git-scm.com/docs/git-rev-list" >Git Rev-list Documentation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://git-scm.com/docs/git-log#git-log--stat" >Git Log –stat Option <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>通过这些命令，你可以根据需求查看从特定日期开始的文件变更记录，并对其进行深入分析。如果有其他具体需求，可以进一步定制这些命令来满足你的要求。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
 </search>
