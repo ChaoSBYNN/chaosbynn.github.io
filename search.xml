@@ -204,7 +204,7 @@
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_04_15_0.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_04_15_0.png"
                      
                 ></p>
 ]]></content>
@@ -322,13 +322,13 @@
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/git/git1.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git/git1.png"
                       alt="配置"
                 ><figcaption>配置</figcaption></figure></p>
 <h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/git/git2.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git/git2.png"
                       alt="效果图"
                 ><figcaption>效果图</figcaption></figure></p>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="ANSI-颜色编码"><a href="#ANSI-颜色编码" class="headerlink" title="ANSI 颜色编码"></a>ANSI 颜色编码</h3><ul>
@@ -419,20 +419,20 @@
 <div class="tabs" id="tab-setup版本"><ul class="nav-tabs"><li class="tab active"><a class="#setup版本-1">新版Idea</a></li><li class="tab"><a class="#setup版本-2">旧版Idea</a></li></ul><div class="tab-content"><div class="tab-pane active" id="setup版本-1"><p>新版 <code>File</code> -&gt; <code>New Projects Setup</code> -&gt; <code>Settings for New Projects</code><br><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/maven/new-version-maven.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/maven/new-version-maven.png"
                       alt="New Setup"
                 ><figcaption>New Setup</figcaption></figure></p></div><div class="tab-pane" id="setup版本-2"><p>旧版 <code>File</code> -&gt; <code>Other Settings</code> -&gt; <code>Settings for New Projects</code></p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/maven/old-version-maven.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/maven/old-version-maven.png"
                       alt="Old Setup"
                 ><figcaption>Old Setup</figcaption></figure></p></div></div></div>
 
 <p>搜索 <code>mvn</code> 或 <code>Build, Execution, Deployment</code> -&gt; <code>Build Tools</code> -&gt; <code>Maven</code><br><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/maven/maven-settings.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/maven/maven-settings.png"
                       alt="Settings"
                 ><figcaption>Settings</figcaption></figure></p>
 ]]></content>
@@ -822,7 +822,7 @@ cond2(yes)->e</pre>
 <blockquote>
 <p>Error&#x3D;more code^2</p>
 </blockquote>
-<h2 id="4-如何优化"><a href="#4-如何优化" class="headerlink" title="4 如何优化"></a>4 如何优化</h2><h2 id="5-如何思考"><a href="#5-如何思考" class="headerlink" title="5 如何思考"></a>5 如何思考</h2><h2 id="6-如何避免陷入-牛角尖、瓶颈、自大、自卑、思维僵化"><a href="#6-如何避免陷入-牛角尖、瓶颈、自大、自卑、思维僵化" class="headerlink" title="6 如何避免陷入(牛角尖、瓶颈、自大、自卑、思维僵化)"></a>6 如何避免陷入(牛角尖、瓶颈、自大、自卑、思维僵化)</h2><video id="video" controls="" loop="loop" autoplay="autoplay" src="/images/2021-04-23-0.mp4" />
+<h2 id="4-如何优化"><a href="#4-如何优化" class="headerlink" title="4 如何优化"></a>4 如何优化</h2><h2 id="5-如何思考"><a href="#5-如何思考" class="headerlink" title="5 如何思考"></a>5 如何思考</h2><h2 id="6-如何避免陷入-牛角尖、瓶颈、自大、自卑、思维僵化"><a href="#6-如何避免陷入-牛角尖、瓶颈、自大、自卑、思维僵化" class="headerlink" title="6 如何避免陷入(牛角尖、瓶颈、自大、自卑、思维僵化)"></a>6 如何避免陷入(牛角尖、瓶颈、自大、自卑、思维僵化)</h2><video id="video" controls="" loop="loop" autoplay="autoplay" src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2021-04-23-0.mp4" />
 
 
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><div id="refer-anchor-1"></div>
@@ -899,7 +899,7 @@ cond2(yes)->e</pre>
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_27_1.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_27_1.jpg"
                      
                 ></p>
 <h5 id="第二步：新建MySQL所需要的目录"><a href="#第二步：新建MySQL所需要的目录" class="headerlink" title="第二步：新建MySQL所需要的目录"></a>第二步：新建MySQL所需要的目录</h5><p>新建mysql安装目录 </p>
@@ -925,7 +925,7 @@ cond2(yes)->e</pre>
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_27_2.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_27_2.jpg"
                      
                 > </p>
 <h3 id="安装MySQL后设置"><a href="#安装MySQL后设置" class="headerlink" title="安装MySQL后设置"></a>安装MySQL后设置</h3><h5 id="第一步：修改mysql目录属组"><a href="#第一步：修改mysql目录属组" class="headerlink" title="第一步：修改mysql目录属组"></a>第一步：修改mysql目录属组</h5><p>修改mysql安装目录</p>
@@ -957,7 +957,7 @@ cond2(yes)->e</pre>
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_27_3.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_27_3.jpg"
                      
                 > </p>
 <h5 id="第六步：检查mysql服务是否启动"><a href="#第六步：检查mysql服务是否启动" class="headerlink" title="第六步：检查mysql服务是否启动"></a>第六步：检查mysql服务是否启动</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">netstat -tulnp | grep 3306   </span><br></pre></td></tr></table></figure></div>
@@ -965,7 +965,7 @@ cond2(yes)->e</pre>
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_27_4.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_27_4.jpg"
                      
                 ></p>
 <p>到此服务器mysql已经安装并已经启动，接下来修改MySQL用户root的密码，登录测试</p>
@@ -974,7 +974,7 @@ cond2(yes)->e</pre>
 <h5 id="第七步：mysql命令登录测试"><a href="#第七步：mysql命令登录测试" class="headerlink" title="第七步：mysql命令登录测试"></a>第七步：mysql命令登录测试</h5><p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_27_5.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_27_5.jpg"
                      
                 > </p>
 <p>mysql安装完毕，成功登录</p>
@@ -991,7 +991,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_01.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_01.jpg"
                      
                 ></p>
 <h3 id="第二步-将tomcat移动放置到-usr-local-目录下"><a href="#第二步-将tomcat移动放置到-usr-local-目录下" class="headerlink" title="第二步 将tomcat移动放置到 &#x2F;usr&#x2F;local&#x2F; 目录下"></a>第二步 将tomcat移动放置到 &#x2F;usr&#x2F;local&#x2F; 目录下</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mv</span> apache-tomcat-*.*.**.tar.gz /usr/local/</span><br></pre></td></tr></table></figure></div>
@@ -1000,7 +1000,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_02.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_02.jpg"
                      
                 ></p>
 <h3 id="第四步-设置tomcat开机自启动，"><a href="#第四步-设置tomcat开机自启动，" class="headerlink" title="第四步 设置tomcat开机自启动，"></a>第四步 设置tomcat开机自启动，</h3><p>编辑&#x2F;usr&#x2F;local&#x2F;apache-tomcat-<em>.</em>.**.tar.gz&#x2F;bin&#x2F;startup.sh</p>
@@ -1009,7 +1009,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_03.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_03.jpg"
                      
                 ></p>
 <p>添加</p>
@@ -1018,7 +1018,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_04.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_04.jpg"
                      
                 ></p>
 <p>编辑&#x2F;usr&#x2F;local&#x2F;apache-tomcat-<em>.</em>.**&#x2F;bin&#x2F;catalina.sh</p>
@@ -1027,7 +1027,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_05.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_05.jpg"
                      
                 ></p>
 <p>搜索export关键字，加入如下行：</p>
@@ -1036,7 +1036,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_06.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_06.jpg"
                      
                 ></p>
 <p>将tomcat加入开机自启动</p>
@@ -1045,7 +1045,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_07.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_07.jpg"
                      
                 ></p>
 <p>加入如下内容：</p>
@@ -1054,7 +1054,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_08.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_08.jpg"
                      
                 ></p>
 <h3 id="第五步-测试Tomcat运行"><a href="#第五步-测试Tomcat运行" class="headerlink" title="第五步 测试Tomcat运行"></a>第五步 测试Tomcat运行</h3><p>执行</p>
@@ -1065,7 +1065,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_09.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_09.jpg"
                      
                 > </p>
 <p>执行</p>
@@ -1084,7 +1084,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_10.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_10.jpg"
                      
                 ></p>
 <p>重启tomcat生效。</p>
@@ -1092,7 +1092,7 @@ cond2(yes)->e</pre>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_26_11.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_26_11.jpg"
                      
                 ></p>
 <p>tomcat安装完毕。</p>
@@ -2991,7 +2991,7 @@ rm -i /test/file1
     <content><![CDATA[<p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/code/code1.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/code/code1.png"
                      
                 ></p>
 <blockquote>
@@ -3567,7 +3567,7 @@ rm -i /test/file1
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_24_01.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017_02_24_01.png"
                      
                 ></p>
 <p>前几年多玩的一个朋友内推我，后来因为老婆（那会是女朋友）的脸色，没去成，那时多玩还没上市。她说，好端端地，不要去做游戏毒害别人。我也玩游戏，我对游戏不存在偏见，也不抗拒，正是因为我也玩游戏，我深切地体会到，游戏无法给我们的人生带来多少积极的影响。我们用有限的生命时间去博无限的游戏时间，是很不值得的一件事。</p>
@@ -3575,7 +3575,7 @@ rm -i /test/file1
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_02_24_02.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017_02_24_02.jpg"
                      
                 ></p>
 <p>这不是一个好的现象。屌丝们虽然会因为游戏而快乐，但到头来时间、精力还有金钱都被游戏消耗太多，以至于一事难成。大部分人是缺乏远见的，一个常见的例子就是，现在给你100块，和明年给你500块，二选一，绝大部分人会选择前者。贪图眼前的小利而看不到未来是人类的本能。比如贪图一时游戏的快乐，而忘了有更重要的事去做。而互联网，则是人类欲望的集合点。互联网经济大部分都是建立在人类的欲望之上的：</p>
@@ -3940,7 +3940,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_05_1.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_05_1.jpg"
                      
                 ></p>
 ]]></content>
@@ -4172,7 +4172,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_07_1.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_07_1.jpg"
                      
                 ></p>
 <p>在这种情况下边缘加粗的几个数据点就叫做 <strong>Support Vector</strong>。</p>
@@ -4182,14 +4182,14 @@ a postriori 一个后验 使用结果作为条件检测
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_07_3.gif"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_07_3.gif"
                      
                 ></p>
 <p>核函数的价值在于它虽然也是将特征进行从低维到高维的转换，但核函数事先在低维上进行计算，而将实质上的分类效果表现在了高维上，避免了直接在高维空间中的复杂计算。</p>
 <h1 id="常见分类模型"><a href="#常见分类模型" class="headerlink" title="常见分类模型"></a>常见分类模型</h1><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_07_2.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_07_2.png"
                      
                 ></p>
 ]]></content>
@@ -4235,7 +4235,7 @@ a postriori 一个后验 使用结果作为条件检测
 <h1 id="Spark生态系统"><a href="#Spark生态系统" class="headerlink" title="Spark生态系统"></a>Spark生态系统</h1><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_21_1.bmp"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_21_1.bmp"
                      
                 ></p>
 <ol>
@@ -4319,7 +4319,7 @@ a postriori 一个后验 使用结果作为条件检测
 <h1 id="Spark运行流程"><a href="#Spark运行流程" class="headerlink" title="Spark运行流程"></a>Spark运行流程</h1><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_21_2.bmp"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_21_2.bmp"
                      
                 ></p>
 <ol>
@@ -4522,7 +4522,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_04_1.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_04_1.png"
                      
                 ></p>
 <blockquote>
@@ -4531,7 +4531,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/images/2017_03_04_2.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_04_2.png"
                      
                 ></p>
 <h1 id="欠拟合"><a href="#欠拟合" class="headerlink" title="欠拟合"></a>欠拟合</h1><blockquote>
@@ -4597,7 +4597,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%5Cimages%5C2017_03_01_1.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_01_1.jpg"
                      
                 ></p>
 <h1 id="离散随机变量"><a href="#离散随机变量" class="headerlink" title="离散随机变量"></a>离散随机变量</h1><p>在连续掷两次硬币的例子中，样本空间为:</p>
@@ -4640,7 +4640,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%5Cimages%5C2017_03_01_2.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_01_2.png"
                      
                 ></p>
 <p>如果样本空间中的每个结果等概率，那么随机变量取值可能性为:</p>
@@ -4678,7 +4678,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%5Cimages%5C2017_03_01_3.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_01_3.png"
                      
                 ></p>
 <p>这样的累积分布函数似乎并不比概率质量函数来得方便。但在后面，我们会很快看到它的优势。即它可以同时用于离散随机变量和连续随机变量。</p>
@@ -4695,7 +4695,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%5Cimages%5C2017_03_01_4.jpg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_01_4.jpg"
                      
                 ></p>
 <p> 观察一个很简单的连续随机分布。假设我们有一个随机数生成器，产生一个从0到1的实数，每个实数出现的概率相等。这样的一个分布被称为	**均匀分布(uniform distribution)**。直觉告诉我们，相同长度的每一段区间，对应的概率都相同。由此，[0, 0.5]是整个区间的一半，概率为1&#x2F;2。对于均匀分布来说，概率正好和区间长度这一测度等同。</p>
@@ -4731,7 +4731,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%5Cimages%5C2017_03_01_5.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_01_5.png"
                      
                 ></p>
 <p>借用“无穷小”的概念，我们可以构建	<strong>概率密度函数(PDF，probability density function)</strong>	。粗糙的讲，我们在某个点附近取一个“无穷小”段，该小段的区间长度为dx，而这个“无穷小”段对应的概率为dF，那么该点的概率密度为dF&#x2F;dx。这实际上是微积分的领域。</p>
@@ -4772,7 +4772,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p> <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="/%5Cimages%5C2017_03_01_6.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_01_6.png"
                      
                 ></p>
 <p>对一个函数的积分，获得的是该函数曲线下的面积。因此，<strong>密度曲线下某个区间的面积</strong>，就是密度概率函数的积分，代表了随机变量在该区间的概率。概率密度函数就可以非常直观的通过“面积”，来表示概率的大小。</p>
@@ -5496,7 +5496,7 @@ a postriori 一个后验 使用结果作为条件检测
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070708.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/20240714150007.png"
                       alt="黑白"
                 ><figcaption>黑白</figcaption></figure></p>
 <h2 id="女性摄影"><a href="#女性摄影" class="headerlink" title="女性摄影"></a>女性摄影</h2><p>女性摄影是指以女性和女性社群为主要拍摄对象的摄影风格，它注重女性在身体、社会和文化中的角色和地位。</p>
@@ -5983,6 +5983,233 @@ a postriori 一个后验 使用结果作为条件检测
       </categories>
       <tags>
         <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影 构图 艺术</title>
+    <url>/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%89%BA%E6%9C%AF/</url>
+    <content><![CDATA[<h2 id="艺术形式"><a href="#艺术形式" class="headerlink" title="艺术形式"></a>艺术形式</h2><blockquote>
+<p>艺术的形式也是不断变化的。<sup>1.1.2</sup></p>
+</blockquote>
+<p>为什么一件作品可以称为艺术品，而在许多方面都和它相似的另一件却不是?</p>
+<ol>
+<li>艺术和自然的异同</li>
+<li>视觉形象思维和文字概念的区别</li>
+<li>艺术和手艺的关系</li>
+</ol>
+<h2 id="艺术与自然描绘"><a href="#艺术与自然描绘" class="headerlink" title="艺术与自然描绘"></a>艺术与自然描绘</h2><blockquote>
+<p>艺术家们摆脱了如实记录的重担以后，便转而探索艺术的更本质的特征。</p>
+</blockquote>
+<blockquote>
+<p>自然界有它本身的美，并不在于人们是否去捕捉这些美。</p>
+</blockquote>
+<blockquote>
+<p>无论是剪裁遮挡还是增添什么景物都无法弥补拍摄时所缺乏的东西——那就是题材固有美之外摄影家心目中所认识所发现的美的因素。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_1.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_2.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>摄影者头脑中富有生动的艺术构思, 那么即使看起并不没得自然景色,人和物也能拍成很好的佳作.</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_3.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="艺术与抽象的视觉美点"><a href="#艺术与抽象的视觉美点" class="headerlink" title="艺术与抽象的视觉美点"></a>艺术与抽象的视觉美点</h2><blockquote>
+<p>问题的关键是，艺术效果完全取决于艺术家是否从这个题材中发现了和感觉到了抽象的视觉美点，以及处理它们的能力；经过这番处理观众才能看到艺术家曾经看到过的东西，激发出和艺术家同样的感情。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_4.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<blockquote>
+<p>虽然有时候照片里看到的东西难以解释，简直象是魔术一样，但有许多东西仍然是可以弄清楚的。有些摄影家生来就是很敏感，他们能在看来无所作为的地方一下子发现奇迹。有些人需要经过一番启发才能认识潜在的视觉因素。然后也能不太费事地发现它们。大多数人则必需给以系统的教育，提高他们认识视觉美点的敏感性，用这种方法培养他们的辨别能力。</p>
+</blockquote>
+<h2 id="构图-从混乱中找出秩序"><a href="#构图-从混乱中找出秩序" class="headerlink" title="构图 从混乱中找出秩序"></a>构图 从混乱中找出秩序</h2><blockquote>
+<p>构图是一个思维过程，它从自然存在的混乱事物中找出秩序；</p>
+</blockquote>
+<blockquote>
+<p>通过构图，摄影家澄清了他要表达的信息，把观众的注意力引向他发现的那些最重要有趣的要素。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>构图</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影 构图 形状</title>
+    <url>/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E5%BD%A2%E7%8A%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>在构图的所有要素中，形状可能是一个最基本的要素。相当多的摄影杰作之所以获得成功，或者是凭它单个物体的形状具有戏剧性的效果，或者是依靠几个物体的形状微妙地相互作用；所以我们很容易得出这样的结论：只有形状才是构图的基本要素。<br>另一方面，在许多优秀照片中，物体的形状却又无关紧要。在艺术上这类问题经常出现，它和手工技艺不同，并没有什行固定标准可言。经常是一旦发现某一原理至关重要，就会有人出来雄辩地证明说，艺术创作本来可以不要那个原理，甚至可以和它背道而驰。</p>
+</blockquote>
+<p>从圆开始:</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144131.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在摄影时，这个圆形可能是一个硬币，一个球，一块圆饼或是一只盘子。</p>
+<p>生活中不存在孤立的物体，我们所遇到的，看到的和感受到的每件物体都和其它物体相互联系而存在。<br>如果我们在这个圆形(硬币或馅饼)的四周加个边框，由于和边框的相对位置发生了变化，它便呈现出不同的视觉效果。虽然下面图例中的边框都是一般照片通用的矩形，但它们所包容的物体形状可以各不相同。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144241.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>边框所包容的空间叫作画面。<br>画面里的形状或物体叫图形。</p>
+<h2 id="画面和图形的相互关系"><a href="#画面和图形的相互关系" class="headerlink" title="画面和图形的相互关系"></a>画面和图形的相互关系</h2><p>只要图形一进入画面，就会出现形状设计中第三个极其重要的要素，即背景空间。这个第三要素与前两个要素——图形与画面一样，也是一个不可忽视的积极因素。在下边的例子中，较暗的区域就是背景空间。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144327.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>如果我们利用同一图形和画面，只是把图形放在画面的不同位置上，使背景空间发生变化，我们就能清楚看出背景空间的重要性。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144357.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>图形在画面上稍一移动，背景空间的形状也就随之改变，从而影响了构图。这种影响虽然不易察觉，但起的作用却相当巨大。</p>
+<p>摄影者往往只把注意力集中在图形上而忽略了画面。这是由于他们只能买到固定尺寸的底片和相纸，所以有一定的局限性。下面是用同一个简单的圆形所构成的不同画面。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144428.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>画面每变化一次所形成的对圆形的包围圈就不相同，给人的视觉感受也不同，而且也使背景空间的形状截然不同。</p>
+<p>通过控制光线，我们可以:</p>
+<ol>
+<li>强调圆形物体的轮廓<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144530.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>通过布光，在一侧投出影子，以强调它的立体感。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144538.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调轮廓的不规则性。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144550.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调轮廓的圆滑。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144723.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调圆形和画面之间的明暗对比。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144730.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调表面的图案或质感。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144744.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+</ol>
+<p>根据拍摄对象的色调和我们希望强调的程度，上述各种安排可作如下的变化:</p>
+<ol>
+<li>亮调物体衬在暗调的背景上。</li>
+<li>亮调物体衬在中等色调的背景上。</li>
+<li>中等色调的物体衬在亮调的背景上。</li>
+<li>中等色调的物体衬在暗调的背景上。</li>
+<li>暗调物体衬在亮调的背景上。</li>
+<li>暗调物体衬在中等色调的背景上。</li>
+</ol>
+<p>改变画面中的图形的大小，还可以获得更多的变化形式。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144756.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在摄影中，任何一个要素如果离开其它要素，都不可能得到充分的表现。<br>色调、质感和大小三者相互作用极为重要，不得稍有偏废。<br>在下面的讨论中，我们的确稍有侧重，但我们的目的不过是为了对那些引起视觉兴趣的物征集中地分别进行研究而已。<br>通过这种方法，我们可以深入理解这个原理并提高视觉的洞察力。<br>现在，摄影者不妨选择一些圆形物体并给以照明，使它们发生有趣的变化。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144836.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144843.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144854.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144901.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>把相机凑近圆形物体所在高度的平面,拍摄其透视图并观察其结果。这样拍出来的是个椭圆形，它和圆形还有相似之处，然而它的图形设计特点却显著不同了。</p>
+<p>一个圆形没有特殊的方向性，但是椭圆或它的同族——卵形却有一个长轴，这个长轴赋予图形本身一种特殊的方向感。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144902.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>把这种图形放在画面里，如果改变图形的方向，就能使背景空间发生显著的变化，从而加强了方向变化的效果。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714145009.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在人工制造的和自然存在的物体中，人们常常发现含一个直边（或两个直边）的弓形。这些弓形使形状变化和方向变化更加多样化，从而有可能设计出更多，更有趣的背景空间。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714145033.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>这还可以使方向变化的效果更为强烈。请比较下面两个图形的视觉效果。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714145053.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2>]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>构图</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
       </tags>
   </entry>
 </search>
