@@ -6671,4 +6671,164 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>HTTP</tag>
       </tags>
   </entry>
+  <entry>
+    <title>WebP intro</title>
+    <url>/2024/07/17/WebP-intro/</url>
+    <content><![CDATA[<p>WebP 是一种现代图片格式，可为网络上的图片提供出色的无损和有损压缩。使用 WebP，网站站长和 Web 开发者可以创建更小、更丰富的图片，从而提高网页加载速度。</p>
+<p>与 PNG 相比，WebP 无损图片的尺寸**缩小了 26%<strong>。WebP 有损图片比采用等效 <strong>SSIM</strong> 质量指数的同等 JPEG 图片</strong>小 25-34%**。</p>
+<p>无损 WebP 支持透明度（也称为 Alpha 通道），但只需<strong>额外增加 22% 的字节</strong>。对于可以接受有损 RGB 压缩的情况，有损 WebP 也支持透明度，其文件大小通常比 PNG 小 3 倍。</p>
+<p>动画 WebP 图片支持有损、无损和透明度，与 GIF 和 APNG 相比，此类图片可缩减大小。</p>
+<ul>
+<li><a class="link"   href="https://developers.google.com/speed/webp/faq?hl=zh-cn#how_can_i_detect_browser_support_for_webp" >面向网站站长的更多信息 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="WebP-的关键特点"><a href="#WebP-的关键特点" class="headerlink" title="WebP 的关键特点"></a>WebP 的关键特点</h2><ol>
+<li>高效的图像压缩<ul>
+<li>有损压缩：WebP 的有损压缩使用现代的压缩算法，通常可以比 JPEG 更小的文件尺寸来保持类似的图像质量。</li>
+<li>无损压缩：WebP 的无损压缩算法通常比 PNG 更高效，能够在不损失图像质量的情况下减少文件大小。</li>
+<li>动图支持：WebP 可以用于创建动画图像，类似于 GIF，但文件大小通常比 GIF 小得多。</li>
+</ul>
+</li>
+<li>高质量的图像<ul>
+<li>支持透明度：WebP 支持 alpha 通道，允许图像具有透明区域，类似于 PNG。</li>
+<li>丰富的颜色支持：WebP 支持 24 位 RGB 颜色和 8 位 alpha 通道。</li>
+</ul>
+</li>
+<li>现代的图像格式<ul>
+<li>支持现代技术：WebP 支持先进的图像压缩技术，如预测编码和变换编码。</li>
+<li>较小的文件大小：通常情况下，WebP 文件比 JPEG、PNG 和 GIF 小 30% 左右。</li>
+</ul>
+</li>
+</ol>
+<h2 id="WebP-与其他图像格式的对比"><a href="#WebP-与其他图像格式的对比" class="headerlink" title="WebP 与其他图像格式的对比"></a>WebP 与其他图像格式的对比</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>WebP</th>
+<th>JPEG</th>
+<th>PNG</th>
+<th>GIF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>压缩类型</strong></td>
+<td>有损 &#x2F; 无损</td>
+<td>有损</td>
+<td>无损</td>
+<td>有损 &#x2F; 动画</td>
+</tr>
+<tr>
+<td><strong>文件大小</strong></td>
+<td>较小</td>
+<td>较大</td>
+<td>较大</td>
+<td>较大 &#x2F; 动画大</td>
+</tr>
+<tr>
+<td><strong>透明度</strong></td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td><strong>动画</strong></td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><strong>质量</strong></td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h2 id="WebP-的应用场景"><a href="#WebP-的应用场景" class="headerlink" title="WebP 的应用场景"></a>WebP 的应用场景</h2><ul>
+<li><strong>网页优化</strong>：WebP 的高压缩率使其在网页设计中非常有用，可以减少页面加载时间，提高用户体验。</li>
+<li><strong>移动应用</strong>：在移动应用中使用 WebP 可以减少数据传输量，优化应用性能。</li>
+<li><strong>动态图像</strong>：WebP 的动画功能使其成为 GIF 的一个高效替代品。</li>
+</ul>
+<h2 id="WebP-的工具和库"><a href="#WebP-的工具和库" class="headerlink" title="WebP 的工具和库"></a>WebP 的工具和库</h2><h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a><strong>工具</strong></h3><ul>
+<li>**<a class="link"   href="https://developers.google.com/speed/webp/docs/cwebp" >cwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：将图像转换为 WebP 格式的命令行工具。</li>
+<li>**<a class="link"   href="https://developers.google.com/speed/webp/docs/dwebp" >dwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：将 WebP 图像转换为其他格式的命令行工具。</li>
+<li>**<a class="link"   href="https://developers.google.com/speed/webp/download" >WebPShop <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：适用于 Photoshop 的 WebP 插件。</li>
+</ul>
+<h3 id="库"><a href="#库" class="headerlink" title="库"></a><strong>库</strong></h3><ul>
+<li>**<a class="link"   href="https://github.com/webmproject/libwebp" >WebP 官方库 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：支持 WebP 图像格式的开源库，包含编码和解码功能。</li>
+<li>**<a class="link"   href="https://imagemagick.org/" >ImageMagick <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：支持 WebP 格式的图像处理库。</li>
+</ul>
+<h2 id="WebP-的工作原理"><a href="#WebP-的工作原理" class="headerlink" title="WebP 的工作原理"></a>WebP 的工作原理</h2><p>有损 WebP 压缩使用预测编码对图片进行编码，这与 VP8 视频编解码器压缩视频中的关键帧的方法相同。预测编码使用相邻像素块中的值来预测块中的值，然后仅对差值进行编码。</p>
+<p>无损 WebP 压缩使用已发现的图像片段来精确重建新像素。如果没有找到有趣的匹配项，它还可以使用本地调色板。</p>
+<ul>
+<li><a class="link"   href="https://developers.google.com/speed/webp/docs/compression?hl=zh-cn" >WebP 压缩技术详情 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>WebP 文件由 VP8 或 VP8L 图片数据以及一个基于 RIFF 的容器组成。独立的 libwebp 库可用作 WebP 规范的参考实现，可以从我们的 Git 代码库或 tarball 获取。</p>
+<h3 id="WebP-格式的技术细节"><a href="#WebP-格式的技术细节" class="headerlink" title="WebP 格式的技术细节"></a>WebP 格式的技术细节</h3><h4 id="1-有损压缩"><a href="#1-有损压缩" class="headerlink" title="1. 有损压缩"></a><strong>1. 有损压缩</strong></h4><p>WebP 的有损压缩基于 VP8 视频编解码器中的技术：</p>
+<ul>
+<li><strong>预测编码</strong>：使用邻近像素的颜色信息来预测当前像素的颜色。</li>
+<li><strong>变换编码</strong>：对像素数据进行离散余弦变换（DCT），以降低数据冗余。</li>
+</ul>
+<h4 id="2-无损压缩"><a href="#2-无损压缩" class="headerlink" title="2. 无损压缩"></a><strong>2. 无损压缩</strong></h4><p>WebP 的无损压缩技术基于 WebM 项目中的技术：</p>
+<ul>
+<li><strong>字典压缩</strong>：使用哈夫曼编码和算术编码技术来优化压缩效率。</li>
+<li><strong>透明度处理</strong>：支持 8 位的 alpha 通道来处理图像的透明部分。</li>
+</ul>
+<h4 id="3-动画功能"><a href="#3-动画功能" class="headerlink" title="3. 动画功能"></a><strong>3. 动画功能</strong></h4><p>WebP 的动画功能：</p>
+<ul>
+<li><strong>时间控制</strong>：支持设置帧的显示时间，以创建动画效果。</li>
+<li><strong>压缩优化</strong>：使用现代算法减少动画帧的重复数据。</li>
+</ul>
+<h2 id="WebP-支持"><a href="#WebP-支持" class="headerlink" title="WebP 支持"></a>WebP 支持</h2><p><code>Google Chrome</code> 、<code>Safari</code> 、<code>Firefox</code> 、<code>Edge</code> 、<code>Opera</code> 浏览器以及许多其他工具和软件库就原生支持 WebP。开发者还增加了对各种图片编辑工具的支持。</p>
+<p>WebP 包含轻量级编码和解码库 libwebp、用于将图片与 WebP 格式相互转换的命令行工具 cwebp 和 dwebp，以及用于查看 WebP 图片、对图片进行多路复用并为其添加动画效果的工具。完整的源代码可在下载页面找到。</p>
+<table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>支持情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Google Chrome</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Mozilla Firefox</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Safari</strong></td>
+<td>从 macOS 11 和 iOS 14 起支持</td>
+</tr>
+<tr>
+<td><strong>Microsoft Edge</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Opera</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Internet Explorer</strong></td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<h2 id="WebP-转换器下载"><a href="#WebP-转换器下载" class="headerlink" title="WebP 转换器下载"></a>WebP 转换器下载</h2><p>下载适用于 <a class="link"   href="https://developers.google.com/speed/webp/docs/precompiled?hl=zh-cn" >Linux、Windows 或 macOS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 的预编译 cwebp 转换工具，将您喜爱的图片集从 PNG 和 JPEG 格式转换为 WebP 格式。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link"   href="https://developers.google.com/speed/webp?hl=zh-cn" >一种适用于网络的图片格式 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://developers.google.com/speed/webp" >WebP 官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://developers.google.com/speed/webp/docs/tech" >WebP 技术详解 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://developers.google.com/speed/webp/download" >WebP 插件下载 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Tools</category>
+        <category>Image</category>
+      </categories>
+      <tags>
+        <tag>Image</tag>
+      </tags>
+  </entry>
 </search>
