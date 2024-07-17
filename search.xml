@@ -3333,19 +3333,13 @@ rm -i /test/file1
 <p>2007 年，SpringSource 从基准资本获得了 A 轮融资（1000万美元）。SpringSource 在此期间收购了多家公司，如Hyperic，G2One 等。2009年8月，SpringSource 以 4.2 亿美元被 VMWare 收购。SpringSource 在几周内收购了云代工厂，这是一家云 PaaS 提供商。2015 年，云代工厂转型成了非营利云代工厂。</p>
 <p>2009 年 12 月，Spring 3.0 发布。Spring 3.0 具有许多重要特性，如重组模块系统，支持 Spring 表达式语言，基于 Java 的 bean 配置（JavaConfig），支持嵌入式数据库（如 HSQL，H2 和 Derby），模型验证&#x2F; REST 支持和对 Java EE 的支持。</p>
 <p>2011 年和 2012 年发布了许多 3.x 系列的小版本。2012 年 7 月，Rod Johnson 离开了团队。</p>
-<pre class="mermaid">timeline
-    title Spring TL
-    2002 : 2002 年 10 月 : Rod Johnson 撰写《Expert One-on-One J2EE》一书，介绍了 Spring 框架的早期思想
-    2003 : 2003 年 2 月 : Juergen Hoeller 和 Yann Caroff 说服 Rod Johnson 创建一个基于基础结构代码的开源项目 : Yann 为新框架创造了“Spring”的名字
-    2004 : 2004 年 3 月 : Spring 1.0 版发布
-    2004 : 2004 年 8 月 : Rod Johnson、Juergen Hoeller、Keith Donald 和 Colin Sampaleanu 共同创立了一家专注于 Spring 咨询、培训和支持的公司 `interface21`
-    2006 : 2006 年 10 月 : Spring 2.0 发布
-    2007 : 2007 年 11 月 : Interface21 项目更名为 SpringSource
-    2009 : 2009 年 12 月 : Spring 3.0 发布
-    2011 : 2011 年 : 发布了许多 3.x 系列的小版本
-    2012 : 2012 年 7 月 : Rod Johnson 离开了团队
-    2014 : 2014 年 12 月 : Pivotal 宣布发布 Spring 4.0
-    2017 : 2017 年 09 月 : Spring 5.0 发布</pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/20240717130324.png"
+                     
+                ></p>
+<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">mermaid</span><br><span class="line">timeline</span><br><span class="line"><span class="code">    title Spring TL</span></span><br><span class="line"><span class="code">    2002 : 2002 年 10 月 : Rod Johnson 撰写《Expert One-on-One J2EE》一书，介绍了 Spring 框架的早期思想</span></span><br><span class="line"><span class="code">    2003 : 2003 年 2 月 : Juergen Hoeller 和 Yann Caroff 说服 Rod Johnson 创建一个基于基础结构代码的开源项目 : Yann 为新框架创造了“Spring”的名字</span></span><br><span class="line"><span class="code">    2004 : 2004 年 3 月 : Spring 1.0 版发布</span></span><br><span class="line"><span class="code">    2004 : 2004 年 8 月 : Rod Johnson、Juergen Hoeller、Keith Donald 和 Colin Sampaleanu 共同创立了一家专注于 Spring 咨询、培训和支持的公司 `interface21`</span></span><br><span class="line"><span class="code">    2006 : 2006 年 10 月 : Spring 2.0 发布</span></span><br><span class="line"><span class="code">    2007 : 2007 年 11 月 : Interface21 项目更名为 SpringSource</span></span><br><span class="line"><span class="code">    2009 : 2009 年 12 月 : Spring 3.0 发布</span></span><br><span class="line"><span class="code">    2011 : 2011 年 : 发布了许多 3.x 系列的小版本</span></span><br><span class="line"><span class="code">    2012 : 2012 年 7 月 : Rod Johnson 离开了团队</span></span><br><span class="line"><span class="code">    2014 : 2014 年 12 月 : Pivotal 宣布发布 Spring 4.0</span></span><br><span class="line"><span class="code">    2017 : 2017 年 09 月 : Spring 5.0 发布</span></span><br></pre></td></tr></table></figure></div>
 
 <h3 id="Spring-Boot诞生"><a href="#Spring-Boot诞生" class="headerlink" title="Spring Boot诞生"></a>Spring Boot诞生</h3><p>2012 年 10 月，Mike Youngstrom 在 Spring jira 中创建了一个功能请求 ， 要求在 Spring 框架中支持无容器 Web 应用程序体系结构。他谈到了在主容器引导 spring 容器内配置 Web 容器服务。（画重点，Spring Boot 的苗头发生了）</p>
 <p>2013 年 4月，VMware 和 EMC 通过 GE 投资创建了一家名为 Pivotal 的合资企业。所有的 Spring 应用项目都转移到了 Pivotal。</p>
@@ -3357,21 +3351,15 @@ rm -i /test/file1
 <p>2017年2月，Spring Boot 1.5 支持 kafka &#x2F; ldap，第三方库升级，弃用 CRaSH 支持和执行器记录器端点以动态修改应用程序日志级别。</p>
 <p>2014 年至 2017 年期间发布了许多 Spring 框架 4.xx 系列版本。Spring 4.3.8 于 2017 年 4 月发布，并成为 4.x 系列中的最后一个。</p>
 <p>2018 年 03 月，Spring Boot 2.0 基于 Java 8，支持 Java 9，支持 Quartz ，调度程序大大简化了安全自动配置，支持嵌入式 Netty。于此同时，Spring 5.0发布。</p>
-<pre class="mermaid">timeline
-    title Spring Boot TL
-    2012 : 2012 年 10 月 : Mike Youngstrom 在 Spring jira 中创建了一个功能请求 : Spring Boot 的苗头发生了
-    2013 : 2013 年 4月 : VMware 和 EMC 通过 GE 投资创建了一家名为 Pivotal 的合资企业。所有的 Spring 应用项目都转移到了 Pivotal
-    2013 : 2013 年 12 月 : Pivotal 宣布发布 Spring 框架 4.0
-    2014 : 2014 年 4 月 : Spring Boot 1.0.0 发布
-    2015 : 2015 年 3 月 : Spring Boot 1.2 发布
-    2016 : 2016 年 12 月 : Spring Boot 1.3 发布 : 同时 Spring 4.2 升级
-    2017 : 2017 年 1 月 : Spring Boot 1.4 支持 Couchbase / Neo4j
-    2017 : 2017 年 2 月 : Spring Boot 1.5 支持 Kafka / LDAP
-    2017 : 2017 年 4 月 : Spring 4.3.8 发布，并成为 4.x 系列中的最后一个
-    2018 : 2018 年 3 月 : Spring Boot 2.0 基于 Java 8，支持 Java 9，支持 Quartz : 同时 Spring 5.0 发布
-    2022 : 2022 年 11 月 : Spring Boot 3.0 支持 Java 17 : 升级到 Spring 6.0</pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/20240717130241.png"
+                     
+                ></p>
+<div class="highlight-container" data-rel="Markdown"><figure class="iseeu highlight markdown"><table><tr><td class="code"><pre><span class="line">mermaid</span><br><span class="line">timeline</span><br><span class="line"><span class="code">    title Spring Boot TL</span></span><br><span class="line"><span class="code">    2012 : 2012 年 10 月 : Mike Youngstrom 在 Spring jira 中创建了一个功能请求 : Spring Boot 的苗头发生了</span></span><br><span class="line"><span class="code">    2013 : 2013 年 4月 : VMware 和 EMC 通过 GE 投资创建了一家名为 Pivotal 的合资企业。所有的 Spring 应用项目都转移到了 Pivotal</span></span><br><span class="line"><span class="code">    2013 : 2013 年 12 月 : Pivotal 宣布发布 Spring 框架 4.0</span></span><br><span class="line"><span class="code">    2014 : 2014 年 4 月 : Spring Boot 1.0.0 发布</span></span><br><span class="line"><span class="code">    2015 : 2015 年 3 月 : Spring Boot 1.2 发布</span></span><br><span class="line"><span class="code">    2016 : 2016 年 12 月 : Spring Boot 1.3 发布 : 同时 Spring 4.2 升级</span></span><br><span class="line"><span class="code">    2017 : 2017 年 1 月 : Spring Boot 1.4 支持 Couchbase / Neo4j</span></span><br><span class="line"><span class="code">    2017 : 2017 年 2 月 : Spring Boot 1.5 支持 Kafka / LDAP</span></span><br><span class="line"><span class="code">    2017 : 2017 年 4 月 : Spring 4.3.8 发布，并成为 4.x 系列中的最后一个</span></span><br><span class="line"><span class="code">    2018 : 2018 年 3 月 : Spring Boot 2.0 基于 Java 8，支持 Java 9，支持 Quartz : 同时 Spring 5.0 发布</span></span><br><span class="line"><span class="code">    2022 : 2022 年 11 月 : Spring Boot 3.0 支持 Java 17 : 升级到 Spring 6.0</span></span><br></pre></td></tr></table></figure></div>
 
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a class="link"   href="https://www.jianshu.com/p/c3e57bb974f4" >Spring Boot - 01 Spring Boot的前世今生 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a class="link"   href="https://www.jianshu.com/p/c3e57bb974f4" >Spring Boot的前世今生 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
 ]]></content>
       <categories>
         <category>Program</category>
