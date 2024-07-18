@@ -65,6 +65,54 @@
       </tags>
   </entry>
   <entry>
+    <title>Elasticsearch(ES) 与 ClickHouse</title>
+    <url>/2024/07/09/Elasticsearch-ES-%E4%B8%8E-ClickHouse/</url>
+    <content><![CDATA[<blockquote>
+<p>Elasticsearch（ES）与 ClickHouse 都是优秀的数据存储和查询工具，但它们在适用场景和重点方面有所不同。具体来说，选择哪个工具更适合做业务数据查询取决于你的具体需求和业务情况。</p>
+</blockquote>
+<h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p><strong>适用场景：</strong></p>
+<ol>
+<li><p><strong>全文搜索和复杂查询：</strong> Elasticsearch 最初设计用于文本搜索，它支持复杂的全文搜索查询，包括文本分析、词条查询、短语查询等。</p>
+</li>
+<li><p><strong>实时数据分析和监控：</strong> Elasticsearch 能够处理实时更新的数据，并且提供了强大的实时数据分析和聚合能力，适合于日志分析、实时指标监控等场景。</p>
+</li>
+<li><p><strong>高可用性和扩展性：</strong> Elasticsearch 具备高可用性和水平扩展的能力，可以构建分布式集群处理大规模数据。</p>
+</li>
+<li><p><strong>复杂数据结构支持：</strong> 支持复杂的数据结构和嵌套文档，能够存储和查询复杂的业务对象。</p>
+</li>
+<li><p><strong>搜索结果排序和分数计算：</strong> Elasticsearch 能够根据文档的相关性得分进行搜索结果排序，适合需要精细控制搜索结果的场景。</p>
+</li>
+</ol>
+<h3 id="ClickHouse"><a href="#ClickHouse" class="headerlink" title="ClickHouse"></a>ClickHouse</h3><p><strong>适用场景：</strong></p>
+<ol>
+<li><p><strong>大规模数据分析和聚合：</strong> ClickHouse 是一个专门用于数据分析和聚合的列式存储数据库，特别擅长处理大量的数据集。</p>
+</li>
+<li><p><strong>高性能的聚合查询：</strong> ClickHouse 提供了非常高效的聚合查询能力，支持快速的汇总和统计操作，适合于大数据量的统计分析。</p>
+</li>
+<li><p><strong>低延迟的复杂查询：</strong> ClickHouse 能够在处理大数据量时保持低延迟，特别适合需要在大数据集上执行复杂查询的场景。</p>
+</li>
+<li><p><strong>存储效率和压缩：</strong> ClickHouse 使用列式存储，能够提供高效的存储和数据压缩，节约存储空间和提高查询性能。</p>
+</li>
+<li><p><strong>数据仓库和数据湖支持：</strong> ClickHouse 可以作为数据仓库或者数据湖的一部分，支持高效的数据仓库查询和数据湖分析。</p>
+</li>
+</ol>
+<h3 id="选择哪个工具？"><a href="#选择哪个工具？" class="headerlink" title="选择哪个工具？"></a>选择哪个工具？</h3><ul>
+<li><p><strong>如果你的主要需求是进行复杂的全文搜索、实时数据分析和监控，或者需要处理复杂的数据结构，那么 Elasticsearch 更适合。</strong></p>
+</li>
+<li><p><strong>如果你的主要需求是大规模的数据分析、高性能的聚合查询和低延迟的复杂查询，特别是在数据量非常大的情况下，那么 ClickHouse 更适合。</strong></p>
+</li>
+</ul>
+<h3 id="综合考虑"><a href="#综合考虑" class="headerlink" title="综合考虑"></a>综合考虑</h3><p>在一些场景中，Elasticsearch 和 ClickHouse 可以结合使用，利用它们各自的优势来解决不同层面的数据需求。例如，可以使用 Elasticsearch 进行实时数据的搜索和分析，同时将历史数据存储在 ClickHouse 中，用于大规模的数据分析和复杂的查询操作。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Data</category>
+      </categories>
+      <tags>
+        <tag>Data</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Do have faith in what you are doing All for a better world</title>
     <url>/2017/02/22/Do-have-faith-in-what-you-are-doing-All-for-a-better-world/</url>
     <content><![CDATA[<blockquote>
@@ -194,54 +242,6 @@
 ]]></content>
       <tags>
         <tag>转载</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Elasticsearch(ES) 与 ClickHouse</title>
-    <url>/2024/07/09/Elasticsearch-ES-%E4%B8%8E-ClickHouse/</url>
-    <content><![CDATA[<blockquote>
-<p>Elasticsearch（ES）与 ClickHouse 都是优秀的数据存储和查询工具，但它们在适用场景和重点方面有所不同。具体来说，选择哪个工具更适合做业务数据查询取决于你的具体需求和业务情况。</p>
-</blockquote>
-<h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p><strong>适用场景：</strong></p>
-<ol>
-<li><p><strong>全文搜索和复杂查询：</strong> Elasticsearch 最初设计用于文本搜索，它支持复杂的全文搜索查询，包括文本分析、词条查询、短语查询等。</p>
-</li>
-<li><p><strong>实时数据分析和监控：</strong> Elasticsearch 能够处理实时更新的数据，并且提供了强大的实时数据分析和聚合能力，适合于日志分析、实时指标监控等场景。</p>
-</li>
-<li><p><strong>高可用性和扩展性：</strong> Elasticsearch 具备高可用性和水平扩展的能力，可以构建分布式集群处理大规模数据。</p>
-</li>
-<li><p><strong>复杂数据结构支持：</strong> 支持复杂的数据结构和嵌套文档，能够存储和查询复杂的业务对象。</p>
-</li>
-<li><p><strong>搜索结果排序和分数计算：</strong> Elasticsearch 能够根据文档的相关性得分进行搜索结果排序，适合需要精细控制搜索结果的场景。</p>
-</li>
-</ol>
-<h3 id="ClickHouse"><a href="#ClickHouse" class="headerlink" title="ClickHouse"></a>ClickHouse</h3><p><strong>适用场景：</strong></p>
-<ol>
-<li><p><strong>大规模数据分析和聚合：</strong> ClickHouse 是一个专门用于数据分析和聚合的列式存储数据库，特别擅长处理大量的数据集。</p>
-</li>
-<li><p><strong>高性能的聚合查询：</strong> ClickHouse 提供了非常高效的聚合查询能力，支持快速的汇总和统计操作，适合于大数据量的统计分析。</p>
-</li>
-<li><p><strong>低延迟的复杂查询：</strong> ClickHouse 能够在处理大数据量时保持低延迟，特别适合需要在大数据集上执行复杂查询的场景。</p>
-</li>
-<li><p><strong>存储效率和压缩：</strong> ClickHouse 使用列式存储，能够提供高效的存储和数据压缩，节约存储空间和提高查询性能。</p>
-</li>
-<li><p><strong>数据仓库和数据湖支持：</strong> ClickHouse 可以作为数据仓库或者数据湖的一部分，支持高效的数据仓库查询和数据湖分析。</p>
-</li>
-</ol>
-<h3 id="选择哪个工具？"><a href="#选择哪个工具？" class="headerlink" title="选择哪个工具？"></a>选择哪个工具？</h3><ul>
-<li><p><strong>如果你的主要需求是进行复杂的全文搜索、实时数据分析和监控，或者需要处理复杂的数据结构，那么 Elasticsearch 更适合。</strong></p>
-</li>
-<li><p><strong>如果你的主要需求是大规模的数据分析、高性能的聚合查询和低延迟的复杂查询，特别是在数据量非常大的情况下，那么 ClickHouse 更适合。</strong></p>
-</li>
-</ul>
-<h3 id="综合考虑"><a href="#综合考虑" class="headerlink" title="综合考虑"></a>综合考虑</h3><p>在一些场景中，Elasticsearch 和 ClickHouse 可以结合使用，利用它们各自的优势来解决不同层面的数据需求。例如，可以使用 Elasticsearch 进行实时数据的搜索和分析，同时将历史数据存储在 ClickHouse 中，用于大规模的数据分析和复杂的查询操作。</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Data</category>
-      </categories>
-      <tags>
-        <tag>Data</tag>
       </tags>
   </entry>
   <entry>
@@ -647,6 +647,105 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
+    <title>Java 创建对象方式</title>
+    <url>/2024/07/18/Java-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<p>在 Java 中，创建对象有多种方式。以下是详细的介绍，涵盖了所有主要的对象创建方式及其适用场景。</p>
+<h2 id="1-使用-new-关键字"><a href="#1-使用-new-关键字" class="headerlink" title="1. 使用 new 关键字"></a>1. 使用 <em>new</em> 关键字</h2><h3 id="直接创建对象"><a href="#直接创建对象" class="headerlink" title="直接创建对象"></a>直接创建对象</h3><p>最常见的创建对象方式是使用 <code>new</code> 关键字来调用类的构造函数。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="带参数的构造函数"><a href="#带参数的构造函数" class="headerlink" title="带参数的构造函数"></a>带参数的构造函数</h3><p>可以在创建对象时传递参数给构造函数。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="多重构造函数"><a href="#多重构造函数" class="headerlink" title="多重构造函数"></a>多重构造函数</h3><p>一个类可以有多个构造函数，这些构造函数可以有不同的参数列表。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 默认构造函数</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="2-使用-clone-方法"><a href="#2-使用-clone-方法" class="headerlink" title="2. 使用 clone() 方法"></a>2. 使用 <em>clone()</em> 方法</h2><h3 id="clone-克隆对象"><a href="#clone-克隆对象" class="headerlink" title="clone() 克隆对象"></a><code>clone()</code> 克隆对象</h3><p><code>clone()</code> 方法是 <code>Object</code> 类提供的一个方法，可以用来复制现有的对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">originalPerson</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="type">Person</span> <span class="variable">clonedPerson</span> <span class="operator">=</span> (Person) originalPerson.clone();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="实现-Cloneable-接口"><a href="#实现-Cloneable-接口" class="headerlink" title="实现 Cloneable 接口"></a>实现 <code>Cloneable</code> 接口</h3><p>要使用 <code>clone()</code> 方法，需要实现 <code>Cloneable</code> 接口并重写 <code>clone()</code> 方法。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="3-使用反射机制"><a href="#3-使用反射机制" class="headerlink" title="3. 使用反射机制"></a>3. 使用反射机制</h2><h3 id="通过反射创建对象"><a href="#通过反射创建对象" class="headerlink" title="通过反射创建对象"></a>通过反射创建对象</h3><p>反射可以动态地创建对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Class&lt;?&gt; clazz = Class.forName(<span class="string">&quot;Person&quot;</span>);</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> (Person) clazz.getConstructor().newInstance();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="使用构造函数反射"><a href="#使用构造函数反射" class="headerlink" title="使用构造函数反射"></a>使用构造函数反射</h3><p>可以通过反射调用带参数的构造函数。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Class&lt;?&gt; clazz = Class.forName(<span class="string">&quot;Person&quot;</span>);</span><br><span class="line">Constructor&lt;?&gt; constructor = clazz.getConstructor(String.class, <span class="type">int</span>.class);</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> (Person) constructor.newInstance(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="4-使用工厂方法模式"><a href="#4-使用工厂方法模式" class="headerlink" title="4. 使用工厂方法模式"></a>4. 使用工厂方法模式</h2><h3 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h3><p>工厂方法是一种设计模式，通过工厂类来创建对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Person <span class="title function_">createPerson</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Person</span>(name, age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用工厂方法创建对象</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> PersonFactory.createPerson(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="5-使用建造者模式"><a href="#5-使用建造者模式" class="headerlink" title="5. 使用建造者模式"></a>5. 使用建造者模式</h2><h3 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h3><p>建造者模式允许一步步地构建复杂对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Person</span><span class="params">(Builder builder)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = builder.name;</span><br><span class="line">        <span class="built_in">this</span>.age = builder.age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Builder</span> &#123;</span><br><span class="line">        <span class="keyword">private</span> String name;</span><br><span class="line">        <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Builder <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.name = name;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Builder <span class="title function_">setAge</span><span class="params">(<span class="type">int</span> age)</span> &#123;</span><br><span class="line">            <span class="built_in">this</span>.age = age;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> Person <span class="title function_">build</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="built_in">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用建造者模式创建对象</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>.Builder().setName(<span class="string">&quot;John&quot;</span>).setAge(<span class="number">30</span>).build();</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="6-使用-java-util-Optional-创建对象"><a href="#6-使用-java-util-Optional-创建对象" class="headerlink" title="6. 使用 java.util.Optional 创建对象"></a>6. 使用 <em>java.util.Optional</em> 创建对象</h2><h3 id="使用-Optional-of-或-Optional-ofNullable"><a href="#使用-Optional-of-或-Optional-ofNullable" class="headerlink" title="使用 Optional.of() 或 Optional.ofNullable()"></a>使用 <code>Optional.of()</code> 或 <code>Optional.ofNullable()</code></h3><p><code>Optional</code> 是一个容器对象，用于表示一个可能为 <code>null</code> 的值。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Optional&lt;Person&gt; optionalPerson = Optional.of(<span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>));</span><br><span class="line">Optional&lt;Person&gt; optionalPersonNull = Optional.ofNullable(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="7-使用-Java-8-的-Lambda-表达式"><a href="#7-使用-Java-8-的-Lambda-表达式" class="headerlink" title="7. 使用 Java 8 的 Lambda 表达式"></a>7. 使用 Java 8 的 Lambda 表达式</h2><h3 id="Lambda-表达式创建对象"><a href="#Lambda-表达式创建对象" class="headerlink" title="Lambda 表达式创建对象"></a>Lambda 表达式创建对象</h3><p>Lambda 表达式用于简化函数式接口的实例化。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Supplier&lt;Person&gt; personSupplier = () -&gt; <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> personSupplier.get();</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="8-使用-ObjectFactory-类"><a href="#8-使用-ObjectFactory-类" class="headerlink" title="8. 使用 ObjectFactory 类"></a>8. 使用 <em>ObjectFactory</em> 类</h2><h3 id="自定义工厂类"><a href="#自定义工厂类" class="headerlink" title="自定义工厂类"></a>自定义工厂类</h3><p>你可以创建一个工厂类来负责对象的创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonFactory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> Person <span class="title function_">createPerson</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Person</span>(name, age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="使用工厂类创建对象"><a href="#使用工厂类创建对象" class="headerlink" title="使用工厂类创建对象"></a>使用工厂类创建对象</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">PersonFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PersonFactory</span>();</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> factory.createPerson(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="9-使用-ApplicationContext-（Spring-框架）"><a href="#9-使用-ApplicationContext-（Spring-框架）" class="headerlink" title="9. 使用 ApplicationContext （Spring 框架）"></a>9. 使用 <em>ApplicationContext</em> （Spring 框架）</h2><h3 id="Spring-框架中的-Bean"><a href="#Spring-框架中的-Bean" class="headerlink" title="Spring 框架中的 Bean"></a>Spring 框架中的 Bean</h3><p>在 Spring 框架中，Bean 可以通过 <code>ApplicationContext</code> 创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">ApplicationContext</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AnnotationConfigApplicationContext</span>(AppConfig.class);</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> context.getBean(Person.class);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="配置-Bean"><a href="#配置-Bean" class="headerlink" title="配置 Bean"></a>配置 Bean</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> Person <span class="title function_">person</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="10-使用序列化与反序列化"><a href="#10-使用序列化与反序列化" class="headerlink" title="10. 使用序列化与反序列化"></a>10. 使用序列化与反序列化</h2><h3 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h3><p>对象可以通过序列化和反序列化进行创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 序列化</span></span><br><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;person.ser&quot;</span>));</span><br><span class="line">oos.writeObject(person);</span><br><span class="line">oos.close();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化</span></span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;person.ser&quot;</span>));</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> (Person) ois.readObject();</span><br><span class="line">ois.close();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="需要实现-Serializable-接口"><a href="#需要实现-Serializable-接口" class="headerlink" title="需要实现 Serializable 接口"></a>需要实现 <code>Serializable</code> 接口</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="11-使用-ObjectInputStream-和-ObjectOutputStream"><a href="#11-使用-ObjectInputStream-和-ObjectOutputStream" class="headerlink" title="11. 使用 ObjectInputStream 和 ObjectOutputStream"></a>11. 使用 <em>ObjectInputStream</em> 和 <em>ObjectOutputStream</em></h2><h3 id="Stream-序列化与反序列化"><a href="#Stream-序列化与反序列化" class="headerlink" title="Stream 序列化与反序列化"></a><code>Stream</code> 序列化与反序列化</h3><p>通过 <code>ObjectInputStream</code> 和 <code>ObjectOutputStream</code> 可以将对象转换为字节流并存储到文件中，再从文件中读取对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 序列化</span></span><br><span class="line"><span class="type">ObjectOutputStream</span> <span class="variable">oos</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectOutputStream</span>(<span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;person.ser&quot;</span>));</span><br><span class="line">oos.writeObject(person);</span><br><span class="line">oos.close();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反序列化</span></span><br><span class="line"><span class="type">ObjectInputStream</span> <span class="variable">ois</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectInputStream</span>(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;person.ser&quot;</span>));</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> (Person) ois.readObject();</span><br><span class="line">ois.close();</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="12-使用-Proxy-创建动态代理对象"><a href="#12-使用-Proxy-创建动态代理对象" class="headerlink" title="12. 使用 Proxy 创建动态代理对象"></a>12. 使用 <em>Proxy</em> 创建动态代理对象</h2><h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p><code>Proxy</code> 类用于创建实现特定接口的动态代理对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">personProxy</span> <span class="operator">=</span> (Person) Proxy.newProxyInstance(</span><br><span class="line">    Person.class.getClassLoader(),</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Class</span>[]&#123;Person.class&#125;,</span><br><span class="line">    (proxy, method, args) -&gt; &#123;</span><br><span class="line">        <span class="comment">// 方法调用的处理逻辑</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="13-使用-Record-类"><a href="#13-使用-Record-类" class="headerlink" title="13. 使用 Record 类"></a>13. 使用 <em>Record</em> 类</h2><h3 id="Record-类（Java-14-引入）"><a href="#Record-类（Java-14-引入）" class="headerlink" title="Record 类（Java 14 引入）"></a><code>Record</code> 类（Java 14 引入）</h3><p><code>Record</code> 是一种新类型的类，用于简化数据存储类的创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">record</span> <span class="title class_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="创建-Record-对象"><a href="#创建-Record-对象" class="headerlink" title="创建 Record 对象"></a>创建 <code>Record</code> 对象</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="14-使用-Object-clone-方法"><a href="#14-使用-Object-clone-方法" class="headerlink" title="14. 使用 Object.clone() 方法"></a>14. 使用 <em>Object.clone()</em> 方法</h2><h3 id="Object-clone-克隆对象"><a href="#Object-clone-克隆对象" class="headerlink" title="Object.clone() 克隆对象"></a><code>Object.clone()</code> 克隆对象</h3><p>可以使用 <code>Object.clone()</code> 方法来复制现有对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Person</span> <span class="keyword">implements</span> <span class="title class_">Cloneable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> Object <span class="title function_">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="15-使用-Factory-Bean"><a href="#15-使用-Factory-Bean" class="headerlink" title="15. 使用 Factory Bean"></a>15. 使用 <em>Factory Bean</em></h2><h3 id="Spring-的-Factory-Bean"><a href="#Spring-的-Factory-Bean" class="headerlink" title="Spring 的 Factory Bean"></a>Spring 的 Factory Bean</h3><p><code>FactoryBean</code> 是 Spring 框架中的一种特殊 bean，用于创建其他 beans。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PersonFactoryBean</span> <span class="keyword">implements</span> <span class="title class_">FactoryBean</span>&lt;Person&gt; &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Person <span class="title function_">getObject</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Class&lt;?&gt; getObjectType() &#123;</span><br><span class="line">        <span class="keyword">return</span> Person.class;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isSingleton</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="配置-Factory-Bean"><a href="#配置-Factory-Bean" class="headerlink" title="配置 Factory Bean"></a>配置 <code>Factory Bean</code></h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> PersonFactoryBean <span class="title function_">personFactoryBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PersonFactoryBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="16-使用-Java-17-的-Record-类"><a href="#16-使用-Java-17-的-Record-类" class="headerlink" title="16. 使用 Java 17 的 Record 类"></a>16. 使用 Java 17 的 <em>Record</em> 类</h2><h3 id="Record-类（Java-17-引入）"><a href="#Record-类（Java-17-引入）" class="headerlink" title="Record 类（Java 17 引入）"></a><code>Record</code> 类（Java 17 引入）</h3><p><code>Record</code> 类是 Java 14 引入的，简化了数据传输对象的创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">record</span> <span class="title class_">Person</span><span class="params">(String name, <span class="type">int</span> age)</span> &#123;&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Factory-Bean-创建-Record-对象"><a href="#Factory-Bean-创建-Record-对象" class="headerlink" title="Factory Bean 创建 Record 对象"></a><code>Factory Bean</code> 创建 <code>Record</code> 对象</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="17-使用-Supplier-和-Function-接口"><a href="#17-使用-Supplier-和-Function-接口" class="headerlink" title="17. 使用 Supplier 和 Function 接口"></a>17. 使用 <em>Supplier</em> 和 <em>Function</em> 接口</h2><h3 id="Java-8-函数式接口"><a href="#Java-8-函数式接口" class="headerlink" title="Java 8 函数式接口"></a>Java 8 函数式接口</h3><p>可以使用 <code>Supplier</code> 和 <code>Function</code> 接口来创建对象。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Supplier&lt;Person&gt; personSupplier = () -&gt; <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> personSupplier.get();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Function-接口的使用"><a href="#Function-接口的使用" class="headerlink" title="Function 接口的使用"></a><code>Function</code> 接口的使用</h3><div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">Function&lt;String, Person&gt; personCreator = name -&gt; <span class="keyword">new</span> <span class="title class_">Person</span>(name, <span class="number">30</span>);</span><br><span class="line"><span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> personCreator.apply(<span class="string">&quot;John&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Java 提供了多种创建对象的方式，适用于不同的场景和需求。从最简单的 <code>new</code> 关键字到复杂的 <code>Factory Bean</code> 和 <code>动态代理</code>，这些技术可以帮助你在编写 Java 代码时选择最合适的对象创建方式。掌握这些技术将有助于提高代码的灵活性、可维护性和性能。</p>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><ul>
+<li><a class="link"   href="https://docs.oracle.com/en/java/" >Java官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.designpatterns.io/" >Java 设计模式 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://spring.io/projects/spring-framework" >Spring Framework 文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://docs.oracle.com/javase/8/docs/technotes/guides/language/" >Java 8 新特性 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.oracle.com/java/technologies/javase-jdk14-downloads.html" >Java 14 新特性 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.oracle.com/java/technologies/javase-downloads.html" >Java 17 新特性 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java 常见的分布式任务调度框架</title>
     <url>/2024/07/09/Java-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<blockquote>
@@ -817,6 +916,36 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
+    <title>JavaScript 生成时间戳</title>
+    <url>/2017/02/22/JavaScript-%E7%94%9F%E6%88%90%E6%97%B6%E9%97%B4%E6%88%B3/</url>
+    <content><![CDATA[<blockquote>
+<p>JS生成时间戳三种方式</p>
+</blockquote>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="title class_">Date</span>.<span class="title function_">parse</span>(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="title class_">Date</span>()).<span class="title function_">valueOf</span>();</span><br><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>()；</span><br></pre></td></tr></table></figure></div>
+<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="title class_">Date</span>.<span class="title function_">parse</span>(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br></pre></td></tr></table></figure></div>
+<pre><code>指定的日期和时间据 1970/1/1 午夜（GMT 时间）之间的毫秒数。
+</code></pre>
+<h5 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h5><blockquote>
+<p>1120752000000</p>
+</blockquote>
+<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="title class_">Date</span>()).<span class="title function_">valueOf</span>();</span><br></pre></td></tr></table></figure></div>
+<pre><code>返回 1970 年 1 月 1 日至今的毫秒数。
+</code></pre>
+<h5 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h5><blockquote>
+<p>1120752000234</p>
+</blockquote>
+<h3 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>()；</span><br></pre></td></tr></table></figure></div>
+<pre><code>返回 Date 对象的原始值。
+</code></pre>
+<h5 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h5><blockquote>
+<p>1120752000234</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java 环境变量配置</title>
     <url>/2024/06/24/Java-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<blockquote>
@@ -851,36 +980,6 @@ cond2(yes)->e</pre>
       <tags>
         <tag>Env</tag>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaScript 生成时间戳</title>
-    <url>/2017/02/22/JavaScript-%E7%94%9F%E6%88%90%E6%97%B6%E9%97%B4%E6%88%B3/</url>
-    <content><![CDATA[<blockquote>
-<p>JS生成时间戳三种方式</p>
-</blockquote>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="title class_">Date</span>.<span class="title function_">parse</span>(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="title class_">Date</span>()).<span class="title function_">valueOf</span>();</span><br><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>()；</span><br></pre></td></tr></table></figure></div>
-<h3 id="方式一"><a href="#方式一" class="headerlink" title="方式一"></a>方式一</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp1 = <span class="title class_">Date</span>.<span class="title function_">parse</span>(<span class="keyword">new</span> <span class="title class_">Date</span>());</span><br></pre></td></tr></table></figure></div>
-<pre><code>指定的日期和时间据 1970/1/1 午夜（GMT 时间）之间的毫秒数。
-</code></pre>
-<h5 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h5><blockquote>
-<p>1120752000000</p>
-</blockquote>
-<h3 id="方式二"><a href="#方式二" class="headerlink" title="方式二"></a>方式二</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp2 = (<span class="keyword">new</span> <span class="title class_">Date</span>()).<span class="title function_">valueOf</span>();</span><br></pre></td></tr></table></figure></div>
-<pre><code>返回 1970 年 1 月 1 日至今的毫秒数。
-</code></pre>
-<h5 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h5><blockquote>
-<p>1120752000234</p>
-</blockquote>
-<h3 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> timestamp3 = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>()；</span><br></pre></td></tr></table></figure></div>
-<pre><code>返回 Date 对象的原始值。
-</code></pre>
-<h5 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h5><blockquote>
-<p>1120752000234</p>
-</blockquote>
-]]></content>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -3727,6 +3826,166 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>WebP intro</title>
+    <url>/2024/07/17/WebP-intro/</url>
+    <content><![CDATA[<p>WebP 是一种现代图片格式，可为网络上的图片提供出色的无损和有损压缩。使用 WebP，网站站长和 Web 开发者可以创建更小、更丰富的图片，从而提高网页加载速度。</p>
+<p>与 PNG 相比，WebP 无损图片的尺寸**缩小了 26%<strong>。WebP 有损图片比采用等效 <strong>SSIM</strong> 质量指数的同等 JPEG 图片</strong>小 25-34%**。</p>
+<p>无损 WebP 支持透明度（也称为 Alpha 通道），但只需<strong>额外增加 22% 的字节</strong>。对于可以接受有损 RGB 压缩的情况，有损 WebP 也支持透明度，其文件大小通常比 PNG 小 3 倍。</p>
+<p>动画 WebP 图片支持有损、无损和透明度，与 GIF 和 APNG 相比，此类图片可缩减大小。</p>
+<ul>
+<li><a class="link"   href="https://developers.google.com/speed/webp/faq?hl=zh-cn#how_can_i_detect_browser_support_for_webp" >面向网站站长的更多信息 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<h2 id="WebP-的关键特点"><a href="#WebP-的关键特点" class="headerlink" title="WebP 的关键特点"></a>WebP 的关键特点</h2><ol>
+<li>高效的图像压缩<ul>
+<li>有损压缩：WebP 的有损压缩使用现代的压缩算法，通常可以比 JPEG 更小的文件尺寸来保持类似的图像质量。</li>
+<li>无损压缩：WebP 的无损压缩算法通常比 PNG 更高效，能够在不损失图像质量的情况下减少文件大小。</li>
+<li>动图支持：WebP 可以用于创建动画图像，类似于 GIF，但文件大小通常比 GIF 小得多。</li>
+</ul>
+</li>
+<li>高质量的图像<ul>
+<li>支持透明度：WebP 支持 alpha 通道，允许图像具有透明区域，类似于 PNG。</li>
+<li>丰富的颜色支持：WebP 支持 24 位 RGB 颜色和 8 位 alpha 通道。</li>
+</ul>
+</li>
+<li>现代的图像格式<ul>
+<li>支持现代技术：WebP 支持先进的图像压缩技术，如预测编码和变换编码。</li>
+<li>较小的文件大小：通常情况下，WebP 文件比 JPEG、PNG 和 GIF 小 30% 左右。</li>
+</ul>
+</li>
+</ol>
+<h2 id="WebP-与其他图像格式的对比"><a href="#WebP-与其他图像格式的对比" class="headerlink" title="WebP 与其他图像格式的对比"></a>WebP 与其他图像格式的对比</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>WebP</th>
+<th>JPEG</th>
+<th>PNG</th>
+<th>GIF</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>压缩类型</strong></td>
+<td>有损 &#x2F; 无损</td>
+<td>有损</td>
+<td>无损</td>
+<td>有损 &#x2F; 动画</td>
+</tr>
+<tr>
+<td><strong>文件大小</strong></td>
+<td>较小</td>
+<td>较大</td>
+<td>较大</td>
+<td>较大 &#x2F; 动画大</td>
+</tr>
+<tr>
+<td><strong>透明度</strong></td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td><strong>动画</strong></td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><strong>质量</strong></td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td>低</td>
+</tr>
+</tbody></table>
+<h2 id="WebP-的应用场景"><a href="#WebP-的应用场景" class="headerlink" title="WebP 的应用场景"></a>WebP 的应用场景</h2><ul>
+<li><strong>网页优化</strong>：WebP 的高压缩率使其在网页设计中非常有用，可以减少页面加载时间，提高用户体验。</li>
+<li><strong>移动应用</strong>：在移动应用中使用 WebP 可以减少数据传输量，优化应用性能。</li>
+<li><strong>动态图像</strong>：WebP 的动画功能使其成为 GIF 的一个高效替代品。</li>
+</ul>
+<h2 id="WebP-的工具和库"><a href="#WebP-的工具和库" class="headerlink" title="WebP 的工具和库"></a>WebP 的工具和库</h2><h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a><strong>工具</strong></h3><ul>
+<li>**<a class="link"   href="https://developers.google.com/speed/webp/docs/cwebp" >cwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：将图像转换为 WebP 格式的命令行工具。</li>
+<li>**<a class="link"   href="https://developers.google.com/speed/webp/docs/dwebp" >dwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：将 WebP 图像转换为其他格式的命令行工具。</li>
+<li>**<a class="link"   href="https://developers.google.com/speed/webp/download" >WebPShop <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：适用于 Photoshop 的 WebP 插件。</li>
+</ul>
+<h3 id="库"><a href="#库" class="headerlink" title="库"></a><strong>库</strong></h3><ul>
+<li>**<a class="link"   href="https://github.com/webmproject/libwebp" >WebP 官方库 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：支持 WebP 图像格式的开源库，包含编码和解码功能。</li>
+<li>**<a class="link"   href="https://imagemagick.org/" >ImageMagick <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：支持 WebP 格式的图像处理库。</li>
+</ul>
+<h2 id="WebP-的工作原理"><a href="#WebP-的工作原理" class="headerlink" title="WebP 的工作原理"></a>WebP 的工作原理</h2><p>有损 WebP 压缩使用预测编码对图片进行编码，这与 VP8 视频编解码器压缩视频中的关键帧的方法相同。预测编码使用相邻像素块中的值来预测块中的值，然后仅对差值进行编码。</p>
+<p>无损 WebP 压缩使用已发现的图像片段来精确重建新像素。如果没有找到有趣的匹配项，它还可以使用本地调色板。</p>
+<ul>
+<li><a class="link"   href="https://developers.google.com/speed/webp/docs/compression?hl=zh-cn" >WebP 压缩技术详情 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+<p>WebP 文件由 VP8 或 VP8L 图片数据以及一个基于 RIFF 的容器组成。独立的 libwebp 库可用作 WebP 规范的参考实现，可以从我们的 Git 代码库或 tarball 获取。</p>
+<h3 id="WebP-格式的技术细节"><a href="#WebP-格式的技术细节" class="headerlink" title="WebP 格式的技术细节"></a>WebP 格式的技术细节</h3><h4 id="1-有损压缩"><a href="#1-有损压缩" class="headerlink" title="1. 有损压缩"></a><strong>1. 有损压缩</strong></h4><p>WebP 的有损压缩基于 VP8 视频编解码器中的技术：</p>
+<ul>
+<li><strong>预测编码</strong>：使用邻近像素的颜色信息来预测当前像素的颜色。</li>
+<li><strong>变换编码</strong>：对像素数据进行离散余弦变换（DCT），以降低数据冗余。</li>
+</ul>
+<h4 id="2-无损压缩"><a href="#2-无损压缩" class="headerlink" title="2. 无损压缩"></a><strong>2. 无损压缩</strong></h4><p>WebP 的无损压缩技术基于 WebM 项目中的技术：</p>
+<ul>
+<li><strong>字典压缩</strong>：使用哈夫曼编码和算术编码技术来优化压缩效率。</li>
+<li><strong>透明度处理</strong>：支持 8 位的 alpha 通道来处理图像的透明部分。</li>
+</ul>
+<h4 id="3-动画功能"><a href="#3-动画功能" class="headerlink" title="3. 动画功能"></a><strong>3. 动画功能</strong></h4><p>WebP 的动画功能：</p>
+<ul>
+<li><strong>时间控制</strong>：支持设置帧的显示时间，以创建动画效果。</li>
+<li><strong>压缩优化</strong>：使用现代算法减少动画帧的重复数据。</li>
+</ul>
+<h2 id="WebP-支持"><a href="#WebP-支持" class="headerlink" title="WebP 支持"></a>WebP 支持</h2><p><code>Google Chrome</code> 、<code>Safari</code> 、<code>Firefox</code> 、<code>Edge</code> 、<code>Opera</code> 浏览器以及许多其他工具和软件库就原生支持 WebP。开发者还增加了对各种图片编辑工具的支持。</p>
+<p>WebP 包含轻量级编码和解码库 libwebp、用于将图片与 WebP 格式相互转换的命令行工具 cwebp 和 dwebp，以及用于查看 WebP 图片、对图片进行多路复用并为其添加动画效果的工具。完整的源代码可在下载页面找到。</p>
+<table>
+<thead>
+<tr>
+<th>浏览器</th>
+<th>支持情况</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Google Chrome</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Mozilla Firefox</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Safari</strong></td>
+<td>从 macOS 11 和 iOS 14 起支持</td>
+</tr>
+<tr>
+<td><strong>Microsoft Edge</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Opera</strong></td>
+<td>完全支持</td>
+</tr>
+<tr>
+<td><strong>Internet Explorer</strong></td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<h2 id="WebP-转换器下载"><a href="#WebP-转换器下载" class="headerlink" title="WebP 转换器下载"></a>WebP 转换器下载</h2><p>下载适用于 <a class="link"   href="https://developers.google.com/speed/webp/docs/precompiled?hl=zh-cn" >Linux、Windows 或 macOS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 的预编译 cwebp 转换工具，将您喜爱的图片集从 PNG 和 JPEG 格式转换为 WebP 格式。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link"   href="https://developers.google.com/speed/webp?hl=zh-cn" >一种适用于网络的图片格式 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://developers.google.com/speed/webp" >WebP 官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://developers.google.com/speed/webp/docs/tech" >WebP 技术详解 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://developers.google.com/speed/webp/download" >WebP 插件下载 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Tools</category>
+        <category>Image</category>
+      </categories>
+      <tags>
+        <tag>Image</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2017/02/09/hello-world/</url>
     <content><![CDATA[<blockquote>
@@ -4685,67 +4944,140 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>摄影 构图 艺术</title>
-    <url>/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%89%BA%E6%9C%AF/</url>
-    <content><![CDATA[<h2 id="艺术形式"><a href="#艺术形式" class="headerlink" title="艺术形式"></a>艺术形式</h2><blockquote>
-<p>艺术的形式也是不断变化的。<sup>1.1.2</sup></p>
+    <title>摄影 分类</title>
+    <url>/2024/07/07/%E6%91%84%E5%BD%B1-%E5%88%86%E7%B1%BB/</url>
+    <content><![CDATA[<blockquote>
+<p>从广义上分类分为两大门类：第一类：记录摄影 ，第二类：艺术摄影 。<br>从小类分有：静物摄影、人像摄影、记录摄影、艺术摄影、画意摄影、商业摄影、水墨摄影、全息摄影等等。</p>
 </blockquote>
-<p>为什么一件作品可以称为艺术品，而在许多方面都和它相似的另一件却不是?</p>
-<ol>
-<li>艺术和自然的异同</li>
-<li>视觉形象思维和文字概念的区别</li>
-<li>艺术和手艺的关系</li>
-</ol>
-<h2 id="艺术与自然描绘"><a href="#艺术与自然描绘" class="headerlink" title="艺术与自然描绘"></a>艺术与自然描绘</h2><blockquote>
-<p>艺术家们摆脱了如实记录的重担以后，便转而探索艺术的更本质的特征。</p>
-</blockquote>
-<blockquote>
-<p>自然界有它本身的美，并不在于人们是否去捕捉这些美。</p>
-</blockquote>
-<blockquote>
-<p>无论是剪裁遮挡还是增添什么景物都无法弥补拍摄时所缺乏的东西——那就是题材固有美之外摄影家心目中所认识所发现的美的因素。</p>
-</blockquote>
+<h2 id="静物摄影"><a href="#静物摄影" class="headerlink" title="静物摄影"></a>静物摄影</h2><p>一种艺术流派，主要是通过图像来展现无生命的元素（食物，游戏，水果，鲜花，各种物体……），在艺术家定义的框架内以某种方式组合，多以工业或手工制成品、自然存在的无生命物体等为拍摄题材。在真实反映被摄体固有特征的基础上，经过创意构思，并结合构图、光线、影调、色彩等摄影手段进行艺术创作，将拍摄对象表现成具有艺术美感的摄影作品。</p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_1.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070704.png"
+                      alt="静物"
+                ><figcaption>静物</figcaption></figure></p>
+<h2 id="人像摄影"><a href="#人像摄影" class="headerlink" title="人像摄影"></a>人像摄影</h2><p>人像摄影与一般的人物摄影不同：人像摄影以刻画与表现被摄者的具体相貌和神态为自身的首要创作任务，人物摄影是以表现有被摄者参与的事件与活动为主，它以表现具体的情节为主要任务，而不在于以鲜明的形象去表现被摄者的相貌和神态。</p>
+<p>只要是以表现被摄者具体的外貌和精神状态为主的照片，都属于人像摄影的范畴。当然，它分作照相室人像、室内特定环境人像和户外人像三大类。人像摄影的要求是“形神兼备”。</p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_2.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>摄影者头脑中富有生动的艺术构思, 那么即使看起并不没得自然景色,人和物也能拍成很好的佳作.</p>
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070A.png"
+                      alt="人像"
+                ><figcaption>人像</figcaption></figure></p>
+<h2 id="记录摄影"><a href="#记录摄影" class="headerlink" title="记录摄影"></a>记录摄影</h2><p>纪录摄影指以纪录为第一目的，对客观事物进行真实影像反映的图片摄影。</p>
+<p>摄影之所以诞生，就是为了记录的目的。它诞生之后所显示出来的强大的生命力，也恰恰在于它的记录功能。这是其他技术或艺术所无法比拟或取代的。按照纪录影像的方式和追求的价值不同来划分，纪录摄影分为新闻摄影和纪实摄影。</p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_3.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="艺术与抽象的视觉美点"><a href="#艺术与抽象的视觉美点" class="headerlink" title="艺术与抽象的视觉美点"></a>艺术与抽象的视觉美点</h2><blockquote>
-<p>问题的关键是，艺术效果完全取决于艺术家是否从这个题材中发现了和感觉到了抽象的视觉美点，以及处理它们的能力；经过这番处理观众才能看到艺术家曾经看到过的东西，激发出和艺术家同样的感情。</p>
-</blockquote>
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/20240715082310.jpg"
+                      alt="记录"
+                ><figcaption>记录</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/20240715082317.jpg"
+                      alt="记录"
+                ><figcaption>记录</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070701.png"
+                      alt="记录"
+                ><figcaption>记录</figcaption></figure></p>
+<h2 id="艺术摄影"><a href="#艺术摄影" class="headerlink" title="艺术摄影"></a>艺术摄影</h2><p>随着的发展，人们在摄影中不断地增加艺术的元素，开始产生艺术摄影。它与记录摄影的区别在于艺术性的多少与高低，而无绝对的界限。艺术摄影拍出来的效果更唯美，因为这不仅需要技术，还要找准拍摄的时间、地点和角度。</p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_4.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<blockquote>
-<p>虽然有时候照片里看到的东西难以解释，简直象是魔术一样，但有许多东西仍然是可以弄清楚的。有些摄影家生来就是很敏感，他们能在看来无所作为的地方一下子发现奇迹。有些人需要经过一番启发才能认识潜在的视觉因素。然后也能不太费事地发现它们。大多数人则必需给以系统的教育，提高他们认识视觉美点的敏感性，用这种方法培养他们的辨别能力。</p>
-</blockquote>
-<h2 id="构图-从混乱中找出秩序"><a href="#构图-从混乱中找出秩序" class="headerlink" title="构图 从混乱中找出秩序"></a>构图 从混乱中找出秩序</h2><blockquote>
-<p>构图是一个思维过程，它从自然存在的混乱事物中找出秩序；</p>
-</blockquote>
-<blockquote>
-<p>通过构图，摄影家澄清了他要表达的信息，把观众的注意力引向他发现的那些最重要有趣的要素。</p>
-</blockquote>
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070702.png"
+                      alt="艺术"
+                ><figcaption>艺术</figcaption></figure></p>
+<h2 id="画意摄影"><a href="#画意摄影" class="headerlink" title="画意摄影"></a>画意摄影</h2><p>画意摄影以其唯美的画面语言及美好的设计内涵一直是人像摄影的一种重要的表达方式。画意摄影逐渐成为摄影艺术中的一个重要流派。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070706.png"
+                      alt="画意"
+                ><figcaption>画意</figcaption></figure></p>
+<h2 id="商业摄影"><a href="#商业摄影" class="headerlink" title="商业摄影"></a>商业摄影</h2><p>商业摄影，顾名思义是指作为商业用途而开展的摄影活动。这类摄影是为商业利益而存在的，要按照企业要求进行拍摄，比较拘束。</p>
+<hr>
+<h2 id="纪实摄影"><a href="#纪实摄影" class="headerlink" title="纪实摄影"></a>纪实摄影</h2><p>纪实摄影是抓拍真实场景或事件的摄影风格。它追求对事实的真实和生动的展示，表现出对生活、社会和人性的深入理解和揭示。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070710.png"
+                      alt="纪实"
+                ><figcaption>纪实</figcaption></figure></p>
+<h2 id="战地摄影"><a href="#战地摄影" class="headerlink" title="战地摄影"></a>战地摄影</h2><p>战地摄影是指在战争和矛盾危机等情况下拍摄的摄影风格，追求传达悲痛、突出真相、强调反战思想等特点。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070711.png"
+                      alt="战地"
+                ><figcaption>战地</figcaption></figure></p>
+<h2 id="街头摄影"><a href="#街头摄影" class="headerlink" title="街头摄影"></a>街头摄影</h2><p>街头摄影是指摄影师在街头、公共场所等公共场合拍摄人和城市景观的摄影风格。它注重情感和思维的传递和场景分析。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070708.png"
+                      alt="街头"
+                ><figcaption>街头</figcaption></figure></p>
+<h2 id="风景摄影"><a href="#风景摄影" class="headerlink" title="风景摄影"></a>风景摄影</h2><p>风景摄影是指以自然风景（如山脉、河流、海滨、森林）作为主要拍摄内容的摄影风格。它注重展现色彩、光线和节奏的美感。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070707.png"
+                      alt="风景"
+                ><figcaption>风景</figcaption></figure></p>
+<h2 id="色彩摄影"><a href="#色彩摄影" class="headerlink" title="色彩摄影"></a>色彩摄影</h2><p>色彩摄影是指以色彩作为主要表现手段的摄影风格，突出色彩鲜艳、强调色彩对表现力的贡献。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070709.png"
+                      alt="色彩"
+                ><figcaption>色彩</figcaption></figure></p>
+<h2 id="黑白摄影"><a href="#黑白摄影" class="headerlink" title="黑白摄影"></a>黑白摄影</h2><p>黑白摄影是指去除了色彩的影像，它强调光影、黑白和构图等因素的运用，追求影像的纯粹和力度。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/20240714150007.png"
+                      alt="黑白"
+                ><figcaption>黑白</figcaption></figure></p>
+<h2 id="女性摄影"><a href="#女性摄影" class="headerlink" title="女性摄影"></a>女性摄影</h2><p>女性摄影是指以女性和女性社群为主要拍摄对象的摄影风格，它注重女性在身体、社会和文化中的角色和地位。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070705.png"
+                      alt="女性"
+                ><figcaption>女性</figcaption></figure></p>
+<h2 id="蒙太奇摄影"><a href="#蒙太奇摄影" class="headerlink" title="蒙太奇摄影"></a>蒙太奇摄影</h2><p>蒙太奇摄影是一种艺术化的摄影风格，它强调利用摄影过程中的纹理、色彩和形状，使多张影像组合在一起，形成一个视觉艺术品。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070C.png"
+                      alt="蒙太奇"
+                ><figcaption>蒙太奇</figcaption></figure></p>
+<h2 id="抽象摄影"><a href="#抽象摄影" class="headerlink" title="抽象摄影"></a>抽象摄影</h2><p>抽象摄影是指通过不同的拍摄技巧（如长曝光、移动摄影等），摄影师可以创造出特殊的图像，使图像脱离现实，发展出自己的意义。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070F.png"
+                      alt="抽象"
+                ><figcaption>抽象</figcaption></figure></p>
+<h2 id="科技摄影"><a href="#科技摄影" class="headerlink" title="科技摄影"></a>科技摄影</h2><p>科技摄影是指使用高科技技术，如红外线、芯片、激光、雷达等进行拍摄和处理，以探索和创造新的影像和图像效果。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070E.png"
+                      alt="科技"
+                ><figcaption>科技</figcaption></figure></p>
+<h2 id="人文摄影"><a href="#人文摄影" class="headerlink" title="人文摄影"></a>人文摄影</h2><p>人文摄影是一种文化性的摄影形式，强调人们的生活、文化、传统和历史，注重照片背后的故事和人类关系。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070D.png"
+                      alt="人文"
+                ><figcaption>人文</figcaption></figure></p>
 ]]></content>
       <categories>
         <category>摄影</category>
-        <category>构图</category>
       </categories>
       <tags>
         <tag>摄影</tag>
@@ -5224,6 +5556,73 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>摄影 构图 艺术</title>
+    <url>/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%89%BA%E6%9C%AF/</url>
+    <content><![CDATA[<h2 id="艺术形式"><a href="#艺术形式" class="headerlink" title="艺术形式"></a>艺术形式</h2><blockquote>
+<p>艺术的形式也是不断变化的。<sup>1.1.2</sup></p>
+</blockquote>
+<p>为什么一件作品可以称为艺术品，而在许多方面都和它相似的另一件却不是?</p>
+<ol>
+<li>艺术和自然的异同</li>
+<li>视觉形象思维和文字概念的区别</li>
+<li>艺术和手艺的关系</li>
+</ol>
+<h2 id="艺术与自然描绘"><a href="#艺术与自然描绘" class="headerlink" title="艺术与自然描绘"></a>艺术与自然描绘</h2><blockquote>
+<p>艺术家们摆脱了如实记录的重担以后，便转而探索艺术的更本质的特征。</p>
+</blockquote>
+<blockquote>
+<p>自然界有它本身的美，并不在于人们是否去捕捉这些美。</p>
+</blockquote>
+<blockquote>
+<p>无论是剪裁遮挡还是增添什么景物都无法弥补拍摄时所缺乏的东西——那就是题材固有美之外摄影家心目中所认识所发现的美的因素。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_1.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_2.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>摄影者头脑中富有生动的艺术构思, 那么即使看起并不没得自然景色,人和物也能拍成很好的佳作.</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_3.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="艺术与抽象的视觉美点"><a href="#艺术与抽象的视觉美点" class="headerlink" title="艺术与抽象的视觉美点"></a>艺术与抽象的视觉美点</h2><blockquote>
+<p>问题的关键是，艺术效果完全取决于艺术家是否从这个题材中发现了和感觉到了抽象的视觉美点，以及处理它们的能力；经过这番处理观众才能看到艺术家曾经看到过的东西，激发出和艺术家同样的感情。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_4.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<blockquote>
+<p>虽然有时候照片里看到的东西难以解释，简直象是魔术一样，但有许多东西仍然是可以弄清楚的。有些摄影家生来就是很敏感，他们能在看来无所作为的地方一下子发现奇迹。有些人需要经过一番启发才能认识潜在的视觉因素。然后也能不太费事地发现它们。大多数人则必需给以系统的教育，提高他们认识视觉美点的敏感性，用这种方法培养他们的辨别能力。</p>
+</blockquote>
+<h2 id="构图-从混乱中找出秩序"><a href="#构图-从混乱中找出秩序" class="headerlink" title="构图 从混乱中找出秩序"></a>构图 从混乱中找出秩序</h2><blockquote>
+<p>构图是一个思维过程，它从自然存在的混乱事物中找出秩序；</p>
+</blockquote>
+<blockquote>
+<p>通过构图，摄影家澄清了他要表达的信息，把观众的注意力引向他发现的那些最重要有趣的要素。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>构图</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>数据挖掘-Apriori</title>
     <url>/2017/03/16/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Apriori/</url>
     <content><![CDATA[<blockquote>
@@ -5311,146 +5710,6 @@ a postriori 一个后验 使用结果作为条件检测
 ]]></content>
       <tags>
         <tag>DataMining</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>摄影 分类</title>
-    <url>/2024/07/07/%E6%91%84%E5%BD%B1-%E5%88%86%E7%B1%BB/</url>
-    <content><![CDATA[<blockquote>
-<p>从广义上分类分为两大门类：第一类：记录摄影 ，第二类：艺术摄影 。<br>从小类分有：静物摄影、人像摄影、记录摄影、艺术摄影、画意摄影、商业摄影、水墨摄影、全息摄影等等。</p>
-</blockquote>
-<h2 id="静物摄影"><a href="#静物摄影" class="headerlink" title="静物摄影"></a>静物摄影</h2><p>一种艺术流派，主要是通过图像来展现无生命的元素（食物，游戏，水果，鲜花，各种物体……），在艺术家定义的框架内以某种方式组合，多以工业或手工制成品、自然存在的无生命物体等为拍摄题材。在真实反映被摄体固有特征的基础上，经过创意构思，并结合构图、光线、影调、色彩等摄影手段进行艺术创作，将拍摄对象表现成具有艺术美感的摄影作品。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070704.png"
-                      alt="静物"
-                ><figcaption>静物</figcaption></figure></p>
-<h2 id="人像摄影"><a href="#人像摄影" class="headerlink" title="人像摄影"></a>人像摄影</h2><p>人像摄影与一般的人物摄影不同：人像摄影以刻画与表现被摄者的具体相貌和神态为自身的首要创作任务，人物摄影是以表现有被摄者参与的事件与活动为主，它以表现具体的情节为主要任务，而不在于以鲜明的形象去表现被摄者的相貌和神态。</p>
-<p>只要是以表现被摄者具体的外貌和精神状态为主的照片，都属于人像摄影的范畴。当然，它分作照相室人像、室内特定环境人像和户外人像三大类。人像摄影的要求是“形神兼备”。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070A.png"
-                      alt="人像"
-                ><figcaption>人像</figcaption></figure></p>
-<h2 id="记录摄影"><a href="#记录摄影" class="headerlink" title="记录摄影"></a>记录摄影</h2><p>纪录摄影指以纪录为第一目的，对客观事物进行真实影像反映的图片摄影。</p>
-<p>摄影之所以诞生，就是为了记录的目的。它诞生之后所显示出来的强大的生命力，也恰恰在于它的记录功能。这是其他技术或艺术所无法比拟或取代的。按照纪录影像的方式和追求的价值不同来划分，纪录摄影分为新闻摄影和纪实摄影。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/20240715082310.jpg"
-                      alt="记录"
-                ><figcaption>记录</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/20240715082317.jpg"
-                      alt="记录"
-                ><figcaption>记录</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070701.png"
-                      alt="记录"
-                ><figcaption>记录</figcaption></figure></p>
-<h2 id="艺术摄影"><a href="#艺术摄影" class="headerlink" title="艺术摄影"></a>艺术摄影</h2><p>随着的发展，人们在摄影中不断地增加艺术的元素，开始产生艺术摄影。它与记录摄影的区别在于艺术性的多少与高低，而无绝对的界限。艺术摄影拍出来的效果更唯美，因为这不仅需要技术，还要找准拍摄的时间、地点和角度。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070702.png"
-                      alt="艺术"
-                ><figcaption>艺术</figcaption></figure></p>
-<h2 id="画意摄影"><a href="#画意摄影" class="headerlink" title="画意摄影"></a>画意摄影</h2><p>画意摄影以其唯美的画面语言及美好的设计内涵一直是人像摄影的一种重要的表达方式。画意摄影逐渐成为摄影艺术中的一个重要流派。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070706.png"
-                      alt="画意"
-                ><figcaption>画意</figcaption></figure></p>
-<h2 id="商业摄影"><a href="#商业摄影" class="headerlink" title="商业摄影"></a>商业摄影</h2><p>商业摄影，顾名思义是指作为商业用途而开展的摄影活动。这类摄影是为商业利益而存在的，要按照企业要求进行拍摄，比较拘束。</p>
-<hr>
-<h2 id="纪实摄影"><a href="#纪实摄影" class="headerlink" title="纪实摄影"></a>纪实摄影</h2><p>纪实摄影是抓拍真实场景或事件的摄影风格。它追求对事实的真实和生动的展示，表现出对生活、社会和人性的深入理解和揭示。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070710.png"
-                      alt="纪实"
-                ><figcaption>纪实</figcaption></figure></p>
-<h2 id="战地摄影"><a href="#战地摄影" class="headerlink" title="战地摄影"></a>战地摄影</h2><p>战地摄影是指在战争和矛盾危机等情况下拍摄的摄影风格，追求传达悲痛、突出真相、强调反战思想等特点。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070711.png"
-                      alt="战地"
-                ><figcaption>战地</figcaption></figure></p>
-<h2 id="街头摄影"><a href="#街头摄影" class="headerlink" title="街头摄影"></a>街头摄影</h2><p>街头摄影是指摄影师在街头、公共场所等公共场合拍摄人和城市景观的摄影风格。它注重情感和思维的传递和场景分析。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070708.png"
-                      alt="街头"
-                ><figcaption>街头</figcaption></figure></p>
-<h2 id="风景摄影"><a href="#风景摄影" class="headerlink" title="风景摄影"></a>风景摄影</h2><p>风景摄影是指以自然风景（如山脉、河流、海滨、森林）作为主要拍摄内容的摄影风格。它注重展现色彩、光线和节奏的美感。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070707.png"
-                      alt="风景"
-                ><figcaption>风景</figcaption></figure></p>
-<h2 id="色彩摄影"><a href="#色彩摄影" class="headerlink" title="色彩摄影"></a>色彩摄影</h2><p>色彩摄影是指以色彩作为主要表现手段的摄影风格，突出色彩鲜艳、强调色彩对表现力的贡献。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070709.png"
-                      alt="色彩"
-                ><figcaption>色彩</figcaption></figure></p>
-<h2 id="黑白摄影"><a href="#黑白摄影" class="headerlink" title="黑白摄影"></a>黑白摄影</h2><p>黑白摄影是指去除了色彩的影像，它强调光影、黑白和构图等因素的运用，追求影像的纯粹和力度。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/20240714150007.png"
-                      alt="黑白"
-                ><figcaption>黑白</figcaption></figure></p>
-<h2 id="女性摄影"><a href="#女性摄影" class="headerlink" title="女性摄影"></a>女性摄影</h2><p>女性摄影是指以女性和女性社群为主要拍摄对象的摄影风格，它注重女性在身体、社会和文化中的角色和地位。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/2024070705.png"
-                      alt="女性"
-                ><figcaption>女性</figcaption></figure></p>
-<h2 id="蒙太奇摄影"><a href="#蒙太奇摄影" class="headerlink" title="蒙太奇摄影"></a>蒙太奇摄影</h2><p>蒙太奇摄影是一种艺术化的摄影风格，它强调利用摄影过程中的纹理、色彩和形状，使多张影像组合在一起，形成一个视觉艺术品。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070C.png"
-                      alt="蒙太奇"
-                ><figcaption>蒙太奇</figcaption></figure></p>
-<h2 id="抽象摄影"><a href="#抽象摄影" class="headerlink" title="抽象摄影"></a>抽象摄影</h2><p>抽象摄影是指通过不同的拍摄技巧（如长曝光、移动摄影等），摄影师可以创造出特殊的图像，使图像脱离现实，发展出自己的意义。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070F.png"
-                      alt="抽象"
-                ><figcaption>抽象</figcaption></figure></p>
-<h2 id="科技摄影"><a href="#科技摄影" class="headerlink" title="科技摄影"></a>科技摄影</h2><p>科技摄影是指使用高科技技术，如红外线、芯片、激光、雷达等进行拍摄和处理，以探索和创造新的影像和图像效果。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070E.png"
-                      alt="科技"
-                ><figcaption>科技</figcaption></figure></p>
-<h2 id="人文摄影"><a href="#人文摄影" class="headerlink" title="人文摄影"></a>人文摄影</h2><p>人文摄影是一种文化性的摄影形式，强调人们的生活、文化、传统和历史，注重照片背后的故事和人类关系。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070D.png"
-                      alt="人文"
-                ><figcaption>人文</figcaption></figure></p>
-]]></content>
-      <categories>
-        <category>摄影</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
       </tags>
   </entry>
   <entry>
@@ -6669,166 +6928,6 @@ a postriori 一个后验 使用结果作为条件检测
 ]]></content>
       <tags>
         <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WebP intro</title>
-    <url>/2024/07/17/WebP-intro/</url>
-    <content><![CDATA[<p>WebP 是一种现代图片格式，可为网络上的图片提供出色的无损和有损压缩。使用 WebP，网站站长和 Web 开发者可以创建更小、更丰富的图片，从而提高网页加载速度。</p>
-<p>与 PNG 相比，WebP 无损图片的尺寸**缩小了 26%<strong>。WebP 有损图片比采用等效 <strong>SSIM</strong> 质量指数的同等 JPEG 图片</strong>小 25-34%**。</p>
-<p>无损 WebP 支持透明度（也称为 Alpha 通道），但只需<strong>额外增加 22% 的字节</strong>。对于可以接受有损 RGB 压缩的情况，有损 WebP 也支持透明度，其文件大小通常比 PNG 小 3 倍。</p>
-<p>动画 WebP 图片支持有损、无损和透明度，与 GIF 和 APNG 相比，此类图片可缩减大小。</p>
-<ul>
-<li><a class="link"   href="https://developers.google.com/speed/webp/faq?hl=zh-cn#how_can_i_detect_browser_support_for_webp" >面向网站站长的更多信息 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<h2 id="WebP-的关键特点"><a href="#WebP-的关键特点" class="headerlink" title="WebP 的关键特点"></a>WebP 的关键特点</h2><ol>
-<li>高效的图像压缩<ul>
-<li>有损压缩：WebP 的有损压缩使用现代的压缩算法，通常可以比 JPEG 更小的文件尺寸来保持类似的图像质量。</li>
-<li>无损压缩：WebP 的无损压缩算法通常比 PNG 更高效，能够在不损失图像质量的情况下减少文件大小。</li>
-<li>动图支持：WebP 可以用于创建动画图像，类似于 GIF，但文件大小通常比 GIF 小得多。</li>
-</ul>
-</li>
-<li>高质量的图像<ul>
-<li>支持透明度：WebP 支持 alpha 通道，允许图像具有透明区域，类似于 PNG。</li>
-<li>丰富的颜色支持：WebP 支持 24 位 RGB 颜色和 8 位 alpha 通道。</li>
-</ul>
-</li>
-<li>现代的图像格式<ul>
-<li>支持现代技术：WebP 支持先进的图像压缩技术，如预测编码和变换编码。</li>
-<li>较小的文件大小：通常情况下，WebP 文件比 JPEG、PNG 和 GIF 小 30% 左右。</li>
-</ul>
-</li>
-</ol>
-<h2 id="WebP-与其他图像格式的对比"><a href="#WebP-与其他图像格式的对比" class="headerlink" title="WebP 与其他图像格式的对比"></a>WebP 与其他图像格式的对比</h2><table>
-<thead>
-<tr>
-<th>特性</th>
-<th>WebP</th>
-<th>JPEG</th>
-<th>PNG</th>
-<th>GIF</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>压缩类型</strong></td>
-<td>有损 &#x2F; 无损</td>
-<td>有损</td>
-<td>无损</td>
-<td>有损 &#x2F; 动画</td>
-</tr>
-<tr>
-<td><strong>文件大小</strong></td>
-<td>较小</td>
-<td>较大</td>
-<td>较大</td>
-<td>较大 &#x2F; 动画大</td>
-</tr>
-<tr>
-<td><strong>透明度</strong></td>
-<td>支持</td>
-<td>不支持</td>
-<td>支持</td>
-<td>不支持</td>
-</tr>
-<tr>
-<td><strong>动画</strong></td>
-<td>支持</td>
-<td>不支持</td>
-<td>不支持</td>
-<td>支持</td>
-</tr>
-<tr>
-<td><strong>质量</strong></td>
-<td>高</td>
-<td>高</td>
-<td>高</td>
-<td>低</td>
-</tr>
-</tbody></table>
-<h2 id="WebP-的应用场景"><a href="#WebP-的应用场景" class="headerlink" title="WebP 的应用场景"></a>WebP 的应用场景</h2><ul>
-<li><strong>网页优化</strong>：WebP 的高压缩率使其在网页设计中非常有用，可以减少页面加载时间，提高用户体验。</li>
-<li><strong>移动应用</strong>：在移动应用中使用 WebP 可以减少数据传输量，优化应用性能。</li>
-<li><strong>动态图像</strong>：WebP 的动画功能使其成为 GIF 的一个高效替代品。</li>
-</ul>
-<h2 id="WebP-的工具和库"><a href="#WebP-的工具和库" class="headerlink" title="WebP 的工具和库"></a>WebP 的工具和库</h2><h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a><strong>工具</strong></h3><ul>
-<li>**<a class="link"   href="https://developers.google.com/speed/webp/docs/cwebp" >cwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：将图像转换为 WebP 格式的命令行工具。</li>
-<li>**<a class="link"   href="https://developers.google.com/speed/webp/docs/dwebp" >dwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：将 WebP 图像转换为其他格式的命令行工具。</li>
-<li>**<a class="link"   href="https://developers.google.com/speed/webp/download" >WebPShop <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：适用于 Photoshop 的 WebP 插件。</li>
-</ul>
-<h3 id="库"><a href="#库" class="headerlink" title="库"></a><strong>库</strong></h3><ul>
-<li>**<a class="link"   href="https://github.com/webmproject/libwebp" >WebP 官方库 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：支持 WebP 图像格式的开源库，包含编码和解码功能。</li>
-<li>**<a class="link"   href="https://imagemagick.org/" >ImageMagick <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>**：支持 WebP 格式的图像处理库。</li>
-</ul>
-<h2 id="WebP-的工作原理"><a href="#WebP-的工作原理" class="headerlink" title="WebP 的工作原理"></a>WebP 的工作原理</h2><p>有损 WebP 压缩使用预测编码对图片进行编码，这与 VP8 视频编解码器压缩视频中的关键帧的方法相同。预测编码使用相邻像素块中的值来预测块中的值，然后仅对差值进行编码。</p>
-<p>无损 WebP 压缩使用已发现的图像片段来精确重建新像素。如果没有找到有趣的匹配项，它还可以使用本地调色板。</p>
-<ul>
-<li><a class="link"   href="https://developers.google.com/speed/webp/docs/compression?hl=zh-cn" >WebP 压缩技术详情 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-<p>WebP 文件由 VP8 或 VP8L 图片数据以及一个基于 RIFF 的容器组成。独立的 libwebp 库可用作 WebP 规范的参考实现，可以从我们的 Git 代码库或 tarball 获取。</p>
-<h3 id="WebP-格式的技术细节"><a href="#WebP-格式的技术细节" class="headerlink" title="WebP 格式的技术细节"></a>WebP 格式的技术细节</h3><h4 id="1-有损压缩"><a href="#1-有损压缩" class="headerlink" title="1. 有损压缩"></a><strong>1. 有损压缩</strong></h4><p>WebP 的有损压缩基于 VP8 视频编解码器中的技术：</p>
-<ul>
-<li><strong>预测编码</strong>：使用邻近像素的颜色信息来预测当前像素的颜色。</li>
-<li><strong>变换编码</strong>：对像素数据进行离散余弦变换（DCT），以降低数据冗余。</li>
-</ul>
-<h4 id="2-无损压缩"><a href="#2-无损压缩" class="headerlink" title="2. 无损压缩"></a><strong>2. 无损压缩</strong></h4><p>WebP 的无损压缩技术基于 WebM 项目中的技术：</p>
-<ul>
-<li><strong>字典压缩</strong>：使用哈夫曼编码和算术编码技术来优化压缩效率。</li>
-<li><strong>透明度处理</strong>：支持 8 位的 alpha 通道来处理图像的透明部分。</li>
-</ul>
-<h4 id="3-动画功能"><a href="#3-动画功能" class="headerlink" title="3. 动画功能"></a><strong>3. 动画功能</strong></h4><p>WebP 的动画功能：</p>
-<ul>
-<li><strong>时间控制</strong>：支持设置帧的显示时间，以创建动画效果。</li>
-<li><strong>压缩优化</strong>：使用现代算法减少动画帧的重复数据。</li>
-</ul>
-<h2 id="WebP-支持"><a href="#WebP-支持" class="headerlink" title="WebP 支持"></a>WebP 支持</h2><p><code>Google Chrome</code> 、<code>Safari</code> 、<code>Firefox</code> 、<code>Edge</code> 、<code>Opera</code> 浏览器以及许多其他工具和软件库就原生支持 WebP。开发者还增加了对各种图片编辑工具的支持。</p>
-<p>WebP 包含轻量级编码和解码库 libwebp、用于将图片与 WebP 格式相互转换的命令行工具 cwebp 和 dwebp，以及用于查看 WebP 图片、对图片进行多路复用并为其添加动画效果的工具。完整的源代码可在下载页面找到。</p>
-<table>
-<thead>
-<tr>
-<th>浏览器</th>
-<th>支持情况</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Google Chrome</strong></td>
-<td>完全支持</td>
-</tr>
-<tr>
-<td><strong>Mozilla Firefox</strong></td>
-<td>完全支持</td>
-</tr>
-<tr>
-<td><strong>Safari</strong></td>
-<td>从 macOS 11 和 iOS 14 起支持</td>
-</tr>
-<tr>
-<td><strong>Microsoft Edge</strong></td>
-<td>完全支持</td>
-</tr>
-<tr>
-<td><strong>Opera</strong></td>
-<td>完全支持</td>
-</tr>
-<tr>
-<td><strong>Internet Explorer</strong></td>
-<td>不支持</td>
-</tr>
-</tbody></table>
-<h2 id="WebP-转换器下载"><a href="#WebP-转换器下载" class="headerlink" title="WebP 转换器下载"></a>WebP 转换器下载</h2><p>下载适用于 <a class="link"   href="https://developers.google.com/speed/webp/docs/precompiled?hl=zh-cn" >Linux、Windows 或 macOS <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 的预编译 cwebp 转换工具，将您喜爱的图片集从 PNG 和 JPEG 格式转换为 WebP 格式。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a class="link"   href="https://developers.google.com/speed/webp?hl=zh-cn" >一种适用于网络的图片格式 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://developers.google.com/speed/webp" >WebP 官方文档 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://developers.google.com/speed/webp/docs/tech" >WebP 技术详解 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://developers.google.com/speed/webp/download" >WebP 插件下载 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Tools</category>
-        <category>Image</category>
-      </categories>
-      <tags>
-        <tag>Image</tag>
       </tags>
   </entry>
 </search>
