@@ -892,6 +892,43 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
+    <title>Java 环境变量配置</title>
+    <url>/2024/06/24/Java-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<blockquote>
+<p>💡 安装后需配置环境变量</p>
+</blockquote>
+<p>Java 环境变量配置主要涉及设置 <code>JAVA_HOME</code> 和更新系统的 <code>PATH</code> 环境变量。以下是详细的步骤和说明：</p>
+<h2 id="确定-Java-安装路径"><a href="#确定-Java-安装路径" class="headerlink" title="确定 Java 安装路径"></a>确定 Java 安装路径</h2><p>首先，你需要确定 Java 的安装路径。通常，Java 会安装在 <code>C:\Program Files\Java\</code> 目录下。你可以通过“控制面板”中的“程序和功能”来查找已安装的 Java 版本，或者通过命令行使用 <code>where java</code> 来查找 Java 可执行文件的路径。</p>
+<h2 id="设置-JAVA-HOME-环境变量"><a href="#设置-JAVA-HOME-环境变量" class="headerlink" title="设置 JAVA_HOME 环境变量"></a>设置 JAVA_HOME 环境变量</h2><p>JAVA_HOME 环境变量用于指定 Java 的安装目录。你可以按照以下步骤设置它：</p>
+<h3 id="Windows-系统"><a href="#Windows-系统" class="headerlink" title="Windows 系统:"></a>Windows 系统:</h3><ol>
+<li>打开“控制面板”。</li>
+<li>点击“系统与安全”。</li>
+<li>点击“系统”。</li>
+<li>点击“高级系统设置”。</li>
+<li>在“高级”选项卡下，点击“环境变量”。</li>
+<li>在“系统变量”下，点击“新建”，变量名输入 <code>JAVA_HOME</code>，变量值填入你的 Java 安装路径（例如 <code>C:\Program Files\Java\jdk11_XXX</code>）。</li>
+</ol>
+<h3 id="Linux-或-macOS-系统"><a href="#Linux-或-macOS-系统" class="headerlink" title="Linux 或 macOS 系统:"></a>Linux 或 macOS 系统:</h3><p>你可以在终端中使用文本编辑器(如 <code>nano</code> 或 <code>vim</code>)编辑 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件(取决于你的 <code>shell</code> 和操作系统)，然后添加以下行：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/path/to/java-installation</span><br></pre></td></tr></table></figure></div>
+
+<p>将 <code>/path/to/java-installation</code> 替换为你的 Java 安装路径。</p>
+<h2 id="更新-PATH-环境变量"><a href="#更新-PATH-环境变量" class="headerlink" title="更新 PATH 环境变量"></a>更新 PATH 环境变量</h2><p>你需要将 Java 的 <code>bin</code> 目录添加到系统的 <code>PATH</code> 环境变量中，这样你就可以从任何位置运行 Java 命令。</p>
+<h3 id="对于-Windows-系统"><a href="#对于-Windows-系统" class="headerlink" title="对于 Windows 系统:"></a>对于 Windows 系统:</h3><p>在“环境变量”窗口中，找到并选中<code>Path</code>变量，点击“编辑”。在编辑窗口中，添加 <code>JAVA_HOME\bin</code> 到值的开头或任何合适的位置。确保用分号 ; 分隔不同的路径。</p>
+<h3 id="对于-Linux-或-macOS-系统"><a href="#对于-Linux-或-macOS-系统" class="headerlink" title="对于 Linux 或 macOS 系统:"></a>对于 Linux 或 macOS 系统:</h3><p>在 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件中添加以下行：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure></div>
+
+<p>保存文件并重新加载配置(在终端中运行 <code>source ~/.bashrc</code> 或相应的配置文件)。</p>
+<h2 id="验证配置"><a href="#验证配置" class="headerlink" title="验证配置"></a>验证配置</h2><p>配置完成后，你可以通过打开命令行或终端，并运行 <code>java -version</code> 和 <code>javac -version</code> 来验证 Java 是否正确配置。这两个命令分别显示 Java 运行时和编译器的版本信息。<br>以上步骤应该能帮助你正确配置 Java 的环境变量。如果你在使用过程中遇到任何问题，请随时提问！</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Env</tag>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java 异常定位</title>
     <url>/2024/07/25/Java-%E5%BC%82%E5%B8%B8%E5%AE%9A%E4%BD%8D/</url>
     <content><![CDATA[<p>在 Java 中，当程序发生异常时，如何定位并解决异常通常是开发过程中需要掌握的重要技能。以下是一些常见的方法和技巧，帮助你在开发过程中有效地定位和处理异常:</p>
@@ -1089,43 +1126,6 @@ cond2(yes)->e</pre>
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java 环境变量配置</title>
-    <url>/2024/06/24/Java-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<blockquote>
-<p>💡 安装后需配置环境变量</p>
-</blockquote>
-<p>Java 环境变量配置主要涉及设置 <code>JAVA_HOME</code> 和更新系统的 <code>PATH</code> 环境变量。以下是详细的步骤和说明：</p>
-<h2 id="确定-Java-安装路径"><a href="#确定-Java-安装路径" class="headerlink" title="确定 Java 安装路径"></a>确定 Java 安装路径</h2><p>首先，你需要确定 Java 的安装路径。通常，Java 会安装在 <code>C:\Program Files\Java\</code> 目录下。你可以通过“控制面板”中的“程序和功能”来查找已安装的 Java 版本，或者通过命令行使用 <code>where java</code> 来查找 Java 可执行文件的路径。</p>
-<h2 id="设置-JAVA-HOME-环境变量"><a href="#设置-JAVA-HOME-环境变量" class="headerlink" title="设置 JAVA_HOME 环境变量"></a>设置 JAVA_HOME 环境变量</h2><p>JAVA_HOME 环境变量用于指定 Java 的安装目录。你可以按照以下步骤设置它：</p>
-<h3 id="Windows-系统"><a href="#Windows-系统" class="headerlink" title="Windows 系统:"></a>Windows 系统:</h3><ol>
-<li>打开“控制面板”。</li>
-<li>点击“系统与安全”。</li>
-<li>点击“系统”。</li>
-<li>点击“高级系统设置”。</li>
-<li>在“高级”选项卡下，点击“环境变量”。</li>
-<li>在“系统变量”下，点击“新建”，变量名输入 <code>JAVA_HOME</code>，变量值填入你的 Java 安装路径（例如 <code>C:\Program Files\Java\jdk11_XXX</code>）。</li>
-</ol>
-<h3 id="Linux-或-macOS-系统"><a href="#Linux-或-macOS-系统" class="headerlink" title="Linux 或 macOS 系统:"></a>Linux 或 macOS 系统:</h3><p>你可以在终端中使用文本编辑器(如 <code>nano</code> 或 <code>vim</code>)编辑 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件(取决于你的 <code>shell</code> 和操作系统)，然后添加以下行：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/path/to/java-installation</span><br></pre></td></tr></table></figure></div>
-
-<p>将 <code>/path/to/java-installation</code> 替换为你的 Java 安装路径。</p>
-<h2 id="更新-PATH-环境变量"><a href="#更新-PATH-环境变量" class="headerlink" title="更新 PATH 环境变量"></a>更新 PATH 环境变量</h2><p>你需要将 Java 的 <code>bin</code> 目录添加到系统的 <code>PATH</code> 环境变量中，这样你就可以从任何位置运行 Java 命令。</p>
-<h3 id="对于-Windows-系统"><a href="#对于-Windows-系统" class="headerlink" title="对于 Windows 系统:"></a>对于 Windows 系统:</h3><p>在“环境变量”窗口中，找到并选中<code>Path</code>变量，点击“编辑”。在编辑窗口中，添加 <code>JAVA_HOME\bin</code> 到值的开头或任何合适的位置。确保用分号 ; 分隔不同的路径。</p>
-<h3 id="对于-Linux-或-macOS-系统"><a href="#对于-Linux-或-macOS-系统" class="headerlink" title="对于 Linux 或 macOS 系统:"></a>对于 Linux 或 macOS 系统:</h3><p>在 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件中添加以下行：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure></div>
-
-<p>保存文件并重新加载配置(在终端中运行 <code>source ~/.bashrc</code> 或相应的配置文件)。</p>
-<h2 id="验证配置"><a href="#验证配置" class="headerlink" title="验证配置"></a>验证配置</h2><p>配置完成后，你可以通过打开命令行或终端，并运行 <code>java -version</code> 和 <code>javac -version</code> 来验证 Java 是否正确配置。这两个命令分别显示 Java 运行时和编译器的版本信息。<br>以上步骤应该能帮助你正确配置 Java 的环境变量。如果你在使用过程中遇到任何问题，请随时提问！</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>Env</tag>
         <tag>Java</tag>
       </tags>
   </entry>
@@ -1480,6 +1480,136 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
+    <title>Linux 下文件操作</title>
+    <url>/2017/02/21/Linux-%E4%B8%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="linux下文件操作命令为："><a href="#linux下文件操作命令为：" class="headerlink" title="linux下文件操作命令为："></a>linux下文件操作命令为：</h3><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">复制</td>
+<td align="center">cp</td>
+</tr>
+<tr>
+<td align="center">移动</td>
+<td align="center">mv</td>
+</tr>
+<tr>
+<td align="center">删除</td>
+<td align="center">rm</td>
+</tr>
+</tbody></table>
+<h3 id="复制命令"><a href="#复制命令" class="headerlink" title="复制命令"></a>复制命令</h3><blockquote>
+<p>   命令格式：cp [-adfilprsu] 源文件(source) 目标文件(destination)<br>                     cp [option] source1 source2 source3 …  directory</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-a</td>
+<td align="center">是指archive的意思，也说是指复制所有的目录</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">若源文件为连接文件(link file)，则复制连接文件属性而非文件本身</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">强制(force)，若有重复或其它疑问时，不会询问用户，而强制复制</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">若目标文件(destination)已存在，在覆盖时会先询问是否真的操作</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">建立硬连接(hard link)的连接文件，而非复制文件本身</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">与文件的属性一起复制，而非使用默认属性</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">递归复制，用于目录的复制操作</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">复制成符号连接文件(symbolic link)，即“快捷方式”文件</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">若目标文件比源文件旧，更新目标文件</td>
+</tr>
+</tbody></table>
+<pre><code>如将/test1目录下的file1复制到/test3目录，并将文件名改为file2,可输入以下命令：
+cp /test1/file1 /test3/file2
+</code></pre>
+<h3 id="移动命令"><a href="#移动命令" class="headerlink" title="移动命令"></a>移动命令</h3><blockquote>
+<p>命令格式：mv [-fiv] source destination</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f</td>
+<td align="center">force，强制直接移动而不询问</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">若目标文件(destination)已经存在，就会询问是否覆盖</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">若目标文件已经存在，且源文件比较新，才会更新</td>
+</tr>
+</tbody></table>
+<pre><code>如将/test1目录下的file1复制到/test3 目录，并将文件名改为file2,可输入以下命令：
+mv /test1/file1 /test3/file2
+</code></pre>
+<h3 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h3><blockquote>
+<p>命令格式：rm [fir] 文件或目录</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f</td>
+<td align="center">强制删除</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">交互模式，在删除前询问用户是否操作</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">递归删除，常用在目录的删除</td>
+</tr>
+</tbody></table>
+<pre><code>如删除/test目录下的file1文件，可以输入以下命令：
+rm -i /test/file1
+</code></pre>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux 下MySQL安装</title>
     <url>/2017/02/27/Linux-%E4%B8%8BMySQL%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<blockquote>
@@ -1796,133 +1926,23 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
-    <title>Linux 下文件操作</title>
-    <url>/2017/02/21/Linux-%E4%B8%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="linux下文件操作命令为："><a href="#linux下文件操作命令为：" class="headerlink" title="linux下文件操作命令为："></a>linux下文件操作命令为：</h3><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">复制</td>
-<td align="center">cp</td>
-</tr>
-<tr>
-<td align="center">移动</td>
-<td align="center">mv</td>
-</tr>
-<tr>
-<td align="center">删除</td>
-<td align="center">rm</td>
-</tr>
-</tbody></table>
-<h3 id="复制命令"><a href="#复制命令" class="headerlink" title="复制命令"></a>复制命令</h3><blockquote>
-<p>   命令格式：cp [-adfilprsu] 源文件(source) 目标文件(destination)<br>                     cp [option] source1 source2 source3 …  directory</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-a</td>
-<td align="center">是指archive的意思，也说是指复制所有的目录</td>
-</tr>
-<tr>
-<td align="center">-d</td>
-<td align="center">若源文件为连接文件(link file)，则复制连接文件属性而非文件本身</td>
-</tr>
-<tr>
-<td align="center">-f</td>
-<td align="center">强制(force)，若有重复或其它疑问时，不会询问用户，而强制复制</td>
-</tr>
-<tr>
-<td align="center">-i</td>
-<td align="center">若目标文件(destination)已存在，在覆盖时会先询问是否真的操作</td>
-</tr>
-<tr>
-<td align="center">-l</td>
-<td align="center">建立硬连接(hard link)的连接文件，而非复制文件本身</td>
-</tr>
-<tr>
-<td align="center">-p</td>
-<td align="center">与文件的属性一起复制，而非使用默认属性</td>
-</tr>
-<tr>
-<td align="center">-r</td>
-<td align="center">递归复制，用于目录的复制操作</td>
-</tr>
-<tr>
-<td align="center">-s</td>
-<td align="center">复制成符号连接文件(symbolic link)，即“快捷方式”文件</td>
-</tr>
-<tr>
-<td align="center">-u</td>
-<td align="center">若目标文件比源文件旧，更新目标文件</td>
-</tr>
-</tbody></table>
-<pre><code>如将/test1目录下的file1复制到/test3目录，并将文件名改为file2,可输入以下命令：
-cp /test1/file1 /test3/file2
-</code></pre>
-<h3 id="移动命令"><a href="#移动命令" class="headerlink" title="移动命令"></a>移动命令</h3><blockquote>
-<p>命令格式：mv [-fiv] source destination</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-f</td>
-<td align="center">force，强制直接移动而不询问</td>
-</tr>
-<tr>
-<td align="center">-i</td>
-<td align="center">若目标文件(destination)已经存在，就会询问是否覆盖</td>
-</tr>
-<tr>
-<td align="center">-u</td>
-<td align="center">若目标文件已经存在，且源文件比较新，才会更新</td>
-</tr>
-</tbody></table>
-<pre><code>如将/test1目录下的file1复制到/test3 目录，并将文件名改为file2,可输入以下命令：
-mv /test1/file1 /test3/file2
-</code></pre>
-<h3 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h3><blockquote>
-<p>命令格式：rm [fir] 文件或目录</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-f</td>
-<td align="center">强制删除</td>
-</tr>
-<tr>
-<td align="center">-i</td>
-<td align="center">交互模式，在删除前询问用户是否操作</td>
-</tr>
-<tr>
-<td align="center">-r</td>
-<td align="center">递归删除，常用在目录的删除</td>
-</tr>
-</tbody></table>
-<pre><code>如删除/test目录下的file1文件，可以输入以下命令：
-rm -i /test/file1
-</code></pre>
-]]></content>
+    <title>Linux 工具 btop 安装</title>
+    <url>/2024/07/28/Linux-%E5%B7%A5%E5%85%B7-btop-%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/linux/btop.png"
+                      alt="btop"
+                ><figcaption>btop</figcaption></figure></p>
+<p><a class="link"   href="https://github.com/aristocratos/btop" >btop <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="Debain-安装"><a href="#Debain-安装" class="headerlink" title="Debain 安装"></a>Debain 安装</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install btop</span><br><span class="line">btop</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Linux</category>
+      </categories>
       <tags>
         <tag>Linux</tag>
+        <tag>Tools</tag>
       </tags>
   </entry>
   <entry>
@@ -2021,23 +2041,31 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Linux 工具 btop 安装</title>
-    <url>/2024/07/28/Linux-%E5%B7%A5%E5%85%B7-btop-%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/linux/btop.png"
-                      alt="btop"
-                ><figcaption>btop</figcaption></figure></p>
-<p><a class="link"   href="https://github.com/aristocratos/btop" >btop <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="Debain-安装"><a href="#Debain-安装" class="headerlink" title="Debain 安装"></a>Debain 安装</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install btop</span><br><span class="line">btop</span><br></pre></td></tr></table></figure></div>]]></content>
+    <title>Linux 防火墙端口开放</title>
+    <url>/2024/06/22/Linux-%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE/</url>
+    <content><![CDATA[<h2 id="端口开放"><a href="#端口开放" class="headerlink" title="端口开放"></a>端口开放</h2><p>在Linux中，要开放一个端口，通常需要使用iptables或者firewalld（如果安装了firewalld的话）。</p>
+<p>以下是两种情况的示例：</p>
+<ol>
+<li>使用iptables开放端口（例如开放TCP端口8080）：</li>
+</ol>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span><br></pre></td></tr></table></figure></div>
+
+<ol start="2">
+<li>如果你的系统使用firewalld，可以使用以下命令：</li>
+</ol>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --add-port=8080/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
+
+<p>请确保替换8080为你想要开放的实际端口号，并根据你的实际情况选择使用iptables还是firewalld。</p>
+<p>注意：如果你的系统使用的是ufw，可以使用以下命令：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ufw allow 8080/tcp</span><br></pre></td></tr></table></figure></div>
+
+<p>这些命令将允许进入指定端口的流量。如果你需要指定IP范围或者其他更复杂的规则，你可能需要编辑iptables的规则或者使用firewalld的更高级功能。</p>
+]]></content>
       <categories>
         <category>Program</category>
-        <category>Linux</category>
       </categories>
       <tags>
         <tag>Linux</tag>
-        <tag>Tools</tag>
       </tags>
   </entry>
   <entry>
@@ -2079,34 +2107,6 @@ rm -i /test/file1
       <tags>
         <tag>Linux</tag>
         <tag>Tools</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 防火墙端口开放</title>
-    <url>/2024/06/22/Linux-%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE/</url>
-    <content><![CDATA[<h2 id="端口开放"><a href="#端口开放" class="headerlink" title="端口开放"></a>端口开放</h2><p>在Linux中，要开放一个端口，通常需要使用iptables或者firewalld（如果安装了firewalld的话）。</p>
-<p>以下是两种情况的示例：</p>
-<ol>
-<li>使用iptables开放端口（例如开放TCP端口8080）：</li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span><br></pre></td></tr></table></figure></div>
-
-<ol start="2">
-<li>如果你的系统使用firewalld，可以使用以下命令：</li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --add-port=8080/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
-
-<p>请确保替换8080为你想要开放的实际端口号，并根据你的实际情况选择使用iptables还是firewalld。</p>
-<p>注意：如果你的系统使用的是ufw，可以使用以下命令：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ufw allow 8080/tcp</span><br></pre></td></tr></table></figure></div>
-
-<p>这些命令将允许进入指定端口的流量。如果你需要指定IP范围或者其他更复杂的规则，你可能需要编辑iptables的规则或者使用firewalld的更高级功能。</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -3974,6 +3974,24 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>Spring Cloud Gateway: An expected CSRF token cannot be found</title>
+    <url>/2024/07/06/Spring-Cloud-Gateway-An-expected-CSRF-token-cannot-be-found/</url>
+    <content><![CDATA[<blockquote>
+<p>An expected CSRF token cannot be found</p>
+</blockquote>
+<p>因为mvc和gateway冲突，而配置了：<code>spring.main.web-application-type=reactive</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> SecurityWebFilterChain <span class="title function_">springSecurityFilterChain</span><span class="params">(ServerHttpSecurity http)</span> &#123;</span><br><span class="line">    http.csrf(ServerHttpSecurity.CsrfSpec::disable);</span><br><span class="line">    <span class="keyword">return</span> http.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Cloud Gateway 4种接口放行方式</title>
     <url>/2024/07/08/Spring-Cloud-Gateway-4%E7%A7%8D%E6%8E%A5%E5%8F%A3%E6%94%BE%E8%A1%8C%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="4种接口过滤方式"><a href="#4种接口过滤方式" class="headerlink" title="4种接口过滤方式"></a>4种接口过滤方式</h2><h3 id="使用Spring-Cloud-Gateway的路由规则，在application-yml文件中定义predicates和filters"><a href="#使用Spring-Cloud-Gateway的路由规则，在application-yml文件中定义predicates和filters" class="headerlink" title="使用Spring Cloud Gateway的路由规则，在application.yml文件中定义predicates和filters"></a>使用Spring Cloud Gateway的路由规则，在application.yml文件中定义predicates和filters</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://user-service</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/user/login</span> <span class="comment"># 只放行/user/login接口</span></span><br></pre></td></tr></table></figure></div>
@@ -4002,17 +4020,71 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Spring Cloud Gateway: An expected CSRF token cannot be found</title>
-    <url>/2024/07/06/Spring-Cloud-Gateway-An-expected-CSRF-token-cannot-be-found/</url>
-    <content><![CDATA[<blockquote>
-<p>An expected CSRF token cannot be found</p>
+    <title>Spring IoC 控制反转</title>
+    <url>/2024/06/21/Spring-IoC-%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/</url>
+    <content><![CDATA[<h1 id="Spring-IoC-控制反转"><a href="#Spring-IoC-控制反转" class="headerlink" title="Spring IoC 控制反转"></a>Spring IoC 控制反转</h1><h2 id="控制反转（IoC）"><a href="#控制反转（IoC）" class="headerlink" title="控制反转（IoC）"></a>控制反转（IoC）</h2><blockquote>
+<p>在传统的 Java 应用中，一个类想要调用另一个类中的属性或方法，通常会先在其代码中通过 new Object() 的方式将后者的对象创建出来，然后才能实现属性或方法的调用。为了方便理解和描述，我们可以将前者称为“调用者”，将后者称为“被调用者”。也就是说，调用者掌握着被调用者对象创建的控制权。</p>
 </blockquote>
-<p>因为mvc和gateway冲突，而配置了：<code>spring.main.web-application-type=reactive</code></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> SecurityWebFilterChain <span class="title function_">springSecurityFilterChain</span><span class="params">(ServerHttpSecurity http)</span> &#123;</span><br><span class="line">    http.csrf(ServerHttpSecurity.CsrfSpec::disable);</span><br><span class="line">    <span class="keyword">return</span> http.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
+<p>但在 Spring 应用中，Java 对象创建的控制权是掌握在 IoC 容器手里的，其大致步骤如下。</p>
+<ol>
+<li>开发人员通过 XML 配置文件、注解、Java 配置类等方式，对 Java 对象进行定义，例如在 XML 配置文件中使用 <bean> 标签、在 Java 类上使用 @Component 注解等。</li>
+<li>Spring 启动时，IoC 容器会自动根据对象定义，将这些对象创建并管理起来。这些被 IoC 容器创建并管理的对象被称为 Spring Bean。</li>
+<li>当我们想要使用某个 Bean 时，可以直接从 IoC 容器中获取（例如通过 ApplicationContext 的 getBean() 方法），而不需要手动通过代码（例如 new Obejct() 的方式）创建。</li>
+</ol>
+<p>IoC 带来的最大改变不是代码层面的，而是从思想层面上发生了“主从换位”的改变。原本调用者是主动的一方，它想要使用什么资源就会主动出击，自己创建；但在 Spring 应用中，IoC 容器掌握着主动权，调用者则变成了被动的一方，被动的等待 IoC 容器创建它所需要的对象（Bean）。</p>
+<p>这个过程在职责层面发生了控制权的反转，把原本调用者通过代码实现的对象的创建，反转给 IoC 容器来帮忙实现，因此我们将这个过程称为 Spring 的“控制反转”。</p>
+<h2 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h2><p>在了解了 IoC 之后，我们还需要了解另外一个非常重要的概念：依赖注入。</p>
+<p>依赖注入（Denpendency Injection，简写为 DI）是 Martin Fowler 在 2004 年在对“控制反转”进行解释时提出的。Martin Fowler 认为“控制反转”一词很晦涩，无法让人很直接的理解“到底是哪里反转了”，因此他建议使用“依赖注入”来代替“控制反转”。</p>
+<p>在面向对象中，对象和对象之间是存在一种叫做“依赖”的关系。简单来说，依赖关系就是在一个对象中需要用到另外一个对象，即对象中存在一个属性，该属性是另外一个类的对象。</p>
+<p>例如，有一个名为 B 的 Java 类，它的代码如下。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    A a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>从代码可以看出，B 中存在一个 A 类型的对象属性 a，此时我们就可以说 B 的对象依赖于对象 a。而依赖注入就是就是基于这种“依赖关系”而产生的。</p>
+<p>我们知道，控制反转核心思想就是由 Spring 负责对象的创建。在对象创建过程中，Spring 会自动根据依赖关系，将它依赖的对象注入到当前对象中，这就是所谓的“依赖注入”。</p>
+<p>依赖注入本质上是 Spring Bean 属性注入的一种，只不过这个属性是一个对象属性而已。</p>
+<h2 id="IoC-的工作原理"><a href="#IoC-的工作原理" class="headerlink" title="IoC 的工作原理"></a>IoC 的工作原理</h2><p>在 Java 软件开发过程中，系统中的各个对象之间、各个模块之间、软件系统和硬件系统之间，或多或少都存在一定的耦合关系。</p>
+<p>若一个系统的耦合度过高，那么就会造成难以维护的问题，但完全没有耦合的代码几乎无法完成任何工作，这是由于几乎所有的功能都需要代码之间相互协作、相互依赖才能完成。因此我们在程序设计时，所秉承的思想一般都是在不影响系统功能的前提下，最大限度的降低耦合度。</p>
+<p>IoC 底层通过工厂模式、Java 的反射机制、XML 解析等技术，将代码的耦合度降低到最低限度，其主要步骤如下。</p>
+<ol>
+<li>在配置文件（例如 Bean.xml）中，对各个对象以及它们之间的依赖关系进行配置；</li>
+<li>我们可以把 IoC 容器当做一个工厂，这个工厂的产品就是 Spring Bean；</li>
+<li>容器启动时会加载并解析这些配置文件，得到对象的基本信息以及它们之间的依赖关系；</li>
+<li>IoC 利用 Java 的反射机制，根据类名生成相应的对象（即 Spring Bean），并根据依赖关系将这个对象注入到依赖它的对象中。</li>
+</ol>
+<p>由于对象的基本信息、对象之间的依赖关系都是在配置文件中定义的，并没有在代码中紧密耦合，因此即使对象发生改变，我们也只需要在配置文件中进行修改即可，而无须对 Java 代码进行修改，这就是 Spring IoC 实现解耦的原理。</p>
+<h2 id="IoC-容器的两种实现"><a href="#IoC-容器的两种实现" class="headerlink" title="IoC 容器的两种实现"></a>IoC 容器的两种实现</h2><p>IoC 思想基于 IoC 容器实现的，IoC 容器底层其实就是一个 Bean 工厂。Spring 框架为我们提供了两种不同类型 IoC 容器，它们分别是 BeanFactory 和 ApplicationContext。</p>
+<h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>BeanFactory 是 IoC 容器的基本实现，也是 Spring 提供的最简单的 IoC 容器，它提供了 IoC 容器最基本的功能，由 org.springframework.beans.factory.BeanFactory 接口定义。</p>
+<p>BeanFactory 采用懒加载（lazy-load）机制，容器在加载配置文件时并不会立刻创建 Java 对象，只有程序中获取（使用）这个对对象时才会创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h3><p>ApplicationContext 是 BeanFactory 接口的子接口，是对 BeanFactory 的扩展。ApplicationContext 在 BeanFactory 的基础上增加了许多企业级的功能，例如 AOP（面向切面编程）、国际化、事务支持等。</p>
+<p>ApplicationContext 接口有两个常用的实现类，具体如下表。</p>
+<table>
+<thead>
+<tr>
+<th align="center">实现类</th>
+<th align="center">描述</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ClassPathXmlApplicationContext</td>
+<td align="center">加载类路径 ClassPath 下指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
+<td align="center">ApplicationContext applicationContext &#x3D; new ClassPathXmlApplicationContext(String configLocation);</td>
+</tr>
+<tr>
+<td align="center">FileSystemXmlApplicationContext</td>
+<td align="center">加载指定的文件系统路径中指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
+<td align="center">ApplicationContext applicationContext &#x3D; new FileSystemXmlApplicationContext(String configLocation);</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>在上表的示例代码中，参数 configLocation 用于指定 Spring 配置文件的名称和位置，如 Beans.xml。</p>
+</blockquote>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//使用 FileSystemXmlApplicationContext 加载指定路径下的配置文件 Bean.xml</span></span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(<span class="string">&quot;D:\\eclipe workspace\\spring workspace\\HelloSpring\\src\\Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
       <categories>
         <category>Program</category>
-        <category>Java</category>
-        <category>Spring</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -4123,78 +4195,6 @@ rm -i /test/file1
         <category>Program</category>
         <category>Java</category>
         <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring IoC 控制反转</title>
-    <url>/2024/06/21/Spring-IoC-%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/</url>
-    <content><![CDATA[<h1 id="Spring-IoC-控制反转"><a href="#Spring-IoC-控制反转" class="headerlink" title="Spring IoC 控制反转"></a>Spring IoC 控制反转</h1><h2 id="控制反转（IoC）"><a href="#控制反转（IoC）" class="headerlink" title="控制反转（IoC）"></a>控制反转（IoC）</h2><blockquote>
-<p>在传统的 Java 应用中，一个类想要调用另一个类中的属性或方法，通常会先在其代码中通过 new Object() 的方式将后者的对象创建出来，然后才能实现属性或方法的调用。为了方便理解和描述，我们可以将前者称为“调用者”，将后者称为“被调用者”。也就是说，调用者掌握着被调用者对象创建的控制权。</p>
-</blockquote>
-<p>但在 Spring 应用中，Java 对象创建的控制权是掌握在 IoC 容器手里的，其大致步骤如下。</p>
-<ol>
-<li>开发人员通过 XML 配置文件、注解、Java 配置类等方式，对 Java 对象进行定义，例如在 XML 配置文件中使用 <bean> 标签、在 Java 类上使用 @Component 注解等。</li>
-<li>Spring 启动时，IoC 容器会自动根据对象定义，将这些对象创建并管理起来。这些被 IoC 容器创建并管理的对象被称为 Spring Bean。</li>
-<li>当我们想要使用某个 Bean 时，可以直接从 IoC 容器中获取（例如通过 ApplicationContext 的 getBean() 方法），而不需要手动通过代码（例如 new Obejct() 的方式）创建。</li>
-</ol>
-<p>IoC 带来的最大改变不是代码层面的，而是从思想层面上发生了“主从换位”的改变。原本调用者是主动的一方，它想要使用什么资源就会主动出击，自己创建；但在 Spring 应用中，IoC 容器掌握着主动权，调用者则变成了被动的一方，被动的等待 IoC 容器创建它所需要的对象（Bean）。</p>
-<p>这个过程在职责层面发生了控制权的反转，把原本调用者通过代码实现的对象的创建，反转给 IoC 容器来帮忙实现，因此我们将这个过程称为 Spring 的“控制反转”。</p>
-<h2 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h2><p>在了解了 IoC 之后，我们还需要了解另外一个非常重要的概念：依赖注入。</p>
-<p>依赖注入（Denpendency Injection，简写为 DI）是 Martin Fowler 在 2004 年在对“控制反转”进行解释时提出的。Martin Fowler 认为“控制反转”一词很晦涩，无法让人很直接的理解“到底是哪里反转了”，因此他建议使用“依赖注入”来代替“控制反转”。</p>
-<p>在面向对象中，对象和对象之间是存在一种叫做“依赖”的关系。简单来说，依赖关系就是在一个对象中需要用到另外一个对象，即对象中存在一个属性，该属性是另外一个类的对象。</p>
-<p>例如，有一个名为 B 的 Java 类，它的代码如下。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    A a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>从代码可以看出，B 中存在一个 A 类型的对象属性 a，此时我们就可以说 B 的对象依赖于对象 a。而依赖注入就是就是基于这种“依赖关系”而产生的。</p>
-<p>我们知道，控制反转核心思想就是由 Spring 负责对象的创建。在对象创建过程中，Spring 会自动根据依赖关系，将它依赖的对象注入到当前对象中，这就是所谓的“依赖注入”。</p>
-<p>依赖注入本质上是 Spring Bean 属性注入的一种，只不过这个属性是一个对象属性而已。</p>
-<h2 id="IoC-的工作原理"><a href="#IoC-的工作原理" class="headerlink" title="IoC 的工作原理"></a>IoC 的工作原理</h2><p>在 Java 软件开发过程中，系统中的各个对象之间、各个模块之间、软件系统和硬件系统之间，或多或少都存在一定的耦合关系。</p>
-<p>若一个系统的耦合度过高，那么就会造成难以维护的问题，但完全没有耦合的代码几乎无法完成任何工作，这是由于几乎所有的功能都需要代码之间相互协作、相互依赖才能完成。因此我们在程序设计时，所秉承的思想一般都是在不影响系统功能的前提下，最大限度的降低耦合度。</p>
-<p>IoC 底层通过工厂模式、Java 的反射机制、XML 解析等技术，将代码的耦合度降低到最低限度，其主要步骤如下。</p>
-<ol>
-<li>在配置文件（例如 Bean.xml）中，对各个对象以及它们之间的依赖关系进行配置；</li>
-<li>我们可以把 IoC 容器当做一个工厂，这个工厂的产品就是 Spring Bean；</li>
-<li>容器启动时会加载并解析这些配置文件，得到对象的基本信息以及它们之间的依赖关系；</li>
-<li>IoC 利用 Java 的反射机制，根据类名生成相应的对象（即 Spring Bean），并根据依赖关系将这个对象注入到依赖它的对象中。</li>
-</ol>
-<p>由于对象的基本信息、对象之间的依赖关系都是在配置文件中定义的，并没有在代码中紧密耦合，因此即使对象发生改变，我们也只需要在配置文件中进行修改即可，而无须对 Java 代码进行修改，这就是 Spring IoC 实现解耦的原理。</p>
-<h2 id="IoC-容器的两种实现"><a href="#IoC-容器的两种实现" class="headerlink" title="IoC 容器的两种实现"></a>IoC 容器的两种实现</h2><p>IoC 思想基于 IoC 容器实现的，IoC 容器底层其实就是一个 Bean 工厂。Spring 框架为我们提供了两种不同类型 IoC 容器，它们分别是 BeanFactory 和 ApplicationContext。</p>
-<h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>BeanFactory 是 IoC 容器的基本实现，也是 Spring 提供的最简单的 IoC 容器，它提供了 IoC 容器最基本的功能，由 org.springframework.beans.factory.BeanFactory 接口定义。</p>
-<p>BeanFactory 采用懒加载（lazy-load）机制，容器在加载配置文件时并不会立刻创建 Java 对象，只有程序中获取（使用）这个对对象时才会创建。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h3><p>ApplicationContext 是 BeanFactory 接口的子接口，是对 BeanFactory 的扩展。ApplicationContext 在 BeanFactory 的基础上增加了许多企业级的功能，例如 AOP（面向切面编程）、国际化、事务支持等。</p>
-<p>ApplicationContext 接口有两个常用的实现类，具体如下表。</p>
-<table>
-<thead>
-<tr>
-<th align="center">实现类</th>
-<th align="center">描述</th>
-<th align="center">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ClassPathXmlApplicationContext</td>
-<td align="center">加载类路径 ClassPath 下指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
-<td align="center">ApplicationContext applicationContext &#x3D; new ClassPathXmlApplicationContext(String configLocation);</td>
-</tr>
-<tr>
-<td align="center">FileSystemXmlApplicationContext</td>
-<td align="center">加载指定的文件系统路径中指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
-<td align="center">ApplicationContext applicationContext &#x3D; new FileSystemXmlApplicationContext(String configLocation);</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>在上表的示例代码中，参数 configLocation 用于指定 Spring 配置文件的名称和位置，如 Beans.xml。</p>
-</blockquote>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//使用 FileSystemXmlApplicationContext 加载指定路径下的配置文件 Bean.xml</span></span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(<span class="string">&quot;D:\\eclipe workspace\\spring workspace\\HelloSpring\\src\\Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-]]></content>
-      <categories>
-        <category>Program</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -4358,29 +4358,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>TOTP 动态口令</title>
-    <url>/2024/06/27/TOTP-%E5%8A%A8%E6%80%81%E5%8F%A3%E4%BB%A4/</url>
-    <content><![CDATA[<h2 id="OTP-HOTP-TOTP"><a href="#OTP-HOTP-TOTP" class="headerlink" title="OTP&#x2F;HOTP&#x2F;TOTP"></a>OTP&#x2F;HOTP&#x2F;TOTP</h2><h3 id="OTP-One-time-Password"><a href="#OTP-One-time-Password" class="headerlink" title="OTP (One-time Password)"></a>OTP (One-time Password)</h3><p>OTP 是一次性密码，又称动态密码或单次有效密码，是指计算机系统或其他数字设备上只能使用一次的密码，有效期为只有一次登录会话或交易。</p>
-<h3 id="HOTP-HMAC-based-One-time-Password"><a href="#HOTP-HMAC-based-One-time-Password" class="headerlink" title="HOTP (HMAC-based One-time Password)"></a>HOTP (HMAC-based One-time Password)</h3><p>HOTP 是一种基于散列消息验证码(HMAC)的一次性密码算法。</p>
-<h3 id="TOTP-Time-based-One-Time-Password"><a href="#TOTP-Time-based-One-Time-Password" class="headerlink" title="TOTP (Time-based One-Time Password)"></a>TOTP (Time-based One-Time Password)</h3><p>TOTP 是一种根据预共享的密钥与当前时间计算一次性密码的算法。它已被互联网工程任务组接纳为RFC 6238标准，成为主动开放认证(OATH)的基石，并被用于众多多重要素验证系统当中。</p>
-<p>TOTP基于HOTP实现，它结合一个私钥与当前时间戳，使用一个密码散列函数来生成一次性密码。由于网络延迟与时钟不同步可能导致密码接收者不得不尝试多次遇到正确的时间来进行身份验证，时间戳通常以30秒为间隔，从而避免反复尝试。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a class="link"   href="https://medium.com/@rakesh.open.source/time-based-one-time-password-totp-java-implementation-82a472bd6bf9" >Time-Based One-Time Password (TOTP) — Java Implementation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://zhuanlan.zhihu.com/p/641587128" >基于 TOTP 实现多重身份(Multi-factor)认证 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://stytch.com/blog/what-is-totp/" >What is TOTP and why does it matter? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://allthingsauth.com/2018/04/20/a-medium-dive-on-the-totp-spec/" >A medium dive on the Time-based One-time Passwords (TOTP) spec <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://www.twilio.com/docs/glossary/totp" >What is a Time-based One-time Password (TOTP)? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>密码</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Version 版本</title>
     <url>/2024/06/22/Version-%E7%89%88%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h1><p><figure class="image-caption"><img  
@@ -4422,6 +4399,29 @@ rm -i /test/file1
       <tags>
         <tag>Version</tag>
         <tag>DevOps</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TOTP 动态口令</title>
+    <url>/2024/06/27/TOTP-%E5%8A%A8%E6%80%81%E5%8F%A3%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="OTP-HOTP-TOTP"><a href="#OTP-HOTP-TOTP" class="headerlink" title="OTP&#x2F;HOTP&#x2F;TOTP"></a>OTP&#x2F;HOTP&#x2F;TOTP</h2><h3 id="OTP-One-time-Password"><a href="#OTP-One-time-Password" class="headerlink" title="OTP (One-time Password)"></a>OTP (One-time Password)</h3><p>OTP 是一次性密码，又称动态密码或单次有效密码，是指计算机系统或其他数字设备上只能使用一次的密码，有效期为只有一次登录会话或交易。</p>
+<h3 id="HOTP-HMAC-based-One-time-Password"><a href="#HOTP-HMAC-based-One-time-Password" class="headerlink" title="HOTP (HMAC-based One-time Password)"></a>HOTP (HMAC-based One-time Password)</h3><p>HOTP 是一种基于散列消息验证码(HMAC)的一次性密码算法。</p>
+<h3 id="TOTP-Time-based-One-Time-Password"><a href="#TOTP-Time-based-One-Time-Password" class="headerlink" title="TOTP (Time-based One-Time Password)"></a>TOTP (Time-based One-Time Password)</h3><p>TOTP 是一种根据预共享的密钥与当前时间计算一次性密码的算法。它已被互联网工程任务组接纳为RFC 6238标准，成为主动开放认证(OATH)的基石，并被用于众多多重要素验证系统当中。</p>
+<p>TOTP基于HOTP实现，它结合一个私钥与当前时间戳，使用一个密码散列函数来生成一次性密码。由于网络延迟与时钟不同步可能导致密码接收者不得不尝试多次遇到正确的时间来进行身份验证，时间戳通常以30秒为间隔，从而避免反复尝试。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link"   href="https://medium.com/@rakesh.open.source/time-based-one-time-password-totp-java-implementation-82a472bd6bf9" >Time-Based One-Time Password (TOTP) — Java Implementation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://zhuanlan.zhihu.com/p/641587128" >基于 TOTP 实现多重身份(Multi-factor)认证 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://stytch.com/blog/what-is-totp/" >What is TOTP and why does it matter? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://allthingsauth.com/2018/04/20/a-medium-dive-on-the-totp-spec/" >A medium dive on the Time-based One-time Passwords (TOTP) spec <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.twilio.com/docs/glossary/totp" >What is a Time-based One-time Password (TOTP)? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>密码</tag>
+        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -4585,19 +4585,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2017/02/09/hello-world/</url>
-    <content><![CDATA[<blockquote>
-<p>Hello World</p>
-</blockquote>
-
-  <div class="note p-4 mb-4 rounded-small primary">
-    <p>笔记</p>
-
-  </div>
-]]></content>
-  </entry>
-  <entry>
     <title>npm 后台运行脚本</title>
     <url>/2024/07/09/npm-%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<p>在 Windows 系统上，如果你想要通过 npm 运行脚本并且让其在后台运行，可以借助一些工具或命令来实现。以下是几种常见的方法：</p>
@@ -4631,6 +4618,19 @@ rm -i /test/file1
       <tags>
         <tag>NPM</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2017/02/09/hello-world/</url>
+    <content><![CDATA[<blockquote>
+<p>Hello World</p>
+</blockquote>
+
+  <div class="note p-4 mb-4 rounded-small primary">
+    <p>笔记</p>
+
+  </div>
+]]></content>
   </entry>
   <entry>
     <title>webp 转换工具 cwebp</title>
@@ -5180,53 +5180,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>剑道 轨迹</title>
-    <url>/2024/07/02/%E5%89%91%E9%81%93-%E8%BD%A8%E8%BF%B9/</url>
-    <content><![CDATA[<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/kendo_2.jpg"
-                      alt="Kendo"
-                ><figcaption>Kendo</figcaption></figure></p>
-<h2 id="Locus-轨迹"><a href="#Locus-轨迹" class="headerlink" title="Locus 轨迹"></a>Locus 轨迹</h2><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus.jpg"
-                      alt="Locus"
-                ><figcaption>Locus</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_2.jpg"
-                      alt="Locus2"
-                ><figcaption>Locus2</figcaption></figure></p>
-<h2 id="Men-面的打击"><a href="#Men-面的打击" class="headerlink" title="Men 面的打击"></a>Men 面的打击</h2><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_3.jpg"
-                      alt="Men"
-                ><figcaption>Men</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_new_old.jpg"
-                      alt="Men2"
-                ><figcaption>Men2</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_order.jpg"
-                      alt="Men3"
-                ><figcaption>Men3</figcaption></figure></p>
-]]></content>
-      <categories>
-        <category>Kendo 剑道</category>
-      </categories>
-      <tags>
-        <tag>剑道</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>只做正确的事情，并持续输出价值</title>
     <url>/2017/02/24/%E5%8F%AA%E5%81%9A%E6%AD%A3%E7%A1%AE%E7%9A%84%E4%BA%8B%E6%83%85%EF%BC%8C%E5%B9%B6%E6%8C%81%E7%BB%AD%E8%BE%93%E5%87%BA%E4%BB%B7%E5%80%BC/</url>
     <content><![CDATA[<blockquote>
@@ -5280,6 +5233,53 @@ rm -i /test/file1
 ]]></content>
       <tags>
         <tag>转载</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>剑道 轨迹</title>
+    <url>/2024/07/02/%E5%89%91%E9%81%93-%E8%BD%A8%E8%BF%B9/</url>
+    <content><![CDATA[<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/kendo_2.jpg"
+                      alt="Kendo"
+                ><figcaption>Kendo</figcaption></figure></p>
+<h2 id="Locus-轨迹"><a href="#Locus-轨迹" class="headerlink" title="Locus 轨迹"></a>Locus 轨迹</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus.jpg"
+                      alt="Locus"
+                ><figcaption>Locus</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_2.jpg"
+                      alt="Locus2"
+                ><figcaption>Locus2</figcaption></figure></p>
+<h2 id="Men-面的打击"><a href="#Men-面的打击" class="headerlink" title="Men 面的打击"></a>Men 面的打击</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_3.jpg"
+                      alt="Men"
+                ><figcaption>Men</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_new_old.jpg"
+                      alt="Men2"
+                ><figcaption>Men2</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_order.jpg"
+                      alt="Men3"
+                ><figcaption>Men3</figcaption></figure></p>
+]]></content>
+      <categories>
+        <category>Kendo 剑道</category>
+      </categories>
+      <tags>
+        <tag>剑道</tag>
       </tags>
   </entry>
   <entry>
@@ -5766,136 +5766,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>摄影 三要素</title>
-    <url>/2024/07/02/%E6%91%84%E5%BD%B1-%E4%B8%89%E8%A6%81%E7%B4%A0/</url>
-    <content><![CDATA[<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/spiekbriefje-diafragma-sluitertijd-iso.webp"
-                      alt="tips"
-                ><figcaption>tips</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/base_5.png"
-                      alt="tips"
-                ><figcaption>tips</figcaption></figure></p>
-<h2 id="光圈"><a href="#光圈" class="headerlink" title="光圈"></a>光圈</h2><blockquote>
-<p>是照相机镜头中控制光线进入镜头量的装置。它通常设置在镜头的前部，通过控制光圈的大小和孔径，可以控制镜头的进光量以及景深效果。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size.webp"
-                      alt="lens"
-                ><figcaption>lens</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size2.webp"
-                      alt="lens"
-                ><figcaption>lens</figcaption></figure></p>
-<p>在摄影中，光圈的大小是影响照片曝光的关键因素之一。如果光圈开得过大，照片可能会过度曝光，失去细节和颜色；如果光圈开得过小，照片可能会欠曝光，显得暗淡无光。因此，合理调整光圈大小是非常重要的。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_1.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_2.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_3.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_4.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_5.webp"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure></p>
-<p>除了控制曝光，光圈的大小还会影响景深效果。一般来说，光圈越大，景深越浅，即清晰范围越小；而光圈越小，景深则越深，即清晰范围越大。这种景深效果在拍摄人像、风景等需要突出主题、虚化背景的场景中非常有用。</p>
-<p>此外，光圈的大小也会影响照片的画质。一般来说，光圈越大，画面的清晰度可能会降低，出现所谓的“散光”现象；而光圈越小，画面的清晰度则越高。因此，在拍摄高质量的照片时，需要根据实际情况选择合适的光圈大小。</p>
-<p>总之，光圈是照相机中一个非常重要的装置，它不仅控制着光线的进入量，还影响着照片的曝光、景深效果和画质。通过合理调整光圈大小，摄影师可以创作出各种不同效果的照片。</p>
-<h2 id="快门"><a href="#快门" class="headerlink" title="快门"></a>快门</h2><blockquote>
-<p>快门快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/shutter-speed-2.jpg"
-                      alt="shutter-speed"
-                ><figcaption>shutter-speed</figcaption></figure></p>
-<p>首先，让我们来了解一下快门的种类。常见的快门类型有机械快门和电子快门两种。机械快门是通过机械方式控制快门速度，而电子快门则是通过电子方式控制快门速度。两种快门都可以实现快速、准确的曝光控制，但在使用上略有不同。</p>
-<p>其次，在拍摄时，我们需要根据不同的拍摄需求来选择合适的快门速度。例如，在拍摄运动场景时，我们需要使用较快的快门速度来捕捉运动员的动作和表情；而在拍摄风景时，我们需要使用较慢的快门速度来捕捉自然光线的变化和细节。此外，在拍摄夜景时，我们也需要使用较慢的快门速度来捕捉城市的灯光和天上的星星。</p>
-<p>最后，在使用快门时，我们需要注意以下几点。首先，要保持相机的稳定和平衡，避免因为手抖或者姿势不当而导致照片模糊。其次，要根据不同的光线条件和拍摄需求来选择合适的快门速度，避免因为曝光不足或者过度而导致照片质量下降。最后，要学会灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
-<p>总之，快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度，并注意相机的稳定和平衡以及灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed.jpg"
-                      alt="shutter-speed"
-                ><figcaption>shutter-speed</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed_1.jpg"
-                      alt="shutter-speed"
-                ><figcaption>shutter-speed</figcaption></figure></p>
-<h2 id="感光度"><a href="#感光度" class="headerlink" title="感光度"></a>感光度</h2><blockquote>
-<p>感光度感光度是指相机传感器对光线的敏感程度。在摄影中，感光度是一个非常重要的参数，因为它决定了照片的曝光程度和画质。一般来说，感光度越高，传感器对光线的敏感度就越高，照片的曝光就越好，但同时也会带来一些负面影响，比如噪点增多和画质下降。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_5.webp"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure></p>
-<p>在拍摄照片时，摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度。如果拍摄环境的光线比较暗，那么就需要使用高感光度来保证照片的曝光程度；如果拍摄环境的的光线比较充足，那么使用低感光度就可以满足拍摄需求。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_1.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_2.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_3.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_4.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure></p>
-<p>此外，不同的相机传感器对光线的敏感度也不同。一般来说，全画幅相机比APS-C画幅相机具有更高的感光度范围，因此全画幅相机在暗光环境下表现更好。</p>
-<p>除了对照片曝光的影响外，感光度还可以影响摄影师的拍摄速度。如果摄影师需要拍摄快速移动的物体，那么就需要使用高感光度来提高拍摄速度，从而捕捉到更好的画面。</p>
-<p>总之，感光度是摄影中一个非常重要的参数，它决定了照片的曝光程度和画质。摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度，从而拍摄出更加完美的照片。</p>
-]]></content>
-      <categories>
-        <category>摄影</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>摄影 分类</title>
     <url>/2024/07/07/%E6%91%84%E5%BD%B1-%E5%88%86%E7%B1%BB/</url>
     <content><![CDATA[<blockquote>
@@ -6030,6 +5900,338 @@ rm -i /test/file1
 ]]></content>
       <categories>
         <category>摄影</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影 三要素</title>
+    <url>/2024/07/02/%E6%91%84%E5%BD%B1-%E4%B8%89%E8%A6%81%E7%B4%A0/</url>
+    <content><![CDATA[<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/spiekbriefje-diafragma-sluitertijd-iso.webp"
+                      alt="tips"
+                ><figcaption>tips</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/base_5.png"
+                      alt="tips"
+                ><figcaption>tips</figcaption></figure></p>
+<h2 id="光圈"><a href="#光圈" class="headerlink" title="光圈"></a>光圈</h2><blockquote>
+<p>是照相机镜头中控制光线进入镜头量的装置。它通常设置在镜头的前部，通过控制光圈的大小和孔径，可以控制镜头的进光量以及景深效果。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size.webp"
+                      alt="lens"
+                ><figcaption>lens</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size2.webp"
+                      alt="lens"
+                ><figcaption>lens</figcaption></figure></p>
+<p>在摄影中，光圈的大小是影响照片曝光的关键因素之一。如果光圈开得过大，照片可能会过度曝光，失去细节和颜色；如果光圈开得过小，照片可能会欠曝光，显得暗淡无光。因此，合理调整光圈大小是非常重要的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_1.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_2.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_3.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_4.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_5.webp"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure></p>
+<p>除了控制曝光，光圈的大小还会影响景深效果。一般来说，光圈越大，景深越浅，即清晰范围越小；而光圈越小，景深则越深，即清晰范围越大。这种景深效果在拍摄人像、风景等需要突出主题、虚化背景的场景中非常有用。</p>
+<p>此外，光圈的大小也会影响照片的画质。一般来说，光圈越大，画面的清晰度可能会降低，出现所谓的“散光”现象；而光圈越小，画面的清晰度则越高。因此，在拍摄高质量的照片时，需要根据实际情况选择合适的光圈大小。</p>
+<p>总之，光圈是照相机中一个非常重要的装置，它不仅控制着光线的进入量，还影响着照片的曝光、景深效果和画质。通过合理调整光圈大小，摄影师可以创作出各种不同效果的照片。</p>
+<h2 id="快门"><a href="#快门" class="headerlink" title="快门"></a>快门</h2><blockquote>
+<p>快门快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/shutter-speed-2.jpg"
+                      alt="shutter-speed"
+                ><figcaption>shutter-speed</figcaption></figure></p>
+<p>首先，让我们来了解一下快门的种类。常见的快门类型有机械快门和电子快门两种。机械快门是通过机械方式控制快门速度，而电子快门则是通过电子方式控制快门速度。两种快门都可以实现快速、准确的曝光控制，但在使用上略有不同。</p>
+<p>其次，在拍摄时，我们需要根据不同的拍摄需求来选择合适的快门速度。例如，在拍摄运动场景时，我们需要使用较快的快门速度来捕捉运动员的动作和表情；而在拍摄风景时，我们需要使用较慢的快门速度来捕捉自然光线的变化和细节。此外，在拍摄夜景时，我们也需要使用较慢的快门速度来捕捉城市的灯光和天上的星星。</p>
+<p>最后，在使用快门时，我们需要注意以下几点。首先，要保持相机的稳定和平衡，避免因为手抖或者姿势不当而导致照片模糊。其次，要根据不同的光线条件和拍摄需求来选择合适的快门速度，避免因为曝光不足或者过度而导致照片质量下降。最后，要学会灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
+<p>总之，快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度，并注意相机的稳定和平衡以及灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed.jpg"
+                      alt="shutter-speed"
+                ><figcaption>shutter-speed</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed_1.jpg"
+                      alt="shutter-speed"
+                ><figcaption>shutter-speed</figcaption></figure></p>
+<h2 id="感光度"><a href="#感光度" class="headerlink" title="感光度"></a>感光度</h2><blockquote>
+<p>感光度感光度是指相机传感器对光线的敏感程度。在摄影中，感光度是一个非常重要的参数，因为它决定了照片的曝光程度和画质。一般来说，感光度越高，传感器对光线的敏感度就越高，照片的曝光就越好，但同时也会带来一些负面影响，比如噪点增多和画质下降。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_5.webp"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure></p>
+<p>在拍摄照片时，摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度。如果拍摄环境的光线比较暗，那么就需要使用高感光度来保证照片的曝光程度；如果拍摄环境的的光线比较充足，那么使用低感光度就可以满足拍摄需求。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_1.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_2.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_3.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_4.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure></p>
+<p>此外，不同的相机传感器对光线的敏感度也不同。一般来说，全画幅相机比APS-C画幅相机具有更高的感光度范围，因此全画幅相机在暗光环境下表现更好。</p>
+<p>除了对照片曝光的影响外，感光度还可以影响摄影师的拍摄速度。如果摄影师需要拍摄快速移动的物体，那么就需要使用高感光度来提高拍摄速度，从而捕捉到更好的画面。</p>
+<p>总之，感光度是摄影中一个非常重要的参数，它决定了照片的曝光程度和画质。摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度，从而拍摄出更加完美的照片。</p>
+]]></content>
+      <categories>
+        <category>摄影</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影 构图 明暗</title>
+    <url>/2024/07/31/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E6%98%8E%E6%9A%97/</url>
+    <content><![CDATA[<p>在构成视觉艺术的各种要素中，明和暗对摄影具有特殊的重要性。<br>因为有了明和暗，照片中各种物体才成为可以看得见的影像；<br>所有其它要素，包括形状、线条、质感和立体感等，实际上都是明和暗的不同表现形式而已。<br>时至今日，事实已经证明，摄影的实质就是在于依靠光线发生作用，也就是依靠光线通过镜头对感光材材料发生作用。</p>
+<p>摄影家从快门打开的一瞬间到照片离开显影盆的整个过程中，也就是明和暗这个范围之内，发挥他的影响和控制作用的。</p>
+<p>摄影过程的每一个细小的环节，包括胶片选择、滤镜使用、底片曝光、药液特性、显影时间等，都对明暗的再现有着相当大的影响，从而也相当大地影响着作品的表现力。</p>
+<p>在放大照片时，有遮挡经验的人都知道，对照片的局部遮光和加光会给作品的清晰度和立体感带来多么大的影响！<br>如果再把相纸的反差和显影剂的强弱考虑在内，可以说控制明暗的机会是相当多的。</p>
+<p>从根本上说，明暗只是色的三大特征之一，其它两个是色别和色艳度。因为本书只论黑白摄影构图，所以明暗是当作独立的构图讨论的。</p>
+<h2 id="照片的质量"><a href="#照片的质量" class="headerlink" title="照片的质量"></a>照片的质量</h2><p>从早期的摄影教育开始，人们就教导摄影者说，照片必须表现从明到暗（包括少量纯白纯黑在内）的整套灰色层次。<br>每本摄影手册也都告诉读者，一定要把明暗两个部分的影调等级和层次充分细致地表现出来。<br>毫无疑问，这正是摄影比其它视觉艺术独到的地方。这也是照片质量问题的核心所在。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123352.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="明和暗的造型作用"><a href="#明和暗的造型作用" class="headerlink" title="明和暗的造型作用"></a>明和暗的造型作用</h2><p>没有哪一种造型手段能像摄影那样，用从纯白到纯黑的无数个灰色层次的变化，把物体的立体感那样生动地表现出来。<br>没有哪一种造型手段能像摄影那样，在一个平面上向人们提供凸起和凹下的幻觉，从而构成一个逼真的立体形状。</p>
+<p>下面的人像是故意颠倒过来的，为的是分析它的形状而不是去注意人物的特征。<br>请注意眉毛下面的凹处和眼睑下面的圆形眼球。<br>鼻子是渐渐隆起的，鼻尖达到最高点，耸立于周围的颧骨之上，然后突然下降到上嘴唇的平面上。<br>嘴的形状紧随着下面牙齿的圆筒状。<br>两片嘴唇形成了隆起的弧线，由中间的分界线上下分开。<br>下巴从嘴唇下面的凹处突起，形成一个高丘，然后下降，先缓后急，直抵下颌。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123430.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>没有其它造型手段能够记录象下图这样微妙的明暗变化；<br>正是这种明暗变化表现了光线和空气构成的神秘的环境气氛，给人一种树木似乎沐浴在气流之中的感觉。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123451.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在记录物体的透明度、半透明度的反光特性的能力方面，任何其它造型手段都无法与摄影相媲美。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123516.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="灰色级谱"><a href="#灰色级谱" class="headerlink" title="灰色级谱"></a>灰色级谱</h2><p>能觉察到的灰色色调是无限多的。用摄影方法能记录下来的色调也是难以计数的。<br>为了对色调进行大致分类，人们设计了这个图谱，并用它作为识别和记录色调的依据。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122859.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>像实际生活中其它方面一样，艺术需要多样化，就是公认的事实。<br>艺术风格需要不断变化的最主要的理由也许是：任何一种特定式样要是用得过久，就会引起厌烦。<br>不断观赏一个形象会使人的精神疲倦，这时候会要求调换不同的形式来进行调剂。</p>
+<p>在使用色调方面也需要多样化。<br>当许多照片在一个展览会上展出或一种出版物中出现的时候，色调的多样化特别重要。</p>
+<p>如果大部分照片是以灰色级谱上的中间色调为主，很少有极浅灰、白、深暗灰和黑，这种色调的雷同将会使人觉得沉闷乏味。</p>
+<p>在一张照片或一组照片里，怎样运用级谱里的数值，是影响作品气氛的因素之一。<br>在艺术中和在生活中一样，气氛的改变不仅是可能的，而且是竭力追求的。</p>
+<h2 id="高调和低调"><a href="#高调和低调" class="headerlink" title="高调和低调"></a>高调和低调</h2><p>一张照片，如果它主要包括了灰色级谱的上半部分（白、极浅灰、浅灰、深浅灰和中灰），一般说它表现的是轻松愉快的气氛，这样的照片被称为高调照片。<br>但要注意这样一种危险：没有包括灰色级谱上所有等级(那怕是一点痕迹)的高调照片，看起来会像曝光不足或显影不足一样。</p>
+<p>当然，如果从纯白到中灰的所有等级都能充分表现出来的话，暗调部分可以省掉。<br>也就是说，如果从极浅灰到中灰之间最少能分辨出十个灰色等级时，这样的高调照片从色调上说是可以接受的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122912.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122926.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>同样，一张照片如果主要包括灰色级谱的下半部分（中灰、浅暗灰、暗灰、深暗灰、和黑色），<br>它表现的是阴沉忧郁的氛，这样的照片被称为低调照片，也常常要有一些较亮色调，<br>以便使人相信就张照片是有意这样处理的而不是失手弄黑的，<br>假如包含较亮色调后对所要表现的气氛所有干扰的话，也可不要较亮色调，但必须具有极丰富而明显的暗调层次。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122941.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="对自然界明暗的联想作用"><a href="#对自然界明暗的联想作用" class="headerlink" title="对自然界明暗的联想作用"></a>对自然界明暗的联想作用</h2><p>我们总是不可避免地要把照片上的色调和实物、经验以及情绪联系起来。<br>砖墙或是混凝土墙的颜色会唤起人们内心已有的那种明暗概念。<br>人们会自动地把特定的颜色和固定的色调联系在一起，所以我们可以料想一只桔子拍成照片以后表现的色调比一只柠檬要深些，一只苹果则比一只桔子更深，而茄子是它们当中最深的。</p>
+<p>我们说到雪、牛奶、亚麻布床单会联想到白色，说到岩石会联想到灰色，说到夜晚、寂静、空间、煤炭会联想到黑色。<br>愉快的情绪是和明亮的调子相联系的。<br>压抑忧郁的情绪是和接近黑色的调子相联系的。荒凉是和灰色相联系的。</p>
+<p>虽然这种联想在大多数情况下是正确的，但不是在所有情况下都是适用的。<br>有时候会出现这样的情况：一个物体经过影调处理后才能符合常规的联想。<br>这时候摄影家就得控制光线、加用滤镜、调整曝光或通过印放处理来达到自己的目的。</p>
+<p>在另外一些情况下，为了构图或表现上的需要，牺牲或打破这种常规的联想关系更为有利；<br>浅色的物体可以处理成暗调的，深色的物可以处理成浅调的。</p>
+<p>这种联想关系还被扩大到伦理道德范畴中去。<br>明与暗经常被用来和正面事物与反面事物、善与恶相联系。<br>在人类历史的早期，上帝被认为就是光明。<br>因而，亮调就代表无形之物、非物质精灵，经常用大片空间和天空来表示。</p>
+<p>相反，黑暗只和忧伤的情绪相联系，用来表示抑郁和悲伤。</p>
+<p>如果我们认真考虑一下这种联想作用，我们会发现，它既不是一成不变的，甚至也是没有道理可讲的。<br>难道黑暗不是冒险精神、宗教迷信和神秘主义的环境气氛吗？不是也有很多诗情画意的作品是用暗调来表现的吗？<br>甚至爱情和沉思这些带神秘感的生活片断，也是和黑暗或近乎黑暗的环境相联系，而不是用中午的耀眼阳光来衬托的。<br>强烈的阳光使一切暴露无遗，没有一点含蓄回味的余地。<br>阴暗的教堂比起明亮的教堂来，是宗教忏悔的更合适的环境。</p>
+<p>黎明和黄昏的朦胧光线似乎适宜于渲染宗教精神，而光天化日却能使人们摆脱神秘和离奇的想象。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122955.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>艺术家在表现他的主题的时候，必须能够不受约束地选择它的调子。<br>艺术上的墨守成规是创造力的障碍。<br>拘泥于简单地反映，屈从于公众的低级趣味，只能产生乏味的，没有特色的作品。夸张是艺术的有机组成部分。<br>在摄影艺术中，夸张的机会主要存在于明暗控制之中。<br>如果把晴天雪地上黑色影子强调出来会有利于你的美学设想，那就让它变黑，必要的话还可以在放大时加光。<br>如果在表现采矿的照片上，煤的颜色干扰了你想要强调的东西，你设法让它亮一些是合理的。</p>
+<p>几乎可以说，不加夸张地处理色调只能落入俗套，而打破常规的处理却会因为它的新颖大胆而博得赞赏。</p>
+<p>艺术家应该具有独特的观察力，能够越过常规和成见去观察事物，创造出扣人心弦的作品来。</p>
+<h2 id="明和暗在美学上的运用——气氛"><a href="#明和暗在美学上的运用——气氛" class="headerlink" title="明和暗在美学上的运用——气氛"></a>明和暗在美学上的运用——气氛</h2><p>在明暗的运用方面，摄影家的眼界必须更加开阔；<br>不要认为它只是清晰地记录影象的一种手段。<br>除了构成画面和产生立体效果之外，明和暗还有很强大的艺术表现力。<br>它是一个有效而独立的构图要素，是表现和烘托气氛的最有力手段。</p>
+<p>为了造成特定主体的适当气氛，并像你所希望的那样表达感情，往往不必拘泥于实际情况，而把明和暗看成独立的实体。<br>我们不可能也不愿意制订出一个一览表列出通过明暗配置造成的气氛的方法。<br>处理方法是多种多样的，这要根据每个人的经历、经验、风格和判断能力来决定。</p>
+<p>虽然亮调能够表现温暧，但也能表现寒气、遥远、空虚、清晰明快和暴露无遗。<br>暗调可以表现宁静，也可以表现寂寞；可以表现停滞，也可以表现危险。</p>
+<p>从许多方面来看，光线和音乐有相似之处。<br>它能够变换轻重和强弱。自然光有着很大的调节可能和适应性。<br>人工光能产生极为丰富的层次变化，效果如何，取决于灯具和应用方式。</p>
+<p>当一个物体被充分照明，它的每个部分由于明暗分明而能清楚地辨别出来时，这时所强调的是被摄体而不是整个画面。<br>我们不禁会注意到它的突出轮廓。<br>它是那样地明显，以至于我们不去留心照片的整个构图。<br>这种情况，在完全正面照明时，或者当一个明亮的图形衬着暗调背景时，是经常遇到的。<br>逆光照明下，黑色剪影衬在明亮的背景上也是如此。<br>突出轮廓，能给人以明晰精确的印象。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123009.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123023.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>相反地，如果光与影的配置没有把每个具体形状分别强调出来，这时整个画面的整体感就加强了。<br>光线是使物体能被看见的力量，也具有湮没物体的能力。<br>边界能被隐藏，轮廓会变模糊。</p>
+<p>在一个统一的画面中，一个形状的光与影和另外一个形状的光与影混淆了起来。<br>用亮调的、中间调子的和暗调的色块组成画面，并不要求每个形状的界限分明，这时线条和立体感的作用就会减弱，整个画面显得模糊不清。但整体感加强了。<br>观众不再注意每个局部，而是把照片当作一个整体来看了。<br>每个被摄体的形状和由明暗色块组成的整个照片不大区分得开了。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123032.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123045.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="明暗配置"><a href="#明暗配置" class="headerlink" title="明暗配置"></a>明暗配置</h2><p>把亮调的、暗调的中间调子的色块集中在一个不规则的画面上，排除形状和线条的作用，那么构图美学的另外一个重方面，即整个画面的明暗就显得突出了。</p>
+<p>如果我们把下面一组照片顛倒过来加以研究，就能比较清楚地理解这个问题。<br>这些照片是在一天之内不同时间，从同一位置<br>拍摄的同一景物。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123058.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>像图一六五那幅肖像一样，颠倒过来观察，你就不会把它当作实物看待，过多地注意它的结构了。<br>一幅作品的构图好坏，往往当你不去注意主体为何物时才能看得更清楚此。<br>当然这并不意味着主体与构图不需要紧密配合。<br>而是说把照片倒过来，你便能够集中注意它的明暗配置，看出它对整个画面的影响。</p>
+<p>每幅成功的作品必须具备几个条件：</p>
+<blockquote>
+<p>一个是主题的表达和包含的内容，一个是构图，还有一个是印放质量。当然还有其它许多方面。</p>
+</blockquote>
+<p>伟大的作品，是那些把画面中每件事物以及它们相互的关系结合得极为高明的那些作品。</p>
+<p>从前面一系列照片中，我们学到的最重要的一条经验是：</p>
+<blockquote>
+<p>必须认识到，明和暗的意义远远不止是使被摄物具有立全感或者美化被摄物。明暗配置对整个照片的结构有着巨大的影响。</p>
+</blockquote>
+<p>一般说来，对被摄体的处理越发细致具体，例如清晰地照明和逼真地反映，作品的艺术效果就可能越发浅薄单调。</p>
+<p>有时候美化被摄体是摄影的重要作用。正因为摄影在这方面的作用要比其它造型手段有效得多，所以它才受到重视。</p>
+<p>作品的艺术性关系到整个画面空间，绝不是主要物体得到满意的表现就算了事。<br>正像画面中多余的物体能降低主体的感染力一样，明暗配置不当也能削弱构图效果。<br>因此、摄影家不能只限于判断画面上主要部分的明暗，他必须对照片每个部分的明和暗给以同等重视，才能判断哪些有利于整体效果，哪些不利于整体效果。</p>
+<p>因为构图要素和构图原理都是抽象的概念，所以需要从完全抽象的角度去考察它的性质和作用。<br>如果把具体可辨的物体从画面上排除掉的话，这种概念才能表现得更清楚，理解得更明确。<br>因为这样做的结果使我们有可能以更大的注意力去研究某一个别的构图原理。</p>
+<p>在下列各图中，线条结构是相同的。它们之间最大的区别是明暗配置不同。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123127.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>第一种明暗配置是把中间那块大图形涂得比周围色调更加以突出。大图形边界之内的色调变了。<br>虽然画面的一角也有块相同的色调，但它并未接触大图形的边缘。<br>把深色调集中在一个大范围之内，就能把观众的视线紧紧抓住，因为比起其它部分来，它有更大的吸引力。<br>注意力被集中在深色图案部分，它压倒了周围的浅调区域。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123140.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>对同一图形，也可用颠倒黑白的办法，就是让中间图形亮，周围环境暗的办法，使它仍然占据优势。</p>
+<p>用这种加强对比的手法，我们能把观众注意力引向画面的任何一部分。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123155.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123218.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>明暗配置并不要求以基本图形为依据，它是可以随意安排的。<br>有些图形的色调可以局部改变，有些图形的色调可以全部改变。<br>把基本图形交错形成的那些小图形搭配起来，我们就能创造出新的图形。</p>
+<p>从构图上说，可以让画面的一半是亮调，一半是暗调。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123229.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>也可让画面从亮到暗逐渐变化。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123239.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>让明暗各点适当地分布在画面上，就能在画面不同部位形成对比强烈、明暗交错的生动影调。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123256.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>有人可能认为，只有在手绘图画中才能不受约束地配置明暗。<br><strong>完全不是这样！</strong><br>虽然摄影家要控制照片中每个明暗变化并非易事，但实际余地要比人们想象的多。</p>
+<p>想要取得上列照片所表现的那些变化，只要把自然光线稍加改变，就可以达到目的。<br>此外，还可以自由选择拍摄位置以增加变化的机会。</p>
+<p>在静物摄影构图中，为了改变色调，可以调换被摄物品。<br>调整光线不仅能够改变色调，还可以利用阴和影来构成各种图案。<br>选择适当的背景，又为摄影家提供了一个构图的机会，这里除了利用大量素色材素和有图案的材料以外，还可以用周围的环境。<br>在肖像和人体摄影构图中，作为构图要素的色调，能够通过衣着、照明、背景以及画面点缀物来进行调整。<br>一张成功的作品，往往需要事前周密地安排。</p>
+<p>最后，在印放过程中，我们经常还要进行机动灵活的加工处理。<br>明暗配置在表现感情方面是很有影响的一个手段。<br>平静还是活跃，强烈还是温柔，整齐还是不规则⋯⋯所有这些，甚至不止这些，都可以通过有效的明暗配置来达到。<br>这方面的潜力是无限的；如果说有限的话，那是因为摄影者本身的洞察力有限。</p>
+]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>构图</category>
       </categories>
       <tags>
         <tag>摄影</tag>
@@ -6505,6 +6707,96 @@ rm -i /test/file1
       </categories>
       <tags>
         <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据挖掘-Apriori</title>
+    <url>/2017/03/16/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Apriori/</url>
+    <content><![CDATA[<blockquote>
+<p>从海量数据中挖掘可信频繁项集</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">优点</td>
+<td align="center">易编码实现</td>
+</tr>
+<tr>
+<td align="center">缺点</td>
+<td align="center">大数据集运行缓慢</td>
+</tr>
+<tr>
+<td align="center">适用</td>
+<td align="center">数值型，标称型</td>
+</tr>
+</tbody></table>
+<h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><table>
+<thead>
+<tr>
+<th align="center">名词</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">association analysis</td>
+<td align="center">关联分析</td>
+</tr>
+<tr>
+<td align="center">association rule learning</td>
+<td align="center">关联规则学习</td>
+</tr>
+<tr>
+<td align="center">frequent item set</td>
+<td align="center">频繁项集</td>
+</tr>
+<tr>
+<td align="center">association rule</td>
+<td align="center">关联规则</td>
+</tr>
+<tr>
+<td align="center">frequent</td>
+<td align="center">频繁</td>
+</tr>
+<tr>
+<td align="center">support</td>
+<td align="center">支持度</td>
+</tr>
+<tr>
+<td align="center">confidence</td>
+<td align="center">可信度</td>
+</tr>
+</tbody></table>
+<pre><code>a priori 一个先验 使用知识作为条件进行推断
+a postriori 一个后验 使用结果作为条件检测
+</code></pre>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>如果某个项集是频繁项集，那么他的子项集也是频繁项集。反之，如果一个项集是非频繁项集，那么他的所有超集也是非频繁项集。</p>
+<ol>
+<li>收集数据</li>
+<li>准备数据</li>
+<li>分析数据</li>
+<li>训练算法</li>
+<li>测试算法</li>
+<li>使用算法</li>
+</ol>
+<hr>
+<ul>
+<li>首先发现频繁项集</li>
+<li>然后计算出关联规则</li>
+</ul>
+<h3 id="生成候选项集"><a href="#生成候选项集" class="headerlink" title="生成候选项集"></a>生成候选项集</h3><ul>
+<li>记录训练数据集中每一条数据为候选项集</li>
+<li>检查每一个候选项集属于数据集子集的个数</li>
+<li>对于候选项集如果最小值不小于支持度，则保留该项集</li>
+<li>返回所有频繁项集</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>DataMining</tag>
       </tags>
   </entry>
   <entry>
@@ -7193,96 +7485,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>数据挖掘-Apriori</title>
-    <url>/2017/03/16/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Apriori/</url>
-    <content><![CDATA[<blockquote>
-<p>从海量数据中挖掘可信频繁项集</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">优点</td>
-<td align="center">易编码实现</td>
-</tr>
-<tr>
-<td align="center">缺点</td>
-<td align="center">大数据集运行缓慢</td>
-</tr>
-<tr>
-<td align="center">适用</td>
-<td align="center">数值型，标称型</td>
-</tr>
-</tbody></table>
-<h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><table>
-<thead>
-<tr>
-<th align="center">名词</th>
-<th align="center">意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">association analysis</td>
-<td align="center">关联分析</td>
-</tr>
-<tr>
-<td align="center">association rule learning</td>
-<td align="center">关联规则学习</td>
-</tr>
-<tr>
-<td align="center">frequent item set</td>
-<td align="center">频繁项集</td>
-</tr>
-<tr>
-<td align="center">association rule</td>
-<td align="center">关联规则</td>
-</tr>
-<tr>
-<td align="center">frequent</td>
-<td align="center">频繁</td>
-</tr>
-<tr>
-<td align="center">support</td>
-<td align="center">支持度</td>
-</tr>
-<tr>
-<td align="center">confidence</td>
-<td align="center">可信度</td>
-</tr>
-</tbody></table>
-<pre><code>a priori 一个先验 使用知识作为条件进行推断
-a postriori 一个后验 使用结果作为条件检测
-</code></pre>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>如果某个项集是频繁项集，那么他的子项集也是频繁项集。反之，如果一个项集是非频繁项集，那么他的所有超集也是非频繁项集。</p>
-<ol>
-<li>收集数据</li>
-<li>准备数据</li>
-<li>分析数据</li>
-<li>训练算法</li>
-<li>测试算法</li>
-<li>使用算法</li>
-</ol>
-<hr>
-<ul>
-<li>首先发现频繁项集</li>
-<li>然后计算出关联规则</li>
-</ul>
-<h3 id="生成候选项集"><a href="#生成候选项集" class="headerlink" title="生成候选项集"></a>生成候选项集</h3><ul>
-<li>记录训练数据集中每一条数据为候选项集</li>
-<li>检查每一个候选项集属于数据集子集的个数</li>
-<li>对于候选项集如果最小值不小于支持度，则保留该项集</li>
-<li>返回所有频繁项集</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>DataMining</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据挖掘-K-Means</title>
     <url>/2017/03/21/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-K-Means/</url>
     <content><![CDATA[<blockquote>
@@ -7949,30 +8151,6 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
-    <title>数据挖掘-距离计算</title>
-    <url>/2017/03/03/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E8%B7%9D%E7%A6%BB%E8%AE%A1%E7%AE%97/</url>
-    <content><![CDATA[<blockquote>
-<p>计算样本间的“距离”(Distance) ，估算分类时不同样本之间的相似性度量(Similarity Measurement)。</p>
-</blockquote>
-<ol>
-<li>欧氏距离</li>
-<li>曼哈顿距离</li>
-<li>切比雪夫距离</li>
-<li>闵可夫斯基距离</li>
-<li>标准化欧氏距离</li>
-<li>马氏距离</li>
-<li>夹角余弦</li>
-<li>汉明距离</li>
-<li>杰卡德距离&amp; 杰卡德相似系数</li>
-<li>相关系数&amp; 相关距离</li>
-<li>信息熵</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>DataMining</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>概率学-随机变量</title>
     <url>/2017/03/02/%E6%A6%82%E7%8E%87%E5%AD%A6-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/</url>
     <content><![CDATA[<blockquote>
@@ -8182,23 +8360,24 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
-    <title>熵</title>
-    <url>/2017/03/01/%E7%86%B5/</url>
+    <title>数据挖掘-距离计算</title>
+    <url>/2017/03/03/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E8%B7%9D%E7%A6%BB%E8%AE%A1%E7%AE%97/</url>
     <content><![CDATA[<blockquote>
-<p>熵 （Entropy）: 热力学第二定律，熵反映了状态的无序程度。范围（0~1）值越大越混乱。</p>
+<p>计算样本间的“距离”(Distance) ，估算分类时不同样本之间的相似性度量(Similarity Measurement)。</p>
 </blockquote>
-<p>物体从一种有序转变为另一种有序状态，必经过一个无序状态。无序状态程度即为熵。而为了消除这种无序使其有序，需要额外的能量。在信息中则是变量的不确定性越大，熵也就越大，把它搞清楚所需要的信息量也就越大。 </p>
-<p>一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。</p>
-<h1 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h1><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="http://61.91.161.217/chart?cht=tx&chl={H_s={\sum^{n}+_{i=1}p_iI_e}={-\sum^{n}+_{i=1}{p_ilogp_i}"
-                      style="border:none;"
-                >
-
-<p>而我们也可能是宇宙由起点至终点两个有序状态中的熵。（热寂宇宙末日假说，也是在熵的概念上提出的）</p>
-<pre><code>熵的概念也被广泛应用到各个领域（热力学、统计学、信息学、天文学）
-</code></pre>
+<ol>
+<li>欧氏距离</li>
+<li>曼哈顿距离</li>
+<li>切比雪夫距离</li>
+<li>闵可夫斯基距离</li>
+<li>标准化欧氏距离</li>
+<li>马氏距离</li>
+<li>夹角余弦</li>
+<li>汉明距离</li>
+<li>杰卡德距离&amp; 杰卡德相似系数</li>
+<li>相关系数&amp; 相关距离</li>
+<li>信息熵</li>
+</ol>
 ]]></content>
       <tags>
         <tag>DataMining</tag>
@@ -8269,6 +8448,29 @@ a postriori 一个后验 使用结果作为条件检测
       </categories>
       <tags>
         <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>熵</title>
+    <url>/2017/03/01/%E7%86%B5/</url>
+    <content><![CDATA[<blockquote>
+<p>熵 （Entropy）: 热力学第二定律，熵反映了状态的无序程度。范围（0~1）值越大越混乱。</p>
+</blockquote>
+<p>物体从一种有序转变为另一种有序状态，必经过一个无序状态。无序状态程度即为熵。而为了消除这种无序使其有序，需要额外的能量。在信息中则是变量的不确定性越大，熵也就越大，把它搞清楚所需要的信息量也就越大。 </p>
+<p>一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。</p>
+<h1 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h1><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://61.91.161.217/chart?cht=tx&chl={H_s={\sum^{n}+_{i=1}p_iI_e}={-\sum^{n}+_{i=1}{p_ilogp_i}"
+                      style="border:none;"
+                >
+
+<p>而我们也可能是宇宙由起点至终点两个有序状态中的熵。（热寂宇宙末日假说，也是在熵的概念上提出的）</p>
+<pre><code>熵的概念也被广泛应用到各个领域（热力学、统计学、信息学、天文学）
+</code></pre>
+]]></content>
+      <tags>
+        <tag>DataMining</tag>
       </tags>
   </entry>
   <entry>
@@ -8498,52 +8700,6 @@ a postriori 一个后验 使用结果作为条件检测
 ]]></content>
       <tags>
         <tag>HTTP</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>摄影-构图-明暗</title>
-    <url>/2024/07/31/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E6%98%8E%E6%9A%97/</url>
-    <content><![CDATA[<p>在构成视觉艺术的各种要素中，明和暗对摄影具有特殊的重要性。<br>因为有了明和暗，照片中各种物体才成为可以看得见的影像；<br>所有其它要素，包括形状、线条、质感和立体感等，实际上都是明和暗的不同表现形式而已。<br>时至今日，事实已经证明，摄影的实质就是在于依靠光线发生作用，也就是依靠光线通过镜头对感光材材料发生作用。</p>
-<p>摄影家从快门打开的一瞬间到照片离开显影盆的整个过程中，也就是明和暗这个范围之内，发挥他的影响和控制作用的。</p>
-<p>摄影过程的每一个细小的环节，包括胶片选择、滤镜使用、底片曝光、药液特性、显影时间等，都对明暗的再现有着相当大的影响，从而也相当大地影响着作品的表现力。</p>
-<p>在放大照片时，有遮挡经验的人都知道，对照片的局部遮光和加光会给作品的清晰度和立体感带来多么大的影响！<br>如果再把相纸的反差和显影剂的强弱考虑在内，可以说控制明暗的机会是相当多的。</p>
-<p>从根本上说，明暗只是色的三大特征之一，其它两个是色别和色艳度。因为本书只论黑白摄影构图，所以明暗是当作独立的构图讨论的。</p>
-<h2 id="照片的质量"><a href="#照片的质量" class="headerlink" title="照片的质量"></a>照片的质量</h2><p>从早期的摄影教育开始，人们就教导摄影者说，照片必须表现从明到暗（包括少量纯白纯黑在内）的整套灰色层次。<br>每本摄影手册也都告诉读者，一定要把明暗两个部分的影调等级和层次充分细致地表现出来。<br>毫无疑问，这正是摄影比其它视觉艺术独到的地方。这也是照片质量问题的核心所在。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123352.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="明和暗的造型作用"><a href="#明和暗的造型作用" class="headerlink" title="明和暗的造型作用"></a>明和暗的造型作用</h2><p>没有哪一种造型手段能像摄影那样，用从纯白到纯黑的无数个灰色层次的变化，把物体的立体感那样生动地表现出来。<br>没有哪一种造型手段能像摄影那样，在一个平面上向人们提供凸起和凹下的幻觉，从而构成一个逼真的立体形状。</p>
-<p>下面的人像是故意颠倒过来的，为的是分析它的形状而不是去注意人物的特征。<br>请注意眉毛下面的凹处和眼睑下面的圆形眼球。<br>鼻子是渐渐隆起的，鼻尖达到最高点，耸立于周围的颧骨之上，然后突然下降到上嘴唇的平面上。<br>嘴的形状紧随着下面牙齿的圆筒状。<br>两片嘴唇形成了隆起的弧线，由中间的分界线上下分开。<br>下巴从嘴唇下面的凹处突起，形成一个高丘，然后下降，先缓后急，直抵下颌。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123430.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>没有其它造型手段能够记录象下图这样微妙的明暗变化；<br>正是这种明暗变化表现了光线和空气构成的神秘的环境气氛，给人一种树木似乎沐浴在气流之中的感觉。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123451.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>在记录物体的透明度、半透明度的反光特性的能力方面，任何其它造型手段都无法与摄影相媲美。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123516.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h2>]]></content>
-      <categories>
-        <category>摄影</category>
-        <category>构图</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
       </tags>
   </entry>
 </search>
