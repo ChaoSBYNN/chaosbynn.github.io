@@ -197,6 +197,30 @@
       </tags>
   </entry>
   <entry>
+    <title>Git Tips</title>
+    <url>/2024/07/03/Git-Tips/</url>
+    <content><![CDATA[<h2 id="workflow-工作流"><a href="#workflow-工作流" class="headerlink" title="workflow 工作流"></a>workflow 工作流</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git-workflow.png"
+                      alt="workflow"
+                ><figcaption>workflow</figcaption></figure></p>
+<h2 id="cheat-sheets-速查表"><a href="#cheat-sheets-速查表" class="headerlink" title="cheat sheets 速查表"></a>cheat sheets 速查表</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git_cheat_sheets.jpg"
+                      alt="cheat_sheets"
+                ><figcaption>cheat_sheets</figcaption></figure></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Git</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Elasticsearch(ES) 与 ClickHouse</title>
     <url>/2024/07/09/Elasticsearch-ES-%E4%B8%8E-ClickHouse/</url>
     <content><![CDATA[<blockquote>
@@ -242,30 +266,6 @@
       </categories>
       <tags>
         <tag>Data</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Git Tips</title>
-    <url>/2024/07/03/Git-Tips/</url>
-    <content><![CDATA[<h2 id="workflow-工作流"><a href="#workflow-工作流" class="headerlink" title="workflow 工作流"></a>workflow 工作流</h2><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git-workflow.png"
-                      alt="workflow"
-                ><figcaption>workflow</figcaption></figure></p>
-<h2 id="cheat-sheets-速查表"><a href="#cheat-sheets-速查表" class="headerlink" title="cheat sheets 速查表"></a>cheat sheets 速查表</h2><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/git_cheat_sheets.jpg"
-                      alt="cheat_sheets"
-                ><figcaption>cheat_sheets</figcaption></figure></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Git</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -824,111 +824,6 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
-    <title>Java 常见的分布式任务调度框架</title>
-    <url>/2024/07/09/Java-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<blockquote>
-<p>Quartz、XXL-Job、PowerJob 和 ElasticJob 都是常见的分布式任务调度框架，每个框架都有其特定的优势和适用场景。</p>
-</blockquote>
-<h3 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h3><ul>
-<li><strong>类型：</strong> Quartz 是一个轻量级的开源任务调度框架，适合用于传统的 Java 任务调度和定时任务管理。</li>
-<li><strong>特点：</strong><ul>
-<li>提供丰富的任务调度功能，支持多种触发器（SimpleTrigger、CronTrigger 等）。</li>
-<li>可以与 Spring 框架集成，支持声明式的配置。</li>
-<li>提供基于内存或 JDBC 的任务存储。</li>
-<li>可以独立使用或嵌入到应用中。</li>
-</ul>
-</li>
-<li><strong>适用场景：</strong> 适合小型到中型的任务调度场景，对任务调度的精确度和可靠性有较高要求的项目。</li>
-</ul>
-<h3 id="XXL-Job"><a href="#XXL-Job" class="headerlink" title="XXL-Job"></a>XXL-Job</h3><ul>
-<li><strong>类型：</strong> XXL-Job 是一个开源的分布式任务调度平台，专门为解决大规模任务调度问题设计。</li>
-<li><strong>特点：</strong><ul>
-<li>提供可视化的任务管理界面，支持在线配置任务和监控任务执行情况。</li>
-<li>支持分布式任务调度，可以部署多个执行器（Executor）实现任务分片。</li>
-<li>提供基于数据库存储任务信息，具备较好的扩展性和稳定性。</li>
-<li>内置了报警机制和任务失败重试机制。</li>
-</ul>
-</li>
-<li><strong>适用场景：</strong> 适合企业级应用，需要大规模、分布式任务调度和管理的场景，如数据处理、定时报表生成等。</li>
-</ul>
-<h3 id="PowerJob"><a href="#PowerJob" class="headerlink" title="PowerJob"></a>PowerJob</h3><ul>
-<li><strong>类型：</strong> PowerJob 是一个开源的分布式任务调度平台，具有简单易用和高扩展性的特点。</li>
-<li><strong>特点：</strong><ul>
-<li>提供 Web 可视化界面管理任务，支持在线配置、监控任务执行情况。</li>
-<li>支持分布式任务调度，可以水平扩展。</li>
-<li>提供基于数据库存储任务信息，并且支持多种存储引擎。</li>
-<li>内置了任务依赖管理和失败重试机制。</li>
-</ul>
-</li>
-<li><strong>适用场景：</strong> 适合需要可视化管理和高扩展性的分布式任务调度应用，如数据处理、消息处理等。</li>
-</ul>
-<h3 id="ElasticJob"><a href="#ElasticJob" class="headerlink" title="ElasticJob"></a>ElasticJob</h3><ul>
-<li><strong>类型：</strong> ElasticJob 是一个开源的分布式任务调度解决方案，主要用于处理大规模数据处理和分布式任务调度。</li>
-<li><strong>特点：</strong><ul>
-<li>提供了分布式作业的解决方案，支持数据分片和分布式调度。</li>
-<li>内置了多种作业类型，如简单作业、数据流作业、脚本作业等。</li>
-<li>可以与 ZooKeeper、Redis 等作为分布式协调服务进行集成。</li>
-<li>支持任务的弹性扩展和灵活配置。</li>
-</ul>
-</li>
-<li><strong>适用场景：</strong> 适合需要大规模数据处理和分布式任务调度的场景，如大数据处理、实时数据处理等。</li>
-</ul>
-<h3 id="选择适合的框架"><a href="#选择适合的框架" class="headerlink" title="选择适合的框架"></a>选择适合的框架</h3><ul>
-<li><strong>Quartz</strong> 是一个通用的任务调度框架，适合于传统的 Java 任务调度需求，特别是在单机或简单分布式场景下使用。</li>
-<li><strong>XXL-Job</strong> 和 <strong>PowerJob</strong> 都专注于企业级的大规模任务调度，提供了更强大的可视化管理和分布式调度能力。</li>
-<li><strong>ElasticJob</strong> 则更加注重于分布式任务处理和大数据处理场景，支持更灵活的作业类型和分布式协调。</li>
-</ul>
-<p>根据具体的项目需求和技术栈选择合适的框架是关键。例如，如果需要高度可视化的管理界面和企业级的分布式任务调度能力，可以考虑 XXL-Job 或 PowerJob；如果涉及到大规模数据处理和分布式任务，ElasticJob 是一个不错的选择。</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Job</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Framework</tag>
-        <tag>Job</tag>
-        <tag>Distributed</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Java 环境变量配置</title>
-    <url>/2024/06/24/Java-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<blockquote>
-<p>💡 安装后需配置环境变量</p>
-</blockquote>
-<p>Java 环境变量配置主要涉及设置 <code>JAVA_HOME</code> 和更新系统的 <code>PATH</code> 环境变量。以下是详细的步骤和说明：</p>
-<h2 id="确定-Java-安装路径"><a href="#确定-Java-安装路径" class="headerlink" title="确定 Java 安装路径"></a>确定 Java 安装路径</h2><p>首先，你需要确定 Java 的安装路径。通常，Java 会安装在 <code>C:\Program Files\Java\</code> 目录下。你可以通过“控制面板”中的“程序和功能”来查找已安装的 Java 版本，或者通过命令行使用 <code>where java</code> 来查找 Java 可执行文件的路径。</p>
-<h2 id="设置-JAVA-HOME-环境变量"><a href="#设置-JAVA-HOME-环境变量" class="headerlink" title="设置 JAVA_HOME 环境变量"></a>设置 JAVA_HOME 环境变量</h2><p>JAVA_HOME 环境变量用于指定 Java 的安装目录。你可以按照以下步骤设置它：</p>
-<h3 id="Windows-系统"><a href="#Windows-系统" class="headerlink" title="Windows 系统:"></a>Windows 系统:</h3><ol>
-<li>打开“控制面板”。</li>
-<li>点击“系统与安全”。</li>
-<li>点击“系统”。</li>
-<li>点击“高级系统设置”。</li>
-<li>在“高级”选项卡下，点击“环境变量”。</li>
-<li>在“系统变量”下，点击“新建”，变量名输入 <code>JAVA_HOME</code>，变量值填入你的 Java 安装路径（例如 <code>C:\Program Files\Java\jdk11_XXX</code>）。</li>
-</ol>
-<h3 id="Linux-或-macOS-系统"><a href="#Linux-或-macOS-系统" class="headerlink" title="Linux 或 macOS 系统:"></a>Linux 或 macOS 系统:</h3><p>你可以在终端中使用文本编辑器(如 <code>nano</code> 或 <code>vim</code>)编辑 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件(取决于你的 <code>shell</code> 和操作系统)，然后添加以下行：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/path/to/java-installation</span><br></pre></td></tr></table></figure></div>
-
-<p>将 <code>/path/to/java-installation</code> 替换为你的 Java 安装路径。</p>
-<h2 id="更新-PATH-环境变量"><a href="#更新-PATH-环境变量" class="headerlink" title="更新 PATH 环境变量"></a>更新 PATH 环境变量</h2><p>你需要将 Java 的 <code>bin</code> 目录添加到系统的 <code>PATH</code> 环境变量中，这样你就可以从任何位置运行 Java 命令。</p>
-<h3 id="对于-Windows-系统"><a href="#对于-Windows-系统" class="headerlink" title="对于 Windows 系统:"></a>对于 Windows 系统:</h3><p>在“环境变量”窗口中，找到并选中<code>Path</code>变量，点击“编辑”。在编辑窗口中，添加 <code>JAVA_HOME\bin</code> 到值的开头或任何合适的位置。确保用分号 ; 分隔不同的路径。</p>
-<h3 id="对于-Linux-或-macOS-系统"><a href="#对于-Linux-或-macOS-系统" class="headerlink" title="对于 Linux 或 macOS 系统:"></a>对于 Linux 或 macOS 系统:</h3><p>在 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件中添加以下行：</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure></div>
-
-<p>保存文件并重新加载配置(在终端中运行 <code>source ~/.bashrc</code> 或相应的配置文件)。</p>
-<h2 id="验证配置"><a href="#验证配置" class="headerlink" title="验证配置"></a>验证配置</h2><p>配置完成后，你可以通过打开命令行或终端，并运行 <code>java -version</code> 和 <code>javac -version</code> 来验证 Java 是否正确配置。这两个命令分别显示 Java 运行时和编译器的版本信息。<br>以上步骤应该能帮助你正确配置 Java 的环境变量。如果你在使用过程中遇到任何问题，请随时提问！</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>Env</tag>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java 异常定位</title>
     <url>/2024/07/25/Java-%E5%BC%82%E5%B8%B8%E5%AE%9A%E4%BD%8D/</url>
     <content><![CDATA[<p>在 Java 中，当程序发生异常时，如何定位并解决异常通常是开发过程中需要掌握的重要技能。以下是一些常见的方法和技巧，帮助你在开发过程中有效地定位和处理异常:</p>
@@ -1126,6 +1021,43 @@ cond2(yes)->e</pre>
         <category>Java</category>
       </categories>
       <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 环境变量配置</title>
+    <url>/2024/06/24/Java-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<blockquote>
+<p>💡 安装后需配置环境变量</p>
+</blockquote>
+<p>Java 环境变量配置主要涉及设置 <code>JAVA_HOME</code> 和更新系统的 <code>PATH</code> 环境变量。以下是详细的步骤和说明：</p>
+<h2 id="确定-Java-安装路径"><a href="#确定-Java-安装路径" class="headerlink" title="确定 Java 安装路径"></a>确定 Java 安装路径</h2><p>首先，你需要确定 Java 的安装路径。通常，Java 会安装在 <code>C:\Program Files\Java\</code> 目录下。你可以通过“控制面板”中的“程序和功能”来查找已安装的 Java 版本，或者通过命令行使用 <code>where java</code> 来查找 Java 可执行文件的路径。</p>
+<h2 id="设置-JAVA-HOME-环境变量"><a href="#设置-JAVA-HOME-环境变量" class="headerlink" title="设置 JAVA_HOME 环境变量"></a>设置 JAVA_HOME 环境变量</h2><p>JAVA_HOME 环境变量用于指定 Java 的安装目录。你可以按照以下步骤设置它：</p>
+<h3 id="Windows-系统"><a href="#Windows-系统" class="headerlink" title="Windows 系统:"></a>Windows 系统:</h3><ol>
+<li>打开“控制面板”。</li>
+<li>点击“系统与安全”。</li>
+<li>点击“系统”。</li>
+<li>点击“高级系统设置”。</li>
+<li>在“高级”选项卡下，点击“环境变量”。</li>
+<li>在“系统变量”下，点击“新建”，变量名输入 <code>JAVA_HOME</code>，变量值填入你的 Java 安装路径（例如 <code>C:\Program Files\Java\jdk11_XXX</code>）。</li>
+</ol>
+<h3 id="Linux-或-macOS-系统"><a href="#Linux-或-macOS-系统" class="headerlink" title="Linux 或 macOS 系统:"></a>Linux 或 macOS 系统:</h3><p>你可以在终端中使用文本编辑器(如 <code>nano</code> 或 <code>vim</code>)编辑 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件(取决于你的 <code>shell</code> 和操作系统)，然后添加以下行：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/path/to/java-installation</span><br></pre></td></tr></table></figure></div>
+
+<p>将 <code>/path/to/java-installation</code> 替换为你的 Java 安装路径。</p>
+<h2 id="更新-PATH-环境变量"><a href="#更新-PATH-环境变量" class="headerlink" title="更新 PATH 环境变量"></a>更新 PATH 环境变量</h2><p>你需要将 Java 的 <code>bin</code> 目录添加到系统的 <code>PATH</code> 环境变量中，这样你就可以从任何位置运行 Java 命令。</p>
+<h3 id="对于-Windows-系统"><a href="#对于-Windows-系统" class="headerlink" title="对于 Windows 系统:"></a>对于 Windows 系统:</h3><p>在“环境变量”窗口中，找到并选中<code>Path</code>变量，点击“编辑”。在编辑窗口中，添加 <code>JAVA_HOME\bin</code> 到值的开头或任何合适的位置。确保用分号 ; 分隔不同的路径。</p>
+<h3 id="对于-Linux-或-macOS-系统"><a href="#对于-Linux-或-macOS-系统" class="headerlink" title="对于 Linux 或 macOS 系统:"></a>对于 Linux 或 macOS 系统:</h3><p>在 <code>.bashrc</code>,<code>.bash_profile</code> 或 <code>.zshrc</code> 文件中添加以下行：</p>
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br></pre></td></tr></table></figure></div>
+
+<p>保存文件并重新加载配置(在终端中运行 <code>source ~/.bashrc</code> 或相应的配置文件)。</p>
+<h2 id="验证配置"><a href="#验证配置" class="headerlink" title="验证配置"></a>验证配置</h2><p>配置完成后，你可以通过打开命令行或终端，并运行 <code>java -version</code> 和 <code>javac -version</code> 来验证 Java 是否正确配置。这两个命令分别显示 Java 运行时和编译器的版本信息。<br>以上步骤应该能帮助你正确配置 Java 的环境变量。如果你在使用过程中遇到任何问题，请随时提问！</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Env</tag>
         <tag>Java</tag>
       </tags>
   </entry>
@@ -1480,136 +1412,6 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
-    <title>Linux 下文件操作</title>
-    <url>/2017/02/21/Linux-%E4%B8%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="linux下文件操作命令为："><a href="#linux下文件操作命令为：" class="headerlink" title="linux下文件操作命令为："></a>linux下文件操作命令为：</h3><table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">命令</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">复制</td>
-<td align="center">cp</td>
-</tr>
-<tr>
-<td align="center">移动</td>
-<td align="center">mv</td>
-</tr>
-<tr>
-<td align="center">删除</td>
-<td align="center">rm</td>
-</tr>
-</tbody></table>
-<h3 id="复制命令"><a href="#复制命令" class="headerlink" title="复制命令"></a>复制命令</h3><blockquote>
-<p>   命令格式：cp [-adfilprsu] 源文件(source) 目标文件(destination)<br>                     cp [option] source1 source2 source3 …  directory</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-a</td>
-<td align="center">是指archive的意思，也说是指复制所有的目录</td>
-</tr>
-<tr>
-<td align="center">-d</td>
-<td align="center">若源文件为连接文件(link file)，则复制连接文件属性而非文件本身</td>
-</tr>
-<tr>
-<td align="center">-f</td>
-<td align="center">强制(force)，若有重复或其它疑问时，不会询问用户，而强制复制</td>
-</tr>
-<tr>
-<td align="center">-i</td>
-<td align="center">若目标文件(destination)已存在，在覆盖时会先询问是否真的操作</td>
-</tr>
-<tr>
-<td align="center">-l</td>
-<td align="center">建立硬连接(hard link)的连接文件，而非复制文件本身</td>
-</tr>
-<tr>
-<td align="center">-p</td>
-<td align="center">与文件的属性一起复制，而非使用默认属性</td>
-</tr>
-<tr>
-<td align="center">-r</td>
-<td align="center">递归复制，用于目录的复制操作</td>
-</tr>
-<tr>
-<td align="center">-s</td>
-<td align="center">复制成符号连接文件(symbolic link)，即“快捷方式”文件</td>
-</tr>
-<tr>
-<td align="center">-u</td>
-<td align="center">若目标文件比源文件旧，更新目标文件</td>
-</tr>
-</tbody></table>
-<pre><code>如将/test1目录下的file1复制到/test3目录，并将文件名改为file2,可输入以下命令：
-cp /test1/file1 /test3/file2
-</code></pre>
-<h3 id="移动命令"><a href="#移动命令" class="headerlink" title="移动命令"></a>移动命令</h3><blockquote>
-<p>命令格式：mv [-fiv] source destination</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-f</td>
-<td align="center">force，强制直接移动而不询问</td>
-</tr>
-<tr>
-<td align="center">-i</td>
-<td align="center">若目标文件(destination)已经存在，就会询问是否覆盖</td>
-</tr>
-<tr>
-<td align="center">-u</td>
-<td align="center">若目标文件已经存在，且源文件比较新，才会更新</td>
-</tr>
-</tbody></table>
-<pre><code>如将/test1目录下的file1复制到/test3 目录，并将文件名改为file2,可输入以下命令：
-mv /test1/file1 /test3/file2
-</code></pre>
-<h3 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h3><blockquote>
-<p>命令格式：rm [fir] 文件或目录</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">参数</th>
-<th align="center">解释</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">-f</td>
-<td align="center">强制删除</td>
-</tr>
-<tr>
-<td align="center">-i</td>
-<td align="center">交互模式，在删除前询问用户是否操作</td>
-</tr>
-<tr>
-<td align="center">-r</td>
-<td align="center">递归删除，常用在目录的删除</td>
-</tr>
-</tbody></table>
-<pre><code>如删除/test目录下的file1文件，可以输入以下命令：
-rm -i /test/file1
-</code></pre>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux 下MySQL安装</title>
     <url>/2017/02/27/Linux-%E4%B8%8BMySQL%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<blockquote>
@@ -1926,23 +1728,133 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Linux 工具 btop 安装</title>
-    <url>/2024/07/28/Linux-%E5%B7%A5%E5%85%B7-btop-%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/linux/btop.png"
-                      alt="btop"
-                ><figcaption>btop</figcaption></figure></p>
-<p><a class="link"   href="https://github.com/aristocratos/btop" >btop <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="Debain-安装"><a href="#Debain-安装" class="headerlink" title="Debain 安装"></a>Debain 安装</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install btop</span><br><span class="line">btop</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Linux</category>
-      </categories>
+    <title>Linux 下文件操作</title>
+    <url>/2017/02/21/Linux-%E4%B8%8B%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="linux下文件操作命令为："><a href="#linux下文件操作命令为：" class="headerlink" title="linux下文件操作命令为："></a>linux下文件操作命令为：</h3><table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">复制</td>
+<td align="center">cp</td>
+</tr>
+<tr>
+<td align="center">移动</td>
+<td align="center">mv</td>
+</tr>
+<tr>
+<td align="center">删除</td>
+<td align="center">rm</td>
+</tr>
+</tbody></table>
+<h3 id="复制命令"><a href="#复制命令" class="headerlink" title="复制命令"></a>复制命令</h3><blockquote>
+<p>   命令格式：cp [-adfilprsu] 源文件(source) 目标文件(destination)<br>                     cp [option] source1 source2 source3 …  directory</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-a</td>
+<td align="center">是指archive的意思，也说是指复制所有的目录</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">若源文件为连接文件(link file)，则复制连接文件属性而非文件本身</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">强制(force)，若有重复或其它疑问时，不会询问用户，而强制复制</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">若目标文件(destination)已存在，在覆盖时会先询问是否真的操作</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">建立硬连接(hard link)的连接文件，而非复制文件本身</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">与文件的属性一起复制，而非使用默认属性</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">递归复制，用于目录的复制操作</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">复制成符号连接文件(symbolic link)，即“快捷方式”文件</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">若目标文件比源文件旧，更新目标文件</td>
+</tr>
+</tbody></table>
+<pre><code>如将/test1目录下的file1复制到/test3目录，并将文件名改为file2,可输入以下命令：
+cp /test1/file1 /test3/file2
+</code></pre>
+<h3 id="移动命令"><a href="#移动命令" class="headerlink" title="移动命令"></a>移动命令</h3><blockquote>
+<p>命令格式：mv [-fiv] source destination</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f</td>
+<td align="center">force，强制直接移动而不询问</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">若目标文件(destination)已经存在，就会询问是否覆盖</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">若目标文件已经存在，且源文件比较新，才会更新</td>
+</tr>
+</tbody></table>
+<pre><code>如将/test1目录下的file1复制到/test3 目录，并将文件名改为file2,可输入以下命令：
+mv /test1/file1 /test3/file2
+</code></pre>
+<h3 id="删除命令"><a href="#删除命令" class="headerlink" title="删除命令"></a>删除命令</h3><blockquote>
+<p>命令格式：rm [fir] 文件或目录</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-f</td>
+<td align="center">强制删除</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">交互模式，在删除前询问用户是否操作</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">递归删除，常用在目录的删除</td>
+</tr>
+</tbody></table>
+<pre><code>如删除/test目录下的file1文件，可以输入以下命令：
+rm -i /test/file1
+</code></pre>
+]]></content>
       <tags>
         <tag>Linux</tag>
-        <tag>Tools</tag>
       </tags>
   </entry>
   <entry>
@@ -2041,31 +1953,23 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Linux 防火墙端口开放</title>
-    <url>/2024/06/22/Linux-%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE/</url>
-    <content><![CDATA[<h2 id="端口开放"><a href="#端口开放" class="headerlink" title="端口开放"></a>端口开放</h2><p>在Linux中，要开放一个端口，通常需要使用iptables或者firewalld（如果安装了firewalld的话）。</p>
-<p>以下是两种情况的示例：</p>
-<ol>
-<li>使用iptables开放端口（例如开放TCP端口8080）：</li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span><br></pre></td></tr></table></figure></div>
-
-<ol start="2">
-<li>如果你的系统使用firewalld，可以使用以下命令：</li>
-</ol>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --add-port=8080/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
-
-<p>请确保替换8080为你想要开放的实际端口号，并根据你的实际情况选择使用iptables还是firewalld。</p>
-<p>注意：如果你的系统使用的是ufw，可以使用以下命令：</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ufw allow 8080/tcp</span><br></pre></td></tr></table></figure></div>
-
-<p>这些命令将允许进入指定端口的流量。如果你需要指定IP范围或者其他更复杂的规则，你可能需要编辑iptables的规则或者使用firewalld的更高级功能。</p>
-]]></content>
+    <title>Linux 工具 btop 安装</title>
+    <url>/2024/07/28/Linux-%E5%B7%A5%E5%85%B7-btop-%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/linux/btop.png"
+                      alt="btop"
+                ><figcaption>btop</figcaption></figure></p>
+<p><a class="link"   href="https://github.com/aristocratos/btop" >btop <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="Debain-安装"><a href="#Debain-安装" class="headerlink" title="Debain 安装"></a>Debain 安装</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install btop</span><br><span class="line">btop</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>Program</category>
+        <category>Linux</category>
       </categories>
       <tags>
         <tag>Linux</tag>
+        <tag>Tools</tag>
       </tags>
   </entry>
   <entry>
@@ -2107,6 +2011,34 @@ rm -i /test/file1
       <tags>
         <tag>Linux</tag>
         <tag>Tools</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 防火墙端口开放</title>
+    <url>/2024/06/22/Linux-%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3%E5%BC%80%E6%94%BE/</url>
+    <content><![CDATA[<h2 id="端口开放"><a href="#端口开放" class="headerlink" title="端口开放"></a>端口开放</h2><p>在Linux中，要开放一个端口，通常需要使用iptables或者firewalld（如果安装了firewalld的话）。</p>
+<p>以下是两种情况的示例：</p>
+<ol>
+<li>使用iptables开放端口（例如开放TCP端口8080）：</li>
+</ol>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span><br></pre></td></tr></table></figure></div>
+
+<ol start="2">
+<li>如果你的系统使用firewalld，可以使用以下命令：</li>
+</ol>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo firewall-cmd --permanent --add-port=8080/tcp</span><br><span class="line">sudo firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
+
+<p>请确保替换8080为你想要开放的实际端口号，并根据你的实际情况选择使用iptables还是firewalld。</p>
+<p>注意：如果你的系统使用的是ufw，可以使用以下命令：</p>
+<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ufw allow 8080/tcp</span><br></pre></td></tr></table></figure></div>
+
+<p>这些命令将允许进入指定端口的流量。如果你需要指定IP范围或者其他更复杂的规则，你可能需要编辑iptables的规则或者使用firewalld的更高级功能。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -3974,24 +3906,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Spring Cloud Gateway: An expected CSRF token cannot be found</title>
-    <url>/2024/07/06/Spring-Cloud-Gateway-An-expected-CSRF-token-cannot-be-found/</url>
-    <content><![CDATA[<blockquote>
-<p>An expected CSRF token cannot be found</p>
-</blockquote>
-<p>因为mvc和gateway冲突，而配置了：<code>spring.main.web-application-type=reactive</code></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> SecurityWebFilterChain <span class="title function_">springSecurityFilterChain</span><span class="params">(ServerHttpSecurity http)</span> &#123;</span><br><span class="line">    http.csrf(ServerHttpSecurity.CsrfSpec::disable);</span><br><span class="line">    <span class="keyword">return</span> http.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Java</category>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring Cloud Gateway 4种接口放行方式</title>
     <url>/2024/07/08/Spring-Cloud-Gateway-4%E7%A7%8D%E6%8E%A5%E5%8F%A3%E6%94%BE%E8%A1%8C%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="4种接口过滤方式"><a href="#4种接口过滤方式" class="headerlink" title="4种接口过滤方式"></a>4种接口过滤方式</h2><h3 id="使用Spring-Cloud-Gateway的路由规则，在application-yml文件中定义predicates和filters"><a href="#使用Spring-Cloud-Gateway的路由规则，在application-yml文件中定义predicates和filters" class="headerlink" title="使用Spring Cloud Gateway的路由规则，在application.yml文件中定义predicates和filters"></a>使用Spring Cloud Gateway的路由规则，在application.yml文件中定义predicates和filters</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://user-service</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/user/login</span> <span class="comment"># 只放行/user/login接口</span></span><br></pre></td></tr></table></figure></div>
@@ -4020,71 +3934,17 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Spring IoC 控制反转</title>
-    <url>/2024/06/21/Spring-IoC-%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/</url>
-    <content><![CDATA[<h1 id="Spring-IoC-控制反转"><a href="#Spring-IoC-控制反转" class="headerlink" title="Spring IoC 控制反转"></a>Spring IoC 控制反转</h1><h2 id="控制反转（IoC）"><a href="#控制反转（IoC）" class="headerlink" title="控制反转（IoC）"></a>控制反转（IoC）</h2><blockquote>
-<p>在传统的 Java 应用中，一个类想要调用另一个类中的属性或方法，通常会先在其代码中通过 new Object() 的方式将后者的对象创建出来，然后才能实现属性或方法的调用。为了方便理解和描述，我们可以将前者称为“调用者”，将后者称为“被调用者”。也就是说，调用者掌握着被调用者对象创建的控制权。</p>
+    <title>Spring Cloud Gateway: An expected CSRF token cannot be found</title>
+    <url>/2024/07/06/Spring-Cloud-Gateway-An-expected-CSRF-token-cannot-be-found/</url>
+    <content><![CDATA[<blockquote>
+<p>An expected CSRF token cannot be found</p>
 </blockquote>
-<p>但在 Spring 应用中，Java 对象创建的控制权是掌握在 IoC 容器手里的，其大致步骤如下。</p>
-<ol>
-<li>开发人员通过 XML 配置文件、注解、Java 配置类等方式，对 Java 对象进行定义，例如在 XML 配置文件中使用 <bean> 标签、在 Java 类上使用 @Component 注解等。</li>
-<li>Spring 启动时，IoC 容器会自动根据对象定义，将这些对象创建并管理起来。这些被 IoC 容器创建并管理的对象被称为 Spring Bean。</li>
-<li>当我们想要使用某个 Bean 时，可以直接从 IoC 容器中获取（例如通过 ApplicationContext 的 getBean() 方法），而不需要手动通过代码（例如 new Obejct() 的方式）创建。</li>
-</ol>
-<p>IoC 带来的最大改变不是代码层面的，而是从思想层面上发生了“主从换位”的改变。原本调用者是主动的一方，它想要使用什么资源就会主动出击，自己创建；但在 Spring 应用中，IoC 容器掌握着主动权，调用者则变成了被动的一方，被动的等待 IoC 容器创建它所需要的对象（Bean）。</p>
-<p>这个过程在职责层面发生了控制权的反转，把原本调用者通过代码实现的对象的创建，反转给 IoC 容器来帮忙实现，因此我们将这个过程称为 Spring 的“控制反转”。</p>
-<h2 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h2><p>在了解了 IoC 之后，我们还需要了解另外一个非常重要的概念：依赖注入。</p>
-<p>依赖注入（Denpendency Injection，简写为 DI）是 Martin Fowler 在 2004 年在对“控制反转”进行解释时提出的。Martin Fowler 认为“控制反转”一词很晦涩，无法让人很直接的理解“到底是哪里反转了”，因此他建议使用“依赖注入”来代替“控制反转”。</p>
-<p>在面向对象中，对象和对象之间是存在一种叫做“依赖”的关系。简单来说，依赖关系就是在一个对象中需要用到另外一个对象，即对象中存在一个属性，该属性是另外一个类的对象。</p>
-<p>例如，有一个名为 B 的 Java 类，它的代码如下。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    A a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<p>从代码可以看出，B 中存在一个 A 类型的对象属性 a，此时我们就可以说 B 的对象依赖于对象 a。而依赖注入就是就是基于这种“依赖关系”而产生的。</p>
-<p>我们知道，控制反转核心思想就是由 Spring 负责对象的创建。在对象创建过程中，Spring 会自动根据依赖关系，将它依赖的对象注入到当前对象中，这就是所谓的“依赖注入”。</p>
-<p>依赖注入本质上是 Spring Bean 属性注入的一种，只不过这个属性是一个对象属性而已。</p>
-<h2 id="IoC-的工作原理"><a href="#IoC-的工作原理" class="headerlink" title="IoC 的工作原理"></a>IoC 的工作原理</h2><p>在 Java 软件开发过程中，系统中的各个对象之间、各个模块之间、软件系统和硬件系统之间，或多或少都存在一定的耦合关系。</p>
-<p>若一个系统的耦合度过高，那么就会造成难以维护的问题，但完全没有耦合的代码几乎无法完成任何工作，这是由于几乎所有的功能都需要代码之间相互协作、相互依赖才能完成。因此我们在程序设计时，所秉承的思想一般都是在不影响系统功能的前提下，最大限度的降低耦合度。</p>
-<p>IoC 底层通过工厂模式、Java 的反射机制、XML 解析等技术，将代码的耦合度降低到最低限度，其主要步骤如下。</p>
-<ol>
-<li>在配置文件（例如 Bean.xml）中，对各个对象以及它们之间的依赖关系进行配置；</li>
-<li>我们可以把 IoC 容器当做一个工厂，这个工厂的产品就是 Spring Bean；</li>
-<li>容器启动时会加载并解析这些配置文件，得到对象的基本信息以及它们之间的依赖关系；</li>
-<li>IoC 利用 Java 的反射机制，根据类名生成相应的对象（即 Spring Bean），并根据依赖关系将这个对象注入到依赖它的对象中。</li>
-</ol>
-<p>由于对象的基本信息、对象之间的依赖关系都是在配置文件中定义的，并没有在代码中紧密耦合，因此即使对象发生改变，我们也只需要在配置文件中进行修改即可，而无须对 Java 代码进行修改，这就是 Spring IoC 实现解耦的原理。</p>
-<h2 id="IoC-容器的两种实现"><a href="#IoC-容器的两种实现" class="headerlink" title="IoC 容器的两种实现"></a>IoC 容器的两种实现</h2><p>IoC 思想基于 IoC 容器实现的，IoC 容器底层其实就是一个 Bean 工厂。Spring 框架为我们提供了两种不同类型 IoC 容器，它们分别是 BeanFactory 和 ApplicationContext。</p>
-<h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>BeanFactory 是 IoC 容器的基本实现，也是 Spring 提供的最简单的 IoC 容器，它提供了 IoC 容器最基本的功能，由 org.springframework.beans.factory.BeanFactory 接口定义。</p>
-<p>BeanFactory 采用懒加载（lazy-load）机制，容器在加载配置文件时并不会立刻创建 Java 对象，只有程序中获取（使用）这个对对象时才会创建。</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h3><p>ApplicationContext 是 BeanFactory 接口的子接口，是对 BeanFactory 的扩展。ApplicationContext 在 BeanFactory 的基础上增加了许多企业级的功能，例如 AOP（面向切面编程）、国际化、事务支持等。</p>
-<p>ApplicationContext 接口有两个常用的实现类，具体如下表。</p>
-<table>
-<thead>
-<tr>
-<th align="center">实现类</th>
-<th align="center">描述</th>
-<th align="center">示例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ClassPathXmlApplicationContext</td>
-<td align="center">加载类路径 ClassPath 下指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
-<td align="center">ApplicationContext applicationContext &#x3D; new ClassPathXmlApplicationContext(String configLocation);</td>
-</tr>
-<tr>
-<td align="center">FileSystemXmlApplicationContext</td>
-<td align="center">加载指定的文件系统路径中指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
-<td align="center">ApplicationContext applicationContext &#x3D; new FileSystemXmlApplicationContext(String configLocation);</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>在上表的示例代码中，参数 configLocation 用于指定 Spring 配置文件的名称和位置，如 Beans.xml。</p>
-</blockquote>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//使用 FileSystemXmlApplicationContext 加载指定路径下的配置文件 Bean.xml</span></span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(<span class="string">&quot;D:\\eclipe workspace\\spring workspace\\HelloSpring\\src\\Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-]]></content>
+<p>因为mvc和gateway冲突，而配置了：<code>spring.main.web-application-type=reactive</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> SecurityWebFilterChain <span class="title function_">springSecurityFilterChain</span><span class="params">(ServerHttpSecurity http)</span> &#123;</span><br><span class="line">    http.csrf(ServerHttpSecurity.CsrfSpec::disable);</span><br><span class="line">    <span class="keyword">return</span> http.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>Program</category>
+        <category>Java</category>
+        <category>Spring</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -4195,6 +4055,78 @@ rm -i /test/file1
         <category>Program</category>
         <category>Java</category>
         <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring IoC 控制反转</title>
+    <url>/2024/06/21/Spring-IoC-%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC/</url>
+    <content><![CDATA[<h1 id="Spring-IoC-控制反转"><a href="#Spring-IoC-控制反转" class="headerlink" title="Spring IoC 控制反转"></a>Spring IoC 控制反转</h1><h2 id="控制反转（IoC）"><a href="#控制反转（IoC）" class="headerlink" title="控制反转（IoC）"></a>控制反转（IoC）</h2><blockquote>
+<p>在传统的 Java 应用中，一个类想要调用另一个类中的属性或方法，通常会先在其代码中通过 new Object() 的方式将后者的对象创建出来，然后才能实现属性或方法的调用。为了方便理解和描述，我们可以将前者称为“调用者”，将后者称为“被调用者”。也就是说，调用者掌握着被调用者对象创建的控制权。</p>
+</blockquote>
+<p>但在 Spring 应用中，Java 对象创建的控制权是掌握在 IoC 容器手里的，其大致步骤如下。</p>
+<ol>
+<li>开发人员通过 XML 配置文件、注解、Java 配置类等方式，对 Java 对象进行定义，例如在 XML 配置文件中使用 <bean> 标签、在 Java 类上使用 @Component 注解等。</li>
+<li>Spring 启动时，IoC 容器会自动根据对象定义，将这些对象创建并管理起来。这些被 IoC 容器创建并管理的对象被称为 Spring Bean。</li>
+<li>当我们想要使用某个 Bean 时，可以直接从 IoC 容器中获取（例如通过 ApplicationContext 的 getBean() 方法），而不需要手动通过代码（例如 new Obejct() 的方式）创建。</li>
+</ol>
+<p>IoC 带来的最大改变不是代码层面的，而是从思想层面上发生了“主从换位”的改变。原本调用者是主动的一方，它想要使用什么资源就会主动出击，自己创建；但在 Spring 应用中，IoC 容器掌握着主动权，调用者则变成了被动的一方，被动的等待 IoC 容器创建它所需要的对象（Bean）。</p>
+<p>这个过程在职责层面发生了控制权的反转，把原本调用者通过代码实现的对象的创建，反转给 IoC 容器来帮忙实现，因此我们将这个过程称为 Spring 的“控制反转”。</p>
+<h2 id="依赖注入（DI）"><a href="#依赖注入（DI）" class="headerlink" title="依赖注入（DI）"></a>依赖注入（DI）</h2><p>在了解了 IoC 之后，我们还需要了解另外一个非常重要的概念：依赖注入。</p>
+<p>依赖注入（Denpendency Injection，简写为 DI）是 Martin Fowler 在 2004 年在对“控制反转”进行解释时提出的。Martin Fowler 认为“控制反转”一词很晦涩，无法让人很直接的理解“到底是哪里反转了”，因此他建议使用“依赖注入”来代替“控制反转”。</p>
+<p>在面向对象中，对象和对象之间是存在一种叫做“依赖”的关系。简单来说，依赖关系就是在一个对象中需要用到另外一个对象，即对象中存在一个属性，该属性是另外一个类的对象。</p>
+<p>例如，有一个名为 B 的 Java 类，它的代码如下。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">B</span> &#123;</span><br><span class="line">    A a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>从代码可以看出，B 中存在一个 A 类型的对象属性 a，此时我们就可以说 B 的对象依赖于对象 a。而依赖注入就是就是基于这种“依赖关系”而产生的。</p>
+<p>我们知道，控制反转核心思想就是由 Spring 负责对象的创建。在对象创建过程中，Spring 会自动根据依赖关系，将它依赖的对象注入到当前对象中，这就是所谓的“依赖注入”。</p>
+<p>依赖注入本质上是 Spring Bean 属性注入的一种，只不过这个属性是一个对象属性而已。</p>
+<h2 id="IoC-的工作原理"><a href="#IoC-的工作原理" class="headerlink" title="IoC 的工作原理"></a>IoC 的工作原理</h2><p>在 Java 软件开发过程中，系统中的各个对象之间、各个模块之间、软件系统和硬件系统之间，或多或少都存在一定的耦合关系。</p>
+<p>若一个系统的耦合度过高，那么就会造成难以维护的问题，但完全没有耦合的代码几乎无法完成任何工作，这是由于几乎所有的功能都需要代码之间相互协作、相互依赖才能完成。因此我们在程序设计时，所秉承的思想一般都是在不影响系统功能的前提下，最大限度的降低耦合度。</p>
+<p>IoC 底层通过工厂模式、Java 的反射机制、XML 解析等技术，将代码的耦合度降低到最低限度，其主要步骤如下。</p>
+<ol>
+<li>在配置文件（例如 Bean.xml）中，对各个对象以及它们之间的依赖关系进行配置；</li>
+<li>我们可以把 IoC 容器当做一个工厂，这个工厂的产品就是 Spring Bean；</li>
+<li>容器启动时会加载并解析这些配置文件，得到对象的基本信息以及它们之间的依赖关系；</li>
+<li>IoC 利用 Java 的反射机制，根据类名生成相应的对象（即 Spring Bean），并根据依赖关系将这个对象注入到依赖它的对象中。</li>
+</ol>
+<p>由于对象的基本信息、对象之间的依赖关系都是在配置文件中定义的，并没有在代码中紧密耦合，因此即使对象发生改变，我们也只需要在配置文件中进行修改即可，而无须对 Java 代码进行修改，这就是 Spring IoC 实现解耦的原理。</p>
+<h2 id="IoC-容器的两种实现"><a href="#IoC-容器的两种实现" class="headerlink" title="IoC 容器的两种实现"></a>IoC 容器的两种实现</h2><p>IoC 思想基于 IoC 容器实现的，IoC 容器底层其实就是一个 Bean 工厂。Spring 框架为我们提供了两种不同类型 IoC 容器，它们分别是 BeanFactory 和 ApplicationContext。</p>
+<h3 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h3><p>BeanFactory 是 IoC 容器的基本实现，也是 Spring 提供的最简单的 IoC 容器，它提供了 IoC 容器最基本的功能，由 org.springframework.beans.factory.BeanFactory 接口定义。</p>
+<p>BeanFactory 采用懒加载（lazy-load）机制，容器在加载配置文件时并不会立刻创建 Java 对象，只有程序中获取（使用）这个对对象时才会创建。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ClassPathXmlApplicationContext</span>(<span class="string">&quot;Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h3><p>ApplicationContext 是 BeanFactory 接口的子接口，是对 BeanFactory 的扩展。ApplicationContext 在 BeanFactory 的基础上增加了许多企业级的功能，例如 AOP（面向切面编程）、国际化、事务支持等。</p>
+<p>ApplicationContext 接口有两个常用的实现类，具体如下表。</p>
+<table>
+<thead>
+<tr>
+<th align="center">实现类</th>
+<th align="center">描述</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ClassPathXmlApplicationContext</td>
+<td align="center">加载类路径 ClassPath 下指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
+<td align="center">ApplicationContext applicationContext &#x3D; new ClassPathXmlApplicationContext(String configLocation);</td>
+</tr>
+<tr>
+<td align="center">FileSystemXmlApplicationContext</td>
+<td align="center">加载指定的文件系统路径中指定的 XML 配置文件，并完成 ApplicationContext 的实例化工作</td>
+<td align="center">ApplicationContext applicationContext &#x3D; new FileSystemXmlApplicationContext(String configLocation);</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>在上表的示例代码中，参数 configLocation 用于指定 Spring 配置文件的名称和位置，如 Beans.xml。</p>
+</blockquote>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//使用 FileSystemXmlApplicationContext 加载指定路径下的配置文件 Bean.xml</span></span><br><span class="line">    <span class="type">BeanFactory</span> <span class="variable">context</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileSystemXmlApplicationContext</span>(<span class="string">&quot;D:\\eclipe workspace\\spring workspace\\HelloSpring\\src\\Beans.xml&quot;</span>);</span><br><span class="line">    <span class="type">HelloWorld</span> <span class="variable">obj</span> <span class="operator">=</span> context.getBean(<span class="string">&quot;helloWorld&quot;</span>, HelloWorld.class);</span><br><span class="line">    obj.getMessage();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Program</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -4358,6 +4290,29 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>TOTP 动态口令</title>
+    <url>/2024/06/27/TOTP-%E5%8A%A8%E6%80%81%E5%8F%A3%E4%BB%A4/</url>
+    <content><![CDATA[<h2 id="OTP-HOTP-TOTP"><a href="#OTP-HOTP-TOTP" class="headerlink" title="OTP&#x2F;HOTP&#x2F;TOTP"></a>OTP&#x2F;HOTP&#x2F;TOTP</h2><h3 id="OTP-One-time-Password"><a href="#OTP-One-time-Password" class="headerlink" title="OTP (One-time Password)"></a>OTP (One-time Password)</h3><p>OTP 是一次性密码，又称动态密码或单次有效密码，是指计算机系统或其他数字设备上只能使用一次的密码，有效期为只有一次登录会话或交易。</p>
+<h3 id="HOTP-HMAC-based-One-time-Password"><a href="#HOTP-HMAC-based-One-time-Password" class="headerlink" title="HOTP (HMAC-based One-time Password)"></a>HOTP (HMAC-based One-time Password)</h3><p>HOTP 是一种基于散列消息验证码(HMAC)的一次性密码算法。</p>
+<h3 id="TOTP-Time-based-One-Time-Password"><a href="#TOTP-Time-based-One-Time-Password" class="headerlink" title="TOTP (Time-based One-Time Password)"></a>TOTP (Time-based One-Time Password)</h3><p>TOTP 是一种根据预共享的密钥与当前时间计算一次性密码的算法。它已被互联网工程任务组接纳为RFC 6238标准，成为主动开放认证(OATH)的基石，并被用于众多多重要素验证系统当中。</p>
+<p>TOTP基于HOTP实现，它结合一个私钥与当前时间戳，使用一个密码散列函数来生成一次性密码。由于网络延迟与时钟不同步可能导致密码接收者不得不尝试多次遇到正确的时间来进行身份验证，时间戳通常以30秒为间隔，从而避免反复尝试。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link"   href="https://medium.com/@rakesh.open.source/time-based-one-time-password-totp-java-implementation-82a472bd6bf9" >Time-Based One-Time Password (TOTP) — Java Implementation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://zhuanlan.zhihu.com/p/641587128" >基于 TOTP 实现多重身份(Multi-factor)认证 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://stytch.com/blog/what-is-totp/" >What is TOTP and why does it matter? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://allthingsauth.com/2018/04/20/a-medium-dive-on-the-totp-spec/" >A medium dive on the Time-based One-time Passwords (TOTP) spec <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   href="https://www.twilio.com/docs/glossary/totp" >What is a Time-based One-time Password (TOTP)? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>密码</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Version 版本</title>
     <url>/2024/06/22/Version-%E7%89%88%E6%9C%AC/</url>
     <content><![CDATA[<h1 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h1><p><figure class="image-caption"><img  
@@ -4399,29 +4354,6 @@ rm -i /test/file1
       <tags>
         <tag>Version</tag>
         <tag>DevOps</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TOTP 动态口令</title>
-    <url>/2024/06/27/TOTP-%E5%8A%A8%E6%80%81%E5%8F%A3%E4%BB%A4/</url>
-    <content><![CDATA[<h2 id="OTP-HOTP-TOTP"><a href="#OTP-HOTP-TOTP" class="headerlink" title="OTP&#x2F;HOTP&#x2F;TOTP"></a>OTP&#x2F;HOTP&#x2F;TOTP</h2><h3 id="OTP-One-time-Password"><a href="#OTP-One-time-Password" class="headerlink" title="OTP (One-time Password)"></a>OTP (One-time Password)</h3><p>OTP 是一次性密码，又称动态密码或单次有效密码，是指计算机系统或其他数字设备上只能使用一次的密码，有效期为只有一次登录会话或交易。</p>
-<h3 id="HOTP-HMAC-based-One-time-Password"><a href="#HOTP-HMAC-based-One-time-Password" class="headerlink" title="HOTP (HMAC-based One-time Password)"></a>HOTP (HMAC-based One-time Password)</h3><p>HOTP 是一种基于散列消息验证码(HMAC)的一次性密码算法。</p>
-<h3 id="TOTP-Time-based-One-Time-Password"><a href="#TOTP-Time-based-One-Time-Password" class="headerlink" title="TOTP (Time-based One-Time Password)"></a>TOTP (Time-based One-Time Password)</h3><p>TOTP 是一种根据预共享的密钥与当前时间计算一次性密码的算法。它已被互联网工程任务组接纳为RFC 6238标准，成为主动开放认证(OATH)的基石，并被用于众多多重要素验证系统当中。</p>
-<p>TOTP基于HOTP实现，它结合一个私钥与当前时间戳，使用一个密码散列函数来生成一次性密码。由于网络延迟与时钟不同步可能导致密码接收者不得不尝试多次遇到正确的时间来进行身份验证，时间戳通常以30秒为间隔，从而避免反复尝试。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a class="link"   href="https://medium.com/@rakesh.open.source/time-based-one-time-password-totp-java-implementation-82a472bd6bf9" >Time-Based One-Time Password (TOTP) — Java Implementation <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://zhuanlan.zhihu.com/p/641587128" >基于 TOTP 实现多重身份(Multi-factor)认证 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://stytch.com/blog/what-is-totp/" >What is TOTP and why does it matter? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://allthingsauth.com/2018/04/20/a-medium-dive-on-the-totp-spec/" >A medium dive on the Time-based One-time Passwords (TOTP) spec <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   href="https://www.twilio.com/docs/glossary/totp" >What is a Time-based One-time Password (TOTP)? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>密码</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -4582,41 +4514,6 @@ rm -i /test/file1
       </categories>
       <tags>
         <tag>Image</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>npm 后台运行脚本</title>
-    <url>/2024/07/09/npm-%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
-    <content><![CDATA[<p>在 Windows 系统上，如果你想要通过 npm 运行脚本并且让其在后台运行，可以借助一些工具或命令来实现。以下是几种常见的方法：</p>
-<h3 id="1-使用-npm-命令"><a href="#1-使用-npm-命令" class="headerlink" title="1. 使用 npm 命令"></a>1. 使用 <code>npm</code> 命令</h3><p>通常情况下，<code>npm</code> 命令运行脚本时会在当前命令行窗口中执行，并且不会自动后台运行。但可以通过以下方法尝试：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm run your-script-name &amp;</span><br></pre></td></tr></table></figure></div>
-
-<p>在 Windows 中，<code>&amp;</code> 符号可以用来将命令放入后台运行。请注意，某些 npm 脚本可能会要求特定的终端支持。</p>
-<h3 id="2-使用-start-命令"><a href="#2-使用-start-命令" class="headerlink" title="2. 使用 start 命令"></a>2. 使用 <code>start</code> 命令</h3><p>在 Windows 中，<code>start</code> 命令可以启动一个新的命令行窗口并执行命令，允许命令在后台运行。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">start npm run your-script-name</span><br></pre></td></tr></table></figure></div>
-
-<p>这将在一个新的命令行窗口中启动 npm 脚本，并使其在后台运行。</p>
-<h3 id="3-使用第三方工具"><a href="#3-使用第三方工具" class="headerlink" title="3. 使用第三方工具"></a>3. 使用第三方工具</h3><p>如果以上方法无法满足需求，可以考虑使用第三方工具来将 npm 脚本或任何命令行进程后台运行，例如：</p>
-<ul>
-<li><p><strong><code>pm2</code></strong>: 是一个强大的进程管理工具，可以用来管理和监控 Node.js 应用程序，也可以用来运行 npm 脚本，并且支持后台运行。</p>
-  <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install pm2 -g</span><br><span class="line">pm2 start npm -- run your-script-name</span><br></pre></td></tr></table></figure></div>
-</li>
-<li><p><strong><code>screen</code></strong>: 是一个在 Unix 和类 Unix 系统上运行命令的工具，但也有 Windows 版本或类似工具。它可以创建和管理多个虚拟控制台，并且可以在其中运行命令并将其保持在后台运行。</p>
-</li>
-</ul>
-<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
-<li>在使用 <code>start</code> 命令或其他工具时，可能需要根据具体的 npm 脚本和环境进行适当的调整和配置。</li>
-<li>在后台运行命令时，要确保能够方便地查看输出和管理进程。</li>
-<li>对于长期运行的服务或进程，建议使用专门的进程管理工具，以便进行监控和管理。</li>
-</ul>
-<p>选择合适的方法取决于你的具体需求和环境。</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-        <category>NPM</category>
-      </categories>
-      <tags>
-        <tag>NPM</tag>
       </tags>
   </entry>
   <entry>
@@ -5180,6 +5077,53 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>剑道 轨迹</title>
+    <url>/2024/07/02/%E5%89%91%E9%81%93-%E8%BD%A8%E8%BF%B9/</url>
+    <content><![CDATA[<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/kendo_2.jpg"
+                      alt="Kendo"
+                ><figcaption>Kendo</figcaption></figure></p>
+<h2 id="Locus-轨迹"><a href="#Locus-轨迹" class="headerlink" title="Locus 轨迹"></a>Locus 轨迹</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus.jpg"
+                      alt="Locus"
+                ><figcaption>Locus</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_2.jpg"
+                      alt="Locus2"
+                ><figcaption>Locus2</figcaption></figure></p>
+<h2 id="Men-面的打击"><a href="#Men-面的打击" class="headerlink" title="Men 面的打击"></a>Men 面的打击</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_3.jpg"
+                      alt="Men"
+                ><figcaption>Men</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_new_old.jpg"
+                      alt="Men2"
+                ><figcaption>Men2</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_order.jpg"
+                      alt="Men3"
+                ><figcaption>Men3</figcaption></figure></p>
+]]></content>
+      <categories>
+        <category>Kendo 剑道</category>
+      </categories>
+      <tags>
+        <tag>剑道</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>只做正确的事情，并持续输出价值</title>
     <url>/2017/02/24/%E5%8F%AA%E5%81%9A%E6%AD%A3%E7%A1%AE%E7%9A%84%E4%BA%8B%E6%83%85%EF%BC%8C%E5%B9%B6%E6%8C%81%E7%BB%AD%E8%BE%93%E5%87%BA%E4%BB%B7%E5%80%BC/</url>
     <content><![CDATA[<blockquote>
@@ -5233,53 +5177,6 @@ rm -i /test/file1
 ]]></content>
       <tags>
         <tag>转载</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>剑道 轨迹</title>
-    <url>/2024/07/02/%E5%89%91%E9%81%93-%E8%BD%A8%E8%BF%B9/</url>
-    <content><![CDATA[<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/kendo_2.jpg"
-                      alt="Kendo"
-                ><figcaption>Kendo</figcaption></figure></p>
-<h2 id="Locus-轨迹"><a href="#Locus-轨迹" class="headerlink" title="Locus 轨迹"></a>Locus 轨迹</h2><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus.jpg"
-                      alt="Locus"
-                ><figcaption>Locus</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_2.jpg"
-                      alt="Locus2"
-                ><figcaption>Locus2</figcaption></figure></p>
-<h2 id="Men-面的打击"><a href="#Men-面的打击" class="headerlink" title="Men 面的打击"></a>Men 面的打击</h2><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/locus_3.jpg"
-                      alt="Men"
-                ><figcaption>Men</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_new_old.jpg"
-                      alt="Men2"
-                ><figcaption>Men2</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/kendo/men_order.jpg"
-                      alt="Men3"
-                ><figcaption>Men3</figcaption></figure></p>
-]]></content>
-      <categories>
-        <category>Kendo 剑道</category>
-      </categories>
-      <tags>
-        <tag>剑道</tag>
       </tags>
   </entry>
   <entry>
@@ -5410,6 +5307,136 @@ rm -i /test/file1
       </categories>
       <tags>
         <tag>Microservices</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影 三要素</title>
+    <url>/2024/07/02/%E6%91%84%E5%BD%B1-%E4%B8%89%E8%A6%81%E7%B4%A0/</url>
+    <content><![CDATA[<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/spiekbriefje-diafragma-sluitertijd-iso.webp"
+                      alt="tips"
+                ><figcaption>tips</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/base_5.png"
+                      alt="tips"
+                ><figcaption>tips</figcaption></figure></p>
+<h2 id="光圈"><a href="#光圈" class="headerlink" title="光圈"></a>光圈</h2><blockquote>
+<p>是照相机镜头中控制光线进入镜头量的装置。它通常设置在镜头的前部，通过控制光圈的大小和孔径，可以控制镜头的进光量以及景深效果。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size.webp"
+                      alt="lens"
+                ><figcaption>lens</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size2.webp"
+                      alt="lens"
+                ><figcaption>lens</figcaption></figure></p>
+<p>在摄影中，光圈的大小是影响照片曝光的关键因素之一。如果光圈开得过大，照片可能会过度曝光，失去细节和颜色；如果光圈开得过小，照片可能会欠曝光，显得暗淡无光。因此，合理调整光圈大小是非常重要的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_1.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_2.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_3.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_4.jpg"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_5.webp"
+                      alt="aperture"
+                ><figcaption>aperture</figcaption></figure></p>
+<p>除了控制曝光，光圈的大小还会影响景深效果。一般来说，光圈越大，景深越浅，即清晰范围越小；而光圈越小，景深则越深，即清晰范围越大。这种景深效果在拍摄人像、风景等需要突出主题、虚化背景的场景中非常有用。</p>
+<p>此外，光圈的大小也会影响照片的画质。一般来说，光圈越大，画面的清晰度可能会降低，出现所谓的“散光”现象；而光圈越小，画面的清晰度则越高。因此，在拍摄高质量的照片时，需要根据实际情况选择合适的光圈大小。</p>
+<p>总之，光圈是照相机中一个非常重要的装置，它不仅控制着光线的进入量，还影响着照片的曝光、景深效果和画质。通过合理调整光圈大小，摄影师可以创作出各种不同效果的照片。</p>
+<h2 id="快门"><a href="#快门" class="headerlink" title="快门"></a>快门</h2><blockquote>
+<p>快门快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/shutter-speed-2.jpg"
+                      alt="shutter-speed"
+                ><figcaption>shutter-speed</figcaption></figure></p>
+<p>首先，让我们来了解一下快门的种类。常见的快门类型有机械快门和电子快门两种。机械快门是通过机械方式控制快门速度，而电子快门则是通过电子方式控制快门速度。两种快门都可以实现快速、准确的曝光控制，但在使用上略有不同。</p>
+<p>其次，在拍摄时，我们需要根据不同的拍摄需求来选择合适的快门速度。例如，在拍摄运动场景时，我们需要使用较快的快门速度来捕捉运动员的动作和表情；而在拍摄风景时，我们需要使用较慢的快门速度来捕捉自然光线的变化和细节。此外，在拍摄夜景时，我们也需要使用较慢的快门速度来捕捉城市的灯光和天上的星星。</p>
+<p>最后，在使用快门时，我们需要注意以下几点。首先，要保持相机的稳定和平衡，避免因为手抖或者姿势不当而导致照片模糊。其次，要根据不同的光线条件和拍摄需求来选择合适的快门速度，避免因为曝光不足或者过度而导致照片质量下降。最后，要学会灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
+<p>总之，快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度，并注意相机的稳定和平衡以及灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed.jpg"
+                      alt="shutter-speed"
+                ><figcaption>shutter-speed</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed_1.jpg"
+                      alt="shutter-speed"
+                ><figcaption>shutter-speed</figcaption></figure></p>
+<h2 id="感光度"><a href="#感光度" class="headerlink" title="感光度"></a>感光度</h2><blockquote>
+<p>感光度感光度是指相机传感器对光线的敏感程度。在摄影中，感光度是一个非常重要的参数，因为它决定了照片的曝光程度和画质。一般来说，感光度越高，传感器对光线的敏感度就越高，照片的曝光就越好，但同时也会带来一些负面影响，比如噪点增多和画质下降。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_5.webp"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure></p>
+<p>在拍摄照片时，摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度。如果拍摄环境的光线比较暗，那么就需要使用高感光度来保证照片的曝光程度；如果拍摄环境的的光线比较充足，那么使用低感光度就可以满足拍摄需求。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_1.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_2.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_3.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_4.jpg"
+                      alt="iso"
+                ><figcaption>iso</figcaption></figure></p>
+<p>此外，不同的相机传感器对光线的敏感度也不同。一般来说，全画幅相机比APS-C画幅相机具有更高的感光度范围，因此全画幅相机在暗光环境下表现更好。</p>
+<p>除了对照片曝光的影响外，感光度还可以影响摄影师的拍摄速度。如果摄影师需要拍摄快速移动的物体，那么就需要使用高感光度来提高拍摄速度，从而捕捉到更好的画面。</p>
+<p>总之，感光度是摄影中一个非常重要的参数，它决定了照片的曝光程度和画质。摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度，从而拍摄出更加完美的照片。</p>
+]]></content>
+      <categories>
+        <category>摄影</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
       </tags>
   </entry>
   <entry>
@@ -5897,136 +5924,6 @@ rm -i /test/file1
                      data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/20240707/202407070D.png"
                       alt="人文"
                 ><figcaption>人文</figcaption></figure></p>
-]]></content>
-      <categories>
-        <category>摄影</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>摄影 三要素</title>
-    <url>/2024/07/02/%E6%91%84%E5%BD%B1-%E4%B8%89%E8%A6%81%E7%B4%A0/</url>
-    <content><![CDATA[<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/spiekbriefje-diafragma-sluitertijd-iso.webp"
-                      alt="tips"
-                ><figcaption>tips</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/base_5.png"
-                      alt="tips"
-                ><figcaption>tips</figcaption></figure></p>
-<h2 id="光圈"><a href="#光圈" class="headerlink" title="光圈"></a>光圈</h2><blockquote>
-<p>是照相机镜头中控制光线进入镜头量的装置。它通常设置在镜头的前部，通过控制光圈的大小和孔径，可以控制镜头的进光量以及景深效果。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size.webp"
-                      alt="lens"
-                ><figcaption>lens</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens-size2.webp"
-                      alt="lens"
-                ><figcaption>lens</figcaption></figure></p>
-<p>在摄影中，光圈的大小是影响照片曝光的关键因素之一。如果光圈开得过大，照片可能会过度曝光，失去细节和颜色；如果光圈开得过小，照片可能会欠曝光，显得暗淡无光。因此，合理调整光圈大小是非常重要的。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_1.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_2.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_3.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_4.jpg"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/aperture_5.webp"
-                      alt="aperture"
-                ><figcaption>aperture</figcaption></figure></p>
-<p>除了控制曝光，光圈的大小还会影响景深效果。一般来说，光圈越大，景深越浅，即清晰范围越小；而光圈越小，景深则越深，即清晰范围越大。这种景深效果在拍摄人像、风景等需要突出主题、虚化背景的场景中非常有用。</p>
-<p>此外，光圈的大小也会影响照片的画质。一般来说，光圈越大，画面的清晰度可能会降低，出现所谓的“散光”现象；而光圈越小，画面的清晰度则越高。因此，在拍摄高质量的照片时，需要根据实际情况选择合适的光圈大小。</p>
-<p>总之，光圈是照相机中一个非常重要的装置，它不仅控制着光线的进入量，还影响着照片的曝光、景深效果和画质。通过合理调整光圈大小，摄影师可以创作出各种不同效果的照片。</p>
-<h2 id="快门"><a href="#快门" class="headerlink" title="快门"></a>快门</h2><blockquote>
-<p>快门快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/shutter-speed-2.jpg"
-                      alt="shutter-speed"
-                ><figcaption>shutter-speed</figcaption></figure></p>
-<p>首先，让我们来了解一下快门的种类。常见的快门类型有机械快门和电子快门两种。机械快门是通过机械方式控制快门速度，而电子快门则是通过电子方式控制快门速度。两种快门都可以实现快速、准确的曝光控制，但在使用上略有不同。</p>
-<p>其次，在拍摄时，我们需要根据不同的拍摄需求来选择合适的快门速度。例如，在拍摄运动场景时，我们需要使用较快的快门速度来捕捉运动员的动作和表情；而在拍摄风景时，我们需要使用较慢的快门速度来捕捉自然光线的变化和细节。此外，在拍摄夜景时，我们也需要使用较慢的快门速度来捕捉城市的灯光和天上的星星。</p>
-<p>最后，在使用快门时，我们需要注意以下几点。首先，要保持相机的稳定和平衡，避免因为手抖或者姿势不当而导致照片模糊。其次，要根据不同的光线条件和拍摄需求来选择合适的快门速度，避免因为曝光不足或者过度而导致照片质量下降。最后，要学会灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
-<p>总之，快门是相机中控制曝光时间的重要部件，它的作用是控制相机曝光的时间长短。在拍摄时，我们需要根据不同的光线条件和拍摄需求来选择合适的快门速度，并注意相机的稳定和平衡以及灵活运用快门速度的变化来控制照片的曝光效果和氛围。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed.jpg"
-                      alt="shutter-speed"
-                ><figcaption>shutter-speed</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/speed_1.jpg"
-                      alt="shutter-speed"
-                ><figcaption>shutter-speed</figcaption></figure></p>
-<h2 id="感光度"><a href="#感光度" class="headerlink" title="感光度"></a>感光度</h2><blockquote>
-<p>感光度感光度是指相机传感器对光线的敏感程度。在摄影中，感光度是一个非常重要的参数，因为它决定了照片的曝光程度和画质。一般来说，感光度越高，传感器对光线的敏感度就越高，照片的曝光就越好，但同时也会带来一些负面影响，比如噪点增多和画质下降。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_5.webp"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure></p>
-<p>在拍摄照片时，摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度。如果拍摄环境的光线比较暗，那么就需要使用高感光度来保证照片的曝光程度；如果拍摄环境的的光线比较充足，那么使用低感光度就可以满足拍摄需求。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_1.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_2.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_3.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/iso_4.jpg"
-                      alt="iso"
-                ><figcaption>iso</figcaption></figure></p>
-<p>此外，不同的相机传感器对光线的敏感度也不同。一般来说，全画幅相机比APS-C画幅相机具有更高的感光度范围，因此全画幅相机在暗光环境下表现更好。</p>
-<p>除了对照片曝光的影响外，感光度还可以影响摄影师的拍摄速度。如果摄影师需要拍摄快速移动的物体，那么就需要使用高感光度来提高拍摄速度，从而捕捉到更好的画面。</p>
-<p>总之，感光度是摄影中一个非常重要的参数，它决定了照片的曝光程度和画质。摄影师需要根据拍摄环境的光线和拍摄需求来选择合适的感光度，从而拍摄出更加完美的照片。</p>
 ]]></content>
       <categories>
         <category>摄影</category>
@@ -6710,96 +6607,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>数据挖掘-Apriori</title>
-    <url>/2017/03/16/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Apriori/</url>
-    <content><![CDATA[<blockquote>
-<p>从海量数据中挖掘可信频繁项集</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">优点</td>
-<td align="center">易编码实现</td>
-</tr>
-<tr>
-<td align="center">缺点</td>
-<td align="center">大数据集运行缓慢</td>
-</tr>
-<tr>
-<td align="center">适用</td>
-<td align="center">数值型，标称型</td>
-</tr>
-</tbody></table>
-<h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><table>
-<thead>
-<tr>
-<th align="center">名词</th>
-<th align="center">意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">association analysis</td>
-<td align="center">关联分析</td>
-</tr>
-<tr>
-<td align="center">association rule learning</td>
-<td align="center">关联规则学习</td>
-</tr>
-<tr>
-<td align="center">frequent item set</td>
-<td align="center">频繁项集</td>
-</tr>
-<tr>
-<td align="center">association rule</td>
-<td align="center">关联规则</td>
-</tr>
-<tr>
-<td align="center">frequent</td>
-<td align="center">频繁</td>
-</tr>
-<tr>
-<td align="center">support</td>
-<td align="center">支持度</td>
-</tr>
-<tr>
-<td align="center">confidence</td>
-<td align="center">可信度</td>
-</tr>
-</tbody></table>
-<pre><code>a priori 一个先验 使用知识作为条件进行推断
-a postriori 一个后验 使用结果作为条件检测
-</code></pre>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>如果某个项集是频繁项集，那么他的子项集也是频繁项集。反之，如果一个项集是非频繁项集，那么他的所有超集也是非频繁项集。</p>
-<ol>
-<li>收集数据</li>
-<li>准备数据</li>
-<li>分析数据</li>
-<li>训练算法</li>
-<li>测试算法</li>
-<li>使用算法</li>
-</ol>
-<hr>
-<ul>
-<li>首先发现频繁项集</li>
-<li>然后计算出关联规则</li>
-</ul>
-<h3 id="生成候选项集"><a href="#生成候选项集" class="headerlink" title="生成候选项集"></a>生成候选项集</h3><ul>
-<li>记录训练数据集中每一条数据为候选项集</li>
-<li>检查每一个候选项集属于数据集子集的个数</li>
-<li>对于候选项集如果最小值不小于支持度，则保留该项集</li>
-<li>返回所有频繁项集</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>DataMining</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>摄影 构图 线条</title>
     <url>/2024/07/19/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E7%BA%BF%E6%9D%A1/</url>
     <content><![CDATA[<p>线条在我们的视觉感受和思维活动中所占的地位如此重要，以致人们很难接受这样一种事实，即线条在自然界中是根本不存在的。<br>线条是人们发明出来的，以便用它来确定固定物的边缘界限和物体表面的连接处。<br>它很可能是远古文明中用以交流视觉信息的最初手段。</p>
@@ -7238,6 +7045,18 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
+    <title>摄影 构图 质感</title>
+    <url>/2024/08/02/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%B4%A8%E6%84%9F/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>构图</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>摄影 直方图</title>
     <url>/2024/07/20/%E6%91%84%E5%BD%B1-%E7%9B%B4%E6%96%B9%E5%9B%BE/</url>
     <content><![CDATA[<p>摄影中的直方图是一种图形表示，用于展示图像的色调分布，特别是图像的亮度级别。直方图可以帮助摄影师和图像编辑者评估图像的曝光情况，确保高光和阴影部分的细节得到恰当的呈现。</p>
@@ -7485,10 +7304,10 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
-    <title>数据挖掘-K-Means</title>
-    <url>/2017/03/21/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-K-Means/</url>
+    <title>数据挖掘-Apriori</title>
+    <url>/2017/03/16/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Apriori/</url>
     <content><![CDATA[<blockquote>
-<p>类内数据点越近越好，类间数据点越远越好。</p>
+<p>从海量数据中挖掘可信频繁项集</p>
 </blockquote>
 <table>
 <thead>
@@ -7499,33 +7318,76 @@ a postriori 一个后验 使用结果作为条件检测
 </thead>
 <tbody><tr>
 <td align="center">优点</td>
-<td align="center">容易实现</td>
+<td align="center">易编码实现</td>
 </tr>
 <tr>
 <td align="center">缺点</td>
-<td align="center">可能收敛到局部最小值，在大规模数据集上收敛较慢</td>
+<td align="center">大数据集运行缓慢</td>
 </tr>
 <tr>
 <td align="center">适用</td>
-<td align="center">数值型</td>
+<td align="center">数值型，标称型</td>
 </tr>
 </tbody></table>
-<p>输入：分类个数k，包含在n个数据对象的数据集</p>
-<p>输出：k个聚类</p>
-<p>步骤：</p>
+<h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><table>
+<thead>
+<tr>
+<th align="center">名词</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">association analysis</td>
+<td align="center">关联分析</td>
+</tr>
+<tr>
+<td align="center">association rule learning</td>
+<td align="center">关联规则学习</td>
+</tr>
+<tr>
+<td align="center">frequent item set</td>
+<td align="center">频繁项集</td>
+</tr>
+<tr>
+<td align="center">association rule</td>
+<td align="center">关联规则</td>
+</tr>
+<tr>
+<td align="center">frequent</td>
+<td align="center">频繁</td>
+</tr>
+<tr>
+<td align="center">support</td>
+<td align="center">支持度</td>
+</tr>
+<tr>
+<td align="center">confidence</td>
+<td align="center">可信度</td>
+</tr>
+</tbody></table>
+<pre><code>a priori 一个先验 使用知识作为条件进行推断
+a postriori 一个后验 使用结果作为条件检测
+</code></pre>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>如果某个项集是频繁项集，那么他的子项集也是频繁项集。反之，如果一个项集是非频繁项集，那么他的所有超集也是非频繁项集。</p>
 <ol>
-<li>从n个数据对象中任意选取k个对象作为初始聚类中心</li>
-<li>分别计算每个对象到各个聚类中心距离，把对象分配到距离最近的聚类中</li>
-<li>所有对象分配后，重新计算k个聚类的中心</li>
-<li>与前一次计算得到k个聚类中心比较，如果聚类中心发生变化，转步骤2，否则转步骤</li>
-<li>得出结果</li>
+<li>收集数据</li>
+<li>准备数据</li>
+<li>分析数据</li>
+<li>训练算法</li>
+<li>测试算法</li>
+<li>使用算法</li>
 </ol>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_05_1.jpg"
-                     
-                ></p>
+<hr>
+<ul>
+<li>首先发现频繁项集</li>
+<li>然后计算出关联规则</li>
+</ul>
+<h3 id="生成候选项集"><a href="#生成候选项集" class="headerlink" title="生成候选项集"></a>生成候选项集</h3><ul>
+<li>记录训练数据集中每一条数据为候选项集</li>
+<li>检查每一个候选项集属于数据集子集的个数</li>
+<li>对于候选项集如果最小值不小于支持度，则保留该项集</li>
+<li>返回所有频繁项集</li>
+</ul>
 ]]></content>
       <tags>
         <tag>DataMining</tag>
@@ -7568,6 +7430,53 @@ a postriori 一个后验 使用结果作为条件检测
 <p> 一般只选择训练集中的前 K 个最相似数据</p>
 </li>
 </ol>
+]]></content>
+      <tags>
+        <tag>DataMining</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据挖掘-K-Means</title>
+    <url>/2017/03/21/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-K-Means/</url>
+    <content><![CDATA[<blockquote>
+<p>类内数据点越近越好，类间数据点越远越好。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">优点</td>
+<td align="center">容易实现</td>
+</tr>
+<tr>
+<td align="center">缺点</td>
+<td align="center">可能收敛到局部最小值，在大规模数据集上收敛较慢</td>
+</tr>
+<tr>
+<td align="center">适用</td>
+<td align="center">数值型</td>
+</tr>
+</tbody></table>
+<p>输入：分类个数k，包含在n个数据对象的数据集</p>
+<p>输出：k个聚类</p>
+<p>步骤：</p>
+<ol>
+<li>从n个数据对象中任意选取k个对象作为初始聚类中心</li>
+<li>分别计算每个对象到各个聚类中心距离，把对象分配到距离最近的聚类中</li>
+<li>所有对象分配后，重新计算k个聚类的中心</li>
+<li>与前一次计算得到k个聚类中心比较，如果聚类中心发生变化，转步骤2，否则转步骤</li>
+<li>得出结果</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_05_1.jpg"
+                     
+                ></p>
 ]]></content>
       <tags>
         <tag>DataMining</tag>
@@ -8059,17 +7968,6 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
-    <title>数据挖掘 序</title>
-    <url>/2024/07/15/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E5%BA%8F/</url>
-    <content><![CDATA[<video id="video" style="width= 100%; height=100%; object-fit: fill" controls="" loop="loop" autoplay="autoplay" src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program//datamining/datamining.mp4"/>]]></content>
-      <categories>
-        <category>DataMining</category>
-      </categories>
-      <tags>
-        <tag>DataMining</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据挖掘-朴素贝叶斯</title>
     <url>/2017/03/04/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF/</url>
     <content><![CDATA[<blockquote>
@@ -8103,6 +8001,17 @@ a postriori 一个后验 使用结果作为条件检测
                 >
 
 <h1 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h1><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">计算每个类别特征数目</span><br><span class="line">对每个训练集：</span><br><span class="line">	对每个特征：</span><br><span class="line">		如果特征出现在集合中-&gt;增加该特征计数值</span><br><span class="line">		增加所有特征计数值</span><br><span class="line">	对每个特征：</span><br><span class="line">		对每条数据：</span><br><span class="line">			将该数据的数目除以总数据数目得到条件概率</span><br><span class="line">	返回每个特征的条件概率	</span><br></pre></td></tr></table></figure></div>]]></content>
+      <tags>
+        <tag>DataMining</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据挖掘 序</title>
+    <url>/2024/07/15/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E5%BA%8F/</url>
+    <content><![CDATA[<video id="video" style="width= 100%; height=100%; object-fit: fill" controls="" loop="loop" autoplay="autoplay" src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program//datamining/datamining.mp4"/>]]></content>
+      <categories>
+        <category>DataMining</category>
+      </categories>
       <tags>
         <tag>DataMining</tag>
       </tags>
@@ -8384,6 +8293,29 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
+    <title>熵</title>
+    <url>/2017/03/01/%E7%86%B5/</url>
+    <content><![CDATA[<blockquote>
+<p>熵 （Entropy）: 热力学第二定律，熵反映了状态的无序程度。范围（0~1）值越大越混乱。</p>
+</blockquote>
+<p>物体从一种有序转变为另一种有序状态，必经过一个无序状态。无序状态程度即为熵。而为了消除这种无序使其有序，需要额外的能量。在信息中则是变量的不确定性越大，熵也就越大，把它搞清楚所需要的信息量也就越大。 </p>
+<p>一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。</p>
+<h1 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h1><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="http://61.91.161.217/chart?cht=tx&chl={H_s={\sum^{n}+_{i=1}p_iI_e}={-\sum^{n}+_{i=1}{p_ilogp_i}"
+                      style="border:none;"
+                >
+
+<p>而我们也可能是宇宙由起点至终点两个有序状态中的熵。（热寂宇宙末日假说，也是在熵的概念上提出的）</p>
+<pre><code>熵的概念也被广泛应用到各个领域（热力学、统计学、信息学、天文学）
+</code></pre>
+]]></content>
+      <tags>
+        <tag>DataMining</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>自定义DNS拦截</title>
     <url>/2024/07/07/%E8%87%AA%E5%AE%9A%E4%B9%89DNS%E6%8B%A6%E6%88%AA/</url>
     <content><![CDATA[<blockquote>
@@ -8448,29 +8380,6 @@ a postriori 一个后验 使用结果作为条件检测
       </categories>
       <tags>
         <tag>Network</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>熵</title>
-    <url>/2017/03/01/%E7%86%B5/</url>
-    <content><![CDATA[<blockquote>
-<p>熵 （Entropy）: 热力学第二定律，熵反映了状态的无序程度。范围（0~1）值越大越混乱。</p>
-</blockquote>
-<p>物体从一种有序转变为另一种有序状态，必经过一个无序状态。无序状态程度即为熵。而为了消除这种无序使其有序，需要额外的能量。在信息中则是变量的不确定性越大，熵也就越大，把它搞清楚所需要的信息量也就越大。 </p>
-<p>一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。</p>
-<h1 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h1><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="http://61.91.161.217/chart?cht=tx&chl={H_s={\sum^{n}+_{i=1}p_iI_e}={-\sum^{n}+_{i=1}{p_ilogp_i}"
-                      style="border:none;"
-                >
-
-<p>而我们也可能是宇宙由起点至终点两个有序状态中的熵。（热寂宇宙末日假说，也是在熵的概念上提出的）</p>
-<pre><code>熵的概念也被广泛应用到各个领域（热力学、统计学、信息学、天文学）
-</code></pre>
-]]></content>
-      <tags>
-        <tag>DataMining</tag>
       </tags>
   </entry>
   <entry>
@@ -8700,6 +8609,109 @@ a postriori 一个后验 使用结果作为条件检测
 ]]></content>
       <tags>
         <tag>HTTP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java 常见的分布式任务调度框架</title>
+    <url>/2024/07/09/Java-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>Quartz、XXL-Job、PowerJob 和 ElasticJob 都是常见的分布式任务调度框架，每个框架都有其特定的优势和适用场景。</p>
+</blockquote>
+<h3 id="Quartz"><a href="#Quartz" class="headerlink" title="Quartz"></a>Quartz</h3><ul>
+<li><strong>类型：</strong> Quartz 是一个轻量级的开源任务调度框架，适合用于传统的 Java 任务调度和定时任务管理。</li>
+<li><strong>特点：</strong><ul>
+<li>提供丰富的任务调度功能，支持多种触发器（SimpleTrigger、CronTrigger 等）。</li>
+<li>可以与 Spring 框架集成，支持声明式的配置。</li>
+<li>提供基于内存或 JDBC 的任务存储。</li>
+<li>可以独立使用或嵌入到应用中。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合小型到中型的任务调度场景，对任务调度的精确度和可靠性有较高要求的项目。</li>
+</ul>
+<h3 id="XXL-Job"><a href="#XXL-Job" class="headerlink" title="XXL-Job"></a>XXL-Job</h3><ul>
+<li><strong>类型：</strong> XXL-Job 是一个开源的分布式任务调度平台，专门为解决大规模任务调度问题设计。</li>
+<li><strong>特点：</strong><ul>
+<li>提供可视化的任务管理界面，支持在线配置任务和监控任务执行情况。</li>
+<li>支持分布式任务调度，可以部署多个执行器（Executor）实现任务分片。</li>
+<li>提供基于数据库存储任务信息，具备较好的扩展性和稳定性。</li>
+<li>内置了报警机制和任务失败重试机制。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合企业级应用，需要大规模、分布式任务调度和管理的场景，如数据处理、定时报表生成等。</li>
+</ul>
+<h3 id="PowerJob"><a href="#PowerJob" class="headerlink" title="PowerJob"></a>PowerJob</h3><ul>
+<li><strong>类型：</strong> PowerJob 是一个开源的分布式任务调度平台，具有简单易用和高扩展性的特点。</li>
+<li><strong>特点：</strong><ul>
+<li>提供 Web 可视化界面管理任务，支持在线配置、监控任务执行情况。</li>
+<li>支持分布式任务调度，可以水平扩展。</li>
+<li>提供基于数据库存储任务信息，并且支持多种存储引擎。</li>
+<li>内置了任务依赖管理和失败重试机制。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合需要可视化管理和高扩展性的分布式任务调度应用，如数据处理、消息处理等。</li>
+</ul>
+<h3 id="ElasticJob"><a href="#ElasticJob" class="headerlink" title="ElasticJob"></a>ElasticJob</h3><ul>
+<li><strong>类型：</strong> ElasticJob 是一个开源的分布式任务调度解决方案，主要用于处理大规模数据处理和分布式任务调度。</li>
+<li><strong>特点：</strong><ul>
+<li>提供了分布式作业的解决方案，支持数据分片和分布式调度。</li>
+<li>内置了多种作业类型，如简单作业、数据流作业、脚本作业等。</li>
+<li>可以与 ZooKeeper、Redis 等作为分布式协调服务进行集成。</li>
+<li>支持任务的弹性扩展和灵活配置。</li>
+</ul>
+</li>
+<li><strong>适用场景：</strong> 适合需要大规模数据处理和分布式任务调度的场景，如大数据处理、实时数据处理等。</li>
+</ul>
+<h3 id="选择适合的框架"><a href="#选择适合的框架" class="headerlink" title="选择适合的框架"></a>选择适合的框架</h3><ul>
+<li><strong>Quartz</strong> 是一个通用的任务调度框架，适合于传统的 Java 任务调度需求，特别是在单机或简单分布式场景下使用。</li>
+<li><strong>XXL-Job</strong> 和 <strong>PowerJob</strong> 都专注于企业级的大规模任务调度，提供了更强大的可视化管理和分布式调度能力。</li>
+<li><strong>ElasticJob</strong> 则更加注重于分布式任务处理和大数据处理场景，支持更灵活的作业类型和分布式协调。</li>
+</ul>
+<p>根据具体的项目需求和技术栈选择合适的框架是关键。例如，如果需要高度可视化的管理界面和企业级的分布式任务调度能力，可以考虑 XXL-Job 或 PowerJob；如果涉及到大规模数据处理和分布式任务，ElasticJob 是一个不错的选择。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Job</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Framework</tag>
+        <tag>Job</tag>
+        <tag>Distributed</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>npm 后台运行脚本</title>
+    <url>/2024/07/09/npm-%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E8%84%9A%E6%9C%AC/</url>
+    <content><![CDATA[<p>在 Windows 系统上，如果你想要通过 npm 运行脚本并且让其在后台运行，可以借助一些工具或命令来实现。以下是几种常见的方法：</p>
+<h3 id="1-使用-npm-命令"><a href="#1-使用-npm-命令" class="headerlink" title="1. 使用 npm 命令"></a>1. 使用 <code>npm</code> 命令</h3><p>通常情况下，<code>npm</code> 命令运行脚本时会在当前命令行窗口中执行，并且不会自动后台运行。但可以通过以下方法尝试：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm run your-script-name &amp;</span><br></pre></td></tr></table></figure></div>
+
+<p>在 Windows 中，<code>&amp;</code> 符号可以用来将命令放入后台运行。请注意，某些 npm 脚本可能会要求特定的终端支持。</p>
+<h3 id="2-使用-start-命令"><a href="#2-使用-start-命令" class="headerlink" title="2. 使用 start 命令"></a>2. 使用 <code>start</code> 命令</h3><p>在 Windows 中，<code>start</code> 命令可以启动一个新的命令行窗口并执行命令，允许命令在后台运行。</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">start npm run your-script-name</span><br></pre></td></tr></table></figure></div>
+
+<p>这将在一个新的命令行窗口中启动 npm 脚本，并使其在后台运行。</p>
+<h3 id="3-使用第三方工具"><a href="#3-使用第三方工具" class="headerlink" title="3. 使用第三方工具"></a>3. 使用第三方工具</h3><p>如果以上方法无法满足需求，可以考虑使用第三方工具来将 npm 脚本或任何命令行进程后台运行，例如：</p>
+<ul>
+<li><p><strong><code>pm2</code></strong>: 是一个强大的进程管理工具，可以用来管理和监控 Node.js 应用程序，也可以用来运行 npm 脚本，并且支持后台运行。</p>
+  <div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">npm install pm2 -g</span><br><span class="line">pm2 start npm -- run your-script-name</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p><strong><code>screen</code></strong>: 是一个在 Unix 和类 Unix 系统上运行命令的工具，但也有 Windows 版本或类似工具。它可以创建和管理多个虚拟控制台，并且可以在其中运行命令并将其保持在后台运行。</p>
+</li>
+</ul>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ul>
+<li>在使用 <code>start</code> 命令或其他工具时，可能需要根据具体的 npm 脚本和环境进行适当的调整和配置。</li>
+<li>在后台运行命令时，要确保能够方便地查看输出和管理进程。</li>
+<li>对于长期运行的服务或进程，建议使用专门的进程管理工具，以便进行监控和管理。</li>
+</ul>
+<p>选择合适的方法取决于你的具体需求和环境。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>NPM</category>
+      </categories>
+      <tags>
+        <tag>NPM</tag>
       </tags>
   </entry>
 </search>
