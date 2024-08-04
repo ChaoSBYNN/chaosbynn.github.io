@@ -28,6 +28,43 @@
       </tags>
   </entry>
   <entry>
+    <title>Could not retrieve mirrorlist http://mirrorlist.centos.org</title>
+    <url>/2024/07/02/Could-not-retrieve-mirrorlist-http-mirrorlist-centos-org/</url>
+    <content><![CDATA[<blockquote>
+<p>Could not retrieve mirrorlist <a class="link"   href="http://mirrorlist.centos.org/" >http://mirrorlist.centos.org <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+</blockquote>
+<h2 id="替换-yum-软件源为阿里云镜像源"><a href="#替换-yum-软件源为阿里云镜像源" class="headerlink" title="替换 yum 软件源为阿里云镜像源"></a>替换 yum 软件源为阿里云镜像源</h2><h3 id="备份当前的-yum-软件源文件"><a href="#备份当前的-yum-软件源文件" class="headerlink" title="备份当前的 yum 软件源文件"></a>备份当前的 yum 软件源文件</h3><p>在进行修改之前，首先备份原始的 yum 软件源配置文件。打开终端，输入以下命令备份：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="编辑-yum-软件源配置文件"><a href="#编辑-yum-软件源配置文件" class="headerlink" title="编辑 yum 软件源配置文件"></a>编辑 yum 软件源配置文件</h3><p>使用文本编辑器(如 <code>vim</code> 或 <code>nano</code>)打开 <code>/etc/yum.repos.d/CentOS-Base.repo</code> 文件：</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/yum.repos.d/CentOS-Base.repo</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="注释掉原有的镜像源配置"><a href="#注释掉原有的镜像源配置" class="headerlink" title="注释掉原有的镜像源配置"></a>注释掉原有的镜像源配置</h3><p>在打开的文件中，找到 <code>[base]</code>、<code>[updates]</code>、<code>[extras]</code> 和 <code>[centosplus]</code> 等节，将它们的 <code>baseurl</code> 行注释掉(在行首添加 <code>#</code>符号)，同时保留 <code>mirrorlist</code> 行(如果有)。</p>
+<p>例如:</p>
+<div class="highlight-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=os</span><br><span class="line"></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=updates</span><br><span class="line"></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=extras</span><br><span class="line"></span><br><span class="line"><span class="section">[centosplus]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=centosplus</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="添加阿里云镜像源配置"><a href="#添加阿里云镜像源配置" class="headerlink" title="添加阿里云镜像源配置"></a>添加阿里云镜像源配置</h3><div class="highlight-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Base - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Updates - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Extras - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[centosplus]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Plus - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>将 <code>$releasever</code> 替换为您当前系统的 CentOS 版本号,如 <code>7</code> 或 <code>8</code>。</li>
+<li>请确保 <code>gpgkey</code> 链接正确，以便验证下载的软件包。</li>
+</ul>
+<h3 id="保存并退出编辑器"><a href="#保存并退出编辑器" class="headerlink" title="保存并退出编辑器"></a>保存并退出编辑器</h3><p>在编辑完成后，保存文件并退出编辑器。</p>
+<h3 id="清理-yum-缓存"><a href="#清理-yum-缓存" class="headerlink" title="清理 yum 缓存"></a>清理 yum 缓存</h3><p>为了确保使用新的镜像源配置，清理当前的 yum 缓存</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="恢复原始配置-可选"><a href="#恢复原始配置-可选" class="headerlink" title="恢复原始配置(可选)"></a>恢复原始配置(可选)</h3><p>如果需要恢复到原始的 CentOS 官方源，可以将之前备份的 <code>/etc/yum.repos.d/CentOS-Base.repo.bak</code> 文件复制回去，并清理 yum 缓存再次测试。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Do have faith in what you are doing All for a better world</title>
     <url>/2017/02/22/Do-have-faith-in-what-you-are-doing-All-for-a-better-world/</url>
     <content><![CDATA[<blockquote>
@@ -229,43 +266,6 @@
       </categories>
       <tags>
         <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Could not retrieve mirrorlist http://mirrorlist.centos.org</title>
-    <url>/2024/07/02/Could-not-retrieve-mirrorlist-http-mirrorlist-centos-org/</url>
-    <content><![CDATA[<blockquote>
-<p>Could not retrieve mirrorlist <a class="link"   href="http://mirrorlist.centos.org/" >http://mirrorlist.centos.org <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-</blockquote>
-<h2 id="替换-yum-软件源为阿里云镜像源"><a href="#替换-yum-软件源为阿里云镜像源" class="headerlink" title="替换 yum 软件源为阿里云镜像源"></a>替换 yum 软件源为阿里云镜像源</h2><h3 id="备份当前的-yum-软件源文件"><a href="#备份当前的-yum-软件源文件" class="headerlink" title="备份当前的 yum 软件源文件"></a>备份当前的 yum 软件源文件</h3><p>在进行修改之前，首先备份原始的 yum 软件源配置文件。打开终端，输入以下命令备份：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bak</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="编辑-yum-软件源配置文件"><a href="#编辑-yum-软件源配置文件" class="headerlink" title="编辑 yum 软件源配置文件"></a>编辑 yum 软件源配置文件</h3><p>使用文本编辑器(如 <code>vim</code> 或 <code>nano</code>)打开 <code>/etc/yum.repos.d/CentOS-Base.repo</code> 文件：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/yum.repos.d/CentOS-Base.repo</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="注释掉原有的镜像源配置"><a href="#注释掉原有的镜像源配置" class="headerlink" title="注释掉原有的镜像源配置"></a>注释掉原有的镜像源配置</h3><p>在打开的文件中，找到 <code>[base]</code>、<code>[updates]</code>、<code>[extras]</code> 和 <code>[centosplus]</code> 等节，将它们的 <code>baseurl</code> 行注释掉(在行首添加 <code>#</code>符号)，同时保留 <code>mirrorlist</code> 行(如果有)。</p>
-<p>例如:</p>
-<div class="highlight-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=os</span><br><span class="line"></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=updates</span><br><span class="line"></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=extras</span><br><span class="line"></span><br><span class="line"><span class="section">[centosplus]</span></span><br><span class="line"><span class="comment">#baseurl=http://mirror.centos.org/centos/$releasever/centosplus/$basearch/</span></span><br><span class="line"><span class="attr">mirrorlist</span>=http://mirrorlist.centos.org/?release=<span class="variable">$releasever</span>&amp;arch=<span class="variable">$basearch</span>&amp;repo=centosplus</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-
-<h3 id="添加阿里云镜像源配置"><a href="#添加阿里云镜像源配置" class="headerlink" title="添加阿里云镜像源配置"></a>添加阿里云镜像源配置</h3><div class="highlight-container" data-rel="Ini"><figure class="iseeu highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[base]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Base - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[updates]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Updates - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[extras]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Extras - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br><span class="line"><span class="section">[centosplus]</span></span><br><span class="line"><span class="attr">name</span>=CentOS-<span class="variable">$releasever</span> - Plus - mirrors.aliyun.com</span><br><span class="line"><span class="attr">baseurl</span>=http://mirrors.aliyun.com/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</span><br><span class="line"><span class="attr">gpgcheck</span>=<span class="number">1</span></span><br><span class="line"><span class="attr">enabled</span>=<span class="number">0</span></span><br><span class="line"><span class="attr">gpgkey</span>=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-<span class="number">7</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-
-<ul>
-<li>将 <code>$releasever</code> 替换为您当前系统的 CentOS 版本号,如 <code>7</code> 或 <code>8</code>。</li>
-<li>请确保 <code>gpgkey</code> 链接正确，以便验证下载的软件包。</li>
-</ul>
-<h3 id="保存并退出编辑器"><a href="#保存并退出编辑器" class="headerlink" title="保存并退出编辑器"></a>保存并退出编辑器</h3><p>在编辑完成后，保存文件并退出编辑器。</p>
-<h3 id="清理-yum-缓存"><a href="#清理-yum-缓存" class="headerlink" title="清理 yum 缓存"></a>清理 yum 缓存</h3><p>为了确保使用新的镜像源配置，清理当前的 yum 缓存</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="恢复原始配置-可选"><a href="#恢复原始配置-可选" class="headerlink" title="恢复原始配置(可选)"></a>恢复原始配置(可选)</h3><p>如果需要恢复到原始的 CentOS 官方源，可以将之前备份的 <code>/etc/yum.repos.d/CentOS-Base.repo.bak</code> 文件复制回去，并清理 yum 缓存再次测试。</p>
-]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Linux</category>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -502,6 +502,27 @@
       </tags>
   </entry>
   <entry>
+    <title>Go run 或 build 运行很慢或超时</title>
+    <url>/2024/07/01/Go-run-%E6%88%96-build-%E8%BF%90%E8%A1%8C%E5%BE%88%E6%85%A2%E6%88%96%E8%B6%85%E6%97%B6/</url>
+    <content><![CDATA[<h2 id="Step-1-查看环境变量"><a href="#Step-1-查看环境变量" class="headerlink" title="Step 1 查看环境变量"></a>Step 1 查看环境变量</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">env</span></span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">GOOS=<span class="string">&#x27;linux&#x27;</span></span><br><span class="line">GOPATH=<span class="string">&#x27;/root/go&#x27;</span></span><br><span class="line">GOPRIVATE=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># 这里镜像问题</span></span><br><span class="line">GOPROXY=<span class="string">&#x27;https://proxy.golang.org,direct&#x27;</span></span><br><span class="line">GOROOT=<span class="string">&#x27;/usr/local/go&#x27;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Step-2-修改镜像地址"><a href="#Step-2-修改镜像地址" class="headerlink" title="Step 2 修改镜像地址"></a>Step 2 修改镜像地址</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">env</span> -w GOPROXY=http://mirrors.aliyun.com/goproxy/</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p><code>-w</code> 标记 要求一个或多个形式为 <code>NAME=VALUE</code> 的参数, 并且覆盖默认的设置</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Go</category>
+      </categories>
+      <tags>
+        <tag>Go</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Go 环境变量配置</title>
     <url>/2024/07/01/Go-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h2 id="获取安装包"><a href="#获取安装包" class="headerlink" title="获取安装包"></a>获取安装包</h2><p><code>https://golang.org/dl/</code> 官网获取最新安装包</p>
@@ -516,27 +537,6 @@
 <div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 保存退出后source一下（vi 的使用方法可以自己搜索一下）</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></div>
 
 <h2 id="Step-4-验证"><a href="#Step-4-验证" class="headerlink" title="Step 4 验证"></a>Step 4 验证</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">go version</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Go</category>
-      </categories>
-      <tags>
-        <tag>Go</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Go run 或 build 运行很慢或超时</title>
-    <url>/2024/07/01/Go-run-%E6%88%96-build-%E8%BF%90%E8%A1%8C%E5%BE%88%E6%85%A2%E6%88%96%E8%B6%85%E6%97%B6/</url>
-    <content><![CDATA[<h2 id="Step-1-查看环境变量"><a href="#Step-1-查看环境变量" class="headerlink" title="Step 1 查看环境变量"></a>Step 1 查看环境变量</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">env</span></span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">GOOS=<span class="string">&#x27;linux&#x27;</span></span><br><span class="line">GOPATH=<span class="string">&#x27;/root/go&#x27;</span></span><br><span class="line">GOPRIVATE=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="comment"># 这里镜像问题</span></span><br><span class="line">GOPROXY=<span class="string">&#x27;https://proxy.golang.org,direct&#x27;</span></span><br><span class="line">GOROOT=<span class="string">&#x27;/usr/local/go&#x27;</span></span><br></pre></td></tr></table></figure></div>
-
-<h2 id="Step-2-修改镜像地址"><a href="#Step-2-修改镜像地址" class="headerlink" title="Step 2 修改镜像地址"></a>Step 2 修改镜像地址</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">go <span class="built_in">env</span> -w GOPROXY=http://mirrors.aliyun.com/goproxy/</span><br></pre></td></tr></table></figure></div>
-
-<blockquote>
-<p><code>-w</code> 标记 要求一个或多个形式为 <code>NAME=VALUE</code> 的参数, 并且覆盖默认的设置</p>
-</blockquote>
-]]></content>
       <categories>
         <category>Program</category>
         <category>Go</category>
@@ -1160,29 +1160,6 @@ cond2(yes)->e</pre>
       </tags>
   </entry>
   <entry>
-    <title>Linux 下JDK安装</title>
-    <url>/2017/02/21/Linux-%E4%B8%8BJDK%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<blockquote>
-<p>注意：如果系统中存在JDK 或者 OpenJDK，先卸载。</p>
-</blockquote>
-<h3 id="第一步-下载JDK后解压"><a href="#第一步-下载JDK后解压" class="headerlink" title="第一步 下载JDK后解压"></a>第一步 下载JDK后解压</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf jdk-*u**-linux-x64.tar.gz  -C /dir</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="第二步-设置JAVA环境变量"><a href="#第二步-设置JAVA环境变量" class="headerlink" title="第二步 设置JAVA环境变量"></a>第二步 设置JAVA环境变量</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">vim /root/.bash_profile</span><br></pre></td></tr></table></figure></div>
-
-<p>编辑文件，添加一下内容</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">JAVA_HOME=/usr/local/src/jdk1.*.*_**</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line">CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib</span><br><span class="line"><span class="built_in">export</span> CLASSPATH</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure></div>
-
-<p>编辑相同内容</p>
-<h3 id="第三步-使环境变量生效"><a href="#第三步-使环境变量生效" class="headerlink" title="第三步 使环境变量生效"></a>第三步 使环境变量生效</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /root/.bash_profile</span><br></pre></td></tr></table></figure></div>
-
-<h3 id="第四部-验证JAVA环境"><a href="#第四部-验证JAVA环境" class="headerlink" title="第四部 验证JAVA环境"></a>第四部 验证JAVA环境</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">java –version</span><br></pre></td></tr></table></figure></div>]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java编程规范</title>
     <url>/2021/04/23/Java%E7%BC%96%E7%A8%8B%E8%A7%84%E8%8C%83/</url>
     <content><![CDATA[<h1 id="Java开发规范"><a href="#Java开发规范" class="headerlink" title="Java开发规范"></a>Java开发规范</h1><h2 id="前言-为什么需要编码规范1"><a href="#前言-为什么需要编码规范1" class="headerlink" title="前言 为什么需要编码规范1"></a>前言 为什么需要编码规范<a href="#refer-anchor-1"><sup>1</sup></a></h2><p>为什么需要编码规范，借用《Java编程语言代码规范》一段开场白：</p>
@@ -1477,6 +1454,29 @@ cond2(yes)->e</pre>
 ]]></content>
       <tags>
         <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 下JDK安装</title>
+    <url>/2017/02/21/Linux-%E4%B8%8BJDK%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<blockquote>
+<p>注意：如果系统中存在JDK 或者 OpenJDK，先卸载。</p>
+</blockquote>
+<h3 id="第一步-下载JDK后解压"><a href="#第一步-下载JDK后解压" class="headerlink" title="第一步 下载JDK后解压"></a>第一步 下载JDK后解压</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">tar -zxvf jdk-*u**-linux-x64.tar.gz  -C /dir</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="第二步-设置JAVA环境变量"><a href="#第二步-设置JAVA环境变量" class="headerlink" title="第二步 设置JAVA环境变量"></a>第二步 设置JAVA环境变量</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">vim /root/.bash_profile</span><br></pre></td></tr></table></figure></div>
+
+<p>编辑文件，添加一下内容</p>
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">JAVA_HOME=/usr/local/src/jdk1.*.*_**</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin</span><br><span class="line"><span class="built_in">export</span> PATH</span><br><span class="line">CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib</span><br><span class="line"><span class="built_in">export</span> CLASSPATH</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure></div>
+
+<p>编辑相同内容</p>
+<h3 id="第三步-使环境变量生效"><a href="#第三步-使环境变量生效" class="headerlink" title="第三步 使环境变量生效"></a>第三步 使环境变量生效</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">source</span> /root/.bash_profile</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="第四部-验证JAVA环境"><a href="#第四部-验证JAVA环境" class="headerlink" title="第四部 验证JAVA环境"></a>第四部 验证JAVA环境</h3><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">java –version</span><br></pre></td></tr></table></figure></div>]]></content>
+      <tags>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -3837,20 +3837,6 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>Spring Boot 文件上传大小设置</title>
-    <url>/2024/07/06/Spring-Boot-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/</url>
-    <content><![CDATA[<div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">servlet:</span></span><br><span class="line">    <span class="attr">multipart:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-file-size:</span> <span class="string">20MB</span></span><br><span class="line">      <span class="attr">max-request-size:</span> <span class="string">200MB</span></span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Java</category>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring  Boot  Cloud 前世今生</title>
     <url>/2024/07/17/Spring-Boot-Cloud-%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/</url>
     <content><![CDATA[<p>2004年3月24日，Spring官网发布了Spring Framework的1.0版本，在一定程度上颠覆了Java开发的模式。Spring Framework提供的控制反转和依赖注入，这两个概念的提出也是受到了JNDI和EJB的容器注入的影响。换句话说，Spring Framework其实也是在J2EE的基础上又建了一个轮子而已。从当时的分层来看，Struts为web表示层、Hibernate为持久层，而Spring Framework就是把大家伙整合到一起的那么个作用。此时的Spring Framework还有一个致命的问题，Spring Framework需要随着Java容器的启动而装载。<br>那么在Spring Framework4.0发布的时候，Spring还同时发布了Spring Boot。官方是这么定义Spring Boot的。</p>
@@ -3974,6 +3960,20 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>Spring Boot 文件上传大小设置</title>
+    <url>/2024/07/06/Spring-Boot-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%A4%A7%E5%B0%8F%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">servlet:</span></span><br><span class="line">    <span class="attr">multipart:</span></span><br><span class="line">      <span class="attr">enabled:</span> <span class="literal">true</span></span><br><span class="line">      <span class="attr">max-file-size:</span> <span class="string">20MB</span></span><br><span class="line">      <span class="attr">max-request-size:</span> <span class="string">200MB</span></span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring Cloud Gateway 4种接口放行方式</title>
     <url>/2024/07/08/Spring-Cloud-Gateway-4%E7%A7%8D%E6%8E%A5%E5%8F%A3%E6%94%BE%E8%A1%8C%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<h2 id="4种接口过滤方式"><a href="#4种接口过滤方式" class="headerlink" title="4种接口过滤方式"></a>4种接口过滤方式</h2><h3 id="使用Spring-Cloud-Gateway的路由规则，在application-yml文件中定义predicates和filters"><a href="#使用Spring-Cloud-Gateway的路由规则，在application-yml文件中定义predicates和filters" class="headerlink" title="使用Spring Cloud Gateway的路由规则，在application.yml文件中定义predicates和filters"></a>使用Spring Cloud Gateway的路由规则，在application.yml文件中定义predicates和filters</h3><div class="highlight-container" data-rel="Yml"><figure class="iseeu highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">cloud:</span></span><br><span class="line">    <span class="attr">gateway:</span></span><br><span class="line">      <span class="attr">routes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">user-service</span></span><br><span class="line">          <span class="attr">uri:</span> <span class="string">lb://user-service</span></span><br><span class="line">          <span class="attr">predicates:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">Path=/user/login</span> <span class="comment"># 只放行/user/login接口</span></span><br></pre></td></tr></table></figure></div>
@@ -3991,6 +3991,24 @@ rm -i /test/file1
 <li>使用自定义路由仓库，优点是可以实现自己的路由存储和管理方式，如使用Redis或数据库等；缺点是需要编写更多的代码，并且可能需要考虑数据同步、缓存、事务等问题。</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Java</category>
+        <category>Spring</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring Cloud Gateway: An expected CSRF token cannot be found</title>
+    <url>/2024/07/06/Spring-Cloud-Gateway-An-expected-CSRF-token-cannot-be-found/</url>
+    <content><![CDATA[<blockquote>
+<p>An expected CSRF token cannot be found</p>
+</blockquote>
+<p>因为mvc和gateway冲突，而配置了：<code>spring.main.web-application-type=reactive</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> SecurityWebFilterChain <span class="title function_">springSecurityFilterChain</span><span class="params">(ServerHttpSecurity http)</span> &#123;</span><br><span class="line">    http.csrf(ServerHttpSecurity.CsrfSpec::disable);</span><br><span class="line">    <span class="keyword">return</span> http.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>Program</category>
         <category>Java</category>
@@ -4101,24 +4119,6 @@ rm -i /test/file1
 </ul>
 <p>这些转换器通常是针对特定的使用场景或需求设计的，如果你的应用场景需要它们，可以根据需要进行配置和使用。</p>
 ]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Java</category>
-        <category>Spring</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring Cloud Gateway: An expected CSRF token cannot be found</title>
-    <url>/2024/07/06/Spring-Cloud-Gateway-An-expected-CSRF-token-cannot-be-found/</url>
-    <content><![CDATA[<blockquote>
-<p>An expected CSRF token cannot be found</p>
-</blockquote>
-<p>因为mvc和gateway冲突，而配置了：<code>spring.main.web-application-type=reactive</code></p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> SecurityWebFilterChain <span class="title function_">springSecurityFilterChain</span><span class="params">(ServerHttpSecurity http)</span> &#123;</span><br><span class="line">    http.csrf(ServerHttpSecurity.CsrfSpec::disable);</span><br><span class="line">    <span class="keyword">return</span> http.build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>]]></content>
       <categories>
         <category>Program</category>
         <category>Java</category>
@@ -4292,6 +4292,31 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>Spring 状态机</title>
+    <url>/2024/06/21/Spring-%E7%8A%B6%E6%80%81%E6%9C%BA/</url>
+    <content><![CDATA[<h1 id="Spring-状态机"><a href="#Spring-状态机" class="headerlink" title="Spring 状态机"></a>Spring 状态机</h1><h2 id="什么是状态机"><a href="#什么是状态机" class="headerlink" title="什么是状态机"></a>什么是状态机</h2><blockquote>
+<p>先来解释什么是”状态”（ State ）。现实事物是有不同状态的，例如一个自动门，就有 open 和 closed 两种状态。我们通常所说的状态机是有限状态机，也就是被描述的事物的状态的数量是有限个，例如自动门的状态就是两个 open 和 closed 。</p>
+</blockquote>
+<p>状态机，也就是 State Machine ，不是指一台实际机器，而是指一个数学模型。<br>说白了，一般就是指一张状态转换图。例如，根据自动门的运行规则，我们可以抽象出下面这么一个图。<br>自动门有两个状态，open 和 closed ，closed 状态下，如果读取开门信号，那么状态就会切换为 open 。<br>open 状态下如果读取关门信号，状态就会切换为 closed 。<br>状态机的全称是有限状态自动机，自动两个字也是包含重要含义的。<br>给定一个状态机，同时给定它的当前状态以及输入，那么输出状态时可以明确的运算出来的。例如对于自动门，给定初始状态 closed ，给定输入”开门”，那么下一个状态时可以运算出来的。<br>重复一下：状态机是有限状态自动机的简称，是现实事物运行规则抽象而成的一个数学模型。</p>
+<h2 id="四大概念"><a href="#四大概念" class="headerlink" title="四大概念"></a>四大概念</h2><ul>
+<li>状态 : 一个状态机至少要包含两个状态。例如上面自动门的例子，有 open 和 closed 两个状态。</li>
+<li>事件 : 事件就是执行某个操作的触发条件或者口令。对于自动门，”按下开门按钮”就是一个事件。</li>
+<li>动作 : 事件发生以后要执行动作。例如事件是”按开门按钮”，动作是”开门”。编程的时候，一个 Action一般就对应一个函数。</li>
+<li>转变 : 也就是从一个状态变化为另一个状态。例如”开门过程”就是一个变换。</li>
+</ul>
+<p>有限状态机（Finite-state machine,FSM），又称有限状态自动机，简称状态机，是表示有限个状态以及在这些状态之间的转移和动作等行为的数学模型。<br>FSM是一种算法思想，简单而言，有限状态机由一组状态、一个初始状态、输入和根据输入及现有状态转换为下一个状态的转换函数组成。<br>其作用主要是描述对象在它的生命周期内所经历的状态序列，以及如何响应来自外界的各种事件。</p>
+<p>①现态：是指当前所处的状态。待支付<br>②条件：又称为”事件”，当一个条件被满足，将会触发一个动作，或者执行一次状态的迁移。支付事件<br>③动作：条件满足后执行的动作。动作执行完毕后，可以迁移到新的状态，也可以仍旧保持原状态。动作不是必需的，当条件满足后，也可以不执行任何动作，直接迁移到新状态。状态转换为待发货<br>④次态：条件满足后要迁往的新状态。”次态”是相对于”现态”而言的，”次态”一旦被激活，就转变成新的”现态”了。待发货 注意事项</p>
+<p><a class="link"   href="https://mp.weixin.qq.com/s/PNYpCWw_7HIDevMLv4-QxA" >Spring状态机 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot MyBatis 缓存关闭</title>
     <url>/2024/07/05/SpringBoot-MyBatis-%E7%BC%93%E5%AD%98%E5%85%B3%E9%97%AD/</url>
     <content><![CDATA[<p>在 Spring Boot 中使用 MyBatis，并且想要关闭缓存，可以通过以下几种方法来实现：</p>
@@ -4397,31 +4422,6 @@ rm -i /test/file1
       <tags>
         <tag>Version</tag>
         <tag>DevOps</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring 状态机</title>
-    <url>/2024/06/21/Spring-%E7%8A%B6%E6%80%81%E6%9C%BA/</url>
-    <content><![CDATA[<h1 id="Spring-状态机"><a href="#Spring-状态机" class="headerlink" title="Spring 状态机"></a>Spring 状态机</h1><h2 id="什么是状态机"><a href="#什么是状态机" class="headerlink" title="什么是状态机"></a>什么是状态机</h2><blockquote>
-<p>先来解释什么是”状态”（ State ）。现实事物是有不同状态的，例如一个自动门，就有 open 和 closed 两种状态。我们通常所说的状态机是有限状态机，也就是被描述的事物的状态的数量是有限个，例如自动门的状态就是两个 open 和 closed 。</p>
-</blockquote>
-<p>状态机，也就是 State Machine ，不是指一台实际机器，而是指一个数学模型。<br>说白了，一般就是指一张状态转换图。例如，根据自动门的运行规则，我们可以抽象出下面这么一个图。<br>自动门有两个状态，open 和 closed ，closed 状态下，如果读取开门信号，那么状态就会切换为 open 。<br>open 状态下如果读取关门信号，状态就会切换为 closed 。<br>状态机的全称是有限状态自动机，自动两个字也是包含重要含义的。<br>给定一个状态机，同时给定它的当前状态以及输入，那么输出状态时可以明确的运算出来的。例如对于自动门，给定初始状态 closed ，给定输入”开门”，那么下一个状态时可以运算出来的。<br>重复一下：状态机是有限状态自动机的简称，是现实事物运行规则抽象而成的一个数学模型。</p>
-<h2 id="四大概念"><a href="#四大概念" class="headerlink" title="四大概念"></a>四大概念</h2><ul>
-<li>状态 : 一个状态机至少要包含两个状态。例如上面自动门的例子，有 open 和 closed 两个状态。</li>
-<li>事件 : 事件就是执行某个操作的触发条件或者口令。对于自动门，”按下开门按钮”就是一个事件。</li>
-<li>动作 : 事件发生以后要执行动作。例如事件是”按开门按钮”，动作是”开门”。编程的时候，一个 Action一般就对应一个函数。</li>
-<li>转变 : 也就是从一个状态变化为另一个状态。例如”开门过程”就是一个变换。</li>
-</ul>
-<p>有限状态机（Finite-state machine,FSM），又称有限状态自动机，简称状态机，是表示有限个状态以及在这些状态之间的转移和动作等行为的数学模型。<br>FSM是一种算法思想，简单而言，有限状态机由一组状态、一个初始状态、输入和根据输入及现有状态转换为下一个状态的转换函数组成。<br>其作用主要是描述对象在它的生命周期内所经历的状态序列，以及如何响应来自外界的各种事件。</p>
-<p>①现态：是指当前所处的状态。待支付<br>②条件：又称为”事件”，当一个条件被满足，将会触发一个动作，或者执行一次状态的迁移。支付事件<br>③动作：条件满足后执行的动作。动作执行完毕后，可以迁移到新的状态，也可以仍旧保持原状态。动作不是必需的，当条件满足后，也可以不执行任何动作，直接迁移到新状态。状态转换为待发货<br>④次态：条件满足后要迁往的新状态。”次态”是相对于”现态”而言的，”次态”一旦被激活，就转变成新的”现态”了。待发货 注意事项</p>
-<p><a class="link"   href="https://mp.weixin.qq.com/s/PNYpCWw_7HIDevMLv4-QxA" >Spring状态机 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-]]></content>
-      <categories>
-        <category>Program</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -4630,6 +4630,30 @@ rm -i /test/file1
       </categories>
       <tags>
         <tag>NPM</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>webp 转换工具 cwebp</title>
+    <url>/2024/07/01/webp-%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7-cwebp/</url>
+    <content><![CDATA[<blockquote>
+<p>webp是Google推出的一种新式图片格式、相比于常用的jpg、png和gif格式，最大的优势就是同等质量下压缩率更高、图片文件更小、利于节约存储空间和网络带宽。</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a class="link"   href="https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html" >cwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>下载完成后解压至某个路径下,然后将其中的<code>bin</code>目录路径添加至环境变量<code>path</code>下即可</p>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">cwebp -version</span><br></pre></td></tr></table></figure></div>
+
+<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">1.4.0</span><br><span class="line">libsharpyuv: 0.4.0</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">cwebp input.png -o output.webp</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">680K -rw-r--r-- 1 Windows 197121 677K  7月  1 09:52  maven.png</span><br><span class="line"> 36K -rw-r--r-- 1 Windows 197121  34K  7月  1 10:21  maven.webp</span><br></pre></td></tr></table></figure></div>]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Tools</category>
+        <category>Image</category>
+      </categories>
+      <tags>
+        <tag>Image</tag>
       </tags>
   </entry>
   <entry>
@@ -5153,30 +5177,6 @@ rm -i /test/file1
       </categories>
       <tags>
         <tag>剑道</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>webp 转换工具 cwebp</title>
-    <url>/2024/07/01/webp-%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7-cwebp/</url>
-    <content><![CDATA[<blockquote>
-<p>webp是Google推出的一种新式图片格式、相比于常用的jpg、png和gif格式，最大的优势就是同等质量下压缩率更高、图片文件更小、利于节约存储空间和网络带宽。</p>
-</blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a class="link"   href="https://storage.googleapis.com/downloads.webmproject.org/releases/webp/index.html" >cwebp <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>下载完成后解压至某个路径下,然后将其中的<code>bin</code>目录路径添加至环境变量<code>path</code>下即可</p>
-<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">cwebp -version</span><br></pre></td></tr></table></figure></div>
-
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">1.4.0</span><br><span class="line">libsharpyuv: 0.4.0</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">cwebp input.png -o output.webp</span><br></pre></td></tr></table></figure></div>
-
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="code"><pre><span class="line">680K -rw-r--r-- 1 Windows 197121 677K  7月  1 09:52  maven.png</span><br><span class="line"> 36K -rw-r--r-- 1 Windows 197121  34K  7月  1 10:21  maven.webp</span><br></pre></td></tr></table></figure></div>]]></content>
-      <categories>
-        <category>Program</category>
-        <category>Tools</category>
-        <category>Image</category>
-      </categories>
-      <tags>
-        <tag>Image</tag>
       </tags>
   </entry>
   <entry>
@@ -6036,6 +6036,275 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
+    <title>摄影 构图 明暗</title>
+    <url>/2024/07/31/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E6%98%8E%E6%9A%97/</url>
+    <content><![CDATA[<p>在构成视觉艺术的各种要素中，明和暗对摄影具有特殊的重要性。<br>因为有了明和暗，照片中各种物体才成为可以看得见的影像；<br>所有其它要素，包括形状、线条、质感和立体感等，实际上都是明和暗的不同表现形式而已。<br>时至今日，事实已经证明，摄影的实质就是在于依靠光线发生作用，也就是依靠光线通过镜头对感光材材料发生作用。</p>
+<p>摄影家从快门打开的一瞬间到照片离开显影盆的整个过程中，也就是明和暗这个范围之内，发挥他的影响和控制作用的。</p>
+<p>摄影过程的每一个细小的环节，包括胶片选择、滤镜使用、底片曝光、药液特性、显影时间等，都对明暗的再现有着相当大的影响，从而也相当大地影响着作品的表现力。</p>
+<p>在放大照片时，有遮挡经验的人都知道，对照片的局部遮光和加光会给作品的清晰度和立体感带来多么大的影响！<br>如果再把相纸的反差和显影剂的强弱考虑在内，可以说控制明暗的机会是相当多的。</p>
+<p>从根本上说，明暗只是色的三大特征之一，其它两个是色别和色艳度。因为本书只论黑白摄影构图，所以明暗是当作独立的构图讨论的。</p>
+<h2 id="照片的质量"><a href="#照片的质量" class="headerlink" title="照片的质量"></a>照片的质量</h2><p>从早期的摄影教育开始，人们就教导摄影者说，照片必须表现从明到暗（包括少量纯白纯黑在内）的整套灰色层次。<br>每本摄影手册也都告诉读者，一定要把明暗两个部分的影调等级和层次充分细致地表现出来。<br>毫无疑问，这正是摄影比其它视觉艺术独到的地方。这也是照片质量问题的核心所在。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123352.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="明和暗的造型作用"><a href="#明和暗的造型作用" class="headerlink" title="明和暗的造型作用"></a>明和暗的造型作用</h2><p>没有哪一种造型手段能像摄影那样，用从纯白到纯黑的无数个灰色层次的变化，把物体的立体感那样生动地表现出来。<br>没有哪一种造型手段能像摄影那样，在一个平面上向人们提供凸起和凹下的幻觉，从而构成一个逼真的立体形状。</p>
+<p>下面的人像是故意颠倒过来的，为的是分析它的形状而不是去注意人物的特征。<br>请注意眉毛下面的凹处和眼睑下面的圆形眼球。<br>鼻子是渐渐隆起的，鼻尖达到最高点，耸立于周围的颧骨之上，然后突然下降到上嘴唇的平面上。<br>嘴的形状紧随着下面牙齿的圆筒状。<br>两片嘴唇形成了隆起的弧线，由中间的分界线上下分开。<br>下巴从嘴唇下面的凹处突起，形成一个高丘，然后下降，先缓后急，直抵下颌。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123430.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>没有其它造型手段能够记录象下图这样微妙的明暗变化；<br>正是这种明暗变化表现了光线和空气构成的神秘的环境气氛，给人一种树木似乎沐浴在气流之中的感觉。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123451.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在记录物体的透明度、半透明度的反光特性的能力方面，任何其它造型手段都无法与摄影相媲美。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123516.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="灰色级谱"><a href="#灰色级谱" class="headerlink" title="灰色级谱"></a>灰色级谱</h2><p>能觉察到的灰色色调是无限多的。用摄影方法能记录下来的色调也是难以计数的。<br>为了对色调进行大致分类，人们设计了这个图谱，并用它作为识别和记录色调的依据。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122859.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>像实际生活中其它方面一样，艺术需要多样化，就是公认的事实。<br>艺术风格需要不断变化的最主要的理由也许是：任何一种特定式样要是用得过久，就会引起厌烦。<br>不断观赏一个形象会使人的精神疲倦，这时候会要求调换不同的形式来进行调剂。</p>
+<p>在使用色调方面也需要多样化。<br>当许多照片在一个展览会上展出或一种出版物中出现的时候，色调的多样化特别重要。</p>
+<p>如果大部分照片是以灰色级谱上的中间色调为主，很少有极浅灰、白、深暗灰和黑，这种色调的雷同将会使人觉得沉闷乏味。</p>
+<p>在一张照片或一组照片里，怎样运用级谱里的数值，是影响作品气氛的因素之一。<br>在艺术中和在生活中一样，气氛的改变不仅是可能的，而且是竭力追求的。</p>
+<h2 id="高调和低调"><a href="#高调和低调" class="headerlink" title="高调和低调"></a>高调和低调</h2><p>一张照片，如果它主要包括了灰色级谱的上半部分（白、极浅灰、浅灰、深浅灰和中灰），一般说它表现的是轻松愉快的气氛，这样的照片被称为高调照片。<br>但要注意这样一种危险：没有包括灰色级谱上所有等级(那怕是一点痕迹)的高调照片，看起来会像曝光不足或显影不足一样。</p>
+<p>当然，如果从纯白到中灰的所有等级都能充分表现出来的话，暗调部分可以省掉。<br>也就是说，如果从极浅灰到中灰之间最少能分辨出十个灰色等级时，这样的高调照片从色调上说是可以接受的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122912.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122926.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>同样，一张照片如果主要包括灰色级谱的下半部分（中灰、浅暗灰、暗灰、深暗灰、和黑色），<br>它表现的是阴沉忧郁的氛，这样的照片被称为低调照片，也常常要有一些较亮色调，<br>以便使人相信就张照片是有意这样处理的而不是失手弄黑的，<br>假如包含较亮色调后对所要表现的气氛所有干扰的话，也可不要较亮色调，但必须具有极丰富而明显的暗调层次。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122941.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="对自然界明暗的联想作用"><a href="#对自然界明暗的联想作用" class="headerlink" title="对自然界明暗的联想作用"></a>对自然界明暗的联想作用</h2><p>我们总是不可避免地要把照片上的色调和实物、经验以及情绪联系起来。<br>砖墙或是混凝土墙的颜色会唤起人们内心已有的那种明暗概念。<br>人们会自动地把特定的颜色和固定的色调联系在一起，所以我们可以料想一只桔子拍成照片以后表现的色调比一只柠檬要深些，一只苹果则比一只桔子更深，而茄子是它们当中最深的。</p>
+<p>我们说到雪、牛奶、亚麻布床单会联想到白色，说到岩石会联想到灰色，说到夜晚、寂静、空间、煤炭会联想到黑色。<br>愉快的情绪是和明亮的调子相联系的。<br>压抑忧郁的情绪是和接近黑色的调子相联系的。荒凉是和灰色相联系的。</p>
+<p>虽然这种联想在大多数情况下是正确的，但不是在所有情况下都是适用的。<br>有时候会出现这样的情况：一个物体经过影调处理后才能符合常规的联想。<br>这时候摄影家就得控制光线、加用滤镜、调整曝光或通过印放处理来达到自己的目的。</p>
+<p>在另外一些情况下，为了构图或表现上的需要，牺牲或打破这种常规的联想关系更为有利；<br>浅色的物体可以处理成暗调的，深色的物可以处理成浅调的。</p>
+<p>这种联想关系还被扩大到伦理道德范畴中去。<br>明与暗经常被用来和正面事物与反面事物、善与恶相联系。<br>在人类历史的早期，上帝被认为就是光明。<br>因而，亮调就代表无形之物、非物质精灵，经常用大片空间和天空来表示。</p>
+<p>相反，黑暗只和忧伤的情绪相联系，用来表示抑郁和悲伤。</p>
+<p>如果我们认真考虑一下这种联想作用，我们会发现，它既不是一成不变的，甚至也是没有道理可讲的。<br>难道黑暗不是冒险精神、宗教迷信和神秘主义的环境气氛吗？不是也有很多诗情画意的作品是用暗调来表现的吗？<br>甚至爱情和沉思这些带神秘感的生活片断，也是和黑暗或近乎黑暗的环境相联系，而不是用中午的耀眼阳光来衬托的。<br>强烈的阳光使一切暴露无遗，没有一点含蓄回味的余地。<br>阴暗的教堂比起明亮的教堂来，是宗教忏悔的更合适的环境。</p>
+<p>黎明和黄昏的朦胧光线似乎适宜于渲染宗教精神，而光天化日却能使人们摆脱神秘和离奇的想象。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122955.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>艺术家在表现他的主题的时候，必须能够不受约束地选择它的调子。<br>艺术上的墨守成规是创造力的障碍。<br>拘泥于简单地反映，屈从于公众的低级趣味，只能产生乏味的，没有特色的作品。夸张是艺术的有机组成部分。<br>在摄影艺术中，夸张的机会主要存在于明暗控制之中。<br>如果把晴天雪地上黑色影子强调出来会有利于你的美学设想，那就让它变黑，必要的话还可以在放大时加光。<br>如果在表现采矿的照片上，煤的颜色干扰了你想要强调的东西，你设法让它亮一些是合理的。</p>
+<p>几乎可以说，不加夸张地处理色调只能落入俗套，而打破常规的处理却会因为它的新颖大胆而博得赞赏。</p>
+<p>艺术家应该具有独特的观察力，能够越过常规和成见去观察事物，创造出扣人心弦的作品来。</p>
+<h2 id="明和暗在美学上的运用——气氛"><a href="#明和暗在美学上的运用——气氛" class="headerlink" title="明和暗在美学上的运用——气氛"></a>明和暗在美学上的运用——气氛</h2><p>在明暗的运用方面，摄影家的眼界必须更加开阔；<br>不要认为它只是清晰地记录影象的一种手段。<br>除了构成画面和产生立体效果之外，明和暗还有很强大的艺术表现力。<br>它是一个有效而独立的构图要素，是表现和烘托气氛的最有力手段。</p>
+<p>为了造成特定主体的适当气氛，并像你所希望的那样表达感情，往往不必拘泥于实际情况，而把明和暗看成独立的实体。<br>我们不可能也不愿意制订出一个一览表列出通过明暗配置造成的气氛的方法。<br>处理方法是多种多样的，这要根据每个人的经历、经验、风格和判断能力来决定。</p>
+<p>虽然亮调能够表现温暧，但也能表现寒气、遥远、空虚、清晰明快和暴露无遗。<br>暗调可以表现宁静，也可以表现寂寞；可以表现停滞，也可以表现危险。</p>
+<p>从许多方面来看，光线和音乐有相似之处。<br>它能够变换轻重和强弱。自然光有着很大的调节可能和适应性。<br>人工光能产生极为丰富的层次变化，效果如何，取决于灯具和应用方式。</p>
+<p>当一个物体被充分照明，它的每个部分由于明暗分明而能清楚地辨别出来时，这时所强调的是被摄体而不是整个画面。<br>我们不禁会注意到它的突出轮廓。<br>它是那样地明显，以至于我们不去留心照片的整个构图。<br>这种情况，在完全正面照明时，或者当一个明亮的图形衬着暗调背景时，是经常遇到的。<br>逆光照明下，黑色剪影衬在明亮的背景上也是如此。<br>突出轮廓，能给人以明晰精确的印象。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123009.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123023.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>相反地，如果光与影的配置没有把每个具体形状分别强调出来，这时整个画面的整体感就加强了。<br>光线是使物体能被看见的力量，也具有湮没物体的能力。<br>边界能被隐藏，轮廓会变模糊。</p>
+<p>在一个统一的画面中，一个形状的光与影和另外一个形状的光与影混淆了起来。<br>用亮调的、中间调子的和暗调的色块组成画面，并不要求每个形状的界限分明，这时线条和立体感的作用就会减弱，整个画面显得模糊不清。但整体感加强了。<br>观众不再注意每个局部，而是把照片当作一个整体来看了。<br>每个被摄体的形状和由明暗色块组成的整个照片不大区分得开了。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123032.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123045.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="明暗配置"><a href="#明暗配置" class="headerlink" title="明暗配置"></a>明暗配置</h2><p>把亮调的、暗调的中间调子的色块集中在一个不规则的画面上，排除形状和线条的作用，那么构图美学的另外一个重方面，即整个画面的明暗就显得突出了。</p>
+<p>如果我们把下面一组照片顛倒过来加以研究，就能比较清楚地理解这个问题。<br>这些照片是在一天之内不同时间，从同一位置<br>拍摄的同一景物。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123058.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>像图一六五那幅肖像一样，颠倒过来观察，你就不会把它当作实物看待，过多地注意它的结构了。<br>一幅作品的构图好坏，往往当你不去注意主体为何物时才能看得更清楚此。<br>当然这并不意味着主体与构图不需要紧密配合。<br>而是说把照片倒过来，你便能够集中注意它的明暗配置，看出它对整个画面的影响。</p>
+<p>每幅成功的作品必须具备几个条件：</p>
+<blockquote>
+<p>一个是主题的表达和包含的内容，一个是构图，还有一个是印放质量。当然还有其它许多方面。</p>
+</blockquote>
+<p>伟大的作品，是那些把画面中每件事物以及它们相互的关系结合得极为高明的那些作品。</p>
+<p>从前面一系列照片中，我们学到的最重要的一条经验是：</p>
+<blockquote>
+<p>必须认识到，明和暗的意义远远不止是使被摄物具有立全感或者美化被摄物。明暗配置对整个照片的结构有着巨大的影响。</p>
+</blockquote>
+<p>一般说来，对被摄体的处理越发细致具体，例如清晰地照明和逼真地反映，作品的艺术效果就可能越发浅薄单调。</p>
+<p>有时候美化被摄体是摄影的重要作用。正因为摄影在这方面的作用要比其它造型手段有效得多，所以它才受到重视。</p>
+<p>作品的艺术性关系到整个画面空间，绝不是主要物体得到满意的表现就算了事。<br>正像画面中多余的物体能降低主体的感染力一样，明暗配置不当也能削弱构图效果。<br>因此、摄影家不能只限于判断画面上主要部分的明暗，他必须对照片每个部分的明和暗给以同等重视，才能判断哪些有利于整体效果，哪些不利于整体效果。</p>
+<p>因为构图要素和构图原理都是抽象的概念，所以需要从完全抽象的角度去考察它的性质和作用。<br>如果把具体可辨的物体从画面上排除掉的话，这种概念才能表现得更清楚，理解得更明确。<br>因为这样做的结果使我们有可能以更大的注意力去研究某一个别的构图原理。</p>
+<p>在下列各图中，线条结构是相同的。它们之间最大的区别是明暗配置不同。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123127.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>第一种明暗配置是把中间那块大图形涂得比周围色调更加以突出。大图形边界之内的色调变了。<br>虽然画面的一角也有块相同的色调，但它并未接触大图形的边缘。<br>把深色调集中在一个大范围之内，就能把观众的视线紧紧抓住，因为比起其它部分来，它有更大的吸引力。<br>注意力被集中在深色图案部分，它压倒了周围的浅调区域。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123140.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>对同一图形，也可用颠倒黑白的办法，就是让中间图形亮，周围环境暗的办法，使它仍然占据优势。</p>
+<p>用这种加强对比的手法，我们能把观众注意力引向画面的任何一部分。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123155.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123218.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>明暗配置并不要求以基本图形为依据，它是可以随意安排的。<br>有些图形的色调可以局部改变，有些图形的色调可以全部改变。<br>把基本图形交错形成的那些小图形搭配起来，我们就能创造出新的图形。</p>
+<p>从构图上说，可以让画面的一半是亮调，一半是暗调。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123229.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>也可让画面从亮到暗逐渐变化。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123239.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>让明暗各点适当地分布在画面上，就能在画面不同部位形成对比强烈、明暗交错的生动影调。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123256.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>有人可能认为，只有在手绘图画中才能不受约束地配置明暗。<br><strong>完全不是这样！</strong><br>虽然摄影家要控制照片中每个明暗变化并非易事，但实际余地要比人们想象的多。</p>
+<p>想要取得上列照片所表现的那些变化，只要把自然光线稍加改变，就可以达到目的。<br>此外，还可以自由选择拍摄位置以增加变化的机会。</p>
+<p>在静物摄影构图中，为了改变色调，可以调换被摄物品。<br>调整光线不仅能够改变色调，还可以利用阴和影来构成各种图案。<br>选择适当的背景，又为摄影家提供了一个构图的机会，这里除了利用大量素色材素和有图案的材料以外，还可以用周围的环境。<br>在肖像和人体摄影构图中，作为构图要素的色调，能够通过衣着、照明、背景以及画面点缀物来进行调整。<br>一张成功的作品，往往需要事前周密地安排。</p>
+<p>最后，在印放过程中，我们经常还要进行机动灵活的加工处理。<br>明暗配置在表现感情方面是很有影响的一个手段。<br>平静还是活跃，强烈还是温柔，整齐还是不规则⋯⋯所有这些，甚至不止这些，都可以通过有效的明暗配置来达到。<br>这方面的潜力是无限的；如果说有限的话，那是因为摄影者本身的洞察力有限。</p>
+]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>构图</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影 构图 艺术</title>
+    <url>/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%89%BA%E6%9C%AF/</url>
+    <content><![CDATA[<h2 id="艺术形式"><a href="#艺术形式" class="headerlink" title="艺术形式"></a>艺术形式</h2><blockquote>
+<p>艺术的形式也是不断变化的。<sup>1.1.2</sup></p>
+</blockquote>
+<p>为什么一件作品可以称为艺术品，而在许多方面都和它相似的另一件却不是?</p>
+<ol>
+<li>艺术和自然的异同</li>
+<li>视觉形象思维和文字概念的区别</li>
+<li>艺术和手艺的关系</li>
+</ol>
+<h2 id="艺术与自然描绘"><a href="#艺术与自然描绘" class="headerlink" title="艺术与自然描绘"></a>艺术与自然描绘</h2><blockquote>
+<p>艺术家们摆脱了如实记录的重担以后，便转而探索艺术的更本质的特征。</p>
+</blockquote>
+<blockquote>
+<p>自然界有它本身的美，并不在于人们是否去捕捉这些美。</p>
+</blockquote>
+<blockquote>
+<p>无论是剪裁遮挡还是增添什么景物都无法弥补拍摄时所缺乏的东西——那就是题材固有美之外摄影家心目中所认识所发现的美的因素。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_1.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_2.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>摄影者头脑中富有生动的艺术构思, 那么即使看起并不没得自然景色,人和物也能拍成很好的佳作.</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_3.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="艺术与抽象的视觉美点"><a href="#艺术与抽象的视觉美点" class="headerlink" title="艺术与抽象的视觉美点"></a>艺术与抽象的视觉美点</h2><blockquote>
+<p>问题的关键是，艺术效果完全取决于艺术家是否从这个题材中发现了和感觉到了抽象的视觉美点，以及处理它们的能力；经过这番处理观众才能看到艺术家曾经看到过的东西，激发出和艺术家同样的感情。</p>
+</blockquote>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_4.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<blockquote>
+<p>虽然有时候照片里看到的东西难以解释，简直象是魔术一样，但有许多东西仍然是可以弄清楚的。有些摄影家生来就是很敏感，他们能在看来无所作为的地方一下子发现奇迹。有些人需要经过一番启发才能认识潜在的视觉因素。然后也能不太费事地发现它们。大多数人则必需给以系统的教育，提高他们认识视觉美点的敏感性，用这种方法培养他们的辨别能力。</p>
+</blockquote>
+<h2 id="构图-从混乱中找出秩序"><a href="#构图-从混乱中找出秩序" class="headerlink" title="构图 从混乱中找出秩序"></a>构图 从混乱中找出秩序</h2><blockquote>
+<p>构图是一个思维过程，它从自然存在的混乱事物中找出秩序；</p>
+</blockquote>
+<blockquote>
+<p>通过构图，摄影家澄清了他要表达的信息，把观众的注意力引向他发现的那些最重要有趣的要素。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>构图</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>摄影 构图 形状</title>
     <url>/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E5%BD%A2%E7%8A%B6/</url>
     <content><![CDATA[<blockquote>
@@ -6508,198 +6777,243 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>摄影 构图 明暗</title>
-    <url>/2024/07/31/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E6%98%8E%E6%9A%97/</url>
-    <content><![CDATA[<p>在构成视觉艺术的各种要素中，明和暗对摄影具有特殊的重要性。<br>因为有了明和暗，照片中各种物体才成为可以看得见的影像；<br>所有其它要素，包括形状、线条、质感和立体感等，实际上都是明和暗的不同表现形式而已。<br>时至今日，事实已经证明，摄影的实质就是在于依靠光线发生作用，也就是依靠光线通过镜头对感光材材料发生作用。</p>
-<p>摄影家从快门打开的一瞬间到照片离开显影盆的整个过程中，也就是明和暗这个范围之内，发挥他的影响和控制作用的。</p>
-<p>摄影过程的每一个细小的环节，包括胶片选择、滤镜使用、底片曝光、药液特性、显影时间等，都对明暗的再现有着相当大的影响，从而也相当大地影响着作品的表现力。</p>
-<p>在放大照片时，有遮挡经验的人都知道，对照片的局部遮光和加光会给作品的清晰度和立体感带来多么大的影响！<br>如果再把相纸的反差和显影剂的强弱考虑在内，可以说控制明暗的机会是相当多的。</p>
-<p>从根本上说，明暗只是色的三大特征之一，其它两个是色别和色艳度。因为本书只论黑白摄影构图，所以明暗是当作独立的构图讨论的。</p>
-<h2 id="照片的质量"><a href="#照片的质量" class="headerlink" title="照片的质量"></a>照片的质量</h2><p>从早期的摄影教育开始，人们就教导摄影者说，照片必须表现从明到暗（包括少量纯白纯黑在内）的整套灰色层次。<br>每本摄影手册也都告诉读者，一定要把明暗两个部分的影调等级和层次充分细致地表现出来。<br>毫无疑问，这正是摄影比其它视觉艺术独到的地方。这也是照片质量问题的核心所在。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123352.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="明和暗的造型作用"><a href="#明和暗的造型作用" class="headerlink" title="明和暗的造型作用"></a>明和暗的造型作用</h2><p>没有哪一种造型手段能像摄影那样，用从纯白到纯黑的无数个灰色层次的变化，把物体的立体感那样生动地表现出来。<br>没有哪一种造型手段能像摄影那样，在一个平面上向人们提供凸起和凹下的幻觉，从而构成一个逼真的立体形状。</p>
-<p>下面的人像是故意颠倒过来的，为的是分析它的形状而不是去注意人物的特征。<br>请注意眉毛下面的凹处和眼睑下面的圆形眼球。<br>鼻子是渐渐隆起的，鼻尖达到最高点，耸立于周围的颧骨之上，然后突然下降到上嘴唇的平面上。<br>嘴的形状紧随着下面牙齿的圆筒状。<br>两片嘴唇形成了隆起的弧线，由中间的分界线上下分开。<br>下巴从嘴唇下面的凹处突起，形成一个高丘，然后下降，先缓后急，直抵下颌。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123430.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>没有其它造型手段能够记录象下图这样微妙的明暗变化；<br>正是这种明暗变化表现了光线和空气构成的神秘的环境气氛，给人一种树木似乎沐浴在气流之中的感觉。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123451.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>在记录物体的透明度、半透明度的反光特性的能力方面，任何其它造型手段都无法与摄影相媲美。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123516.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="灰色级谱"><a href="#灰色级谱" class="headerlink" title="灰色级谱"></a>灰色级谱</h2><p>能觉察到的灰色色调是无限多的。用摄影方法能记录下来的色调也是难以计数的。<br>为了对色调进行大致分类，人们设计了这个图谱，并用它作为识别和记录色调的依据。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122859.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>像实际生活中其它方面一样，艺术需要多样化，就是公认的事实。<br>艺术风格需要不断变化的最主要的理由也许是：任何一种特定式样要是用得过久，就会引起厌烦。<br>不断观赏一个形象会使人的精神疲倦，这时候会要求调换不同的形式来进行调剂。</p>
-<p>在使用色调方面也需要多样化。<br>当许多照片在一个展览会上展出或一种出版物中出现的时候，色调的多样化特别重要。</p>
-<p>如果大部分照片是以灰色级谱上的中间色调为主，很少有极浅灰、白、深暗灰和黑，这种色调的雷同将会使人觉得沉闷乏味。</p>
-<p>在一张照片或一组照片里，怎样运用级谱里的数值，是影响作品气氛的因素之一。<br>在艺术中和在生活中一样，气氛的改变不仅是可能的，而且是竭力追求的。</p>
-<h2 id="高调和低调"><a href="#高调和低调" class="headerlink" title="高调和低调"></a>高调和低调</h2><p>一张照片，如果它主要包括了灰色级谱的上半部分（白、极浅灰、浅灰、深浅灰和中灰），一般说它表现的是轻松愉快的气氛，这样的照片被称为高调照片。<br>但要注意这样一种危险：没有包括灰色级谱上所有等级(那怕是一点痕迹)的高调照片，看起来会像曝光不足或显影不足一样。</p>
-<p>当然，如果从纯白到中灰的所有等级都能充分表现出来的话，暗调部分可以省掉。<br>也就是说，如果从极浅灰到中灰之间最少能分辨出十个灰色等级时，这样的高调照片从色调上说是可以接受的。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122912.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122926.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>同样，一张照片如果主要包括灰色级谱的下半部分（中灰、浅暗灰、暗灰、深暗灰、和黑色），<br>它表现的是阴沉忧郁的氛，这样的照片被称为低调照片，也常常要有一些较亮色调，<br>以便使人相信就张照片是有意这样处理的而不是失手弄黑的，<br>假如包含较亮色调后对所要表现的气氛所有干扰的话，也可不要较亮色调，但必须具有极丰富而明显的暗调层次。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122941.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="对自然界明暗的联想作用"><a href="#对自然界明暗的联想作用" class="headerlink" title="对自然界明暗的联想作用"></a>对自然界明暗的联想作用</h2><p>我们总是不可避免地要把照片上的色调和实物、经验以及情绪联系起来。<br>砖墙或是混凝土墙的颜色会唤起人们内心已有的那种明暗概念。<br>人们会自动地把特定的颜色和固定的色调联系在一起，所以我们可以料想一只桔子拍成照片以后表现的色调比一只柠檬要深些，一只苹果则比一只桔子更深，而茄子是它们当中最深的。</p>
-<p>我们说到雪、牛奶、亚麻布床单会联想到白色，说到岩石会联想到灰色，说到夜晚、寂静、空间、煤炭会联想到黑色。<br>愉快的情绪是和明亮的调子相联系的。<br>压抑忧郁的情绪是和接近黑色的调子相联系的。荒凉是和灰色相联系的。</p>
-<p>虽然这种联想在大多数情况下是正确的，但不是在所有情况下都是适用的。<br>有时候会出现这样的情况：一个物体经过影调处理后才能符合常规的联想。<br>这时候摄影家就得控制光线、加用滤镜、调整曝光或通过印放处理来达到自己的目的。</p>
-<p>在另外一些情况下，为了构图或表现上的需要，牺牲或打破这种常规的联想关系更为有利；<br>浅色的物体可以处理成暗调的，深色的物可以处理成浅调的。</p>
-<p>这种联想关系还被扩大到伦理道德范畴中去。<br>明与暗经常被用来和正面事物与反面事物、善与恶相联系。<br>在人类历史的早期，上帝被认为就是光明。<br>因而，亮调就代表无形之物、非物质精灵，经常用大片空间和天空来表示。</p>
-<p>相反，黑暗只和忧伤的情绪相联系，用来表示抑郁和悲伤。</p>
-<p>如果我们认真考虑一下这种联想作用，我们会发现，它既不是一成不变的，甚至也是没有道理可讲的。<br>难道黑暗不是冒险精神、宗教迷信和神秘主义的环境气氛吗？不是也有很多诗情画意的作品是用暗调来表现的吗？<br>甚至爱情和沉思这些带神秘感的生活片断，也是和黑暗或近乎黑暗的环境相联系，而不是用中午的耀眼阳光来衬托的。<br>强烈的阳光使一切暴露无遗，没有一点含蓄回味的余地。<br>阴暗的教堂比起明亮的教堂来，是宗教忏悔的更合适的环境。</p>
-<p>黎明和黄昏的朦胧光线似乎适宜于渲染宗教精神，而光天化日却能使人们摆脱神秘和离奇的想象。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122955.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>艺术家在表现他的主题的时候，必须能够不受约束地选择它的调子。<br>艺术上的墨守成规是创造力的障碍。<br>拘泥于简单地反映，屈从于公众的低级趣味，只能产生乏味的，没有特色的作品。夸张是艺术的有机组成部分。<br>在摄影艺术中，夸张的机会主要存在于明暗控制之中。<br>如果把晴天雪地上黑色影子强调出来会有利于你的美学设想，那就让它变黑，必要的话还可以在放大时加光。<br>如果在表现采矿的照片上，煤的颜色干扰了你想要强调的东西，你设法让它亮一些是合理的。</p>
-<p>几乎可以说，不加夸张地处理色调只能落入俗套，而打破常规的处理却会因为它的新颖大胆而博得赞赏。</p>
-<p>艺术家应该具有独特的观察力，能够越过常规和成见去观察事物，创造出扣人心弦的作品来。</p>
-<h2 id="明和暗在美学上的运用——气氛"><a href="#明和暗在美学上的运用——气氛" class="headerlink" title="明和暗在美学上的运用——气氛"></a>明和暗在美学上的运用——气氛</h2><p>在明暗的运用方面，摄影家的眼界必须更加开阔；<br>不要认为它只是清晰地记录影象的一种手段。<br>除了构成画面和产生立体效果之外，明和暗还有很强大的艺术表现力。<br>它是一个有效而独立的构图要素，是表现和烘托气氛的最有力手段。</p>
-<p>为了造成特定主体的适当气氛，并像你所希望的那样表达感情，往往不必拘泥于实际情况，而把明和暗看成独立的实体。<br>我们不可能也不愿意制订出一个一览表列出通过明暗配置造成的气氛的方法。<br>处理方法是多种多样的，这要根据每个人的经历、经验、风格和判断能力来决定。</p>
-<p>虽然亮调能够表现温暧，但也能表现寒气、遥远、空虚、清晰明快和暴露无遗。<br>暗调可以表现宁静，也可以表现寂寞；可以表现停滞，也可以表现危险。</p>
-<p>从许多方面来看，光线和音乐有相似之处。<br>它能够变换轻重和强弱。自然光有着很大的调节可能和适应性。<br>人工光能产生极为丰富的层次变化，效果如何，取决于灯具和应用方式。</p>
-<p>当一个物体被充分照明，它的每个部分由于明暗分明而能清楚地辨别出来时，这时所强调的是被摄体而不是整个画面。<br>我们不禁会注意到它的突出轮廓。<br>它是那样地明显，以至于我们不去留心照片的整个构图。<br>这种情况，在完全正面照明时，或者当一个明亮的图形衬着暗调背景时，是经常遇到的。<br>逆光照明下，黑色剪影衬在明亮的背景上也是如此。<br>突出轮廓，能给人以明晰精确的印象。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123009.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123023.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>相反地，如果光与影的配置没有把每个具体形状分别强调出来，这时整个画面的整体感就加强了。<br>光线是使物体能被看见的力量，也具有湮没物体的能力。<br>边界能被隐藏，轮廓会变模糊。</p>
-<p>在一个统一的画面中，一个形状的光与影和另外一个形状的光与影混淆了起来。<br>用亮调的、中间调子的和暗调的色块组成画面，并不要求每个形状的界限分明，这时线条和立体感的作用就会减弱，整个画面显得模糊不清。但整体感加强了。<br>观众不再注意每个局部，而是把照片当作一个整体来看了。<br>每个被摄体的形状和由明暗色块组成的整个照片不大区分得开了。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123032.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123045.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="明暗配置"><a href="#明暗配置" class="headerlink" title="明暗配置"></a>明暗配置</h2><p>把亮调的、暗调的中间调子的色块集中在一个不规则的画面上，排除形状和线条的作用，那么构图美学的另外一个重方面，即整个画面的明暗就显得突出了。</p>
-<p>如果我们把下面一组照片顛倒过来加以研究，就能比较清楚地理解这个问题。<br>这些照片是在一天之内不同时间，从同一位置<br>拍摄的同一景物。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123058.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>像图一六五那幅肖像一样，颠倒过来观察，你就不会把它当作实物看待，过多地注意它的结构了。<br>一幅作品的构图好坏，往往当你不去注意主体为何物时才能看得更清楚此。<br>当然这并不意味着主体与构图不需要紧密配合。<br>而是说把照片倒过来，你便能够集中注意它的明暗配置，看出它对整个画面的影响。</p>
-<p>每幅成功的作品必须具备几个条件：</p>
-<blockquote>
-<p>一个是主题的表达和包含的内容，一个是构图，还有一个是印放质量。当然还有其它许多方面。</p>
+    <title>摄影 构图 质感</title>
+    <url>/2024/08/02/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%B4%A8%E6%84%9F/</url>
+    <content><![CDATA[<blockquote>
+<p>质地存于万物之中，它正象万物本身的存在一样地普遍。大凡存在的东西都有各自的质地：光滑的、粗糙的、闪光的、波纹的、崎岖不平的、干枯的、滑溜的、含砂的、绒毛状的。起皱纹的、木纹状的或别的样子的，数不胜数。</p>
 </blockquote>
-<p>伟大的作品，是那些把画面中每件事物以及它们相互的关系结合得极为高明的那些作品。</p>
-<p>从前面一系列照片中，我们学到的最重要的一条经验是：</p>
+<h2 id="触觉鉴别"><a href="#触觉鉴别" class="headerlink" title="触觉鉴别"></a>触觉鉴别</h2><p>质地的概念是和触觉有关的，和皮肤表面接触时的一种感受有关。<br>触摸物体表面或在其上滑动，能使我们产生另一种鉴别作用，它和视觉、味觉、嗅觉、听觉相辅相成。<br>一种完全的鉴别能力往往需要依靠两种或更多的感觉器官共同行动才能形成。</p>
+<p>例如，一块抛光了的杂色大理石，看起来不平，但摸起来很滑；<br>一匹驯养的马，看起来皮毛光滑，但摸起来又粗又硬；<br>塔夫绸的窸窣声加上其它因素才形成它干净利落的感觉。</p>
+<p>有时，触觉能识别一种材料的真实性质，而眼睛往往有错觉。<br>石膏和木头常常可以漆得很象大理石。<br>仿造的技巧可以高明得以假乱真，可是，用手一模，马上真相毕露。<br>考察一块料并评价它的质量就要依靠触觉。</p>
+<p>通过长期的体验，我们培养了一种鉴别质地的记忆能力，这和我们的视觉、味觉、嗅觉和听觉的记忆能力十分相似。<br>闭上眼睛，在既没有味道也没有声音的情况下，我们甚至也能摸得出缎子、羊毛、砂纸、玻璃、金属、混凝土和纸张。<br>如果给婴儿换走一块他所熟悉的毯子，尽管颜色和重量都一样，但就是因为质地不同，婴儿也会觉得不舒服。</p>
+<h2 id="触摸欲望"><a href="#触摸欲望" class="headerlink" title="触摸欲望"></a>触摸欲望</h2><p>为了自我满足，为了感官上的愉快，或者为了辅助视觉，人们往往有一种内在的，要求触摸物体的强烈欲望和一种去体验质地的好奇心。<br>在我们的幼年时代，这种欲望是不受禁令约束的，但当我们成年后，社会条件教导我们要约束自己的本能。<br>虽然人体的各种倾向性受到了遏制，但好奇心和欲望仍然是强烈的。<br>人们需要满足自己的这种触摸要求。</p>
+<p>面对娇嫩的皮肤、闪光的缎子、高级的皮毛或成把的鹅卵石，很少人能自我克制，总想去抚摸，把玩。<br>躺在草上只欣赏泥土的芳香和宁静的色调是不够的，我们还要情不自禁地去抚弄叶片并试验它们的耐力。<br>那些情趣粗犷的人喜欢穿斜纹精布、粗花呢和灯心绒的衣服，因为它们粗糙的手感和不规则外观体现了一种独特的心理状态。</p>
+<h2 id="质地激起的情感反应"><a href="#质地激起的情感反应" class="headerlink" title="质地激起的情感反应"></a>质地激起的情感反应</h2><p>质地对我们能产生强烈的影响，不论这种影响是积极的还是消极的，都不容忽视。<br>我们对物体表面的特征有时喜欢，有时反感，有时有其它的反应。<br>触摸反应和情感的联系如此密切，以致我们会对某些质地感到满意，而对另外一些质地产生反感。质地能使人兴奋和冲动。<br>有些人看见青蛙、蛇或者腐烂的水果会产生一种无法控制的厌恶感受，而抚弄新鲜的玫瑰花瓣能使人镇静和宽慰。<br>虽然对条件的联想也可以引起这样的反应，但这是另外一个问题。<br>事实是，这种反应很常见，这种反应很常见，值得我们密切注意。</p>
+<h2 id="触觉和视觉的相互关系"><a href="#触觉和视觉的相互关系" class="headerlink" title="触觉和视觉的相互关系"></a>触觉和视觉的相互关系</h2><p>一切感觉相互之间都有密切联系。<br>看到酸黄瓜那湿漉漉、滑溜溜的外表，会刺激味蕾而使人垂涎三尺；<br>看见切开的洋葱就想起它那辛辣催泪的味道。<br>用不着举起一块石头去估量它的重量，一眼就能“看出”它是个憨然重物。<br>只消看到海滩的细砂就会联想到漂浮在手指和脚趾之间的晶粒。<br>看到锋利多齿的石头就足以使脚底的肌内收缩，这是因为想起了赤祼的双脚曾被这种刺人的石头边缘触痛过。<br>看到贝壳会唤起人们对它的外形和质地的感觉。<br>人体的大部分感受都是通过各别的感觉在体内的传递和交融而形成的。</p>
+<p>物体表面的差异尽管纯粹是视觉上的，而且人体也没有机会去接触这个表面，但是这种表面质地的外观本身就足以给人脑传送一个刺激，从而使人得到一种触觉反应。<br>触感的产生并不取决于手指是否接触物体。<br>虽然我们并没有实际接触物体表面，但对于它的特质仍会产生一种幻觉。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123013.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="视觉质感"><a href="#视觉质感" class="headerlink" title="视觉质感"></a>视觉质感</h2><p>在视觉可辨范围内的任何明暗变化都能产生出一种视觉质感。<br>强光、层次、反射光和阴影——所有这一切都是和质感有关的因素。<br>即使一张照片上只是万里晴空或一汪平湖，也都会有表面软硬感觉的性质。<br>光线因光源不同或它所通过的环境性质不同而有所差异，特别敏感的人善于区别不同光线所形成的质地特性。<br>水也能产生一种视觉质感，它的质感区域相当宽广。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123024.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123044.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>印好的报纸除了具有作为新闻纸本身的特点以外，也可以体现不同的质感。<br>字号、字型、铅条、油墨的浓度、栏目的宽度以及段落的长度等，对于光线的吸引和反射都有显著的影响。<br>同一份报纸的每一单页，由于复制、插图和间隔的密度和性质不同而带来各具特色的质感。</p>
+<p>阳光通过网眼窗帘，将窗帘的图案投射到纸上，这样形成的光亮部分和阴影部分，完全改变了原来的视觉质感。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123102.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>用一种工具在质感不同的表面上，或者不同的工具在质感相同的表上上画出一条简单的线条，让它们的长度和方向完全一致，结果却显著不同。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123120.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>仅仅确定影调的明暗值是不够的，质感是构成这个数值的组成部分，它和影调本身同等重要。<br>下面各图的形状，大小和影调完全一样，只是质地不同，所以无论在视觉判断上，还是在触觉反应上，它们所形成的形象就显然不同。</p>
+<p>由于质地对视觉形象和感情状态的影响十分强烈，所以摄影家和其它从事视觉艺术的艺术家一样，对于它的效果不能漠然处之。<br>他们对于触觉之间的心理关系必须特别敏感。<br>对于各种材料的感觉及其本质必须有深刻的了解，才能有效地表现它美的素质。</p>
+<p>对于那些含有视觉概念和视觉联想作用的要素，艺术家们的确有着高于常人的认识能力，但决不能只凭天赋。<br>要不断地努力提高敏感性，增长才干，观察生活，才能创作出意味深长的，足以鼓舞斗志、激发情感的作品。</p>
+<p>不需要通过题材的其它作用，质地本身就能产生一种揭示内在诗意的暗示力。<br>摄影家只要能表现出对有形物体的丰富的感受，也就能再现它们的赏心悦目的激情和美感。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123146.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="工具和质地"><a href="#工具和质地" class="headerlink" title="工具和质地"></a>工具和质地</h2><p>下面是一系列的练习，可以增长你对质地的认识能力和欣赏能力。</p>
+<p>用钢笔或铅笔画几个正方形，每边之长大约一英寸。<br>在头两个正方形中画满圆圈，使其大小和密度大致相同，但不要排列成行。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094334.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>然后在第二个正方形的圆圈之间画上小点。观察它的质感有什么不同之外。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094352.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在这个阶段研究质地，不要和自然存在的任何物体联系起来。<br>我们目的只是培养一种敏感，去体验各种质地的有趣变化。</p>
+<p>哪怕一点点变化都会产生不同的效果。<br>现在我们不要随意乱画，要使圆圈横竖成行。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094402.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>使圆圈交错成行，质地的变化又自不同。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094415.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>再用椭圆代替圆，在一个正方形中随意画满椭圆，而在另一个正方形中则排列整齐。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094429.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>下面试验用各种不同的形状及其组合，构成各种各样的质地。</p>
+<p>用线条：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094437.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>用小点：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094445.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>随意勾画：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094453.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>使用不同的工具，蘸上墨水进行试验，看看结果如何。</p>
+<p>用刷子：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094505.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>用枝条：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094514.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>用小链条：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094523.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>或用羽毛：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094531.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>你所创造的任何质地，无论看来多么稀奇古怪，都不要轻视。<br>说不定在什么时候你会在自界里发现和它一模一样的东西。</p>
+<h2 id="自然界的质地"><a href="#自然界的质地" class="headerlink" title="自然界的质地"></a>自然界的质地</h2><p>有了创造性意识，就能在平凡的地方发现重要的东西。<br>一个人必须十分留意周围环境中确实存在着的无穷无尽的质地。<br>在你实际拍摄普通的质地之前，如果先做一些简单的练习，以便观察、识别和实际接接触各种质地。<br>这种做法是非常值得和大有裨益的。<br>此后，你才有可能拍出大量的、生动反映质感的作品来。</p>
+<p>首先观察你自己房间里各种东西的质地，细看木制家具，观察这种木头和那种木头在纹理结构上有什么不同。<br>在有些胡桃木红木和桦木家具上，极为精细的一层罩光漆能使外表呈半透明状，而且一直深入到木头的深处。<br>展现出一幅幅犹如在表层下浮动的木纹图案。</p>
+<p>在你所研究的其它材料中，有各种各样的质地：<br>崎岖不平的、粒状的、平滑的、粉状的、砂砾般的、片状的、布满灰尘的、砾石铺筑的、易碎的、绒毛状的或是毛发状的。<br>它们都有哪些特性呢？<br>通过实际触摸，体会一下下列物体之间的区别：<br>布料与皮革、木头与纸张、黄铜和黑铁、涂漆的表面和抛光的表面。<br>再用视觉帮助验证一下你的触觉，不需要做什么笔头记录，头脑中的印象是最重要的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804091413.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>然后，集中精力去体会某一类东西的特殊质地，以纸张为例。<br>在你家里收集到多少种质地不同的纸张？<br>开始试验新闻纸、笔记本纸、证券纸、带封面的杂志纸、蜡纸、冷藏纸、礼品包装纸、货币纸、相纸、吸墨水纸、索引卡片纸、作文纸、照片衬纸、书皮纸、糖果包装纸、包裹标签纸、糊墙纸和图画纸等等。<br>用手指抚模它们的表面，比较它们的特征。<br>用一个25瓦的反光灯照明，观察这些特征和投光方向的关系。<br>观察每一种纸的视觉特征，是半透明还是不透明，粗糙或光滑，其独有的特征是什么。<br>对每一种纸用什么角度照明才能体现你的感受，才能最好地表现纸的性质。</p>
+<p>把各种纸揉皱，观察每种纸的褶痕和褶皱的凹处，其结果也是质地的一种表现形式。</p>
+<p>选出各种布料——女服、外套、套服、运动衫、衬衫，短外套，帷幕、桌面、毛巾、围巾和窗帘，对它们的南地进行比较。<br>把它们挂起来或折皱，用一两盏灯闪照，研究不同表面的质地，皱褶的特性以及反光能力。</p>
+<p>像大多数培养敏感性的练习一样，对质地的这些探究似乎显得愚蠢和过分简单。<br>但是，一旦你这样做了，<br>你就会发现自己迷上了各种质地具有的魅力，并随着理解力和鉴赏力的增长，<br>你那好奇心和调查研究的愿望也将进一步增长，<br>质感的重要意义将越来越清楚地展现在你的面前，<br>你也就会在那些通常易被忽视的方面去进行探索和钻研。</p>
+<p>虽然，单独一项质地，没有其它有关因素的衬托，往往也能具备足够的力量创作出一幅有趣的照片，<br>但更经常的情况是形状、线条、明暗等多种品质增加了美的情趣，这种情趣又有力地强化了主体的质地。</p>
+<p>选几块织物，要使它们的质地在镶配之后显得很美观，把它们摆在一起，注意突出它们的表面质地。<br>布光照明时，要强调触感的不同。然后拍几张负片。<br>研究印出来的照片，确定你的成功之处，以及为达到预期目的还需要改进的地方。<br>如果你偶然获得意外的成功，就要设法确定如何才能有意识地获得同样的成果。</p>
+<p>现在，你已经训练有素，<br>可以到外面去探索那遍地都是的各种质地了，<br>各种质地充满了我们的日常生活，<br>如果人们不是有意地努力发掘它们，<br>它们就会隐没在一片模糊之中以致视而不见。</p>
+<p>试比较建筑物的墙壁和屋顶构件的质地，如砖、石、灰墁、木头、瓦片、盖屋板、混凝土、建筑用玻璃、金属，以及石板等。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804091440.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>请观察在同一个建筑上的那些吸光的质地和反光的质地的相互作用。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804091458.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>人工修筑的马路、人行道和天花板富有各种有趣的表面，从最粗糙到不大粗糙，从不规则到非常规则。<br>例如：</p>
 <blockquote>
-<p>必须认识到，明和暗的意义远远不止是使被摄物具有立全感或者美化被摄物。明暗配置对整个照片的结构有着巨大的影响。</p>
+<p>踏成的路、石板、卵石、有各种骨料的混凝土、陶瓷排水管、水磨石、碎石路面、沥青路面、地板和地毯。</p>
 </blockquote>
-<p>一般说来，对被摄体的处理越发细致具体，例如清晰地照明和逼真地反映，作品的艺术效果就可能越发浅薄单调。</p>
-<p>有时候美化被摄体是摄影的重要作用。正因为摄影在这方面的作用要比其它造型手段有效得多，所以它才受到重视。</p>
-<p>作品的艺术性关系到整个画面空间，绝不是主要物体得到满意的表现就算了事。<br>正像画面中多余的物体能降低主体的感染力一样，明暗配置不当也能削弱构图效果。<br>因此、摄影家不能只限于判断画面上主要部分的明暗，他必须对照片每个部分的明和暗给以同等重视，才能判断哪些有利于整体效果，哪些不利于整体效果。</p>
-<p>因为构图要素和构图原理都是抽象的概念，所以需要从完全抽象的角度去考察它的性质和作用。<br>如果把具体可辨的物体从画面上排除掉的话，这种概念才能表现得更清楚，理解得更明确。<br>因为这样做的结果使我们有可能以更大的注意力去研究某一个别的构图原理。</p>
-<p>在下列各图中，线条结构是相同的。它们之间最大的区别是明暗配置不同。</p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123127.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804091519.png"
                       alt="-"
                 ><figcaption>-</figcaption></figure></p>
-<p>第一种明暗配置是把中间那块大图形涂得比周围色调更加以突出。大图形边界之内的色调变了。<br>虽然画面的一角也有块相同的色调，但它并未接触大图形的边缘。<br>把深色调集中在一个大范围之内，就能把观众的视线紧紧抓住，因为比起其它部分来，它有更大的吸引力。<br>注意力被集中在深色图案部分，它压倒了周围的浅调区域。</p>
+<p>现在，你来观察迷人的自然地面——砂、卵石、树叶、石子、草、苔藓、泥土、干湿土壤、雪——这一切混合在一起，形成无数的质地。</p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123140.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804091801.png"
                       alt="-"
                 ><figcaption>-</figcaption></figure></p>
-<p>对同一图形，也可用颠倒黑白的办法，就是让中间图形亮，周围环境暗的办法，使它仍然占据优势。</p>
-<p>用这种加强对比的手法，我们能把观众注意力引向画面的任何一部分。</p>
+<p>有些不习惯于细致观察的人会认为这些树皮不过都是一般的粗糙表层，相互之间没有什么区别。<br>而有辨别能力的人则能识别它们那些具有美学和植物学情趣的差异。</p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123155.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804091941.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>同种树叶正面和背面的质地不同，不同树种的树叶不仅形状不同，质地也各异。<br>如果我们走到相当远的地方去观察一簇树叶，还能看出群体物质之间一种新的质地关系，这又和单个叶片的质地大不一样。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804092008.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>从远处看可以看到树的全貌，而个别的叶片，甚至一簇簇树叶的质地就不是趣味中心了。<br>一簇簇树叶的群体现在是和形状、线条、立体感和明暗等方面密切交织在一起而呈现出另一种质地，这种质地和同一树种的其它树木的质地是相类似的。<br>再对比另一种树种，则两种树的质地之间存在着鲜明的对比。<br>叶片的大小、叶丛的疏密、花朵、果实、错落相间的方式、以及光的折射率等，都对质地的感受有着影响。</p>
+<p>无叶之树也具有一种质感。<br>请注意观察这种树的枝条构成的网状结构。</p>
+<p>你继续研究下去，密切注视风化对下列物体的影响；<br>老树桩、落地枯枝、中空树木、树上和石头上的苔藓、地衣和真菌。<br>风化作用使人造物体受到损失，但实际上，它却给各种质地再添新状，这时摄影是一大乐事。<br>注意观察生锈的金属、剥落的油漆、变质的木板、腐朽的建筑、坍塌的船坞、倾倒的篱笆、遗弃的小船及撕破的广告画等。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804092031.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>我们还要经常注意这一点：</p>
+<blockquote>
+<p>我们看到的各种质地并不都是亲身接触过的，因为有些是大型的群体，我们无法去触摸它们。</p>
+</blockquote>
+<p>这包括大股的人群、遍地的鲜花、成堆的家具、大片屋宇、整群绵羊、墙上和广场上的大型雕刻、山坡上的茂密树林、水面上的闪光和阴影以及云层等。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804092133.png"
                       alt="-"
                 ><figcaption>-</figcaption></figure></p>
 <p><figure class="image-caption"><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123218.png"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-04/20240804092146.png"
                       alt="-"
                 ><figcaption>-</figcaption></figure></p>
-<p>明暗配置并不要求以基本图形为依据，它是可以随意安排的。<br>有些图形的色调可以局部改变，有些图形的色调可以全部改变。<br>把基本图形交错形成的那些小图形搭配起来，我们就能创造出新的图形。</p>
-<p>从构图上说，可以让画面的一半是亮调，一半是暗调。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123229.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>也可让画面从亮到暗逐渐变化。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123239.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>让明暗各点适当地分布在画面上，就能在画面不同部位形成对比强烈、明暗交错的生动影调。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123256.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>有人可能认为，只有在手绘图画中才能不受约束地配置明暗。<br><strong>完全不是这样！</strong><br>虽然摄影家要控制照片中每个明暗变化并非易事，但实际余地要比人们想象的多。</p>
-<p>想要取得上列照片所表现的那些变化，只要把自然光线稍加改变，就可以达到目的。<br>此外，还可以自由选择拍摄位置以增加变化的机会。</p>
-<p>在静物摄影构图中，为了改变色调，可以调换被摄物品。<br>调整光线不仅能够改变色调，还可以利用阴和影来构成各种图案。<br>选择适当的背景，又为摄影家提供了一个构图的机会，这里除了利用大量素色材素和有图案的材料以外，还可以用周围的环境。<br>在肖像和人体摄影构图中，作为构图要素的色调，能够通过衣着、照明、背景以及画面点缀物来进行调整。<br>一张成功的作品，往往需要事前周密地安排。</p>
-<p>最后，在印放过程中，我们经常还要进行机动灵活的加工处理。<br>明暗配置在表现感情方面是很有影响的一个手段。<br>平静还是活跃，强烈还是温柔，整齐还是不规则⋯⋯所有这些，甚至不止这些，都可以通过有效的明暗配置来达到。<br>这方面的潜力是无限的；如果说有限的话，那是因为摄影者本身的洞察力有限。</p>
+<p>自然存在的或人工制造的任何一种群体物质都是质感题材的最佳源泉。</p>
+<p>除了偶然的情况，每一幅照片都回荡着摄影家的思想和感情。如果你在观察中对自己的观察对象产生数种感受，你的照片一定能反映出多种激情，这会使你的照片更有观赏价值。<br>因为质地常常是和触摸、声音和味道密切相关的，所以你把各种感觉综合得越多，你的创作想象力就越富于个人风格，你所反映的意图就越接近客观事物的真实性质。</p>
+<p>不要只满足于客地再现主题，而要想方设法用夸张手法去反映你所认为最有意义的质地或其它方面的特征。</p>
 ]]></content>
       <categories>
         <category>摄影</category>
@@ -6707,6 +7021,343 @@ rm -i /test/file1
       </categories>
       <tags>
         <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>摄影 直方图</title>
+    <url>/2024/07/20/%E6%91%84%E5%BD%B1-%E7%9B%B4%E6%96%B9%E5%9B%BE/</url>
+    <content><![CDATA[<p>摄影中的直方图是一种图形表示，用于展示图像的色调分布，特别是图像的亮度级别。直方图可以帮助摄影师和图像编辑者评估图像的曝光情况，确保高光和阴影部分的细节得到恰当的呈现。</p>
+<p>简单来说，直方图就是科学的数据统计图，可以很直观的反映出片子的影调情况。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072000.jpg"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.jpg"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<blockquote>
+<p>透过直方图看问题</p>
+<p>直方图可以很方便的看出一张片子影调和色调上存在的问题，就类似于患者在医院拍的CT片，后期工作则通过直方图找到片子问题所在，对症下药，那么都有哪些常见的症状呢？</p>
+</blockquote>
+<h2 id="什么是直方图"><a href="#什么是直方图" class="headerlink" title="什么是直方图"></a>什么是直方图</h2><p>直方图表示的是图像的明暗程度。x轴从左到右依次代表从暗到亮，最左边为最暗的纯黑色，最右边为最亮的纯白色。Y轴则代表像素数量。</p>
+<p>这是一张图片，有从黑到白四种不同亮度的颜色</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072102.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>我们依次将黑色标为1，深灰色标为2，浅灰色标为3，白色标为4，如下图：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072102.jpg"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>而这张图片的直方图，长这样：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072103.jpg"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>这个直方图分为4列，按照上面所说的，X轴从左到右代表从暗到明。在上面的直方图中，最左列代表的是纯黑色的1号，第二列代表的是深灰色的2号，第三列代表的是浅灰色的3号，而最右列代表的是纯白色的4号。</p>
+<p>再来看Y轴，Y轴代表的是像素数量。我们可以看到，1号纯黑一共有7格，7个像素，2号深灰有5个像素，3号浅灰有4个像素，4号纯白有4个像素。可以看到其在上面直方图的Y轴都一一对应。</p>
+<p>这样看的话就很直观了。直方图左边代表照片的暗部，中间部分代表是照片的中间调，右边代表亮部。X轴以0-255的数值表示。0代表最暗的纯黑，255代表最亮的纯白。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072106.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="直方图的组成部分"><a href="#直方图的组成部分" class="headerlink" title="直方图的组成部分"></a>直方图的组成部分</h2><ol>
+<li><strong>X轴（水平轴）</strong>：通常表示图像的亮度级别，从最左边的黑色（0）到最右边的白色（255）。</li>
+<li><strong>Y轴（垂直轴）</strong>：表示在每个亮度级别上的像素数量。直方图的高度越高，表示该亮度级别的像素越多。</li>
+</ol>
+<h2 id="直方图的类型"><a href="#直方图的类型" class="headerlink" title="直方图的类型"></a>直方图的类型</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072001.jpg"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>直方图的类型根据通道不同分很多种，常用的主要是判断影调的 明度，和判断色调的 颜色。明度模式和颜色模式有相应的转换关系——</p>
+
+  <div class="note p-4 mb-4 rounded-small primary">
+    <p><code>L = R*0.30 + G*0.59 + B*0.11</code></p>
+
+  </div>
+
+<ul>
+<li><strong>亮度直方图</strong>：显示从黑到白的像素分布。</li>
+</ul>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<ul>
+<li><strong>红蓝绿直方图</strong>: 分别代表的是红、绿、蓝三个通道的直方图。显示像素分布，有助于检查颜色平衡。</li>
+</ul>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072103.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<ul>
+<li><strong>RGB直方图</strong>：通常我们说直方图，一般指的就是RGB直方图。RGB直方图，实际上就是红绿蓝直方图的总和。</li>
+</ul>
+<p>举个简单的例子帮助大家理解：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>这是一张1像素、颜色为（255, 0, 0）的纯红色方格。根据上一篇文章的RGB理论，其实这一个像素是由1个255度的红色像素，1个0度的绿色像素，1个0度的蓝色像素叠加而成：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072104.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>所以它的红绿蓝直方图长这样：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072105.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>而RGB直方图则长这样：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072102.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>我们可以发现，绿直方图在0的位置有1个像素，蓝直方图在0的位置有一个像素，合起来RGB直方图在0的位置就有2个像素；红直方图在255的位置有1个像素，相应的在RGB直方图255的位置就有1个像素。</p>
+<p>所以RGB直方图实际上就是红绿蓝直方图的总和，它将红绿蓝三个直方图的数据加在一起。</p>
+<ul>
+<li><strong>颜色直方图</strong>：</li>
+</ul>
+<p>颜色直方图长这样：</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.jpg"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>颜色直方图其实就是将红绿蓝三个直方图如同图层一般叠在一起看，并在直方图里涂上相应的颜色。其中重叠在一起的部分还会呈现出对应的颜色：红直方图和绿直方图重叠的部分是黄色，蓝直方图和绿直方图重叠的部分是青色，红直方图和蓝直方图重叠的部分是品红。灰绿色则是三个直方图都重叠在一起的部分。</p>
+<h2 id="直方图的应用"><a href="#直方图的应用" class="headerlink" title="直方图的应用"></a>直方图的应用</h2><ul>
+<li><strong>评估曝光</strong>：如果直方图的峰值集中在右侧，图像可能过曝；如果集中在左侧，则可能欠曝。</li>
+<li><strong>调整对比度</strong>：如果直方图显示像素集中在中间范围，图像可能缺乏对比度。</li>
+<li><strong>防止细节丢失</strong>：确保直方图两端没有像素溢出，这表示高光和阴影的细节得到了保留。</li>
+</ul>
+<h3 id="亮度-影调相关"><a href="#亮度-影调相关" class="headerlink" title="亮度 影调相关"></a>亮度 影调相关</h3><h4 id="正常曝光"><a href="#正常曝光" class="headerlink" title="正常曝光"></a>正常曝光</h4><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072002.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h4 id="过曝"><a href="#过曝" class="headerlink" title="过曝"></a>过曝</h4><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072003.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h4 id="欠曝"><a href="#欠曝" class="headerlink" title="欠曝"></a>欠曝</h4><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072004.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h4 id="发灰-缺乏对比度"><a href="#发灰-缺乏对比度" class="headerlink" title="发灰 缺乏对比度"></a>发灰 缺乏对比度</h4><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072005.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h3 id="RGB-色调相关"><a href="#RGB-色调相关" class="headerlink" title="RGB 色调相关"></a>RGB 色调相关</h3><p>颜色模式的直方图也可以提供片子一定的色调信息，那么又该如何分析呢？直方图的颜色通道由R&#x2F;G&#x2F;B三色通道组成，分析之前先来研究研究简单案例，从简单到复杂。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072001.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>仔细观察这些纯色图片，你会发现一个规律——单色在直方图上显示的是其颜色和其互补色，其颜色分布在右，互补色分布在左。另外如果R&#x2F;G&#x2F;B完全一致，直方图将不显示颜色，片子转化为黑白，关于颜色直方图了解这些就够用了。</p>
+<h4 id="偏色"><a href="#偏色" class="headerlink" title="偏色"></a>偏色</h4><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072010.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>这里的“偏色”并非指白平衡不准确造成的，所以打上引号，主要用来分析画面颜色。</p>
+<p>直方图最右边和最左边分别代表片子高光和阴影，是需要分析的重点。直方图右边红色溢出，对应片子中红色的天空；左边红色溢出，则表示片子阴影偏其补色青色，对应片子中的地面。</p>
+<p>由白平衡不准确造成的偏色也可以通过直方图来解决，由于片子的高光多半是纯白，通过调整白平衡，直到直方图右边没有颜色溢出即可，但是如果高光部分不是纯白，显然就不适用了。</p>
+<h4 id="不通透"><a href="#不通透" class="headerlink" title="不通透"></a>不通透</h4><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072011.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>片子不通透是多方面的，这里换成低饱和度更为合适，直方图上表现为灰色多，颜色少。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072012.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h3 id="相机内置"><a href="#相机内置" class="headerlink" title="相机内置"></a>相机内置</h3><p>使用相机时，每次按下快门，片子会在液晶屏中预览两秒，看到片子觉得还不错，就急着开始拍下一张。其实液晶屏显示是会有误导的，往往与电脑显示效果有所偏差。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072007.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>仔细观察片子，有没有发现液晶屏中显示的片子比较亮，也可能是手机拍照的原因，但是偏差肯定是会有的，只有直方图才会完全一致。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072008.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>通过直方图判断片子影调是最保险的手段，每次拍完照片，如果不确定是否曝光正常，可以回头查看照片，然后通过【INFO.】键切换到有直方图的看图模式，一般明度直方图就够用了。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072009.webp"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>甚至拍照时为避免过曝，可以开启高光警告，这样每拍完一张照片，在之后两秒的预览时间内，过曝导致缺失图像信息的高光区域会以黑色显示，可以非常直观的判断片子是否过曝。</p>
+<blockquote>
+<p>现场环境复杂多样，直方图毕竟是数据统计的表现形式，难免有局限性。</p>
+</blockquote>
+<h2 id="直方图常见解读"><a href="#直方图常见解读" class="headerlink" title="直方图常见解读"></a>直方图常见解读</h2><ul>
+<li><strong>左倾</strong>：图像可能欠曝，需要增加曝光。</li>
+<li><strong>右倾</strong>：图像可能过曝，需要减少曝光。</li>
+<li><strong>高耸</strong>：图像可能对比度过高，需要调整。</li>
+<li><strong>平坦</strong>：图像可能对比度低，需要增加对比度。</li>
+</ul>
+<h2 id="使用直方图拍摄照片"><a href="#使用直方图拍摄照片" class="headerlink" title="使用直方图拍摄照片"></a>使用直方图拍摄照片</h2><ul>
+<li>在拍摄时，使用相机的直方图功能来检查曝光。</li>
+<li>调整光圈、快门速度和ISO，以获得理想的直方图分布。</li>
+<li>使用曝光补偿功能来微调曝光。</li>
+</ul>
+<h2 id="后期处理中的直方图"><a href="#后期处理中的直方图" class="headerlink" title="后期处理中的直方图"></a>后期处理中的直方图</h2><ul>
+<li>在图像编辑软件中，使用直方图来调整曝光、对比度和色彩平衡。</li>
+<li>确保直方图显示图像的色调分布符合创作意图。</li>
+</ul>
+<p>直方图是摄影和图像编辑中的重要工具，它提供了一种量化的方式来评估和调整图像的亮度和色彩分布。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link"   href="https://zhuanlan.zhihu.com/p/114534593" >关于直方图，你必须知道的几点 - 摄影狗的咸鱼日常 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>摄影</category>
+        <category>基础</category>
+      </categories>
+      <tags>
+        <tag>摄影</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据挖掘-Apriori</title>
+    <url>/2017/03/16/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Apriori/</url>
+    <content><![CDATA[<blockquote>
+<p>从海量数据中挖掘可信频繁项集</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">优点</td>
+<td align="center">易编码实现</td>
+</tr>
+<tr>
+<td align="center">缺点</td>
+<td align="center">大数据集运行缓慢</td>
+</tr>
+<tr>
+<td align="center">适用</td>
+<td align="center">数值型，标称型</td>
+</tr>
+</tbody></table>
+<h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><table>
+<thead>
+<tr>
+<th align="center">名词</th>
+<th align="center">意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">association analysis</td>
+<td align="center">关联分析</td>
+</tr>
+<tr>
+<td align="center">association rule learning</td>
+<td align="center">关联规则学习</td>
+</tr>
+<tr>
+<td align="center">frequent item set</td>
+<td align="center">频繁项集</td>
+</tr>
+<tr>
+<td align="center">association rule</td>
+<td align="center">关联规则</td>
+</tr>
+<tr>
+<td align="center">frequent</td>
+<td align="center">频繁</td>
+</tr>
+<tr>
+<td align="center">support</td>
+<td align="center">支持度</td>
+</tr>
+<tr>
+<td align="center">confidence</td>
+<td align="center">可信度</td>
+</tr>
+</tbody></table>
+<pre><code>a priori 一个先验 使用知识作为条件进行推断
+a postriori 一个后验 使用结果作为条件检测
+</code></pre>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>如果某个项集是频繁项集，那么他的子项集也是频繁项集。反之，如果一个项集是非频繁项集，那么他的所有超集也是非频繁项集。</p>
+<ol>
+<li>收集数据</li>
+<li>准备数据</li>
+<li>分析数据</li>
+<li>训练算法</li>
+<li>测试算法</li>
+<li>使用算法</li>
+</ol>
+<hr>
+<ul>
+<li>首先发现频繁项集</li>
+<li>然后计算出关联规则</li>
+</ul>
+<h3 id="生成候选项集"><a href="#生成候选项集" class="headerlink" title="生成候选项集"></a>生成候选项集</h3><ul>
+<li>记录训练数据集中每一条数据为候选项集</li>
+<li>检查每一个候选项集属于数据集子集的个数</li>
+<li>对于候选项集如果最小值不小于支持度，则保留该项集</li>
+<li>返回所有频繁项集</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>DataMining</tag>
       </tags>
   </entry>
   <entry>
@@ -7081,481 +7732,10 @@ rm -i /test/file1
       </tags>
   </entry>
   <entry>
-    <title>摄影 构图 艺术</title>
-    <url>/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%89%BA%E6%9C%AF/</url>
-    <content><![CDATA[<h2 id="艺术形式"><a href="#艺术形式" class="headerlink" title="艺术形式"></a>艺术形式</h2><blockquote>
-<p>艺术的形式也是不断变化的。<sup>1.1.2</sup></p>
-</blockquote>
-<p>为什么一件作品可以称为艺术品，而在许多方面都和它相似的另一件却不是?</p>
-<ol>
-<li>艺术和自然的异同</li>
-<li>视觉形象思维和文字概念的区别</li>
-<li>艺术和手艺的关系</li>
-</ol>
-<h2 id="艺术与自然描绘"><a href="#艺术与自然描绘" class="headerlink" title="艺术与自然描绘"></a>艺术与自然描绘</h2><blockquote>
-<p>艺术家们摆脱了如实记录的重担以后，便转而探索艺术的更本质的特征。</p>
-</blockquote>
-<blockquote>
-<p>自然界有它本身的美，并不在于人们是否去捕捉这些美。</p>
-</blockquote>
-<blockquote>
-<p>无论是剪裁遮挡还是增添什么景物都无法弥补拍摄时所缺乏的东西——那就是题材固有美之外摄影家心目中所认识所发现的美的因素。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_1.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_2.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>摄影者头脑中富有生动的艺术构思, 那么即使看起并不没得自然景色,人和物也能拍成很好的佳作.</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_3.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="艺术与抽象的视觉美点"><a href="#艺术与抽象的视觉美点" class="headerlink" title="艺术与抽象的视觉美点"></a>艺术与抽象的视觉美点</h2><blockquote>
-<p>问题的关键是，艺术效果完全取决于艺术家是否从这个题材中发现了和感觉到了抽象的视觉美点，以及处理它们的能力；经过这番处理观众才能看到艺术家曾经看到过的东西，激发出和艺术家同样的感情。</p>
-</blockquote>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/2024-07-14_4.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<blockquote>
-<p>虽然有时候照片里看到的东西难以解释，简直象是魔术一样，但有许多东西仍然是可以弄清楚的。有些摄影家生来就是很敏感，他们能在看来无所作为的地方一下子发现奇迹。有些人需要经过一番启发才能认识潜在的视觉因素。然后也能不太费事地发现它们。大多数人则必需给以系统的教育，提高他们认识视觉美点的敏感性，用这种方法培养他们的辨别能力。</p>
-</blockquote>
-<h2 id="构图-从混乱中找出秩序"><a href="#构图-从混乱中找出秩序" class="headerlink" title="构图 从混乱中找出秩序"></a>构图 从混乱中找出秩序</h2><blockquote>
-<p>构图是一个思维过程，它从自然存在的混乱事物中找出秩序；</p>
-</blockquote>
-<blockquote>
-<p>通过构图，摄影家澄清了他要表达的信息，把观众的注意力引向他发现的那些最重要有趣的要素。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>摄影</category>
-        <category>构图</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>摄影 构图 质感</title>
-    <url>/2024/08/02/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%B4%A8%E6%84%9F/</url>
+    <title>数据挖掘-KNN</title>
+    <url>/2017/03/06/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-KNN/</url>
     <content><![CDATA[<blockquote>
-<p>质地存于万物之中，它正象万物本身的存在一样地普遍。大凡存在的东西都有各自的质地：光滑的、粗糙的、闪光的、波纹的、崎岖不平的、干枯的、滑溜的、含砂的、绒毛状的。起皱纹的、木纹状的或别的样子的，数不胜数。</p>
-</blockquote>
-<h2 id="触觉鉴别"><a href="#触觉鉴别" class="headerlink" title="触觉鉴别"></a>触觉鉴别</h2><p>质地的概念是和触觉有关的，和皮肤表面接触时的一种感受有关。<br>触摸物体表面或在其上滑动，能使我们产生另一种鉴别作用，它和视觉、味觉、嗅觉、听觉相辅相成。<br>一种完全的鉴别能力往往需要依靠两种或更多的感觉器官共同行动才能形成。</p>
-<p>例如，一块抛光了的杂色大理石，看起来不平，但摸起来很滑；<br>一匹驯养的马，看起来皮毛光滑，但摸起来又粗又硬；<br>塔夫绸的窸窣声加上其它因素才形成它干净利落的感觉。</p>
-<p>有时，触觉能识别一种材料的真实性质，而眼睛往往有错觉。<br>石膏和木头常常可以漆得很象大理石。<br>仿造的技巧可以高明得以假乱真，可是，用手一模，马上真相毕露。<br>考察一块料并评价它的质量就要依靠触觉。</p>
-<p>通过长期的体验，我们培养了一种鉴别质地的记忆能力，这和我们的视觉、味觉、嗅觉和听觉的记忆能力十分相似。<br>闭上眼睛，在既没有味道也没有声音的情况下，我们甚至也能摸得出缎子、羊毛、砂纸、玻璃、金属、混凝土和纸张。<br>如果给婴儿换走一块他所熟悉的毯子，尽管颜色和重量都一样，但就是因为质地不同，婴儿也会觉得不舒服。</p>
-<h2 id="触摸欲望"><a href="#触摸欲望" class="headerlink" title="触摸欲望"></a>触摸欲望</h2><p>为了自我满足，为了感官上的愉快，或者为了辅助视觉，人们往往有一种内在的，要求触摸物体的强烈欲望和一种去体验质地的好奇心。<br>在我们的幼年时代，这种欲望是不受禁令约束的，但当我们成年后，社会条件教导我们要约束自己的本能。<br>虽然人体的各种倾向性受到了遏制，但好奇心和欲望仍然是强烈的。<br>人们需要满足自己的这种触摸要求。</p>
-<p>面对娇嫩的皮肤、闪光的缎子、高级的皮毛或成把的鹅卵石，很少人能自我克制，总想去抚摸，把玩。<br>躺在草上只欣赏泥土的芳香和宁静的色调是不够的，我们还要情不自禁地去抚弄叶片并试验它们的耐力。<br>那些情趣粗犷的人喜欢穿斜纹精布、粗花呢和灯心绒的衣服，因为它们粗糙的手感和不规则外观体现了一种独特的心理状态。</p>
-<h2 id="质地激起的情感反应"><a href="#质地激起的情感反应" class="headerlink" title="质地激起的情感反应"></a>质地激起的情感反应</h2><p>质地对我们能产生强烈的影响，不论这种影响是积极的还是消极的，都不容忽视。<br>我们对物体表面的特征有时喜欢，有时反感，有时有其它的反应。<br>触摸反应和情感的联系如此密切，以致我们会对某些质地感到满意，而对另外一些质地产生反感。质地能使人兴奋和冲动。<br>有些人看见青蛙、蛇或者腐烂的水果会产生一种无法控制的厌恶感受，而抚弄新鲜的玫瑰花瓣能使人镇静和宽慰。<br>虽然对条件的联想也可以引起这样的反应，但这是另外一个问题。<br>事实是，这种反应很常见，这种反应很常见，值得我们密切注意。</p>
-<h2 id="触觉和视觉的相互关系"><a href="#触觉和视觉的相互关系" class="headerlink" title="触觉和视觉的相互关系"></a>触觉和视觉的相互关系</h2><p>一切感觉相互之间都有密切联系。<br>看到酸黄瓜那湿漉漉、滑溜溜的外表，会刺激味蕾而使人垂涎三尺；<br>看见切开的洋葱就想起它那辛辣催泪的味道。<br>用不着举起一块石头去估量它的重量，一眼就能“看出”它是个憨然重物。<br>只消看到海滩的细砂就会联想到漂浮在手指和脚趾之间的晶粒。<br>看到锋利多齿的石头就足以使脚底的肌内收缩，这是因为想起了赤祼的双脚曾被这种刺人的石头边缘触痛过。<br>看到贝壳会唤起人们对它的外形和质地的感觉。<br>人体的大部分感受都是通过各别的感觉在体内的传递和交融而形成的。</p>
-<p>物体表面的差异尽管纯粹是视觉上的，而且人体也没有机会去接触这个表面，但是这种表面质地的外观本身就足以给人脑传送一个刺激，从而使人得到一种触觉反应。<br>触感的产生并不取决于手指是否接触物体。<br>虽然我们并没有实际接触物体表面，但对于它的特质仍会产生一种幻觉。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123013.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="视觉质感"><a href="#视觉质感" class="headerlink" title="视觉质感"></a>视觉质感</h2><p>在视觉可辨范围内的任何明暗变化都能产生出一种视觉质感。<br>强光、层次、反射光和阴影——所有这一切都是和质感有关的因素。<br>即使一张照片上只是万里晴空或一汪平湖，也都会有表面软硬感觉的性质。<br>光线因光源不同或它所通过的环境性质不同而有所差异，特别敏感的人善于区别不同光线所形成的质地特性。<br>水也能产生一种视觉质感，它的质感区域相当宽广。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123024.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123044.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>印好的报纸除了具有作为新闻纸本身的特点以外，也可以体现不同的质感。<br>字号、字型、铅条、油墨的浓度、栏目的宽度以及段落的长度等，对于光线的吸引和反射都有显著的影响。<br>同一份报纸的每一单页，由于复制、插图和间隔的密度和性质不同而带来各具特色的质感。</p>
-<p>阳光通过网眼窗帘，将窗帘的图案投射到纸上，这样形成的光亮部分和阴影部分，完全改变了原来的视觉质感。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123102.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>用一种工具在质感不同的表面上，或者不同的工具在质感相同的表上上画出一条简单的线条，让它们的长度和方向完全一致，结果却显著不同。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123120.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>仅仅确定影调的明暗值是不够的，质感是构成这个数值的组成部分，它和影调本身同等重要。<br>下面各图的形状，大小和影调完全一样，只是质地不同，所以无论在视觉判断上，还是在触觉反应上，它们所形成的形象就显然不同。</p>
-<p>由于质地对视觉形象和感情状态的影响十分强烈，所以摄影家和其它从事视觉艺术的艺术家一样，对于它的效果不能漠然处之。<br>他们对于触觉之间的心理关系必须特别敏感。<br>对于各种材料的感觉及其本质必须有深刻的了解，才能有效地表现它美的素质。</p>
-<p>对于那些含有视觉概念和视觉联想作用的要素，艺术家们的确有着高于常人的认识能力，但决不能只凭天赋。<br>要不断地努力提高敏感性，增长才干，观察生活，才能创作出意味深长的，足以鼓舞斗志、激发情感的作品。</p>
-<p>不需要通过题材的其它作用，质地本身就能产生一种揭示内在诗意的暗示力。<br>摄影家只要能表现出对有形物体的丰富的感受，也就能再现它们的赏心悦目的激情和美感。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-02/20240802123146.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="工具和质地"><a href="#工具和质地" class="headerlink" title="工具和质地"></a>工具和质地</h2><p>下面是一系列的练习，可以增长你对质地的认识能力和欣赏能力。</p>
-<p>用钢笔或铅笔画几个正方形，每边之长大约一英寸。<br>在头两个正方形中画满圆圈，使其大小和密度大致相同，但不要排列成行。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094334.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>然后在第二个正方形的圆圈之间画上小点。观察它的质感有什么不同之外。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094352.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>在这个阶段研究质地，不要和自然存在的任何物体联系起来。<br>我们目的只是培养一种敏感，去体验各种质地的有趣变化。</p>
-<p>哪怕一点点变化都会产生不同的效果。<br>现在我们不要随意乱画，要使圆圈横竖成行。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094402.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>使圆圈交错成行，质地的变化又自不同。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094415.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>再用椭圆代替圆，在一个正方形中随意画满椭圆，而在另一个正方形中则排列整齐。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094429.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>下面试验用各种不同的形状及其组合，构成各种各样的质地。</p>
-<p>用线条：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094437.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>用小点：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094445.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>随意勾画：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094453.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>使用不同的工具，蘸上墨水进行试验，看看结果如何。</p>
-<p>用刷子：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094505.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>用枝条：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094514.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>用小链条：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094523.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>或用羽毛：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-03/20240803094531.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>你所创造的任何质地，无论看来多么稀奇古怪，都不要轻视。<br>说不定在什么时候你会在自界里发现和它一模一样的东西。</p>
-<h2 id="待续"><a href="#待续" class="headerlink" title="待续"></a>待续</h2>]]></content>
-      <categories>
-        <category>摄影</category>
-        <category>构图</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>摄影 直方图</title>
-    <url>/2024/07/20/%E6%91%84%E5%BD%B1-%E7%9B%B4%E6%96%B9%E5%9B%BE/</url>
-    <content><![CDATA[<p>摄影中的直方图是一种图形表示，用于展示图像的色调分布，特别是图像的亮度级别。直方图可以帮助摄影师和图像编辑者评估图像的曝光情况，确保高光和阴影部分的细节得到恰当的呈现。</p>
-<p>简单来说，直方图就是科学的数据统计图，可以很直观的反映出片子的影调情况。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072000.jpg"
-                      alt="-"
-                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.jpg"
-                      alt="-"
-                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<blockquote>
-<p>透过直方图看问题</p>
-<p>直方图可以很方便的看出一张片子影调和色调上存在的问题，就类似于患者在医院拍的CT片，后期工作则通过直方图找到片子问题所在，对症下药，那么都有哪些常见的症状呢？</p>
-</blockquote>
-<h2 id="什么是直方图"><a href="#什么是直方图" class="headerlink" title="什么是直方图"></a>什么是直方图</h2><p>直方图表示的是图像的明暗程度。x轴从左到右依次代表从暗到亮，最左边为最暗的纯黑色，最右边为最亮的纯白色。Y轴则代表像素数量。</p>
-<p>这是一张图片，有从黑到白四种不同亮度的颜色</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072102.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>我们依次将黑色标为1，深灰色标为2，浅灰色标为3，白色标为4，如下图：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072102.jpg"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>而这张图片的直方图，长这样：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072103.jpg"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>这个直方图分为4列，按照上面所说的，X轴从左到右代表从暗到明。在上面的直方图中，最左列代表的是纯黑色的1号，第二列代表的是深灰色的2号，第三列代表的是浅灰色的3号，而最右列代表的是纯白色的4号。</p>
-<p>再来看Y轴，Y轴代表的是像素数量。我们可以看到，1号纯黑一共有7格，7个像素，2号深灰有5个像素，3号浅灰有4个像素，4号纯白有4个像素。可以看到其在上面直方图的Y轴都一一对应。</p>
-<p>这样看的话就很直观了。直方图左边代表照片的暗部，中间部分代表是照片的中间调，右边代表亮部。X轴以0-255的数值表示。0代表最暗的纯黑，255代表最亮的纯白。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072106.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h2 id="直方图的组成部分"><a href="#直方图的组成部分" class="headerlink" title="直方图的组成部分"></a>直方图的组成部分</h2><ol>
-<li><strong>X轴（水平轴）</strong>：通常表示图像的亮度级别，从最左边的黑色（0）到最右边的白色（255）。</li>
-<li><strong>Y轴（垂直轴）</strong>：表示在每个亮度级别上的像素数量。直方图的高度越高，表示该亮度级别的像素越多。</li>
-</ol>
-<h2 id="直方图的类型"><a href="#直方图的类型" class="headerlink" title="直方图的类型"></a>直方图的类型</h2><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072001.jpg"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>直方图的类型根据通道不同分很多种，常用的主要是判断影调的 明度，和判断色调的 颜色。明度模式和颜色模式有相应的转换关系——</p>
-
-  <div class="note p-4 mb-4 rounded-small primary">
-    <p><code>L = R*0.30 + G*0.59 + B*0.11</code></p>
-
-  </div>
-
-<ul>
-<li><strong>亮度直方图</strong>：显示从黑到白的像素分布。</li>
-</ul>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<ul>
-<li><strong>红蓝绿直方图</strong>: 分别代表的是红、绿、蓝三个通道的直方图。显示像素分布，有助于检查颜色平衡。</li>
-</ul>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072103.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<ul>
-<li><strong>RGB直方图</strong>：通常我们说直方图，一般指的就是RGB直方图。RGB直方图，实际上就是红绿蓝直方图的总和。</li>
-</ul>
-<p>举个简单的例子帮助大家理解：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>这是一张1像素、颜色为（255, 0, 0）的纯红色方格。根据上一篇文章的RGB理论，其实这一个像素是由1个255度的红色像素，1个0度的绿色像素，1个0度的蓝色像素叠加而成：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072104.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>所以它的红绿蓝直方图长这样：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072105.png"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>而RGB直方图则长这样：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072102.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>我们可以发现，绿直方图在0的位置有1个像素，蓝直方图在0的位置有一个像素，合起来RGB直方图在0的位置就有2个像素；红直方图在255的位置有1个像素，相应的在RGB直方图255的位置就有1个像素。</p>
-<p>所以RGB直方图实际上就是红绿蓝直方图的总和，它将红绿蓝三个直方图的数据加在一起。</p>
-<ul>
-<li><strong>颜色直方图</strong>：</li>
-</ul>
-<p>颜色直方图长这样：</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-21/2024072101.jpg"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>颜色直方图其实就是将红绿蓝三个直方图如同图层一般叠在一起看，并在直方图里涂上相应的颜色。其中重叠在一起的部分还会呈现出对应的颜色：红直方图和绿直方图重叠的部分是黄色，蓝直方图和绿直方图重叠的部分是青色，红直方图和蓝直方图重叠的部分是品红。灰绿色则是三个直方图都重叠在一起的部分。</p>
-<h2 id="直方图的应用"><a href="#直方图的应用" class="headerlink" title="直方图的应用"></a>直方图的应用</h2><ul>
-<li><strong>评估曝光</strong>：如果直方图的峰值集中在右侧，图像可能过曝；如果集中在左侧，则可能欠曝。</li>
-<li><strong>调整对比度</strong>：如果直方图显示像素集中在中间范围，图像可能缺乏对比度。</li>
-<li><strong>防止细节丢失</strong>：确保直方图两端没有像素溢出，这表示高光和阴影的细节得到了保留。</li>
-</ul>
-<h3 id="亮度-影调相关"><a href="#亮度-影调相关" class="headerlink" title="亮度 影调相关"></a>亮度 影调相关</h3><h4 id="正常曝光"><a href="#正常曝光" class="headerlink" title="正常曝光"></a>正常曝光</h4><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072002.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h4 id="过曝"><a href="#过曝" class="headerlink" title="过曝"></a>过曝</h4><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072003.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h4 id="欠曝"><a href="#欠曝" class="headerlink" title="欠曝"></a>欠曝</h4><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072004.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h4 id="发灰-缺乏对比度"><a href="#发灰-缺乏对比度" class="headerlink" title="发灰 缺乏对比度"></a>发灰 缺乏对比度</h4><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072005.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h3 id="RGB-色调相关"><a href="#RGB-色调相关" class="headerlink" title="RGB 色调相关"></a>RGB 色调相关</h3><p>颜色模式的直方图也可以提供片子一定的色调信息，那么又该如何分析呢？直方图的颜色通道由R&#x2F;G&#x2F;B三色通道组成，分析之前先来研究研究简单案例，从简单到复杂。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072001.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>仔细观察这些纯色图片，你会发现一个规律——单色在直方图上显示的是其颜色和其互补色，其颜色分布在右，互补色分布在左。另外如果R&#x2F;G&#x2F;B完全一致，直方图将不显示颜色，片子转化为黑白，关于颜色直方图了解这些就够用了。</p>
-<h4 id="偏色"><a href="#偏色" class="headerlink" title="偏色"></a>偏色</h4><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072010.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>这里的“偏色”并非指白平衡不准确造成的，所以打上引号，主要用来分析画面颜色。</p>
-<p>直方图最右边和最左边分别代表片子高光和阴影，是需要分析的重点。直方图右边红色溢出，对应片子中红色的天空；左边红色溢出，则表示片子阴影偏其补色青色，对应片子中的地面。</p>
-<p>由白平衡不准确造成的偏色也可以通过直方图来解决，由于片子的高光多半是纯白，通过调整白平衡，直到直方图右边没有颜色溢出即可，但是如果高光部分不是纯白，显然就不适用了。</p>
-<h4 id="不通透"><a href="#不通透" class="headerlink" title="不通透"></a>不通透</h4><p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072011.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>片子不通透是多方面的，这里换成低饱和度更为合适，直方图上表现为灰色多，颜色少。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072012.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<h3 id="相机内置"><a href="#相机内置" class="headerlink" title="相机内置"></a>相机内置</h3><p>使用相机时，每次按下快门，片子会在液晶屏中预览两秒，看到片子觉得还不错，就急着开始拍下一张。其实液晶屏显示是会有误导的，往往与电脑显示效果有所偏差。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072007.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>仔细观察片子，有没有发现液晶屏中显示的片子比较亮，也可能是手机拍照的原因，但是偏差肯定是会有的，只有直方图才会完全一致。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072008.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>通过直方图判断片子影调是最保险的手段，每次拍完照片，如果不确定是否曝光正常，可以回头查看照片，然后通过【INFO.】键切换到有直方图的看图模式，一般明度直方图就够用了。</p>
-<p><figure class="image-caption"><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-20/2024072009.webp"
-                      alt="-"
-                ><figcaption>-</figcaption></figure></p>
-<p>甚至拍照时为避免过曝，可以开启高光警告，这样每拍完一张照片，在之后两秒的预览时间内，过曝导致缺失图像信息的高光区域会以黑色显示，可以非常直观的判断片子是否过曝。</p>
-<blockquote>
-<p>现场环境复杂多样，直方图毕竟是数据统计的表现形式，难免有局限性。</p>
-</blockquote>
-<h2 id="直方图常见解读"><a href="#直方图常见解读" class="headerlink" title="直方图常见解读"></a>直方图常见解读</h2><ul>
-<li><strong>左倾</strong>：图像可能欠曝，需要增加曝光。</li>
-<li><strong>右倾</strong>：图像可能过曝，需要减少曝光。</li>
-<li><strong>高耸</strong>：图像可能对比度过高，需要调整。</li>
-<li><strong>平坦</strong>：图像可能对比度低，需要增加对比度。</li>
-</ul>
-<h2 id="使用直方图拍摄照片"><a href="#使用直方图拍摄照片" class="headerlink" title="使用直方图拍摄照片"></a>使用直方图拍摄照片</h2><ul>
-<li>在拍摄时，使用相机的直方图功能来检查曝光。</li>
-<li>调整光圈、快门速度和ISO，以获得理想的直方图分布。</li>
-<li>使用曝光补偿功能来微调曝光。</li>
-</ul>
-<h2 id="后期处理中的直方图"><a href="#后期处理中的直方图" class="headerlink" title="后期处理中的直方图"></a>后期处理中的直方图</h2><ul>
-<li>在图像编辑软件中，使用直方图来调整曝光、对比度和色彩平衡。</li>
-<li>确保直方图显示图像的色调分布符合创作意图。</li>
-</ul>
-<p>直方图是摄影和图像编辑中的重要工具，它提供了一种量化的方式来评估和调整图像的亮度和色彩分布。</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a class="link"   href="https://zhuanlan.zhihu.com/p/114534593" >关于直方图，你必须知道的几点 - 摄影狗的咸鱼日常 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>摄影</category>
-        <category>基础</category>
-      </categories>
-      <tags>
-        <tag>摄影</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据挖掘-Apriori</title>
-    <url>/2017/03/16/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-Apriori/</url>
-    <content><![CDATA[<blockquote>
-<p>从海量数据中挖掘可信频繁项集</p>
+<p>KNN 近邻算法：测量不同特征值之间距离进行分类</p>
 </blockquote>
 <table>
 <thead>
@@ -7566,76 +7746,28 @@ rm -i /test/file1
 </thead>
 <tbody><tr>
 <td align="center">优点</td>
-<td align="center">易编码实现</td>
+<td align="center">精度高，对异常值不敏感，无数据输入假定</td>
 </tr>
 <tr>
 <td align="center">缺点</td>
-<td align="center">大数据集运行缓慢</td>
+<td align="center">计算复杂度高，空间复杂度高</td>
 </tr>
 <tr>
 <td align="center">适用</td>
 <td align="center">数值型，标称型</td>
 </tr>
 </tbody></table>
-<h1 id="名词概念"><a href="#名词概念" class="headerlink" title="名词概念"></a>名词概念</h1><table>
-<thead>
-<tr>
-<th align="center">名词</th>
-<th align="center">意义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">association analysis</td>
-<td align="center">关联分析</td>
-</tr>
-<tr>
-<td align="center">association rule learning</td>
-<td align="center">关联规则学习</td>
-</tr>
-<tr>
-<td align="center">frequent item set</td>
-<td align="center">频繁项集</td>
-</tr>
-<tr>
-<td align="center">association rule</td>
-<td align="center">关联规则</td>
-</tr>
-<tr>
-<td align="center">frequent</td>
-<td align="center">频繁</td>
-</tr>
-<tr>
-<td align="center">support</td>
-<td align="center">支持度</td>
-</tr>
-<tr>
-<td align="center">confidence</td>
-<td align="center">可信度</td>
-</tr>
-</tbody></table>
-<pre><code>a priori 一个先验 使用知识作为条件进行推断
-a postriori 一个后验 使用结果作为条件检测
-</code></pre>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>如果某个项集是频繁项集，那么他的子项集也是频繁项集。反之，如果一个项集是非频繁项集，那么他的所有超集也是非频繁项集。</p>
-<ol>
-<li>收集数据</li>
-<li>准备数据</li>
-<li>分析数据</li>
-<li>训练算法</li>
-<li>测试算法</li>
-<li>使用算法</li>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><ol>
+<li><p>存在一个训练集，并且每个数据都存在标签</p>
+</li>
+<li><p>输入没有标签的新数据</p>
+</li>
+<li><p>将新数据与训练集特征进行比较</p>
+</li>
+<li><p>提取训练集中特征最相似的分类标签分类</p>
+<p> 一般只选择训练集中的前 K 个最相似数据</p>
+</li>
 </ol>
-<hr>
-<ul>
-<li>首先发现频繁项集</li>
-<li>然后计算出关联规则</li>
-</ul>
-<h3 id="生成候选项集"><a href="#生成候选项集" class="headerlink" title="生成候选项集"></a>生成候选项集</h3><ul>
-<li>记录训练数据集中每一条数据为候选项集</li>
-<li>检查每一个候选项集属于数据集子集的个数</li>
-<li>对于候选项集如果最小值不小于支持度，则保留该项集</li>
-<li>返回所有频繁项集</li>
-</ul>
 ]]></content>
       <tags>
         <tag>DataMining</tag>
@@ -7683,48 +7815,6 @@ a postriori 一个后验 使用结果作为条件检测
                      data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_03_05_1.jpg"
                      
                 ></p>
-]]></content>
-      <tags>
-        <tag>DataMining</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据挖掘-KNN</title>
-    <url>/2017/03/06/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-KNN/</url>
-    <content><![CDATA[<blockquote>
-<p>KNN 近邻算法：测量不同特征值之间距离进行分类</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">优点</td>
-<td align="center">精度高，对异常值不敏感，无数据输入假定</td>
-</tr>
-<tr>
-<td align="center">缺点</td>
-<td align="center">计算复杂度高，空间复杂度高</td>
-</tr>
-<tr>
-<td align="center">适用</td>
-<td align="center">数值型，标称型</td>
-</tr>
-</tbody></table>
-<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><ol>
-<li><p>存在一个训练集，并且每个数据都存在标签</p>
-</li>
-<li><p>输入没有标签的新数据</p>
-</li>
-<li><p>将新数据与训练集特征进行比较</p>
-</li>
-<li><p>提取训练集中特征最相似的分类标签分类</p>
-<p> 一般只选择训练集中的前 K 个最相似数据</p>
-</li>
-</ol>
 ]]></content>
       <tags>
         <tag>DataMining</tag>
@@ -8308,6 +8398,30 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
+    <title>数据挖掘-距离计算</title>
+    <url>/2017/03/03/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E8%B7%9D%E7%A6%BB%E8%AE%A1%E7%AE%97/</url>
+    <content><![CDATA[<blockquote>
+<p>计算样本间的“距离”(Distance) ，估算分类时不同样本之间的相似性度量(Similarity Measurement)。</p>
+</blockquote>
+<ol>
+<li>欧氏距离</li>
+<li>曼哈顿距离</li>
+<li>切比雪夫距离</li>
+<li>闵可夫斯基距离</li>
+<li>标准化欧氏距离</li>
+<li>马氏距离</li>
+<li>夹角余弦</li>
+<li>汉明距离</li>
+<li>杰卡德距离&amp; 杰卡德相似系数</li>
+<li>相关系数&amp; 相关距离</li>
+<li>信息熵</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>DataMining</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>概率学-随机变量</title>
     <url>/2017/03/02/%E6%A6%82%E7%8E%87%E5%AD%A6-%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/</url>
     <content><![CDATA[<blockquote>
@@ -8517,30 +8631,6 @@ a postriori 一个后验 使用结果作为条件检测
       </tags>
   </entry>
   <entry>
-    <title>数据挖掘-距离计算</title>
-    <url>/2017/03/03/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E8%B7%9D%E7%A6%BB%E8%AE%A1%E7%AE%97/</url>
-    <content><![CDATA[<blockquote>
-<p>计算样本间的“距离”(Distance) ，估算分类时不同样本之间的相似性度量(Similarity Measurement)。</p>
-</blockquote>
-<ol>
-<li>欧氏距离</li>
-<li>曼哈顿距离</li>
-<li>切比雪夫距离</li>
-<li>闵可夫斯基距离</li>
-<li>标准化欧氏距离</li>
-<li>马氏距离</li>
-<li>夹角余弦</li>
-<li>汉明距离</li>
-<li>杰卡德距离&amp; 杰卡德相似系数</li>
-<li>相关系数&amp; 相关距离</li>
-<li>信息熵</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>DataMining</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>熵</title>
     <url>/2017/03/01/%E7%86%B5/</url>
     <content><![CDATA[<blockquote>
@@ -8628,6 +8718,47 @@ a postriori 一个后验 使用结果作为条件检测
       </categories>
       <tags>
         <tag>Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>选择 www 或非 www URL 作为域名</title>
+    <url>/2017/02/13/%E9%80%89%E6%8B%A9-www-%E6%88%96%E9%9D%9E-www-URL-%E4%BD%9C%E4%B8%BA%E5%9F%9F%E5%90%8D/</url>
+    <content><![CDATA[<blockquote>
+<p>选择非 www 或 www 作为网址，对于网站持有者是一个反复出现的问题。本页将会提供了一些有用的相关建议。</p>
+</blockquote>
+<h1 id="什么是域名？"><a href="#什么是域名？" class="headerlink" title="什么是域名？"></a>什么是域名？</h1><p>在 HTTP URL 中，跟在网址头部 http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F; 后面的第一个子字符串称为域，它是网站文件资源所在的服务器的名称。</p>
+<p>服务器不一定是物理机：几台服务器可以驻留在同一台物理机器上，或者一台服务器可以通过几台机器进行处理，协作处理并响应或负载均衡它们之间的请求。关键点在于语义上一个域名代表一个单独的服务器。</p>
+<h1 id="所以，我只能选择其中一个做为我的网站的网址？"><a href="#所以，我只能选择其中一个做为我的网站的网址？" class="headerlink" title="所以，我只能选择其中一个做为我的网站的网址？"></a>所以，我只能选择其中一个做为我的网站的网址？</h1><p>是的，你必须选择其中之一，并坚持使用。选择并使用其中哪一个取决于你，但无论你选择那一个，保持下去。这将让你的网站在用户使用搜索引擎检索时更加准确与一致。这包括始终链接到所选域名（如果你在网站中使用相对网址，则不应该很难），也可以始终将链接（通过电子邮件&#x2F;社交网络等）共享使用同一个域名。<br>不，你不能有两个。最重要的是，你是保持的那一个官方的域名，这个官方域名被称为规范名称。你所有的绝对链接应该使用它。但即便如此，你仍然可以有其他域名使用：HTTP允许使用两种技术，以便它在使用规范域名的同时还允许非规范域名使用，使使用者或搜索引擎可以准确的访问到所预期的页面。<br>所以，选择其中一个作为你的域名的规范地址！下面有两种技术允许不规范的域名仍然起作用。</p>
+<h1 id="规范网址方式"><a href="#规范网址方式" class="headerlink" title="规范网址方式"></a>规范网址方式</h1><p>选择下面有两种不同的方式使网站规范。</p>
+<h3 id="使用HTTP301重定向"><a href="#使用HTTP301重定向" class="headerlink" title="使用HTTP301重定向"></a>使用HTTP301重定向</h3><p>在这种情况下，你需要配置服务器接收的HTTP请求（ 常见为 www 和非 www 网址相同）以及适当的HTTP响应 301 去响应所有非规范的域名请求。这会将尝试使访问非规范网址的浏览器重定向到其规范的等效网址。举例来说，如果您选择使用非 www 网址为规范类型，你的所有 www 网址都应该被重定向到对应的非 www 网址上。</p>
+<p>例如：</p>
+<ol>
+<li>服务器收到 <a class="link"   href="http://www.example.org/whaddup" >http://www.example.org/whaddup <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 请求（当规范域名是 example.org 时）</li>
+<li>服务器则以代码 301 与头 Location ：<a class="link"   href="http://example.org/whaddup" >http://example.org/whaddup <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>该客户端发出的规范的域名请求：<a class="link"   href="http://example.org/whatddup" >http://example.org/whatddup <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ol>
+<p><a class="link"   href="https://github.com/h5bp/html5-boilerplate" >HTML5 boilerplate project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  有一个示例 <a class="link"   href="https://github.com/h5bp/html5-boilerplate/blob/7a22a33d4041c479d0962499e853501073811887/.htaccess#L219-L258" >how to configure an Apache server to redirect one domain to the other <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 。</p>
+<h3 id="使用-HTML-标签元素"><a href="#使用-HTML-标签元素" class="headerlink" title="使用 HTML 标签元素"></a>使用 HTML 标签元素</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;canonical&quot;</span>&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>它可以将一个特殊的 HTML <link> 元素添加到网页指示什么网页的标准地址，这对页面的访问者没有影响，但在搜索引擎检索时会告诉搜索引擎当页面实际的地址。通过这种方式，搜索引擎不需要索引同一页面多次，那样可能导致它被视为重复的内容或垃圾邮件，甚至从搜索引擎结果中删除或者降低你的页面显示排名。</p>
+<p>当加入这样一个标签，会告诉搜索引擎，你提供相同内容的两个域名那一个是规范的。<br>以上方为例，</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://www.example.org/whaddup</span><br></pre></td></tr></table></figure></div>
+<p>将提供与 </p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.org/whaddup</span><br></pre></td></tr></table></figure></div>
+<p> 相同的内容，但有一个附加的 <link> 头部元素：</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link href=<span class="string">&quot;http://example.org/whaddup&quot;</span> rel=<span class="string">&quot;canonical&quot;</span>&gt; </span><br></pre></td></tr></table></figure></div>
+
+<p>不同于以往，浏览器历史记录将考虑非 www 和 www 的网址作为独立的条目。</p>
+<h1 id="请使用两者中的一个为你的网页服务"><a href="#请使用两者中的一个为你的网页服务" class="headerlink" title="请使用两者中的一个为你的网页服务"></a>请使用两者中的一个为你的网页服务</h1><p>有了这些技术，您可以将服务器配置为两个正确响应， www 的前缀和非 www 前缀的域名，这是要做到这一点，因为你无法预测哪些 URL 用户输入他们的浏览器的 URL 好的建议酒吧，这是选择你要作为规范的位置使用，然后重定向其他类型的它哪种类型的问题。</p>
+<h1 id="根据情况决定使用"><a href="#根据情况决定使用" class="headerlink" title="根据情况决定使用"></a>根据情况决定使用</h1><p>可以认为这是一个非常主观 <a class="link"   href="http://bikeshed.com/" >bikeshedding <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 问题。 如果你想更深入的阅读，请参阅  <a class="link"   href="http://www.hyperarts.com/blog/www-vs-non-www-for-your-canonical-domain-url-which-is-best-and-why/" >WWW vs non-WWW for your Canonical Domain URL – Which is Best and Why? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> ，它可能提出进一步的见解。</p>
+<h1 id="请参阅"><a href="#请参阅" class="headerlink" title="请参阅"></a>请参阅</h1><p><a class="link"   href="http://www.chrisfinke.com/2011/07/25/what-do-people-type-in-the-address-bar/" >Stats on what people type in the URL bar <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> (2011)</p>
+<h1 id="源网页"><a href="#源网页" class="headerlink" title="源网页"></a>源网页</h1><ul>
+<li>英文版 <a class="link"   href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Choosing_between_www_and_non-www_URLs" >Choosing between www and non-www URLs <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li>中文版 <a class="link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/%E9%80%89%E6%8B%A9_www_%E6%88%96%E9%9D%9E_www_URL_%E4%BD%9C%E4%B8%BA%E5%9F%9F%E5%90%8D" >选择 www 或非 www URL 作为域名 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>HTTP</tag>
       </tags>
   </entry>
   <entry>
@@ -8816,47 +8947,6 @@ a postriori 一个后验 使用结果作为条件检测
       <tags>
         <tag>CodeReview</tag>
         <tag>代码质量</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>选择 www 或非 www URL 作为域名</title>
-    <url>/2017/02/13/%E9%80%89%E6%8B%A9-www-%E6%88%96%E9%9D%9E-www-URL-%E4%BD%9C%E4%B8%BA%E5%9F%9F%E5%90%8D/</url>
-    <content><![CDATA[<blockquote>
-<p>选择非 www 或 www 作为网址，对于网站持有者是一个反复出现的问题。本页将会提供了一些有用的相关建议。</p>
-</blockquote>
-<h1 id="什么是域名？"><a href="#什么是域名？" class="headerlink" title="什么是域名？"></a>什么是域名？</h1><p>在 HTTP URL 中，跟在网址头部 http:&#x2F;&#x2F; 或 https:&#x2F;&#x2F; 后面的第一个子字符串称为域，它是网站文件资源所在的服务器的名称。</p>
-<p>服务器不一定是物理机：几台服务器可以驻留在同一台物理机器上，或者一台服务器可以通过几台机器进行处理，协作处理并响应或负载均衡它们之间的请求。关键点在于语义上一个域名代表一个单独的服务器。</p>
-<h1 id="所以，我只能选择其中一个做为我的网站的网址？"><a href="#所以，我只能选择其中一个做为我的网站的网址？" class="headerlink" title="所以，我只能选择其中一个做为我的网站的网址？"></a>所以，我只能选择其中一个做为我的网站的网址？</h1><p>是的，你必须选择其中之一，并坚持使用。选择并使用其中哪一个取决于你，但无论你选择那一个，保持下去。这将让你的网站在用户使用搜索引擎检索时更加准确与一致。这包括始终链接到所选域名（如果你在网站中使用相对网址，则不应该很难），也可以始终将链接（通过电子邮件&#x2F;社交网络等）共享使用同一个域名。<br>不，你不能有两个。最重要的是，你是保持的那一个官方的域名，这个官方域名被称为规范名称。你所有的绝对链接应该使用它。但即便如此，你仍然可以有其他域名使用：HTTP允许使用两种技术，以便它在使用规范域名的同时还允许非规范域名使用，使使用者或搜索引擎可以准确的访问到所预期的页面。<br>所以，选择其中一个作为你的域名的规范地址！下面有两种技术允许不规范的域名仍然起作用。</p>
-<h1 id="规范网址方式"><a href="#规范网址方式" class="headerlink" title="规范网址方式"></a>规范网址方式</h1><p>选择下面有两种不同的方式使网站规范。</p>
-<h3 id="使用HTTP301重定向"><a href="#使用HTTP301重定向" class="headerlink" title="使用HTTP301重定向"></a>使用HTTP301重定向</h3><p>在这种情况下，你需要配置服务器接收的HTTP请求（ 常见为 www 和非 www 网址相同）以及适当的HTTP响应 301 去响应所有非规范的域名请求。这会将尝试使访问非规范网址的浏览器重定向到其规范的等效网址。举例来说，如果您选择使用非 www 网址为规范类型，你的所有 www 网址都应该被重定向到对应的非 www 网址上。</p>
-<p>例如：</p>
-<ol>
-<li>服务器收到 <a class="link"   href="http://www.example.org/whaddup" >http://www.example.org/whaddup <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 请求（当规范域名是 example.org 时）</li>
-<li>服务器则以代码 301 与头 Location ：<a class="link"   href="http://example.org/whaddup" >http://example.org/whaddup <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>该客户端发出的规范的域名请求：<a class="link"   href="http://example.org/whatddup" >http://example.org/whatddup <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ol>
-<p><a class="link"   href="https://github.com/h5bp/html5-boilerplate" >HTML5 boilerplate project <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>  有一个示例 <a class="link"   href="https://github.com/h5bp/html5-boilerplate/blob/7a22a33d4041c479d0962499e853501073811887/.htaccess#L219-L258" >how to configure an Apache server to redirect one domain to the other <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 。</p>
-<h3 id="使用-HTML-标签元素"><a href="#使用-HTML-标签元素" class="headerlink" title="使用 HTML 标签元素"></a>使用 HTML 标签元素</h3><div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;canonical&quot;</span>&gt;</span><br></pre></td></tr></table></figure></div>
-
-<p>它可以将一个特殊的 HTML <link> 元素添加到网页指示什么网页的标准地址，这对页面的访问者没有影响，但在搜索引擎检索时会告诉搜索引擎当页面实际的地址。通过这种方式，搜索引擎不需要索引同一页面多次，那样可能导致它被视为重复的内容或垃圾邮件，甚至从搜索引擎结果中删除或者降低你的页面显示排名。</p>
-<p>当加入这样一个标签，会告诉搜索引擎，你提供相同内容的两个域名那一个是规范的。<br>以上方为例，</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://www.example.org/whaddup</span><br></pre></td></tr></table></figure></div>
-<p>将提供与 </p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://example.org/whaddup</span><br></pre></td></tr></table></figure></div>
-<p> 相同的内容，但有一个附加的 <link> 头部元素：</p>
-<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link href=<span class="string">&quot;http://example.org/whaddup&quot;</span> rel=<span class="string">&quot;canonical&quot;</span>&gt; </span><br></pre></td></tr></table></figure></div>
-
-<p>不同于以往，浏览器历史记录将考虑非 www 和 www 的网址作为独立的条目。</p>
-<h1 id="请使用两者中的一个为你的网页服务"><a href="#请使用两者中的一个为你的网页服务" class="headerlink" title="请使用两者中的一个为你的网页服务"></a>请使用两者中的一个为你的网页服务</h1><p>有了这些技术，您可以将服务器配置为两个正确响应， www 的前缀和非 www 前缀的域名，这是要做到这一点，因为你无法预测哪些 URL 用户输入他们的浏览器的 URL 好的建议酒吧，这是选择你要作为规范的位置使用，然后重定向其他类型的它哪种类型的问题。</p>
-<h1 id="根据情况决定使用"><a href="#根据情况决定使用" class="headerlink" title="根据情况决定使用"></a>根据情况决定使用</h1><p>可以认为这是一个非常主观 <a class="link"   href="http://bikeshed.com/" >bikeshedding <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> 问题。 如果你想更深入的阅读，请参阅  <a class="link"   href="http://www.hyperarts.com/blog/www-vs-non-www-for-your-canonical-domain-url-which-is-best-and-why/" >WWW vs non-WWW for your Canonical Domain URL – Which is Best and Why? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> ，它可能提出进一步的见解。</p>
-<h1 id="请参阅"><a href="#请参阅" class="headerlink" title="请参阅"></a>请参阅</h1><p><a class="link"   href="http://www.chrisfinke.com/2011/07/25/what-do-people-type-in-the-address-bar/" >Stats on what people type in the URL bar <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> (2011)</p>
-<h1 id="源网页"><a href="#源网页" class="headerlink" title="源网页"></a>源网页</h1><ul>
-<li>英文版 <a class="link"   href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Choosing_between_www_and_non-www_URLs" >Choosing between www and non-www URLs <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li>中文版 <a class="link"   href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/%E9%80%89%E6%8B%A9_www_%E6%88%96%E9%9D%9E_www_URL_%E4%BD%9C%E4%B8%BA%E5%9F%9F%E5%90%8D" >选择 www 或非 www URL 作为域名 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>HTTP</tag>
       </tags>
   </entry>
 </search>
