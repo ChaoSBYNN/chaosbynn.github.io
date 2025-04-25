@@ -11141,4 +11141,178 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>摄影</tag>
       </tags>
   </entry>
+  <entry>
+    <title>VIA: 客制化键盘工具</title>
+    <url>/2025/04/25/VIA-%E5%AE%A2%E5%88%B6%E5%8C%96%E9%94%AE%E7%9B%98%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><blockquote>
+<p>VIA 是一款开源的键盘配置工具，全称为 Virtual Keyboard Interface，主要用于客制化键盘的自定义设置。它允许用户通过图形化界面轻松地自定义键盘的按键映射、灯光效果以及其他功能。</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_11-23-40.png"
+                     
+                ></p>
+<h3 id="VIA-的主要功能"><a href="#VIA-的主要功能" class="headerlink" title="VIA 的主要功能"></a>VIA 的主要功能</h3><ol>
+<li><strong>按键映射自定义</strong>：用户可以根据自己的使用习惯，将键盘上的任意按键重新映射为其他按键。例如，将“Q”键改为“A”键。</li>
+<li><strong>宏定义</strong>：可以设置复杂的按键组合或序列，通过一个按键触发多个操作。比如将某个按键设置为复制（Alt+C）操作。</li>
+<li><strong>多层设置</strong>：支持多层按键布局，用户可以在不同层上设置完全不同的按键功能。</li>
+<li><strong>灯光效果调整</strong>：对于支持 VIA 的键盘，用户可以自定义键盘的灯光效果，包括颜色、亮度和动态效果。</li>
+<li><strong>Any 键功能</strong>：允许用户将任意按键设置为特殊功能键，如“Ctrl”或“Shift”。</li>
+</ol>
+<h3 id="使用-VIA-的步骤"><a href="#使用-VIA-的步骤" class="headerlink" title="使用 VIA 的步骤"></a>使用 VIA 的步骤</h3><ol>
+<li><strong>确认键盘支持</strong>：确保你的客制化键盘支持 VIA 功能，并获取对应的 <code>.json</code> 文件。</li>
+<li><strong>安装 VIA</strong>：从 GitHub 下载 VIA 软件，或通过网页版直接访问。</li>
+<li><strong>导入配置文件</strong>：打开 VIA 软件后，导入键盘对应的 <code>.json</code> 文件。</li>
+<li><strong>自定义设置</strong>：在 VIA 的图形化界面中，根据需要进行按键映射、宏定义等设置。</li>
+<li><strong>保存并应用</strong>：完成设置后，保存配置并应用到键盘上。</li>
+</ol>
+<h3 id="VIA-的优势"><a href="#VIA-的优势" class="headerlink" title="VIA 的优势"></a>VIA 的优势</h3><ul>
+<li><strong>简单易用</strong>：通过图形化界面，即使是新手也能快速上手。</li>
+<li><strong>高度自定义</strong>：提供了丰富的自定义选项，满足不同用户的需求。</li>
+<li><strong>开源免费</strong>：VIA 是一个开源项目，用户可以免费使用。</li>
+</ul>
+<p>VIA 为客制化键盘爱好者提供了一个强大的工具，可以轻松实现个性化设置，提升键盘的使用体验。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li><a class="link"   href="https://usevia.app/" >VIA 官网<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   href="http://doiokb.com/index.php?m=home&c=Lists&a=index&tid=191" >QMK架构VIA<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<blockquote>
+<p>VIA 本版不统一 需要甄别使用</p>
+</blockquote>
+<h3 id="设备授权"><a href="#设备授权" class="headerlink" title="设备授权"></a>设备授权</h3><h4 id="链接设备-依次点击-Authorize-device-keyboard-连接"><a href="#链接设备-依次点击-Authorize-device-keyboard-连接" class="headerlink" title="链接设备: 依次点击 Authorize device + &gt; keyboard &gt; 连接"></a>链接设备: 依次点击 <code>Authorize device +</code> &gt; <code>keyboard</code> &gt; <code>连接</code></h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_13-23-38.png"
+                     
+                ></p>
+<h4 id="开启设计模式-依次点击-SETTINGS-Show-Design-tab-ON"><a href="#开启设计模式-依次点击-SETTINGS-Show-Design-tab-ON" class="headerlink" title="开启设计模式: 依次点击 SETTINGS &gt; Show Design tab &gt; ON"></a>开启设计模式: 依次点击 <code>SETTINGS</code> &gt; <code>Show Design tab</code> &gt; <code>ON</code></h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_13-27-05.png"
+                     
+                ></p>
+<h4 id="导入json文件-依次点击-DESIGN-Load-json文件"><a href="#导入json文件-依次点击-DESIGN-Load-json文件" class="headerlink" title="导入json文件: 依次点击 DESIGN &gt; Load &gt; .json文件"></a>导入json文件: 依次点击 <code>DESIGN</code> &gt; <code>Load</code> &gt; <code>.json文件</code></h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_13-27-28.png"
+                     
+                ></p>
+<h4 id="成功识别设备"><a href="#成功识别设备" class="headerlink" title="成功识别设备"></a>成功识别设备</h4><div style="display: flex; justify-content: space-between;">
+    <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_11-25-29.png"
+                      alt="DOIO 左手" style="width: 90%;"
+                ><figcaption>DOIO 左手</figcaption></figure>
+    <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_11-25-09.png"
+                      alt="DOIO 右手" style="width: 90%;"
+                ><figcaption>DOIO 右手</figcaption></figure>
+</div>
+
+<h2 id="改键"><a href="#改键" class="headerlink" title="改键"></a>改键</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/1-23112G343591A.jpg"
+                     
+                ></p>
+<h3 id="基础键位"><a href="#基础键位" class="headerlink" title="基础键位"></a>基础键位</h3><p>左侧 <code>KEYMAP</code> 菜单修改键位 点击上方设计键位槽 然后点击下方选择目标键修改</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_11-25-29.png"
+                     
+                ></p>
+<h3 id="层-Layer"><a href="#层-Layer" class="headerlink" title="层 (Layer)"></a>层 (Layer)</h3><ol>
+<li>在 <code>layer0</code> 层按下 <code>5</code> 就输入一个 <code>5</code></li>
+<li>在 <code>layer5</code> 层按下 <code>5</code> 就是调亮灯光 <code>RGB SPI</code></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_14-00-10.png"
+                     
+                ></p>
+<blockquote>
+<p>不同设备层切换方式不同 最常用的是 <code>MO</code> 和 <code>TO</code></p>
+</blockquote>
+<ol>
+<li><code>MO(*)</code>：该键为组合按键，当按下该键，当前键盘键值即可临时切换为对应层键盘键值，同时按下对应层按键，即可实现对应层键值功能输入。</li>
+<li><code>TO(*)</code>：该键为层切换按钮，按下即可切换到目标层键盘键值。</li>
+<li><code>OSL(*)</code>：当按下该键后，键盘键值会切换为目标层键值，点击目标曾某一按键后，即恢复原键盘键值。</li>
+<li><code>TG(*)</code>：该键为层按键切换按钮，按下即可将当前键盘键值切换为目标键盘键值，再按下即可恢复到原键盘键值。</li>
+<li><code>TT(*)</code>：<ul>
+<li>按下即可将当前键盘键值临时切换为对应层键盘键值，同时按下对应层按键，即可实现对应层键值功能输入</li>
+<li>连续点击5下，当前键盘键值即可切换至目标层键值。</li>
+</ul>
+</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_14-00-39.png"
+                     
+                ></p>
+<blockquote>
+<p><em>如果是三模的键盘，务必要保留有线功能的切换，否则再您切换到无线功能之后，将无法切回至有线功能，也就无法使用VIA，只能进行键盘重置才可以切回</em></p>
+</blockquote>
+<h3 id="功能键"><a href="#功能键" class="headerlink" title="功能键"></a>功能键</h3><blockquote>
+<p>除了层级切换功能键意外还包含更多功能键设置</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_14-00-57.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_14-01-10.png"
+                     
+                ></p>
+<h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/via/Snipaste_2025-04-25_14-01-34.png"
+                     
+                ></p>
+<blockquote>
+<p>To be continued</p>
+</blockquote>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
+<li>无法识别设备<ul>
+<li>检查设备是否支持VIA</li>
+<li>检查设备是否连接正确</li>
+<li>检查设备是否开启设计模式</li>
+<li>桌面版无法识别 可以尝试使用网页版链接后正常识别</li>
+</ul>
+</li>
+<li>导入json文件 VIA不能识别键盘的问题<ul>
+<li>在 <code>DESIGN</code> 页面，打开或关闭 <code>Use V2/3 definitions</code> 按钮，然后返回 <code>CONFIGURE</code> 页面，就可以看到键盘被识别了。</li>
+</ul>
+</li>
+<li>为什么VIA没有any键<ul>
+<li>有些汉化版via没有any键 使用网页版或者英文原版via</li>
+</ul>
+</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a class="link"   href="https://www.caniusevia.com/docs/specification" >VIA Doc<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   href="https://zhuanlan.zhihu.com/p/651406695" >VIA 改键基础教程<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   href="https://zhuanlan.zhihu.com/p/599850387" >客制化键盘VIA改键进阶教程及ANY键初入门<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>VIA</category>
+      </categories>
+      <tags>
+        <tag>VIA</tag>
+        <tag>Keyboard</tag>
+        <tag>Tool</tag>
+      </tags>
+  </entry>
 </search>
