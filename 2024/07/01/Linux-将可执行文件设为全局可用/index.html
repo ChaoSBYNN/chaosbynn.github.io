@@ -694,12 +694,12 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<h2 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">ln</span> -s &lt;binary-path&gt;/&lt;binary-name&gt; /usr/bin/&lt;binary-name&gt;</span><br></pre></td></tr></table></figure></div>
+			<h2 id="Step-1"><a href="#Step-1" class="headerlink" title="Step 1"></a>Step 1</h2><div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">ln</span> -s &lt;binary-path&gt;/&lt;binary-name&gt; /usr/bin/&lt;binary-name&gt;</span><br></pre></td></tr></table></figure></div>
 
 <p>或</p>
-<div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> &lt;binary-name&gt; /usr/local/bin/</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">cp</span> &lt;binary-name&gt; /usr/local/bin/</span><br></pre></td></tr></table></figure></div>
 
-<h2 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h2><div class="highlight-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export PATH=<span class="variable">$PATH</span>:/usr/local/&lt;binary-name&gt;&quot;</span> &gt;&gt; ~/.profile &amp;&amp; <span class="built_in">source</span> ~/.profile</span><br></pre></td></tr></table></figure></div>
+<h2 id="Step-2"><a href="#Step-2" class="headerlink" title="Step 2"></a>Step 2</h2><div class="code-container" data-rel="Sh"><figure class="iseeu highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;export PATH=<span class="variable">$PATH</span>:/usr/local/&lt;binary-name&gt;&quot;</span> &gt;&gt; ~/.profile &amp;&amp; <span class="built_in">source</span> ~/.profile</span><br></pre></td></tr></table></figure></div>
 
 
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
@@ -707,8 +707,8 @@
 <li><code>/usr/bin/</code> 系统安装的，系统更新时可能发生覆盖</li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14637979/how-to-permanently-set-path-on-linux-unix" >How to permanently set $PATH on Linux&#x2F;Unix [closed] <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/4186/what-is-usr-local-bin" >What is &#x2F;usr&#x2F;local&#x2F;bin? <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://stackoverflow.com/questions/14637979/how-to-permanently-set-path-on-linux-unix" >How to permanently set $PATH on Linux&#x2F;Unix [closed]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/4186/what-is-usr-local-bin" >What is &#x2F;usr&#x2F;local&#x2F;bin?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
 
 		</div>

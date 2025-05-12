@@ -702,8 +702,8 @@
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
 			<h1 id="【译】如何用人类的方式进行-Code-Review"><a href="#【译】如何用人类的方式进行-Code-Review" class="headerlink" title="【译】如何用人类的方式进行 Code Review"></a>【译】如何用人类的方式进行 Code Review</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>原文是 Google 工程师 Michael Lynch 的个人博客文章：</p>
 <ul>
-<li><a class="link"   target="_blank" rel="noopener" href="https://mtlynch.io/human-code-reviews-1/" >https://mtlynch.io/human-code-reviews-1/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
-<li><a class="link"   target="_blank" rel="noopener" href="https://mtlynch.io/human-code-reviews-2/" >https://mtlynch.io/human-code-reviews-2/ <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mtlynch.io/human-code-reviews-1/" >https://mtlynch.io/human-code-reviews-1/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mtlynch.io/human-code-reviews-2/" >https://mtlynch.io/human-code-reviews-2/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
 <p>读了之后深有感触，目前国内大多数公司对于 Code review 的重视程度还远远不够，大多数人都把它视为一件麻烦事。即使在有 Code review 流程的团队，也缺乏相关经验，而且目前中文技术圈关于 Code review 的文章真的太少了，所以在这里翻译这篇个人认为很不错的文章给大家看。</p>
 <hr>
@@ -797,11 +797,11 @@
                 ><figcaption>Good</figcaption></figure></p>
 <p>你可以通过写一些示例代码来减轻作者的负担，以展现出你作为评审者的慷慨大度。</p>
 <p>比如说，你有一个同事并不是很熟悉 Python 的列表推导特性，他给你发了如下的代码：</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">urls = []</span><br><span class="line"><span class="keyword">for</span> path <span class="keyword">in</span> paths:</span><br><span class="line">  url = <span class="string">&#x27;https://&#x27;</span></span><br><span class="line">  url += domain</span><br><span class="line">  url += path</span><br><span class="line">  urls.append(url)</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">urls = []</span><br><span class="line"><span class="keyword">for</span> path <span class="keyword">in</span> paths:</span><br><span class="line">  url = <span class="string">&#x27;https://&#x27;</span></span><br><span class="line">  url += domain</span><br><span class="line">  url += path</span><br><span class="line">  urls.append(url)</span><br></pre></td></tr></table></figure></div>
 
 <p>作为回复，一句 “我们能不能用列表推导来简化这儿的代码？” 可能会让他们感到恼怒，因为他们或许需要花 20 分钟来搜索他们之前从没用过的东西。</p>
 <p>但如果收到的评论是像下面这样，他们应该会很高兴：</p>
-<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可以考虑这样简化代码：</span><br><span class="line">urls = [<span class="string">&#x27;https://&#x27;</span> + domain + path <span class="keyword">for</span> path <span class="keyword">in</span> paths]</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">可以考虑这样简化代码：</span><br><span class="line">urls = [<span class="string">&#x27;https://&#x27;</span> + domain + path <span class="keyword">for</span> path <span class="keyword">in</span> paths]</span><br></pre></td></tr></table></figure></div>
 
 <p>这个小技巧不仅限于单行代码。我会经常创建自己的分支来向原作者展示大量的概念，比如拆解一个大的函数，或者添加单元测试来覆盖额外的边界情况。</p>
 <p>这个小技巧会让你得到明确的、无争议的改进。在上面的示例中，很少有人会反对将代码行数减少83％。相比之下，如果你写了个冗长的例子来展示你个人品味上觉得 “更好” 的示例（例如，代码风格），这会使你看起来更一意孤行，而不是开明大方。</p>
@@ -811,7 +811,7 @@
 <p>你在 review 中所做的评论应该是基于 “什么使得代码更好”，而不是 “谁提出了这个想法”。你的小伙伴在他们的变更列表上花费了大量的精力，他们当然会为他们所做的工作感到自豪，所以当收到批评时，自然会产生戒备心理。</p>
 <p>你应该用一种最不会产生戒备心理的方式来评论代码。要记住你批评的是代码，而不是代码的作者。当代码的作者在评论里看到 “你” 这个词的时候，会把注意力从代码上转移到他们自己身上。这会加剧他们抗拒你的评论的可能性。</p>
 <p>比如说下面这个无恶意的评论：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你把 &#x27;successfully&#x27; 拼错了</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你把 &#x27;successfully&#x27; 拼错了</span><br></pre></td></tr></table></figure></div>
 
 <p>作者可能会把它读成两种意思：</p>
 <ul>
@@ -819,13 +819,13 @@
 <li>含义二：你把 ‘successfully’ 拼错了！白痴！</li>
 </ul>
 <p>相比之下，如果你的评论里没有提及 “你” 这个词：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sucessfully -&gt; successfully</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sucessfully -&gt; successfully</span><br></pre></td></tr></table></figure></div>
 
 <p>这条评论就只是简单地纠正了拼写错误，没有包含任何对于作者的评价。<br>幸运的是，在评论中去掉 “你” 这个词非常容易。</p>
-<h3 id="选项一：用-“我们”-代替-“你”"><a href="#选项一：用-“我们”-代替-“你”" class="headerlink" title="选项一：用 “我们” 代替 “你”"></a>选项一：用 “我们” 代替 “你”</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你能不能把这个变量名写得更清晰一点？比如 seconds_remaining？</span><br></pre></td></tr></table></figure></div>
+<h3 id="选项一：用-“我们”-代替-“你”"><a href="#选项一：用-“我们”-代替-“你”" class="headerlink" title="选项一：用 “我们” 代替 “你”"></a>选项一：用 “我们” 代替 “你”</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">你能不能把这个变量名写得更清晰一点？比如 seconds_remaining？</span><br></pre></td></tr></table></figure></div>
 
 <p>修改之后：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们能不能把这个变量名写得更清晰一点？比如 seconds_remaining？</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们能不能把这个变量名写得更清晰一点？比如 seconds_remaining？</span><br></pre></td></tr></table></figure></div>
 
 <p>“我们” 这个词强调了团队对于代码的责任。代码的作者可能未来会去别的公司，你也可能会，但这里的代码会被它所属的团队一直维护着。当然，用 “我们” 这个词听起来有些愚蠢，因为这显然是你作为一名评审者，要求作者做的事情，但愚蠢总比指责更好。</p>
 <p><figure class="image-caption"><img  
@@ -835,13 +835,13 @@
                       alt="指责"
                 ><figcaption>指责</figcaption></figure></p>
 <h3 id="选项二：移除句子的主语"><a href="#选项二：移除句子的主语" class="headerlink" title="选项二：移除句子的主语"></a>选项二：移除句子的主语</h3><p>避免使用 “你” 的另一个方法是移除句子的主语：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">建议使用更清晰的变量名，比如 seconds_remaining。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">建议使用更清晰的变量名，比如 seconds_remaining。</span><br></pre></td></tr></table></figure></div>
 
 <p>当然被动语态也是可以的。虽然我在写技术文章时尽量避免使用被动语态，但它在 “你” 这个词的问题上确实有用处：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个变量应该使用更清晰的名字，比如 seconds_remaining。</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个变量应该使用更清晰的名字，比如 seconds_remaining。</span><br></pre></td></tr></table></figure></div>
 
 <p>还有一种方法是把它化为一个问题：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">要把这个变量名换成更清晰的吗？比如 seconds_remaining？</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">要把这个变量名换成更清晰的吗？比如 seconds_remaining？</span><br></pre></td></tr></table></figure></div>
 
 <hr>
 <h2 id="使用请求的语气，而不是命令"><a href="#使用请求的语气，而不是命令" class="headerlink" title="使用请求的语气，而不是命令"></a>使用请求的语气，而不是命令</h2><p>Code review 比日常的交流需要更多的精力，因为很容易把讨论变成个人观点的碰撞。你总是期望评审者能在评论中保持礼貌，但奇怪的是，他们总是和期望相反。日常工作中，大多数人都不会对同事说：“把订书机拿给我，然后给我倒一杯苏打水过来。” 但 review 过程中却经常看到类似这样的评论：“把这个 class 放到另一个文件里。”</p>

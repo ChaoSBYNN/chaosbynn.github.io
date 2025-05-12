@@ -677,15 +677,15 @@
 			<blockquote>
 <p>注意：如果安装失败，可尝试关闭selinux和防火墙再行测试。</p>
 </blockquote>
-<h3 id="安装MySQL前准备"><a href="#安装MySQL前准备" class="headerlink" title="安装MySQL前准备"></a>安装MySQL前准备</h3><h5 id="第一步：安装编译源码所需的工具和库"><a href="#第一步：安装编译源码所需的工具和库" class="headerlink" title="第一步：安装编译源码所需的工具和库"></a>第一步：安装编译源码所需的工具和库</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc gcc-c++ ncurses-devel perl </span><br></pre></td></tr></table></figure></div>
+<h3 id="安装MySQL前准备"><a href="#安装MySQL前准备" class="headerlink" title="安装MySQL前准备"></a>安装MySQL前准备</h3><h5 id="第一步：安装编译源码所需的工具和库"><a href="#第一步：安装编译源码所需的工具和库" class="headerlink" title="第一步：安装编译源码所需的工具和库"></a>第一步：安装编译源码所需的工具和库</h5><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc gcc-c++ ncurses-devel perl </span><br></pre></td></tr></table></figure></div>
 
-<h5 id="第二步：mysql-5-6版本之后需要cmake-安装cmake"><a href="#第二步：mysql-5-6版本之后需要cmake-安装cmake" class="headerlink" title="第二步：mysql 5.6版本之后需要cmake,安装cmake"></a>第二步：mysql 5.6版本之后需要cmake,安装cmake</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz   </span><br><span class="line">tar -xzvf cmake-2.8.10.2.tar.gz   </span><br><span class="line"><span class="built_in">cd</span> cmake-2.8.10.2   </span><br><span class="line">./bootstrap ; make ; make install   </span><br></pre></td></tr></table></figure></div>
+<h5 id="第二步：mysql-5-6版本之后需要cmake-安装cmake"><a href="#第二步：mysql-5-6版本之后需要cmake-安装cmake" class="headerlink" title="第二步：mysql 5.6版本之后需要cmake,安装cmake"></a>第二步：mysql 5.6版本之后需要cmake,安装cmake</h5><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget http://www.cmake.org/files/v2.8/cmake-2.8.10.2.tar.gz   </span><br><span class="line">tar -xzvf cmake-2.8.10.2.tar.gz   </span><br><span class="line"><span class="built_in">cd</span> cmake-2.8.10.2   </span><br><span class="line">./bootstrap ; make ; make install   </span><br></pre></td></tr></table></figure></div>
 
 <h3 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h3><h5 id="第一步：新建mysql用户和mysql组"><a href="#第一步：新建mysql用户和mysql组" class="headerlink" title="第一步：新建mysql用户和mysql组"></a>第一步：新建mysql用户和mysql组</h5><p>新增mysql用户组 </p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">groupadd mysql </span><br></pre></td></tr></table></figure></div>
 
 <p>新增mysql用户 </p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -r -g mysql mysql </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd -r -g mysql mysql </span><br></pre></td></tr></table></figure></div>
 
 <p> <img  
                      lazyload
@@ -694,22 +694,22 @@
                      
                 ></p>
 <h5 id="第二步：新建MySQL所需要的目录"><a href="#第二步：新建MySQL所需要的目录" class="headerlink" title="第二步：新建MySQL所需要的目录"></a>第二步：新建MySQL所需要的目录</h5><p>新建mysql安装目录 </p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -pv  /usr/local/mysql</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -pv  /usr/local/mysql</span><br></pre></td></tr></table></figure></div>
 
 <blockquote>
 <p>建立mysql的安装目录，建议先创建目录<br>若不建立可能在编译安装的时候报no such irectory</p>
 </blockquote>
 <p>新建mysql数据库数据文件目录</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /data/mysqldb  </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p /data/mysqldb  </span><br></pre></td></tr></table></figure></div>
 
 <p>指定mysql的数据文件的目录，建议编译安装前先创建此目录</p>
-<h5 id="第三步：下载MySQL并解压"><a href="#第三步：下载MySQL并解压" class="headerlink" title="第三步：下载MySQL并解压"></a>第三步：下载MySQL并解压</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.24.tar.gz</span><br><span class="line">tar -zxvf mysql-5.6.14.tar.gz</span><br></pre></td></tr></table></figure></div>
+<h5 id="第三步：下载MySQL并解压"><a href="#第三步：下载MySQL并解压" class="headerlink" title="第三步：下载MySQL并解压"></a>第三步：下载MySQL并解压</h5><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://dev.mysql.com/get/Downloads/MySQL-5.6/mysql-5.6.24.tar.gz</span><br><span class="line">tar -zxvf mysql-5.6.14.tar.gz</span><br></pre></td></tr></table></figure></div>
 
 <h5 id="第四步：安装MySQL"><a href="#第四步：安装MySQL" class="headerlink" title="第四步：安装MySQL"></a>第四步：安装MySQL</h5><p>切换到 mysql-5.6.24  </p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mysql-5.6.24</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> mysql-5.6.24</span><br></pre></td></tr></table></figure></div>
 
 <p>编译mysql，执行如下命令：</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cmake \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \</span><br><span class="line">-DMYSQL_DATADIR=/usr/local/mysql/data \</span><br><span class="line">-DSYSCONFDIR=/etc \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_MEMORY_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_READLINE=1 \</span><br><span class="line">-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \</span><br><span class="line">-DMYSQL_TCP_PORT=3306 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_PARTITION_STORAGE_ENGINE=1 \</span><br><span class="line">-DEXTRA_CHARSETS=all \</span><br><span class="line">-DDEFAULT_CHARSET=utf8 \</span><br><span class="line">-DDEFAULT_COLLATION=utf8_general_ci</span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cmake \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \</span><br><span class="line">-DMYSQL_DATADIR=/usr/local/mysql/data \</span><br><span class="line">-DSYSCONFDIR=/etc \</span><br><span class="line">-DWITH_MYISAM_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_INNOBASE_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_MEMORY_STORAGE_ENGINE=1 \</span><br><span class="line">-DWITH_READLINE=1 \</span><br><span class="line">-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \</span><br><span class="line">-DMYSQL_TCP_PORT=3306 \</span><br><span class="line">-DENABLED_LOCAL_INFILE=1 \</span><br><span class="line">-DWITH_PARTITION_STORAGE_ENGINE=1 \</span><br><span class="line">-DEXTRA_CHARSETS=all \</span><br><span class="line">-DDEFAULT_CHARSET=utf8 \</span><br><span class="line">-DDEFAULT_COLLATION=utf8_general_ci</span><br></pre></td></tr></table></figure></div>
 
 <p>接着使用 make &amp;&amp; make install 来编译并安装</p>
 <p>安装完毕的截图如下</p>
@@ -723,17 +723,17 @@
 <blockquote>
 <p>若不修改默认的是root用户root组，启动会报错<br>（Starting MySQL..The server quit without updating PID file [FAILED]&#x2F;mysql&#x2F;Server03.mylinux.com.pid）</p>
 </blockquote>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql   </span><br><span class="line"><span class="built_in">chown</span> -R mysql:mysql . </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql   </span><br><span class="line"><span class="built_in">chown</span> -R mysql:mysql . </span><br></pre></td></tr></table></figure></div>
 
 <p>修改mysql数据库文件目录</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /data/mysqldb  </span><br><span class="line"><span class="built_in">chown</span> -R mysql:mysql .  </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /data/mysqldb  </span><br><span class="line"><span class="built_in">chown</span> -R mysql:mysql .  </span><br></pre></td></tr></table></figure></div>
 
-<h5 id="第二步：初始化mysql数据库"><a href="#第二步：初始化mysql数据库" class="headerlink" title="第二步：初始化mysql数据库"></a>第二步：初始化mysql数据库</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql   </span><br></pre></td></tr></table></figure></div>
+<h5 id="第二步：初始化mysql数据库"><a href="#第二步：初始化mysql数据库" class="headerlink" title="第二步：初始化mysql数据库"></a>第二步：初始化mysql数据库</h5><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/mysql   </span><br></pre></td></tr></table></figure></div>
 
 <p>以mysql的身份初始化</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scripts/mysql_install_db --user=mysql --datadir=/data/mysqldb </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scripts/mysql_install_db --user=mysql --datadir=/data/mysqldb </span><br></pre></td></tr></table></figure></div>
 
-<h5 id="第三步：复制mysql服务启动配置文件"><a href="#第三步：复制mysql服务启动配置文件" class="headerlink" title="第三步：复制mysql服务启动配置文件"></a>第三步：复制mysql服务启动配置文件</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf  </span><br></pre></td></tr></table></figure></div>
+<h5 id="第三步：复制mysql服务启动配置文件"><a href="#第三步：复制mysql服务启动配置文件" class="headerlink" title="第三步：复制mysql服务启动配置文件"></a>第三步：复制mysql服务启动配置文件</h5><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/local/mysql/support-files/my-default.cnf /etc/my.cnf  </span><br></pre></td></tr></table></figure></div>
 
 <blockquote>
 <p>注：如果&#x2F;etc&#x2F;my.cnf文件存在，则覆盖。</p>
@@ -741,9 +741,9 @@
 <h5 id="第四步：复制mysql服务启动脚本及加入PATH路径"><a href="#第四步：复制mysql服务启动脚本及加入PATH路径" class="headerlink" title="第四步：复制mysql服务启动脚本及加入PATH路径"></a>第四步：复制mysql服务启动脚本及加入PATH路径</h5><blockquote>
 <p>（不用每次都要到安装目录执行mysql）</p>
 </blockquote>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> support-files/mysql.server /etc/init.d/mysqld     </span><br><span class="line">vim /etc/profile   </span><br><span class="line">PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:<span class="variable">$PATH</span>  </span><br><span class="line"><span class="built_in">export</span> PATH  </span><br><span class="line"><span class="built_in">source</span> /etc/profile    </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> support-files/mysql.server /etc/init.d/mysqld     </span><br><span class="line">vim /etc/profile   </span><br><span class="line">PATH=/usr/local/mysql/bin:/usr/local/mysql/lib:<span class="variable">$PATH</span>  </span><br><span class="line"><span class="built_in">export</span> PATH  </span><br><span class="line"><span class="built_in">source</span> /etc/profile    </span><br></pre></td></tr></table></figure></div>
 
-<h5 id="第五步：-启动mysql服务并加入开机自启动-可选这个步骤，以后可以自己启动的"><a href="#第五步：-启动mysql服务并加入开机自启动-可选这个步骤，以后可以自己启动的" class="headerlink" title="第五步： 启动mysql服务并加入开机自启动(可选这个步骤，以后可以自己启动的)"></a>第五步： 启动mysql服务并加入开机自启动(可选这个步骤，以后可以自己启动的)</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start </span><br><span class="line">chkconfig --level 35 mysqld on</span><br></pre></td></tr></table></figure></div>
+<h5 id="第五步：-启动mysql服务并加入开机自启动-可选这个步骤，以后可以自己启动的"><a href="#第五步：-启动mysql服务并加入开机自启动-可选这个步骤，以后可以自己启动的" class="headerlink" title="第五步： 启动mysql服务并加入开机自启动(可选这个步骤，以后可以自己启动的)"></a>第五步： 启动mysql服务并加入开机自启动(可选这个步骤，以后可以自己启动的)</h5><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">service mysqld start </span><br><span class="line">chkconfig --level 35 mysqld on</span><br></pre></td></tr></table></figure></div>
 
 <p> <img  
                      lazyload
@@ -751,7 +751,7 @@
                      data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/2017/2017_02_27_3.jpg"
                      
                 > </p>
-<h5 id="第六步：检查mysql服务是否启动"><a href="#第六步：检查mysql服务是否启动" class="headerlink" title="第六步：检查mysql服务是否启动"></a>第六步：检查mysql服务是否启动</h5><div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulnp | grep 3306   </span><br></pre></td></tr></table></figure></div>
+<h5 id="第六步：检查mysql服务是否启动"><a href="#第六步：检查mysql服务是否启动" class="headerlink" title="第六步：检查mysql服务是否启动"></a>第六步：检查mysql服务是否启动</h5><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tulnp | grep 3306   </span><br></pre></td></tr></table></figure></div>
 
 <p> <img  
                      lazyload
@@ -760,7 +760,7 @@
                      
                 ></p>
 <p>到此服务器mysql已经安装并已经启动，接下来修改MySQL用户root的密码，登录测试</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u root password <span class="string">&#x27;123456&#x27;</span>  </span><br></pre></td></tr></table></figure></div>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqladmin -u root password <span class="string">&#x27;123456&#x27;</span>  </span><br></pre></td></tr></table></figure></div>
 
 <h5 id="第七步：mysql命令登录测试"><a href="#第七步：mysql命令登录测试" class="headerlink" title="第七步：mysql命令登录测试"></a>第七步：mysql命令登录测试</h5><p> <img  
                      lazyload
