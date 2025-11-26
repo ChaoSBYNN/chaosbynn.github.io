@@ -11334,7 +11334,8 @@ a postriori 一个后验 使用结果作为条件检测
                 ></p>
 <h3 id="复制文件"><a href="#复制文件" class="headerlink" title="复制文件"></a>复制文件</h3><p>找到名为scene.pkg的文件,将其复制到提取工具的文件夹中</p>
 <h3 id="运行提取命令"><a href="#运行提取命令" class="headerlink" title="运行提取命令"></a>运行提取命令</h3><p>在提取工具的文件夹中,打开命令行窗口(在文件夹中按住Shift键并右键点击空白处,选择”在此处打开命令窗口”),输入以下命令：</p>
-<p><code>.\RePKG.exe extract .\scene.pkg</code></p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">.\RePKG.exe extract .\scene.pkg</span><br></pre></td></tr></table></figure></div>
+
 <p><img  
                      lazyload
                      src="/images/loading.svg"
