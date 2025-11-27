@@ -11354,4 +11354,149 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Wallpaper Engine</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Windows 环境Git bash 安装ZSH</title>
+    <url>/2025/11/27/Windows-%E7%8E%AF%E5%A2%83Git-bash-%E5%AE%89%E8%A3%85ZSH/</url>
+    <content><![CDATA[<blockquote>
+<p>在 Windows 的 Git Bash 里“装” zsh 实际上就是把 MSYS2 提供的 zsh 可执行文件和相关依赖解压到 Git 安装目录,再把 Git Bash 的默认 shell 切到 zsh 即可 下面给出 2025 年仍验证可行的最小步骤,全部操作无需额外安装 MSYS2 完整环境</p>
+</blockquote>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ol>
+<li>已装 Git for Windows(默认路径 <code>C:\Program Files\Git</code>)</li>
+<li>建议先装一款 Nerd Font(后面 oh-my-zsh &#x2F; powerlevel10k 图标不会乱码)<br>下载地址：<a class="link"   href="https://www.nerdfonts.com/font-downloads" >https://www.nerdfonts.com/font-downloads<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ol>
+<h3 id="下载并解压-zsh"><a href="#下载并解压-zsh" class="headerlink" title="下载并解压 zsh"></a>下载并解压 zsh</h3><ol>
+<li>打开 <a class="link"   href="https://packages.msys2.org/package/zsh?repo=msys&variant=x86_64" >https://packages.msys2.org/package/zsh?repo=msys&amp;variant=x86_64<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br>选一个较新的构建,例如<br><code>zsh-5.9-2-x86_64.pkg.tar.zst</code>   </li>
+<li>用能解压 <code>*.zst</code> 的工具(PeaZip &#x2F; 7-Zip 21+ &#x2F; WinRAR 6.2+)把包解开<br>得到两个文件夹：<code>etc</code> 和 <code>usr</code></li>
+<li>把这两个文件夹直接复制到<br><code>C:\Program Files\Git</code><br>遇到文件冲突时选“覆盖”即可,不会破坏 Git 原有功能</li>
+</ol>
+<h3 id="首次启动并生成默认配置"><a href="#首次启动并生成默认配置" class="headerlink" title="首次启动并生成默认配置"></a>首次启动并生成默认配置</h3><ol>
+<li>打开 Git Bash,执行  <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">zsh</span><br></pre></td></tr></table></figure></div>
+第一次会进入 zsh 新用户配置向导,按提示选 1 2 3 或直接 q 退出</li>
+<li>完成后退出 Git Bash 再重新打开,确认能正常进入 zsh</li>
+</ol>
+<h3 id="可选-把-zsh-设为-Git-Bash-默认-shell"><a href="#可选-把-zsh-设为-Git-Bash-默认-shell" class="headerlink" title="(可选)把 zsh 设为 Git Bash 默认 shell"></a>(可选)把 zsh 设为 Git Bash 默认 shell</h3><p>不想每次手动敲 <code>zsh</code>,就在 <code>~/.bashrc</code> 末尾加一段自动跳转：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ~/.bashrc</span></span><br><span class="line"><span class="keyword">if</span> [ -t 1 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">exec</span> zsh</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></div>
+
+<p>保存后重启 Git Bash,即默认进入 zsh</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/terminal/_20251127144715_105_18.png"
+                     
+                ></p>
+<h3 id="异常情况"><a href="#异常情况" class="headerlink" title="异常情况"></a>异常情况</h3><h4 id="输入-zsh-无反应"><a href="#输入-zsh-无反应" class="headerlink" title="输入 zsh 无反应"></a>输入 zsh 无反应</h4><ol>
+<li><p>先确认 <code>zsh.exe</code> 真的存在<br>在 Git Bash 里执行  </p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> <span class="string">&quot;/c/Program Files/Git/usr/bin/zsh.exe&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>如果提示 <strong>No such file</strong> → 你第二步解压&#x2F;复制时漏了,把 <code>usr/bin/zsh.exe</code> 重新拷进去即可</li>
+<li>如果文件存在 → 继续第 2 步</li>
+</ul>
+</li>
+<li><p>确认 PATH 能搜得到  </p>
+<p>Git Bash 启动时会把自己的 <code>/usr/bin</code> 附加到 PATH,理论上不需要手动加；但如果你改过 Windows 环境变量或者装过 scoop&#x2F;choco 之类,可能把别的同名目录顶到前面<br>在 Git Bash 执行  </p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> zsh          <span class="comment"># 应该返回 /usr/bin/zsh</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span> | <span class="built_in">tr</span> <span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;\n&#x27;</span> | grep -i zsh</span><br></pre></td></tr></table></figure></div>
+
+<ul>
+<li>如果 <code>which</code> 什么都不输出,说明 PATH 里根本没有；  </li>
+<li>如果输出的是 <strong>&#x2F;c&#x2F;WINDOWS&#x2F;system32&#x2F;zsh</strong> 之类不存在的路径,也是找不到</li>
+</ul>
+<p>解决：临时把 Git 自带的目录强制放到最前面,在 <code>~/.bashrc</code> 顶部加一行  </p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;/c/Program Files/Git/usr/bin:<span class="variable">$PATH</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>保存后重开 Git Bash,再试 <code>zsh</code></p>
+</li>
+<li><p>依赖 DLL 缺失(极少见)<br>双击 <code>C:\Program Files\Git\usr\bin\zsh.exe</code> 如果弹出 “<strong>无法找到 msys-2.0.dll</strong>” 等提示,说明你还缺 MSYS2 运行库<br>把下面两个包同样下载→解压→覆盖到 Git 根目录即可(同第 2 步操作)：  </p>
+<ul>
+<li>msys2-runtime-3.4.x-xxxx-x86_64.pkg.tar.zst  </li>
+<li>ncurses-6.4-xxxx-x86_64.pkg.tar.zst<br>下载地址还是 <a class="link"   href="https://packages.msys2.org/base/msys2-runtime" >https://packages.msys2.org/base/msys2-runtime<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 和 &#x2F;base&#x2F;ncurses</li>
+</ul>
+</li>
+<li><p>64 位 &#x2F; 32 位搞错<br>如果你装的是 <strong>32 位 Git for Windows</strong>,却下载了 <strong>x86_64</strong> 的 zsh 包,也会闪退<br>确认位数：  </p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$MSYSTEM</span>        <span class="comment"># 看到 MINGW32 说明是 32 位</span></span><br></pre></td></tr></table></figure></div>
+
+<p>如果是 MINGW32,请回到 MSYS2 官网下载 <strong>i686</strong> 版本的 zsh 包重新覆盖</p>
+</li>
+<li><p>防病毒&#x2F;公司策略拦截<br>某些 AV 会把 <code>zsh.exe</code> 当外来程序直接拦截,日志里却没有任何提示<br>临时把 <code>C:\Program Files\Git\usr\bin\zsh.exe</code> 加入白名单,或者关掉 AV 再试一次即可验证</p>
+</li>
+</ol>
+<h3 id="缺失依赖下载"><a href="#缺失依赖下载" class="headerlink" title="缺失依赖下载"></a>缺失依赖下载</h3><h4 id="“zsh-exe-无法找到入口”"><a href="#“zsh-exe-无法找到入口”" class="headerlink" title="“zsh.exe - 无法找到入口”"></a>“zsh.exe - 无法找到入口”</h4><p>dll 版本太旧<br>你下的 <code>zsh-5.9-...pkg.tar.zst</code> 包里带的 <code>msys-zsh-5.9.dll</code> 是 2023 年以后的版本,需要同版本 <code>msys2-runtime</code>(也就是 <code>msys-2.0.dll</code>)里导出 setproctitle 符号<br>而 Git for Windows 自带的 runtime 还是 2022 年甚至更老,没有 setproctitle,于是加载时报入口缺失</p>
+<blockquote>
+<p>把 msys2-runtime、ncurses、zsh 三个包同时更新成 2023+ 同批次(x86_64 或 i686 统一),一起解压到 Git 根目录</p>
+</blockquote>
+<ol>
+<li>打开 <a class="link"   href="https://packages.msys2.org/package/zsh" >https://packages.msys2.org/package/zsh<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a><br> 选 zsh-5.9-2-x86_64.pkg.tar.zst(2023-12-15 构建)</li>
+<li>同页 Dependencies 里把<br> <code>msys2-runtime-3.4.9-2-x86_64.pkg.tar.zst</code><br> <code>ncurses-6.4-1-x86_64.pkg.tar.zst</code><br> 也下载下来</li>
+<li>三个包一起解压,得到 <code>usr/bin/*.dll</code> 等文件,全部覆盖到<br> <code>C:\Program Files\Git</code><br> (遇到冲突选“替换”)</li>
+<li>重新打开 Git Bash → zsh 即可正常进入,弹窗消失</li>
+</ol>
+<blockquote>
+<p><code>Dependencies 里没有 msys2-runtime</code><br><code>msys2-runtime</code> 属于 “底层 C 运行库”,MSYS2 官网把它单独放在 <code>msys</code> 仓库而不是 <code>mingw64/mingw32</code>,所以在 zsh 页面是看不到的<br>打开 <a class="link"   href="https://packages.msys2.org/package/msys2-runtime?repo=msys&variant=x86_64" >https://packages.msys2.org/package/msys2-runtime?repo=msys&amp;variant=x86_64<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Terminal</category>
+      </categories>
+      <tags>
+        <tag>Terminal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows 环境ZSH 安装 oh-my-zsh</title>
+    <url>/2025/11/27/Windows-%E7%8E%AF%E5%A2%83ZSH-%E5%AE%89%E8%A3%85-oh-my-zsh/</url>
+    <content><![CDATA[<h2 id="安装-oh-my-zsh-与常用插件"><a href="#安装-oh-my-zsh-与常用插件" class="headerlink" title="安装 oh-my-zsh 与常用插件"></a>安装 oh-my-zsh 与常用插件</h2><ol>
+<li><p>一条命令装 oh-my-zsh  </p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">sh -c <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>&quot;</span></span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>装插件(示例)  </p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$ZSH_CUSTOM</span>/plugins/zsh-autosuggestions</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-syntax-highlighting.git <span class="variable">$ZSH_CUSTOM</span>/plugins/zsh-syntax-highlighting</span><br></pre></td></tr></table></figure></div>
+
+<p>把插件名加到 <code>~/.zshrc</code> 的 <code>plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</code> 一行,再 <code>source ~/.zshrc</code></p>
+</li>
+</ol>
+<h2 id="可选-Powerlevel10k-主题"><a href="#可选-Powerlevel10k-主题" class="headerlink" title="(可选)Powerlevel10k 主题"></a>(可选)Powerlevel10k 主题</h2><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://github.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-<span class="variable">$HOME</span>/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure></div>
+
+<p>编辑 <code>~/.zshrc</code>  </p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">ZSH_THEME=<span class="string">&quot;powerlevel10k/powerlevel10k&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>重新打开 Git Bash 会进入 p10k 配置向导,按提示选样式即可</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/terminal/Snipaste_2025-11-27_15-39-26.png"
+                     
+                ></p>
+]]></content>
+      <categories>
+        <category>Terminal</category>
+      </categories>
+      <tags>
+        <tag>Terminal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows 环境ZSH 安装 zsh-autosuggestions 插件</title>
+    <url>/2025/11/27/Windows-%E7%8E%AF%E5%A2%83ZSH-%E5%AE%89%E8%A3%85-zsh-autosuggestions-%E6%8F%92%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>zsh-autosuggestions 是一个命令提示插件, 自动推测你可能需要输入的命令,按右键可以快速采用建议</p>
+</blockquote>
+<h3 id="安装-zsh-autosuggestions-插件"><a href="#安装-zsh-autosuggestions-插件" class="headerlink" title="安装 zsh-autosuggestions 插件"></a>安装 zsh-autosuggestions 插件</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/zsh-users/zsh-autosuggestions <span class="variable">$&#123;ZSH_CUSTOM:-~/.oh-my-zsh/custom&#125;</span>/plugins/zsh-autosuggestions</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="启用插件"><a href="#启用插件" class="headerlink" title="启用插件"></a>启用插件</h3><p>编辑 <code>~/.zshrc</code> 文件, 找到 <code>plugins</code> 行, 添加 <code>zsh-autosuggestions</code> 插件</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="code"><pre><span class="line">plugins=(</span><br><span class="line">    git</span><br><span class="line">    zsh-autosuggestions</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/terminal/Snipaste_2025-11-27_15-46-13.png"
+                     
+                ></p>
+]]></content>
+      <categories>
+        <category>Terminal</category>
+      </categories>
+      <tags>
+        <tag>Terminal</tag>
+      </tags>
+  </entry>
 </search>
