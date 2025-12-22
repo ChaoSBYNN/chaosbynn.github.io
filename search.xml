@@ -11499,4 +11499,99 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Terminal</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Spring Bean 注入方式</title>
+    <url>/2025/12/22/Spring-Bean-%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<p>Spring 容器把“对象”变成“Bean”再塞进你类里，总共只有 <strong>4 条官方通道</strong> + <strong>1 个边角料</strong>。<br>记住口诀：<br>“构造必备，Setter 补，字段图快，注解玩花，接口冷门。”</p>
+<hr>
+<ol>
+<li>构造器注入（Constructor Injection）<br>Spring 官方从 4.x 起喊“首选”，强依赖不可空，一次把对象构造到合法状态。  <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserService userService;   <span class="comment">// final 更安心</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">OrderService</span><span class="params">(UserService userService)</span> &#123; <span class="comment">// 一个构造器可省 @Autowired</span></span><br><span class="line">        <span class="built_in">this</span>.userService = userService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+多构造器时用 <code>@Autowired</code> 指明哪个被 Spring 调用。</li>
+</ol>
+<hr>
+<ol start="2">
+<li>Setter &#x2F; 方法注入（Setter Injection）<br>可选依赖、运行期可能重新设值、方便单元测试 mock。  <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUserService</span><span class="params">(UserService userService)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.userService = userService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></li>
+</ol>
+<hr>
+<ol start="3">
+<li>字段注入（Field Injection）<br>写起来最爽，直接在属性上贴注解，代码少。  <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderService</span> &#123;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+缺点：  <ul>
+<li>无法把字段设为 <code>final</code>  </li>
+<li>单元测试必须用反射或 Spring 测试容器  </li>
+<li>隐藏依赖，阅读时要跳来跳去<br>⇒ Spring 官方文档不推荐，但项目里最常见。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="4">
+<li>注解“玩法”分支（本质还是上面三种，只是换标签）  <ul>
+<li><code>@Autowired</code>：按类型注入，required&#x3D;false 可空  </li>
+<li><code>@Resource(name=&quot;xxx&quot;)</code>：JSR-250，按名字先走，再走类型  </li>
+<li><code>@Inject</code>：JSR-330（javax.inject），功能≈<code>@Autowired</code>，只是完全标准注解<br>三者可以混用，但一个项目最好统一风格。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol start="5">
+<li>接口回调注入（冷门）<br>实现 <code>BeanFactoryAware</code>、<code>ApplicationContextAware</code>、<code>EnvironmentAware</code> 等 <code>*Aware</code> 接口，Spring 启动后会主动把容器本身回调给你。  <div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ToolBox</span> <span class="keyword">implements</span> <span class="title class_">ApplicationContextAware</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ApplicationContext ctx;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setApplicationContext</span><span class="params">(ApplicationContext ac)</span> &#123; ctx = ac; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+属于“我要容器本身”而不是“要另一个 Bean”，日常业务代码基本用不到。</li>
+</ol>
+<hr>
+<p>速查表  </p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>是否推荐</th>
+<th>依赖可否空</th>
+<th>单元测试便利</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构造器</td>
+<td>★★★★★</td>
+<td>否</td>
+<td>好</td>
+<td>官方首选，支持 <code>final</code></td>
+</tr>
+<tr>
+<td>Setter</td>
+<td>★★★☆☆</td>
+<td>可</td>
+<td>中</td>
+<td>可选依赖场景</td>
+</tr>
+<tr>
+<td>字段</td>
+<td>★★☆☆☆</td>
+<td>可</td>
+<td>差</td>
+<td>写起来快，维护哭</td>
+</tr>
+<tr>
+<td>@Inject 等</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>只是注解换皮，归到前三类</td>
+</tr>
+<tr>
+<td>*Aware 接口</td>
+<td>★☆☆☆☆</td>
+<td>—</td>
+<td>—</td>
+<td>拿容器工具，非常规业务注入</td>
+</tr>
+</tbody></table>
+<p>一句话结论<br><strong>“强依赖用构造器，可选依赖用 Setter，字段注入能不用就不用；Aware 接口只在你需要 Spring 容器本身时才碰。”</strong></p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
 </search>
