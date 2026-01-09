@@ -11661,4 +11661,232 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Thread</tag>
       </tags>
   </entry>
+  <entry>
+    <title>WebRTC 概念</title>
+    <url>/2026/01/09/WebRTC-%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<h1 id="WebRTC"><a href="#WebRTC" class="headerlink" title="WebRTC"></a>WebRTC</h1><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/webrtc/webrtc7.png"
+                     
+                ></p>
+<h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>WebRTC 技术已经广泛在各个行业及场景中被应用，但对多数开发者来说，实时音视频及相关技术却是比较不常接触到的。</p>
+<p>做为一名 Web 开发者，WebRTC 这块的概念着实花了不少时间才搞明白，一是 WebRTC 本身有较多的独有概念，二是虽然带“Web”字样，但依赖底层概念和网络却是 Web 开发很少接触到的；</p>
+<p>本篇文章以 0 经验音视频开发者 视角，类比常用的 Web 技术，期望帮助您简单入门 WebRTC 技术，耐心看完本篇文章，你将：</p>
+<ol>
+<li>了解什么是 WebRTC</li>
+<li>掌握 WebRTC 通话原理</li>
+<li>利用 Chrome debug WebRTC 应用</li>
+</ol>
+<p>适合阅读对象：Web开发，有 js 基础，对 WebRTC 感兴趣的同学</p>
+<h2 id="二、使用示例"><a href="#二、使用示例" class="headerlink" title="二、使用示例"></a>二、使用示例</h2><p>在进入正文之前，让我们先对它有个基本的印象吧！</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/webrtc/webrtc0.png"
+                     
+                ></p>
+<h2 id="三、简单介绍"><a href="#三、简单介绍" class="headerlink" title="三、简单介绍"></a>三、简单介绍</h2><p>有必要再了解一下技术的发展历史、应用场景等，这些能让我们知道它为什么优秀，哪方面优秀，有哪些缺点等。</p>
+<p>程序员经常用到 5W1H 分析法，那么本文就按照这个思路给大家做一下介绍：</p>
+<h3 id="What"><a href="#What" class="headerlink" title="What"></a>What</h3><p>WebRTC（Web Real-Time Communication），一个可以让用户用自己流量 实现音视频实时通信的框架（APIs），支持浏览器（Firefox、Chrome、safari）以及 iOS、Android 原生系统。</p>
+<h3 id="When"><a href="#When" class="headerlink" title="When"></a>When</h3><p>2017 年 12 月成为 W3C 草案，国内微信浏览器 19 年下半年才支持，国内手机自带浏览器目前还有不少兼容问题，2021 年 1 月 26 日，成为 W3C 正式标准。</p>
+<h3 id="Who"><a href="#Who" class="headerlink" title="Who"></a>Who</h3><p>2011年 Google 收购多个子项目（GIPS，On2，VPx），成立了现在的 WebRTC 项目，目前是 Google 的一个开源项目。</p>
+<h3 id="Where"><a href="#Where" class="headerlink" title="Where"></a>Where</h3><p>可应用在社交&#x2F;娱乐&#x2F;教育&#x2F;工具 等需要实时音视频高效沟通的场景，例如：最近很火的元宇宙。</p>
+<h3 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h3><p>W3C 标准，开源，插件化，整体效果佳。</p>
+<h3 id="How"><a href="#How" class="headerlink" title="How"></a>How</h3><p>也是本文重中之中，最终的目的也是让大家能知道如何使用。</p>
+<p>在正式代码讲解之前，有一些概念需要先普及一下</p>
+<p><strong>MediaStream：</strong> 流媒体对象，音&#x2F;视频数据的一种封装格式，挂载到 video 或 audio 标签上播放；<br><strong>RTCPeerConnection：</strong> 会话控制，网络和媒体信息收发，作用类似 http 对象；<br><strong>SDP ：</strong> 主要用于两个会话实体之间的媒体协商，作用类似 http 中的配置项。</p>
+<p>结合下图类比会更容易理解：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/webrtc/webrtc2.png"
+                     
+                ></p>
+<h2 id="四、前置思考问题"><a href="#四、前置思考问题" class="headerlink" title="四、前置思考问题"></a>四、前置思考问题</h2><p>在讲解代码前，还需要思考以下几个问题，否则会不清楚为什么代码中需要交换 SDP，cadidate等（您也可以先看完代码后，再回来看这个段落，加深理解）。</p>
+<p>双方使用浏览器通信，浏览器能力，网络情况等不一致会对通信有很大影响，一起思考下下面 2 个问题：</p>
+<h3 id="1、视频编码能力不一样？"><a href="#1、视频编码能力不一样？" class="headerlink" title="1、视频编码能力不一样？"></a>1、视频编码能力不一样？</h3><p>peer-A 和 peer-B 是视频互动的两边浏览器，他们通讯前必须在视频编码能力上先达成一致，如下图，最终协商出共同的H264，如果无法达成一致，则通讯失败。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/webrtc/webrtc3.png"
+                     
+                ></p>
+<h3 id="2-电脑之间，大多数是在某个局域网中，需要-NAT（Network-Address-Translation，网络地址转换），因此并不能直接通信"><a href="#2-电脑之间，大多数是在某个局域网中，需要-NAT（Network-Address-Translation，网络地址转换），因此并不能直接通信" class="headerlink" title="2 电脑之间，大多数是在某个局域网中，需要 NAT（Network Address Translation，网络地址转换），因此并不能直接通信"></a>2 电脑之间，大多数是在某个局域网中，需要 NAT（Network Address Translation，网络地址转换），因此并不能直接通信</h3><p>显示情况如下图：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/webrtc/webrtc4.png"
+                     
+                ></p>
+<p>通俗一点比喻： 阿宅今年 30 了（不是我，不要乱猜）被父母逼婚，他只能求助媒婆，才可能被另一个阿宅认识。</p>
+<p>媒婆解决阿宅社恐问题，NAT 也需要一种方式绕过，双方才能建立通信，我们需要用到 STUN 和 TURN。</p>
+<h2 id="五、代码讲解"><a href="#五、代码讲解" class="headerlink" title="五、代码讲解"></a>五、代码讲解</h2><p>终于到我们的代码讲解部分了，下面的代码会按照推流段顺序，分阶段讲解每个步骤所需要用到的API（如果你是直接看代码，建议看完后再回去看第三、四 Part 的介绍，理解会更加深刻）。</p>
+<h3 id="步骤一：创建数据源"><a href="#步骤一：创建数据源" class="headerlink" title="步骤一：创建数据源"></a>步骤一：创建数据源</h3><p>localStream 作为发送端本地预览画面：</p>
+<div class="code-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建数据源</span></span><br><span class="line"><span class="keyword">const</span> localStream = <span class="keyword">await</span> navigator.<span class="property">mediaDevices</span>.<span class="title function_">getUserMedia</span>(&#123;</span><br><span class="line"><span class="attr">video</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="attr">audio</span>: <span class="literal">true</span>,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 显示数据源，localVideo 是 html 中的 video 标签</span></span><br><span class="line">localVideo.<span class="property">srcObject</span> = localStream;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="步骤二：创建发送数据实例"><a href="#步骤二：创建发送数据实例" class="headerlink" title="步骤二：创建发送数据实例"></a>步骤二：创建发送数据实例</h3><div class="code-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 本地实例</span></span><br><span class="line"><span class="keyword">const</span> pc1 = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br><span class="line"><span class="comment">// 对端实例</span></span><br><span class="line"><span class="keyword">const</span> pc2 = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="步骤三：配置实例"><a href="#步骤三：配置实例" class="headerlink" title="步骤三：配置实例"></a>步骤三：配置实例</h3><p>做这一步的目的是为了交换两端的信息<strong>：icecandidate</strong> 和 SDP</p>
+<ol>
+<li>icecandidate：包含通信协议(TCP&#x2F;UDP)和通信IP，STUN和TURN协议中描述网络信息的格式规范，解决双方网络链接问题；</li>
+<li>SDP：浏览器能力，包括不限于音视频编码格式，带宽，流控策略等；解决前置思考中，双方能力不匹配问题，通过交换双方 SDP 浏览器会自动选择双方都支持的视频编码格式。</li>
+</ol>
+<div class="code-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 告诉对端，本端地址</span></span><br><span class="line">pc1.<span class="title function_">addEventListener</span>(<span class="string">&#x27;icecandidate&#x27;</span>, <span class="keyword">async</span> (e) =&gt; &#123;</span><br><span class="line"><span class="comment">// 发送给对端</span></span><br><span class="line"><span class="comment">// 对端添加本端地址</span></span><br><span class="line"><span class="keyword">if</span> (e.<span class="property">candidate</span>) &#123;</span><br><span class="line"><span class="keyword">await</span> pc2.<span class="title function_">addIceCandidate</span>(e.<span class="property">candidate</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pc2.<span class="title function_">addEventListener</span>(<span class="string">&#x27;icecandidate&#x27;</span>, <span class="keyword">async</span> (e) =&gt; &#123;</span><br><span class="line"><span class="comment">// 发送给本端</span></span><br><span class="line"><span class="comment">// 本端添加对端地址</span></span><br><span class="line"><span class="keyword">if</span> (e.<span class="property">candidate</span>) &#123;</span><br><span class="line"><span class="keyword">await</span> pc1.<span class="title function_">addIceCandidate</span>(e.<span class="property">candidate</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建本端SDP,告诉本端浏览器支持哪些能力</span></span><br><span class="line"><span class="keyword">const</span> offer = <span class="keyword">await</span> pc1.<span class="title function_">createOffer</span>();</span><br><span class="line">pc1.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line"><span class="comment">// 创建远端SDP,告诉远端浏览器支持哪些能力</span></span><br><span class="line"><span class="keyword">const</span> answer = <span class="keyword">await</span> pc2.<span class="title function_">createAnswer</span>();</span><br><span class="line">pc2.<span class="title function_">setLocalDescription</span>(answer);</span><br><span class="line"><span class="comment">// 。。。。发送远端SDP给本端</span></span><br><span class="line"><span class="comment">// 接收远端sdp,告诉远端浏览器支持哪些能力</span></span><br><span class="line">pc1.<span class="title function_">setRemoteDescription</span>(answer);</span><br><span class="line"><span class="comment">// 接收客户端sdp,告诉远端浏览器支持哪些能力</span></span><br><span class="line">pc2.<span class="title function_">setRemoteDescription</span>(offer);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="步骤四：发送数据"><a href="#步骤四：发送数据" class="headerlink" title="步骤四：发送数据"></a>步骤四：发送数据</h3><div class="code-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="code"><pre><span class="line">localStream.<span class="title function_">getTracks</span>().<span class="title function_">forEach</span>(</span><br><span class="line"><span class="function">(<span class="params">track</span>) =&gt;</span> pc1.<span class="title function_">addTrack</span>(track, localStream)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="步骤五：完整精简版Typescript代码"><a href="#步骤五：完整精简版Typescript代码" class="headerlink" title="步骤五：完整精简版Typescript代码"></a>步骤五：完整精简版Typescript代码</h3><p>注意，这里使用的 typescript 编写，实际运行需要先转成 js。</p>
+<div class="code-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> pc1 = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br><span class="line">pc1.<span class="title function_">addEventListener</span>(<span class="string">&#x27;icecandidate&#x27;</span>, <span class="keyword">async</span> (e) =&gt; &#123;</span><br><span class="line"><span class="keyword">if</span> (e.<span class="property">candidate</span>) &#123;</span><br><span class="line"><span class="keyword">await</span> pc2.<span class="title function_">addIceCandidate</span>(e.<span class="property">candidate</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line">pc1.<span class="title function_">addEventListener</span>(<span class="string">&#x27;iceconnectionstatechange&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;pc1: iceconnectionstatechange&#x27;</span>, e);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pc2 = <span class="keyword">new</span> <span class="title class_">RTCPeerConnection</span>();</span><br><span class="line">pc2.<span class="title function_">addEventListener</span>(<span class="string">&#x27;icecandidate&#x27;</span>, <span class="keyword">async</span> (e) =&gt; &#123;</span><br><span class="line"><span class="keyword">if</span> (e.<span class="property">candidate</span>) &#123;</span><br><span class="line"><span class="keyword">await</span> pc1.<span class="title function_">addIceCandidate</span>(e.<span class="property">candidate</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pc2.<span class="title function_">addEventListener</span>(<span class="string">&#x27;iceconnectionstatechange&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;pc2: iceconnectionstatechange&#x27;</span>, e);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pc2.<span class="title function_">addEventListener</span>(<span class="string">&#x27;track&#x27;</span>, <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line"><span class="keyword">if</span> (e.<span class="property">streams</span>.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">remoteVideo.<span class="property">srcObject</span> = e.<span class="property">streams</span>[<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> remoteVideo = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#remoteVideo&#x27;</span>) <span class="keyword">as</span> <span class="title class_">HTMLVideoElement</span>;</span><br><span class="line"><span class="keyword">const</span> localVideo = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#localVideo&#x27;</span>) <span class="keyword">as</span> <span class="title class_">HTMLVideoElement</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">pushStream</span>(<span class="params">answer: RTCSessionDescriptionInit</span>) &#123;</span><br><span class="line">pc1.<span class="title function_">setRemoteDescription</span>(answer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">pullStream</span>(<span class="params">offer: RTCSessionDescriptionInit</span>): <span class="title class_">Promise</span>&lt;<span class="keyword">void</span>&gt; &#123;</span><br><span class="line">pc2.<span class="title function_">setRemoteDescription</span>(offer);</span><br><span class="line"><span class="keyword">const</span> answer = <span class="keyword">await</span> pc2.<span class="title function_">createAnswer</span>();</span><br><span class="line">pc2.<span class="title function_">setLocalDescription</span>(answer);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">&#x27;answer&#x27;</span>, answer);</span><br><span class="line"><span class="title function_">pushStream</span>(answer);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onload</span> = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"><span class="keyword">const</span> localStream = <span class="keyword">await</span> navigator.<span class="property">mediaDevices</span>.<span class="title function_">getUserMedia</span>(&#123;</span><br><span class="line"><span class="attr">video</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="attr">audio</span>: <span class="literal">true</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">localVideo.<span class="property">srcObject</span> = localStream;</span><br><span class="line">localStream.<span class="title function_">getTracks</span>().<span class="title function_">forEach</span>(<span class="function">(<span class="params">track</span>) =&gt;</span> pc1.<span class="title function_">addTrack</span>(track, localStream));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> offer = <span class="keyword">await</span> pc1.<span class="title function_">createOffer</span>();</span><br><span class="line">pc1.<span class="title function_">setLocalDescription</span>(offer);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">&#x27;pc1 offer&#x27;</span>, offer);</span><br><span class="line"><span class="title function_">pullStream</span>(offer);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="步骤六：应用举例"><a href="#步骤六：应用举例" class="headerlink" title="步骤六：应用举例"></a>步骤六：应用举例</h3><p>学习完理论知识，接下来我们一起再实践下，加深对知识的理解 —— 通过 Chrome浏览器 debug WebRTC应用。学会 debug 既可以加深理解，也是后续写代码必不可少的技能，千万不少跳过这一步哦：</p>
+<ol>
+<li>点击打开示例DEMO</li>
+<li>另打开一个tab页面，输入: chrome:&#x2F;&#x2F;webrtc-internals&#x2F;</li>
+<li>DEMO 中输入相关信息开始直播, 切回到 2 中的 tab 页面，如下图：<br> 蓝色部分：对应的是代码中SDP的处理过程<br> 绿色部分：对应的是网络链接情况<br> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/webrtc/webrtc5.png"
+                     
+                ></li>
+<li>继续下来，可以看到推流中实时数据变化：<br> 蓝色部分：拉流实时数据，包括分辨率，码率，丢包率等<br> 绿色部分：推流实时数据，包括分辨率，码率，丢包率等<br> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/webrtc/webrtc6.png"
+                     
+                ><br>(Identifiers for WebRTC’s Statistics API)<br>更多字段理解，可戳这里进行深入学习： <a class="link"   href="https://www.w3.org/TR/webrtc-stats/" >Identifiers for WebRTC’s Statistics API<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ol>
+<h2 id="七、结尾"><a href="#七、结尾" class="headerlink" title="七、结尾"></a>七、结尾</h2><p>随着硬件网络的更新换代，我们经历了由文字-&gt;图片-&gt;视频 载体变更的过程。随着 5G 的普及，音视频技术融于无形正在成为现实，WebRTC 作为其中最重要框架之一，浏览器的支持成熟度也在快速完善当中</p>
+<p>附下作者常用的工具，推荐收藏：</p>
+<ol>
+<li><a class="link"   href="https://webrtc.github.io/samples/" >WebRTC samples.<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> google 官网 demo，包含最新功能</li>
+<li><a class="link"   href="https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices" >MediaDevices - Web APIs | MDN<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 具体接口介绍</li>
+<li><a class="link"   href="https://w3c.github.io/webrtc-pc/#bib-WEBRTC-STATS" >WebRTC 1.0: Real-Time Communication Between Browsers<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> W3C标准介绍</li>
+</ol>
+<hr>
+<h2 id="入门补充"><a href="#入门补充" class="headerlink" title="入门补充"></a>入门补充</h2><p>下面给出一份“理论速览 + 场景落地”的 WebRTC 入门全景图，全部信息来自 2025-2026 年最新资料，方便你 10 分钟内建立知识框架。</p>
+<hr>
+<ol>
+<li>它到底是什么</li>
+</ol>
+<hr>
+<p>WebRTC（Web Real-Time Communication）&#x3D; 一套 <strong>由 W3C 与 IETF 联合制定的开放标准</strong> + <strong>Google 开源的音视频引擎</strong>，目标只有一句话：<br><strong>“让浏览器或移动端不装插件就能实现低延迟、加密、点对点的音视频&#x2F;数据互通。”</strong></p>
+<hr>
+<ol start="2">
+<li>解决了哪些老问题</li>
+</ol>
+<hr>
+<table>
+<thead>
+<tr>
+<th>痛点</th>
+<th>传统方案</th>
+<th>WebRTC 解法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需装插件&#x2F;客户端</td>
+<td>Flash、SIP 软电话</td>
+<td>浏览器原生 API，零安装</td>
+</tr>
+<tr>
+<td>延迟高</td>
+<td>RTMP 1-3 s</td>
+<td>端到端 &lt; 500 ms，典型 100-200 ms</td>
+</tr>
+<tr>
+<td>穿 NAT&#x2F;防火墙难</td>
+<td>固定端口+中继</td>
+<td>内置 ICE+STUN+TURN，自动打洞</td>
+</tr>
+<tr>
+<td>移动端碎片化</td>
+<td>各厂 SDK 不兼容</td>
+<td>同一套标准，Android&#x2F;iOS&#x2F;Web 共用</td>
+</tr>
+<tr>
+<td>数据裸奔</td>
+<td>自定义协议常未加密</td>
+<td>强制 SRTP+DTLS，端到端加密</td>
+</tr>
+</tbody></table>
+<hr>
+<ol start="3">
+<li>三大核心概念（面试常问）</li>
+</ol>
+<hr>
+<ol>
+<li><p><strong>媒体协商</strong> —— SDP（Session Description Protocol）<br>双方互相“自我介绍”能编什么码、分辨率多少，分 Offer&#x2F;Answer 两次握手。</p>
+</li>
+<li><p><strong>网络协商</strong> —— ICE（Interactive Connectivity Establishment）<br>收集所有可访问地址（本地 LAN、NAT 映射后公网、TURN 中继），通过 STUN 打洞，失败就转 TURN 中继。</p>
+</li>
+<li><p><strong>连接抽象</strong> —— RTCPeerConnection<br>把“编解码、加密、拥塞控制、丢包重传”全部封装，开发者只需调 <code>addTrack</code>&#x2F;<code>createOffer</code> 等 6 个 API 就能建链。</p>
+</li>
+</ol>
+<hr>
+<ol start="4">
+<li>适用场景（2026 主流落地）</li>
+</ol>
+<hr>
+<ul>
+<li>1 对 1 通话：Zoom Web 客户端、Google Meet、微信视频号直播连麦  </li>
+<li>多人会议：SFU 架构（mediasoup、Janus）支撑 1000 人会议室  </li>
+<li>云游戏：浏览器远程渲染，把手柄输入通过 DataChannel 上行  </li>
+<li>物联网：Web 端直接查看家用摄像头，无需装 App  </li>
+<li>文件&#x2F;屏幕共享：配合 DataChannel 走 P2P，省 30-50% 服务器带宽  </li>
+<li>低延时直播：电商直播、在线教育，端到端 200 ms 内，秒杀 RTMP</li>
+</ul>
+<hr>
+<ol start="5">
+<li>业界已有“开箱即用”的实现</li>
+</ol>
+<hr>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>libwebrtc</strong></td>
+<td>官方 C++ 库</td>
+<td>Chrome&#x2F;Edge 内核同款，全功能但体积大</td>
+</tr>
+<tr>
+<td><strong>Pion WebRTC</strong></td>
+<td>Go 语言开源</td>
+<td>云原生友好，二进制 20 MB，适合写 SFU 边缘节点</td>
+</tr>
+<tr>
+<td><strong>mediasoup</strong></td>
+<td>Node.js SFU</td>
+<td>单进程可扛 500 路 720p，支持 SVC 分层</td>
+</tr>
+<tr>
+<td><strong>Janus</strong></td>
+<td>C 语言 SFU</td>
+<td>插件架构，内置录音、SIP 网关</td>
+</tr>
+<tr>
+<td><strong>Flutter-WebRTC</strong></td>
+<td>移动端插件</td>
+<td>一套代码跑 Android&#x2F;iOS，与 Web 端互通</td>
+</tr>
+<tr>
+<td><strong>GStreamer</strong></td>
+<td>多媒体框架</td>
+<td>含 webrtcbin 插件，嵌入式&#x2F;机顶盒常用</td>
+</tr>
+</tbody></table>
+<hr>
+<p>一句话总结<br>WebRTC &#x3D; <strong>“浏览器里的 TCP&#x2F;IP + 编解码器 + 加密机”</strong>，把实时通信的 90% 脏活累活封装好，让你只写业务逻辑就能做出 Zoom、Discord、云游戏、远程医疗等任何“低延迟互动”产品。</p>
+]]></content>
+      <tags>
+        <tag>WebRTC</tag>
+        <tag>Peer-to-Peer</tag>
+        <tag>视频</tag>
+      </tags>
+  </entry>
 </search>
