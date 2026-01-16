@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2026/01/16/单元架构-蜂窝架构-cell-based-architecture/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单元架构 (蜂窝架构) cell-based architecture">
+<meta property="og:url" content="https://chaosbynn.github.io/2026/01/16/%E5%8D%95%E5%85%83%E6%9E%B6%E6%9E%84-%E8%9C%82%E7%AA%9D%E6%9E%B6%E6%9E%84-cell-based-architecture/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-01-16T00:50:15.000Z">
+<meta property="article:modified_time" content="2026-01-16T01:04:09.316Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="Program">
+<meta property="article:tag" content="Architecture">
+<meta property="article:tag" content="架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            单元架构 (蜂窝架构) cell-based architecture | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/ChaoSBYNN","instagram":"https://www.instagram.com/entropy_42_zhang","zhihu":"https://www.zhihu.com/people/Bee7zEBubChaoS","twitter":"https://x.com/Bee7zEBub","email":"t7_chaos@163.com"},"qrs":{"weixin":null}},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1"}},"version":"2.8.5","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footerStart":"2017/2/13 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">60</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">117</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/Architecture.jpg" alt="单元架构 (蜂窝架构) cell-based architecture" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">单元架构 (蜂窝架构) cell-based architecture</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-01-16 08:50:15</span>
+        <span class="mobile">2026-01-16 08:50:15</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-01-16 09:04:09</span>
+            <span class="mobile">2026-01-16 09:04:09</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E7%AE%97%E6%B3%95/Program/">Program</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E7%AE%97%E6%B3%95/Program/Architecture/">Architecture</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E7%AE%97%E6%B3%95/Program/Architecture/%E6%9E%B6%E6%9E%84/">架构</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Program/">Program</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Architecture/">Architecture</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9E%B6%E6%9E%84/">架构</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/what-is-a-cell-based-architecture.html" >AWS - What is a cell-based architecture?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/why-to-use-a-cell-based-architecture.html" >AWS - Why use a cell-based architecture?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/wellarchitected/latest/reducing-scope-of-impact-with-cell-based-architecture/when-to-use-a-cell-based-architecture.html" >AWS - When to use a cell-based architecture?<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<h2 id="什么是基于单元的架构？"><a href="#什么是基于单元的架构？" class="headerlink" title="什么是基于单元的架构？"></a>什么是基于单元的架构？</h2><p>A cell-based architecture comes from the concept of a bulkhead in a ship, where vertical partition walls subdivide the ship’s interior into self-contained, watertight compartments. Bulkheads reduce the extent of seawater flooding in case of damage and provide additional stiffness to the hull girder.<br>基于单元的建筑源自船舶舱壁的概念，垂直隔墙将船内分割成自成一体、防水的舱室。隔舱可以减少海水进水的程度，并在船体梁梁上提供额外的刚性。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/cell-based/failure-isolation-using-bulkheads.jpg"
+                     
+                ></p>
+<p>Isolating failures using bulkheads 利用隔板隔离故障</p>
+<p>On a ship, bulkheads ensure that a hull breach is contained within one section of the ship. In complex systems, this pattern is often replicated to allow fault isolation. Fault isolated boundaries restrict the effect of a failure within a workload to a limited number of components. Components outside of the boundary are unaffected by the failure.<br>在船只上，隔舱壁确保船体破损被控制在 船。在复杂系统中，这种模式常被复制以实现故障隔离。 故障隔离边界限制了工作负载中故障的影响，仅限于有限数量的组件。边界外的组件不受失效影响。</p>
+<p>Using multiple fault isolated boundaries, you can limit the impact on your workload. When provisioning a new customer or tenant, or applying a workload change, you can do this gradually, compartment by compartment, or in other words, isolation boundary by isolation boundary. This way, when a failure occurs, a smaller number of customers or resources will be impacted. On AWS, customers can use multiple Availability Zones and AWS Regions to provide fault isolation, but the concept of fault isolation can be extended to your workload’s architecture as well.<br>通过设置多个故障隔离边界，你可以限制对工作负载的影响。在为新客户或租户配置，或应用工作负载变更时，你可以逐步进行，逐个隔块，换句话说，逐个隔离边界。这样，当发生故障时，受影响的客户或资源数量会减少。在 AWS 上，客户可以使用多个可用性区和 AWS 区域来实现故障隔离，但故障隔离的概念也可以扩展到你的工作负载架构中。</p>
+<p>The overall workload is partitioned by a partition key. This key needs to align with the grain of the service, or the natural way that a service’s workload can be subdivided with minimal cross-cell interactions. Examples of partition keys are customer ID, resource ID, or any other parameter easily accessible in most API calls. A cell routing layer distributes requests to individual cells based on the partition key and presents a single endpoint to clients.<br>整体工作负载由分区键划分。这个密钥需要与服务的纹理保持一致， 或者说，服务工作负载可以自然细分的方式 细胞间相互作用极少。分区键的例子 是客户 ID、资源 ID 或其他任何参数，都很容易 大多数 API 调用中可访问。小区路由层分布 基于分区键和 向客户端展示单一端点。</p>
+<p>A cell-based architecture uses multiple isolated instances of a workload, where each instance is known as a cell. Each cell is independent, does not share state with other cells, and handles a subset of the overall workload requests. This reduces the potential impact of a failure, such as a bad software update, to an individual cell and the requests that it’s processing. If a workload uses 10 cells to service 100 requests, when a failure occurs in one cell, 90% of the overall requests would be unaffected by the failure.<br>基于单元的架构使用多个孤立的工作负载实例，每个实例称为单元 。每个单元独立，不与其他单元共享状态，并处理部分整体工作负载请求。这减少了失败（如软件更新不良）对单个单元及其处理请求的潜在影响。如果一个工作负载使用 10 个单元来处理 100 个请求，当一个单元发生故障时，90%的整体请求将不受故障影响。</p>
+<p>With cell-based architectures, many common types of failure are contained within the cell itself, providing additional fault isolation. These fault boundaries can provide resilience against failure types that otherwise are hard to contain, such as unsuccessful code deployments or requests that are corrupted or invoke a specific failure mode (also known as poison pill requests).<br>在基于单元的架构中，许多常见的故障类型都包含在单元内部，提供了额外的故障隔离。这些故障边界可以为那些难以控制的故障类型提供韧性，比如未成功的代码部署、损坏请求或触发特定失败模式（也称为毒丸请求 ）。</p>
+<h3 id="A-typical-workload-典型的工作量"><a href="#A-typical-workload-典型的工作量" class="headerlink" title="A typical workload  典型的工作量"></a>A typical workload  典型的工作量</h3><p>To make it clearer, in the following diagram, we have a typical application divided into three layers. In this context, this application would be serving requests from 100% of clients. In the event of a failure, or a change in the application, 100% of customers would be impacted.<br>为了更清楚地说明，下图中我们有一个典型的应用，分为三层。在这种情况下，这个应用将满足100%客户端的请求。如果发生故障或应用变更，100%的客户都会受到影响。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/cell-based/typical-workload.jpg"
+                     
+                ></p>
+<p>A typical workload 典型的工作量</p>
+<h3 id="A-workload-with-cell-based-architecture-基于单元架构的工作负载"><a href="#A-workload-with-cell-based-architecture-基于单元架构的工作负载" class="headerlink" title="A workload with cell-based architecture 基于单元架构的工作负载"></a>A workload with cell-based architecture 基于单元架构的工作负载</h3><p>Rather than build out services as single-image systems, we propose a different approach: break your services down internally into cells and build thin layers to route traffic to the right cells. This type of architecture can be zonal, regional, or global.<br>我们提出另一种方法：将服务内部拆分为单元，构建薄层以将流量路由到正确的单元。这种类型的建筑可以是区域性的、区域性的或全球性的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/cell-based/cell-based-architecture.jpg"
+                     
+                ></p>
+<p>A cell-based architecture 基于单元的架构</p>
+<ul>
+<li>The cell-based architecture has the following components, which will be further explored later in this guidance:<br>  基于单元的架构包含以下组件，后续将在本指南中进一步探讨：</li>
+<li>Cell router — We also refer to this layer as the thinnest possible layer, with the responsibility of routing requests to the right cell, and only that.<br>  蜂窝路由器 ——我们也称这一层为 最薄的层 ，负责将请求路由到正确的单元，仅此而已。</li>
+<li>Cell — A complete workload, with everything needed to operate independently.<br>  小区 ——一个完整的工作负载，所有设备都需要独立运作。</li>
+<li>Control plane — Responsible for administration tasks, such as provisioning cells, de-provisioning cells, and migrating cell customers.<br>  控制平面 ——负责管理任务，如配置小区、取消配置小区和迁移小区客户。</li>
+</ul>
+<p>Building a cell-based architecture doesn’t necessarily mean having to double, triple, or more your application’s infrastructure. It might be that your application has 30 hosts, and in a cell-based architecture it has the same 30 hosts, but with a cell router and with tasks that are distributed or grouped between cells.<br>构建基于单元的架构并不一定意味着必须将应用基础设施加倍、三倍甚至更多。你的应用可能有30台主机，而在基于小区的架构中，它也有同样的30台主机，但配备了小区路由器，任务分布或分组在小区之间。</p>
+<h2 id="Why-use-a-cell-based-architecture-为什么要采用基于单元的架构？"><a href="#Why-use-a-cell-based-architecture-为什么要采用基于单元的架构？" class="headerlink" title="Why use a cell-based architecture? 为什么要采用基于单元的架构？"></a>Why use a cell-based architecture? 为什么要采用基于单元的架构？</h2><p>These are the main advantages of a cell-based architecture.<br>这些是基于单元架构的主要优势。</p>
+<h3 id="Scale-out-over-scale-up-规模扩大而非规模化"><a href="#Scale-out-over-scale-up-规模扩大而非规模化" class="headerlink" title="Scale-out over scale-up  规模扩大而非规模化"></a>Scale-out over scale-up  规模扩大而非规模化</h3><ul>
+<li>Scaling up, or accommodating growth by increasing the size of a system’s component (such as a database, server, or subsystem) is a natural and straightforward way to scale. Scaling out, on the other hand, accommodates growth by increasing the number of system components (such as databases, servers, and subsystems), and dividing the workload such that the load on any component stays bounded over time despite the overall increase in workload. The task of dividing the workload can make scaling out more challenging than scaling up, particularly for stateful systems, but has well-understood benefits:<br>  通过扩大系统组件规模来适应增长 （例如数据库、服务器或子系统）是一种自然且直接的扩展方式。 而缩放扩展则通过增加 系统组件数量 （如数据库、服务器和子系统），以及如何划分工作负载，使得尽管整体工作负载增加，任何组件的负载仍保持有界。分配工作负载的任务可能使扩展比扩展更具挑战性，尤其是对于有状态系统，但其优点是众所周知的：</li>
+<li>Workload isolation: Dividing the workload across components means workloads are isolated from each other. This provides failure containment and narrows the impact of issues, such as deployment failures, poison pills, misbehaving clients, data corruption, and operational mistakes.<br>  工作量隔离： 将工作负载划分到各个组件意味着工作负载彼此隔离。这提供了故障控制，并缩小了部署失败、毒丸、不当客户端、数据损坏和作错误等问题的影响。</li>
+<li>Maximally-sized components: Accommodating growth by increasing the number of components rather than increasing component size means that the size of each component can be capped to a maximum size. This reduces the risk of surprises from non-linear scaling factors and hidden contention points present in scale-up systems.<br>  最大尺寸组件： 通过增加组件数量而非增加组件规模来适应增长，意味着每个组件的规模可以被限制在最大范围内。这降低了非线性缩放因子和放大系统中隐藏争点带来的意外风险。</li>
+<li>Not too big to test: With maximally-sized components, the components are no longer too big to test. These components can be stress tested and pushed past their breaking point to understand their safe operating margin. This approach does not address testing the overall scaled out system composed of these components, but if the majority of the complexity and risk of the system sits in stress-tested components (and it should), the level of test coverage and confidence should be significantly higher.<br>  不大而难以测试： 对于最大尺寸的组件，组件不再太大而无法测试。这些组件可以经过压力测试，并将其推至极限，以了解其安全的工作余裕。该方法不涉及对由这些组件组成的整体扩展系统进行测试，但如果系统大部分复杂性和风险都集中在经过压力测试的组件中（而且应该如此），那么测试覆盖率和置信度应当显著提高。</li>
+</ul>
+<p>Cells change our approach from scaling up to scaling out. Each cell, a complete independent instance of the service, has a fixed maximum size. Beyond the size of a single cell, regions grow by adding more cells. This change in design doesn’t change the customer experience of your services. Customers can continue to access the services as they do today.<br>细胞改变了我们从放大到放大的方式。每个单元是服务的完全独立实例，最大大小固定。超过单个单元格的规模，区域通过增加更多单元格来增长。这种设计变化不会改变客户对服务的体验。客户可以像现在一样继续使用这些服务。</p>
+<h3 id="Lower-scope-of-impact-影响范围较低"><a href="#Lower-scope-of-impact-影响范围较低" class="headerlink" title="Lower scope of impact 影响范围较低"></a>Lower scope of impact 影响范围较低</h3><p>Breaking a service up into multiple cells reduces the scope of impact. Cells represent bulkheaded units that provide containment for many common failure scenarios. When properly isolated from each other, cells have failure containment similar to what we see with Regions. It’s highly unlikely for a service outage to span multiple Regions. It should be similarly unlikely for a service outage to span multiple cells.<br>将服务拆分为多个单元可以减少影响范围。单元代表隔板单元，为许多常见故障场景提供隔离。当彼此适当隔离时，细胞具有类似区域的失效容纳。服务中断跨多个区域的可能性极低。服务中断跨越多个小区的可能性也同样不大。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/cell-based/scope-of-impact.jpg"
+                     
+                ></p>
+<p>Cell-based architectures can reduce scope of impact 基于单元的架构可以缩小影响范围</p>
+<h3 id="Higher-scalability-or-cells-as-a-unit-scale-更高的可扩展性或单元单元作为单位尺度"><a href="#Higher-scalability-or-cells-as-a-unit-scale-更高的可扩展性或单元单元作为单位尺度" class="headerlink" title="Higher scalability or cells as a unit scale 更高的可扩展性或单元单元作为单位尺度"></a>Higher scalability or cells as a unit scale 更高的可扩展性或单元单元作为单位尺度</h3><p>As recommended in Manage service quotas and constraints in the Well-Architected Framework, for your workloads, defining, testing, and managing the limits and capacity of a cell is also essential. Knowing and monitoring this capacity, it’s possible to define limits, and scale your workload by adding new cells to your architecture, thus scaling it out.<br>正如《管理良好架构框架中的服务配额与约束》中建议的，针对您的工作负载，定义、测试和管理单元单元的限制和容量同样至关重要。了解并监控这些容量后，可以定义限制，并通过向架构中添加新的单元来扩展工作负载，从而实现扩展。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/cell-based/scale-out-with-cells.jpg"
+                     
+                ></p>
+<p>Scale-out with multiple cells 多单元的扩展</p>
+<p>Cell-based architectures scale-out rather than scale-up, and are inherently more scalable. This is because when scaling up, you can reach the resource limits of a particular service, instance, or AWS account. However, scaling out your workload within an Availability Zone, Region, and AWS account, you can avoid reaching the limits of a specific service or resource. When building cells with a fixed size and known and testable limits, it is possible to add new cells that are in accordance with the limits of the same cited resources.<br>基于单元的架构是扩展而非扩展，且本质上更具可扩展性。这是因为在扩展时，你可能会达到某个服务、实例或 AWS 账户的资源限制。然而，在可用性区、区域和 AWS 账户内扩展工作负载，可以避免达到特定服务或资源的限制。在构建固定大小且已知且可测试的单元时，可以添加符合上述资源极限的新单元。</p>
+<h3 id="Higher-testability-更高的可检性"><a href="#Higher-testability-更高的可检性" class="headerlink" title="Higher testability  更高的可检性"></a>Higher testability  更高的可检性</h3><p>Testing distributed systems is a challenging task and is amplified as the system grows. The capped size of cells allows for well-understood and testable maximum scale behavior. It is easier to test cells as compared to bulk services since cells have a limited size. It is impractical for cost reasons for large-scale services to regularly simulate the entire workload of all their tenants, but it is reasonable to simulate the largest workload that can fit into a cell, which should match the largest workload that a single customer can send to your application.<br>测试分布式系统是一项具有挑战性的任务，随着系统的发展，这一挑战会更加显著。单元格的上限尺寸允许实现被充分理解且可测试的最大规模行为。相比批量服务，检测单元更容易，因为单元体积有限。出于成本原因，大型服务定期模拟所有租户的全部工作负载是不切实际的，但合理的做法是模拟一个单元中能容纳的最大工作负载，这应与单个客户能发送到你应用的最大工作负载相匹配。</p>
+<h3 id="Higher-mean-time-between-failure-MTBF-平均失效间隔时间（MTBF）"><a href="#Higher-mean-time-between-failure-MTBF-平均失效间隔时间（MTBF）" class="headerlink" title="Higher mean time between failure (MTBF) 平均失效间隔时间（MTBF）"></a>Higher mean time between failure (MTBF) 平均失效间隔时间（MTBF）</h3><p>Not only is the scope of impact of an outage reduced with cells, but so is the probability of an outage. Cells have a consistent capped size that is regularly tested and operated, eliminating the every day is a new adventure dynamic.<br>小区不仅减少了停电的影响范围，停电的概率也相应降低。细胞有一个固定的上限尺寸，需要定期测试和作，消除日常活动是一种新的冒险动态。</p>
+<p>As in day-to-day operations, your customers are distributed among the cells and a problem can be identified locally. The same goes for new versions of applications that can only be applied to a small number of cells (up to just one) and when a failure is identified, rollback.<br>就像日常运营一样，你的客户分布在各个小区之间，问题可以在本地被发现。同样，对于只能应用于少量单元（最多一个）的新版本应用，发现故障时回滚。</p>
+<p>With your customers spread across cells, for example, 10, you now have 10% of your customers in each cell. This, added to a gradual deployment strategy that we will describe later in this guidance, allows you to better manage system changes, and contain the scope of failures such as code or traffic spikes in some cells while others remain stable and unaffected, thus increasing the average time between application failures.<br>例如，当你的客户分散在不同单元格中，比如10个单元，你现在每个单元里有10%的客户。这结合我们稍后将在本指南中介绍的渐进部署策略，使您能够更好地管理系统变更，并在某些单元中控制代码或流量激增等故障范围，而其他单元则保持稳定且不受影响，从而延长应用失败的平均间隔时间。</p>
+<h3 id="Lower-mean-time-to-recovery-MTTR-较低的平均恢复时间（MTTR）"><a href="#Lower-mean-time-to-recovery-MTTR-较低的平均恢复时间（MTTR）" class="headerlink" title="Lower mean time to recovery (MTTR) 较低的平均恢复时间（MTTR）"></a>Lower mean time to recovery (MTTR) 较低的平均恢复时间（MTTR）</h3><p>Cells are also easier to recover, because they limit the number of hosts that need to be analyzed and touched for problem diagnosis and the deployment of emergency code and configuration. The predictability of size and scale that cells bring also make recovery more predictable in the event of a failure.<br>小区也更容易恢复，因为它们限制了需要分析和触碰的问题诊断以及紧急代码和配置部署的主机数量。细胞带来的大小和规模的可预测性也使得故障时的恢复更为可预测。</p>
+<h3 id="Higher-availability-更高的可用性"><a href="#Higher-availability-更高的可用性" class="headerlink" title="Higher availability  更高的可用性"></a>Higher availability  更高的可用性</h3><p>A natural conclusion is that cell-based architectures should have the same overall availability as monolithic systems, because a system with n cells will have n times as many failure events, but each with 1&#x2F;nth of the impact. But the higher MTBF and lower MTTR afforded by cells means fewer shorter failures events per cell, and higher overall availability.<br>自然的结论是，基于单元的架构应具有与单片系统相同的整体可用性，因为拥有 n 个单元的系统将具有 失败事件数是 n 倍，但每个事件 仅为冲击的 1&#x2F;n。但小区提供的更高 MTBF 和更低的 MTTR 意味着每个小区的短故障事件更少，整体可用性更高。</p>
+<p>There is also the availability defined by:<br>还有一种可用性定义为：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#successful requests / #total requests</span></span><br></pre></td></tr></table></figure></div>
+
+<p>With cells, you can minimize the amount of time the numerator is zero.<br>用单元格，你可以最小化分子为零的时间。</p>
+<h3 id="More-control-over-the-impact-of-deployments-and-rollbacks-对部署和回滚影响的更多控制"><a href="#More-control-over-the-impact-of-deployments-and-rollbacks-对部署和回滚影响的更多控制" class="headerlink" title="More control over the impact of deployments and rollbacks 对部署和回滚影响的更多控制"></a>More control over the impact of deployments and rollbacks 对部署和回滚影响的更多控制</h3><p>Like one-box and Single-AZ deployments, cells provide another dimension in which to phase deployments and reduce scope of impact from problematic deployments. Further, the first cell deployed to in a phased cell deployment can be a canary cell, and each cell can have its own canary with synthetic and other non-critical workloads to further reduce the impact of a failed deployment.<br>与单一机和单区部署类似，单元为分阶段部署提供了另一个维度，并减少问题部署带来的影响范围。此外，分阶段单元部署的第一个单元可以是金丝雀单元，每个单元都可以拥有自己的金丝雀单元，配备合成及其他非关键工作负载，以进一步减少部署失败的影响。</p>
+<p>Applications that do not use cell-based architecture can also benefit from strategies such as canary deployment. But what the cells bring is the possibility of a combination of a canary deployment strategy being applied in a context of even lesser impact.<br>不使用基于单元架构的应用也可以受益于诸如金丝雀部署等策略。但这些细胞带来的是，在影响更小的环境中，可能采用金丝雀部署策略的组合。</p>
+<h2 id="When-to-use-a-cell-based-architecture-什么时候应该使用基于单元的架构？"><a href="#When-to-use-a-cell-based-architecture-什么时候应该使用基于单元的架构？" class="headerlink" title="When to use a cell-based architecture? 什么时候应该使用基于单元的架构？"></a>When to use a cell-based architecture? 什么时候应该使用基于单元的架构？</h2><p>There are applications that serve such a large number of customers that interruption of all customers is unacceptable, either for reputation, or financial reasons, where every unavailable second has a big impact. Workloads that have the following characteristics can benefit from a cell-based architecture:<br>有些应用服务于如此庞大的客户，以至于中断所有客户是不可接受的，无论是出于声誉还是经济原因，每一秒的不可用都会产生巨大影响。具有以下特性的工作负载可以从基于单元架构中受益：</p>
+<ul>
+<li>Applications where any downtime can have a huge negative impact on customers.<br>  任何停机时间都可能对客户产生巨大负面影响的应用。</li>
+<li>FSI customers with workloads critical to economic stability.<br>  FSI 客户承担着对经济稳定至关重要的工作量。</li>
+<li>Ultra-scale systems that are too big&#x2F;critical to fail.<br>  那些规模过大、关键到不能倒的超大规模系统。</li>
+<li>Less than 5 seconds of Recovery Point Objective (RPO).<br>  恢复点目标（RPO） 不到 5 秒。</li>
+<li>Less than 30 seconds of Recovery Time Objective (RTO).<br>  恢复时间目标（RTO） 不到 30 秒。</li>
+<li>Multi-tenant services where some tenants require fully dedicated tenancy (meaning, their own dedicated cell).<br>  多租户服务，有些租户需要完全专用的租户（即他们自己的专用手机）。</li>
+</ul>
+<p>A question to ponder regarding your workload is this: “Is it better for 100% of customers to experience a 5% failure rate, or 5% of customers to experience a 100% failure rate?”<br>关于你的工作量，有个问题需要思考： “让 100%的客户体验 5%的失败率更好，还是让 5%的客户体验 100%的失败率更好？”</p>
+<p>Cell-based architecture will not be a good choice for all your workloads, but it can bring great benefits for some your most critical workloads.<br>基于单元架构可能不适合所有工作负载，但它能为一些最关键的工作带来巨大好处。</p>
+<p>Implementing a cell-based architecture is not a simple task, among the disadvantages are:<br>实现基于单元的架构并非易事，缺点包括：</p>
+<ul>
+<li>Increase in the complexity of the architecture due to the redundancy of infrastructure and components.<br>  由于基础设施和组件的冗余，架构的复杂性增加。</li>
+<li>High cost of infrastructure and services, although utilization based fee structures like Amazon EC2 Reserved Instances (RIs) and saving plans help close this delta.<br>  基础设施和服务成本高昂，尽管基于利用率的费用结构如亚马逊 EC2 预留实例（RI）和储蓄计划有助于弥补这一差距。</li>
+<li>Requires specialized operational tools and practices to operate these multiple replicas (cells) of the workload.<br>  需要专门的作工具和作方法来作这些工作负载的多个副本（单元）。</li>
+<li>Necessity to invest in a cell routing layer.<br>  需要投资一个小区路由层。</li>
+</ul>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 单元架构 (蜂窝架构) cell-based architecture</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2026-01-16 08:50:15</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-01-16 09:04:09
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2026/01/16/单元架构-蜂窝架构-cell-based-architecture/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Program/">#Program</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Architecture/">#Architecture</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%9E%B6%E6%9E%84/">#架构</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/01/14/%E7%AE%97%E6%B3%95-%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">算法 拜占庭将军问题</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'ChaoSBYNN/chaosbynn.github.io',
+                'data-repo-id': 'MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDOBNbWcM4CgcsE',
+                'data-mapping': 'title',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">单元架构 (蜂窝架构) cell-based architecture</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9F%BA%E4%BA%8E%E5%8D%95%E5%85%83%E7%9A%84%E6%9E%B6%E6%9E%84%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是基于单元的架构？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-typical-workload-%E5%85%B8%E5%9E%8B%E7%9A%84%E5%B7%A5%E4%BD%9C%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">A typical workload  典型的工作量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-workload-with-cell-based-architecture-%E5%9F%BA%E4%BA%8E%E5%8D%95%E5%85%83%E6%9E%B6%E6%9E%84%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%B4%9F%E8%BD%BD"><span class="nav-number">1.2.</span> <span class="nav-text">A workload with cell-based architecture 基于单元架构的工作负载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Why-use-a-cell-based-architecture-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%87%E7%94%A8%E5%9F%BA%E4%BA%8E%E5%8D%95%E5%85%83%E7%9A%84%E6%9E%B6%E6%9E%84%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">Why use a cell-based architecture? 为什么要采用基于单元的架构？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scale-out-over-scale-up-%E8%A7%84%E6%A8%A1%E6%89%A9%E5%A4%A7%E8%80%8C%E9%9D%9E%E8%A7%84%E6%A8%A1%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">Scale-out over scale-up  规模扩大而非规模化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lower-scope-of-impact-%E5%BD%B1%E5%93%8D%E8%8C%83%E5%9B%B4%E8%BE%83%E4%BD%8E"><span class="nav-number">2.2.</span> <span class="nav-text">Lower scope of impact 影响范围较低</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Higher-scalability-or-cells-as-a-unit-scale-%E6%9B%B4%E9%AB%98%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%80%A7%E6%88%96%E5%8D%95%E5%85%83%E5%8D%95%E5%85%83%E4%BD%9C%E4%B8%BA%E5%8D%95%E4%BD%8D%E5%B0%BA%E5%BA%A6"><span class="nav-number">2.3.</span> <span class="nav-text">Higher scalability or cells as a unit scale 更高的可扩展性或单元单元作为单位尺度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Higher-testability-%E6%9B%B4%E9%AB%98%E7%9A%84%E5%8F%AF%E6%A3%80%E6%80%A7"><span class="nav-number">2.4.</span> <span class="nav-text">Higher testability  更高的可检性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Higher-mean-time-between-failure-MTBF-%E5%B9%B3%E5%9D%87%E5%A4%B1%E6%95%88%E9%97%B4%E9%9A%94%E6%97%B6%E9%97%B4%EF%BC%88MTBF%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">Higher mean time between failure (MTBF) 平均失效间隔时间（MTBF）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lower-mean-time-to-recovery-MTTR-%E8%BE%83%E4%BD%8E%E7%9A%84%E5%B9%B3%E5%9D%87%E6%81%A2%E5%A4%8D%E6%97%B6%E9%97%B4%EF%BC%88MTTR%EF%BC%89"><span class="nav-number">2.6.</span> <span class="nav-text">Lower mean time to recovery (MTTR) 较低的平均恢复时间（MTTR）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Higher-availability-%E6%9B%B4%E9%AB%98%E7%9A%84%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="nav-number">2.7.</span> <span class="nav-text">Higher availability  更高的可用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-control-over-the-impact-of-deployments-and-rollbacks-%E5%AF%B9%E9%83%A8%E7%BD%B2%E5%92%8C%E5%9B%9E%E6%BB%9A%E5%BD%B1%E5%93%8D%E7%9A%84%E6%9B%B4%E5%A4%9A%E6%8E%A7%E5%88%B6"><span class="nav-number">2.8.</span> <span class="nav-text">More control over the impact of deployments and rollbacks 对部署和回滚影响的更多控制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#When-to-use-a-cell-based-architecture-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E5%BA%94%E8%AF%A5%E4%BD%BF%E7%94%A8%E5%9F%BA%E4%BA%8E%E5%8D%95%E5%85%83%E7%9A%84%E6%9E%B6%E6%9E%84%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">When to use a cell-based architecture? 什么时候应该使用基于单元的架构？</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 117 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
