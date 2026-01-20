@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2026/01/20/spring-boot-常用自带工具/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot 常用自带工具">
+<meta property="og:url" content="https://chaosbynn.github.io/2026/01/20/Spring-Boot-%E5%B8%B8%E7%94%A8%E8%87%AA%E5%B8%A6%E5%B7%A5%E5%85%B7/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-01-20T01:05:43.000Z">
+<meta property="article:modified_time" content="2026-01-20T01:06:14.058Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Spring Boot 常用自带工具 | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/ChaoSBYNN","instagram":"https://www.instagram.com/entropy_42_zhang","zhihu":"https://www.zhihu.com/people/Bee7zEBubChaoS","twitter":"https://x.com/Bee7zEBub","email":"t7_chaos@163.com"},"qrs":{"weixin":null}},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1"}},"version":"2.8.5","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footerStart":"2017/2/13 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">61</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">119</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring.png" alt="Spring Boot 常用自带工具" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">Spring Boot 常用自带工具</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-01-20 09:05:43</span>
+        <span class="mobile">2026-01-20 09:05:43</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-01-20 09:06:14</span>
+            <span class="mobile">2026-01-20 09:06:14</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Program/">Program</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Spring/">Spring</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/1996605165302727229" >别再重复造轮子了！Spring Boot 自带的 49 个“宝藏”工具类<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+</ul>
+<h2 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h2><h3 id="1-StringUtils"><a href="#1-StringUtils" class="headerlink" title="1. StringUtils"></a>1. StringUtils</h3><p>一个用于常见字符串操作的综合工具，包括检查空字符串或仅包含空白字符的字符串。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.StringUtils;</span><br><span class="line"><span class="comment">// 检查字符串是否为空或 null</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEmpty1</span> <span class="operator">=</span> StringUtils.isEmpty(<span class="literal">null</span>);     <span class="comment">// true</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEmpty2</span> <span class="operator">=</span> StringUtils.isEmpty(<span class="string">&quot;&quot;</span>);       <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 检查字符串是否有实际文本内容（不仅仅是空格）</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">hasText1</span> <span class="operator">=</span> StringUtils.hasText(<span class="string">&quot;   &quot;</span>);    <span class="comment">// false</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">hasText2</span> <span class="operator">=</span> StringUtils.hasText(<span class="string">&quot;hello&quot;</span>);  <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 将字符串标记化为数组</span></span><br><span class="line">String[] parts = StringUtils.tokenizeToStringArray(<span class="string">&quot;a,b,c&quot;</span>, <span class="string">&quot;,&quot;</span>); <span class="comment">// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span></span><br><span class="line"><span class="comment">// 去除开头和结尾的空格</span></span><br><span class="line"><span class="type">String</span> <span class="variable">trimmed</span> <span class="operator">=</span> StringUtils.trimWhitespace(<span class="string">&quot;  hello  &quot;</span>); <span class="comment">// &quot;hello&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-AntPathMatcher"><a href="#2-AntPathMatcher" class="headerlink" title="2. AntPathMatcher"></a>2. AntPathMatcher</h3><p>一个强大的工具，用于根据 Ant 风格的路径模式匹配字符串，常用于 URL 路由和安全配置。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.AntPathMatcher;</span><br><span class="line"></span><br><span class="line"><span class="type">AntPathMatcher</span> <span class="variable">matcher</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AntPathMatcher</span>();</span><br><span class="line"><span class="type">boolean</span> <span class="variable">match1</span> <span class="operator">=</span> matcher.match(<span class="string">&quot;/users/*&quot;</span>, <span class="string">&quot;/users/123&quot;</span>);       <span class="comment">// true</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">match2</span> <span class="operator">=</span> matcher.match(<span class="string">&quot;/users/**&quot;</span>, <span class="string">&quot;/users/123/orders&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">match3</span> <span class="operator">=</span> matcher.match(<span class="string">&quot;/user?&quot;</span>, <span class="string">&quot;/user1&quot;</span>);             <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 提取路径变量</span></span><br><span class="line">Map&lt;String, String&gt; vars = matcher.extractUriTemplateVariables(</span><br><span class="line">    <span class="string">&quot;/users/&#123;id&#125;&quot;</span>, <span class="string">&quot;/users/42&quot;</span>); <span class="comment">// &#123;id=42&#125;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3-PatternMatchUtils"><a href="#3-PatternMatchUtils" class="headerlink" title="3. PatternMatchUtils"></a>3. PatternMatchUtils</h3><p>提供了一种更简单的方法来执行基本的通配符模式匹配。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.PatternMatchUtils;</span><br><span class="line"></span><br><span class="line"><span class="type">boolean</span> <span class="variable">matches1</span> <span class="operator">=</span> PatternMatchUtils.simpleMatch(<span class="string">&quot;user*&quot;</span>, <span class="string">&quot;username&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">matches2</span> <span class="operator">=</span> PatternMatchUtils.simpleMatch(<span class="string">&quot;user?&quot;</span>, <span class="string">&quot;user1&quot;</span>);   <span class="comment">// true</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">matches3</span> <span class="operator">=</span> PatternMatchUtils.simpleMatch(</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;user*&quot;</span>, <span class="string">&quot;admin*&quot;</span>&#125;, <span class="string">&quot;adminuser&quot;</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="4-PropertyPlaceholderHelper"><a href="#4-PropertyPlaceholderHelper" class="headerlink" title="4. PropertyPlaceholderHelper"></a>4. PropertyPlaceholderHelper</h3><p>使用给定的属性源解析字符串中的占位符（如 ${name}）。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.PropertyPlaceholderHelper;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="type">PropertyPlaceholderHelper</span> <span class="variable">helper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PropertyPlaceholderHelper</span>(<span class="string">&quot;$&#123;&quot;</span>, <span class="string">&quot;&#125;&quot;</span>);</span><br><span class="line"><span class="type">Properties</span> <span class="variable">props</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">props.setProperty(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;World&quot;</span>);</span><br><span class="line">props.setProperty(<span class="string">&quot;greeting&quot;</span>, <span class="string">&quot;Hello $&#123;name&#125;!&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> helper.replacePlaceholders(<span class="string">&quot;$&#123;greeting&#125;&quot;</span>, props::getProperty);</span><br><span class="line"><span class="comment">// result -&gt; &quot;Hello World!&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="集合与数组处理"><a href="#集合与数组处理" class="headerlink" title="集合与数组处理"></a>集合与数组处理</h2><h3 id="5-CollectionUtils"><a href="#5-CollectionUtils" class="headerlink" title="5. CollectionUtils"></a>5. CollectionUtils</h3><p>提供广泛的集合操作工具，例如检查是否为空以及执行集合运算。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.CollectionUtils;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查集合是否为 null 或空</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEmpty1</span> <span class="operator">=</span> CollectionUtils.isEmpty(<span class="literal">null</span>);                 <span class="comment">// true</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEmpty2</span> <span class="operator">=</span> CollectionUtils.isEmpty(Collections.emptyList()); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 查找两个列表的交集</span></span><br><span class="line">List&lt;String&gt; list1 = Arrays.asList(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>);</span><br><span class="line">List&lt;String&gt; list2 = Arrays.asList(<span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;d&quot;</span>);</span><br><span class="line">Collection&lt;String&gt; intersection = CollectionUtils.intersection(list1, list2); <span class="comment">// [b, c]</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="6-MultiValueMap"><a href="#6-MultiValueMap" class="headerlink" title="6. MultiValueMap"></a>6. MultiValueMap</h3><p>标准 Map接口的扩展，允许为一个键存储多个值。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.LinkedMultiValueMap;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.MultiValueMap;</span><br><span class="line"></span><br><span class="line">MultiValueMap&lt;String, String&gt; map = <span class="keyword">new</span> <span class="title class_">LinkedMultiValueMap</span>&lt;&gt;();</span><br><span class="line">map.add(<span class="string">&quot;colors&quot;</span>, <span class="string">&quot;red&quot;</span>);</span><br><span class="line">map.add(<span class="string">&quot;colors&quot;</span>, <span class="string">&quot;blue&quot;</span>);</span><br><span class="line">map.add(<span class="string">&quot;sizes&quot;</span>, <span class="string">&quot;large&quot;</span>);</span><br><span class="line">List&lt;String&gt; colors = map.get(<span class="string">&quot;colors&quot;</span>); <span class="comment">// [red, blue]</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="7-ConcurrentReferenceHashMap"><a href="#7-ConcurrentReferenceHashMap" class="headerlink" title="7. ConcurrentReferenceHashMap"></a>7. ConcurrentReferenceHashMap</h3><p>一个线程安全、基于软引用的 Map，非常适合缓存场景，允许垃圾收集器在需要时回收内存。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.ConcurrentReferenceHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为高并发缓存创建一个线程安全的 map</span></span><br><span class="line">Map&lt;String, Object&gt; cache = <span class="keyword">new</span> <span class="title class_">ConcurrentReferenceHashMap</span>&lt;&gt;();</span><br><span class="line">cache.put(<span class="string">&quot;key1&quot;</span>, <span class="keyword">new</span> <span class="title class_">Object</span>()); <span class="comment">// 如果内存不足，该值可以被垃圾回收</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="8-SystemPropertyUtils"><a href="#8-SystemPropertyUtils" class="headerlink" title="8. SystemPropertyUtils"></a>8. SystemPropertyUtils</h3><p>解析 JVM 系统属性中的占位符。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.SystemPropertyUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用系统属性解析占位符</span></span><br><span class="line"><span class="type">String</span> <span class="variable">javaHome</span> <span class="operator">=</span> SystemPropertyUtils.resolvePlaceholders(<span class="string">&quot;$&#123;java.home&#125;&quot;</span>);</span><br><span class="line"><span class="comment">// 如果找不到属性，则提供默认值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">pathWithDefault</span> <span class="operator">=</span> SystemPropertyUtils.resolvePlaceholders(</span><br><span class="line">    <span class="string">&quot;$&#123;unknown.property:default_value&#125;&quot;</span>); <span class="comment">// &quot;default_value&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="反射与类操作"><a href="#反射与类操作" class="headerlink" title="反射与类操作"></a>反射与类操作</h2><h3 id="9-ReflectionUtils"><a href="#9-ReflectionUtils" class="headerlink" title="9. ReflectionUtils"></a>9. ReflectionUtils</h3><p>一组用于低级反射任务（如查找字段或调用方法）的静态方法，并能优雅地处理异常。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.ReflectionUtils;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找并设置字段值</span></span><br><span class="line"><span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> ReflectionUtils.findField(MyClass.class, <span class="string">&quot;name&quot;</span>);</span><br><span class="line">ReflectionUtils.makeAccessible(field);</span><br><span class="line">ReflectionUtils.setField(field, myObject, <span class="string">&quot;John&quot;</span>);</span><br><span class="line"><span class="comment">// 查找并调用方法</span></span><br><span class="line"><span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> ReflectionUtils.findMethod(MyClass.class, <span class="string">&quot;setAge&quot;</span>, <span class="type">int</span>.class);</span><br><span class="line">ReflectionUtils.invokeMethod(method, myObject, <span class="number">30</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="10-ClassUtils"><a href="#10-ClassUtils" class="headerlink" title="10. ClassUtils"></a>10. ClassUtils</h3><p>提供处理 Class对象的广泛工具，例如获取短类名或查找接口。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.ClassUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取类的短名称</span></span><br><span class="line"><span class="type">String</span> <span class="variable">shortName</span> <span class="operator">=</span> ClassUtils.getShortName(<span class="string">&quot;org.example.MyClass&quot;</span>); <span class="comment">// &quot;MyClass&quot;</span></span><br><span class="line"><span class="comment">// 检查类路径上是否存在某个类</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">exists</span> <span class="operator">=</span> ClassUtils.isPresent(<span class="string">&quot;java.util.List&quot;</span>, <span class="literal">null</span>); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 获取默认的类加载器</span></span><br><span class="line"><span class="type">ClassLoader</span> <span class="variable">classLoader</span> <span class="operator">=</span> ClassUtils.getDefaultClassLoader();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="11-MethodInvoker"><a href="#11-MethodInvoker" class="headerlink" title="11. MethodInvoker"></a>11. MethodInvoker</h3><p>一种在目标对象上准备并调用带参数方法的便捷方式。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.MethodInvoker;</span><br><span class="line"></span><br><span class="line"><span class="type">MethodInvoker</span> <span class="variable">invoker</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MethodInvoker</span>();</span><br><span class="line">invoker.setTargetObject(<span class="keyword">new</span> <span class="title class_">MyService</span>());</span><br><span class="line">invoker.setTargetMethod(<span class="string">&quot;calculateTotal&quot;</span>);</span><br><span class="line">invoker.setArguments(<span class="number">100</span>, <span class="number">0.2</span>);</span><br><span class="line">invoker.prepare();</span><br><span class="line"><span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> invoker.invoke();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="12-BeanUtils"><a href="#12-BeanUtils" class="headerlink" title="12. BeanUtils"></a>12. BeanUtils</h3><p>一个强大的工具，用于常见的 Bean 相关操作，包括属性复制和实例化。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.BeanUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将属性从源对象复制到目标对象</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">source</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&quot;John&quot;</span>, <span class="number">30</span>);</span><br><span class="line"><span class="type">PersonDTO</span> <span class="variable">target</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PersonDTO</span>();</span><br><span class="line">BeanUtils.copyProperties(source, target);</span><br><span class="line"><span class="comment">// 使用默认构造函数实例化一个类</span></span><br><span class="line"><span class="type">Person</span> <span class="variable">newPerson</span> <span class="operator">=</span> BeanUtils.instantiateClass(Person.class);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="I-O-操作"><a href="#I-O-操作" class="headerlink" title="I&#x2F;O 操作"></a>I&#x2F;O 操作</h3><h3 id="13-FileCopyUtils"><a href="#13-FileCopyUtils" class="headerlink" title="13. FileCopyUtils"></a>13. FileCopyUtils</h3><p>提供简单的静态方法，用于在文件、流、Reader 和 Writer 之间复制内容。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.FileCopyUtils;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将文件内容复制到字节数组</span></span><br><span class="line"><span class="type">byte</span>[] bytes = FileCopyUtils.copyToByteArray(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;input.txt&quot;</span>));</span><br><span class="line">FileCopyUtils.copy(bytes, <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;output.txt&quot;</span>));</span><br><span class="line"><span class="comment">// 将内容从 Reader 复制到 String</span></span><br><span class="line"><span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> FileCopyUtils.copyToString(<span class="keyword">new</span> <span class="title class_">FileReader</span>(<span class="string">&quot;input.txt&quot;</span>));</span><br><span class="line"><span class="comment">// 在流之间复制</span></span><br><span class="line">FileCopyUtils.copy(<span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;input.txt&quot;</span>), <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;output.txt&quot;</span>));</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="14-ResourceUtils"><a href="#14-ResourceUtils" class="headerlink" title="14. ResourceUtils"></a>14. ResourceUtils</h3><p>用于将资源位置（如 classpath:或 file:）解析为 File或 URL对象的工具。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.ResourceUtils;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从类路径获取文件</span></span><br><span class="line"><span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> ResourceUtils.getFile(<span class="string">&quot;classpath:config.properties&quot;</span>);</span><br><span class="line"><span class="comment">// 检查字符串是否为 URL</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isUrl</span> <span class="operator">=</span> ResourceUtils.isUrl(<span class="string">&quot;http://example.com&quot;</span>); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 从位置字符串获取 URL</span></span><br><span class="line"><span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> ResourceUtils.getURL(<span class="string">&quot;classpath:data.json&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="15-StreamUtils"><a href="#15-StreamUtils" class="headerlink" title="15. StreamUtils"></a>15. StreamUtils</h3><p>包含处理 InputStream和 OutputStream的实用方法，防止常见的样板代码。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.StreamUtils;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将流复制到字节数组</span></span><br><span class="line"><span class="type">byte</span>[] data = StreamUtils.copyToByteArray(inputStream);</span><br><span class="line"><span class="comment">// 将流复制到字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);</span><br><span class="line"><span class="comment">// 将字符串复制到输出流</span></span><br><span class="line">StreamUtils.copy(<span class="string">&quot;Hello&quot;</span>, StandardCharsets.UTF_8, outputStream);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="16-FileSystemUtils"><a href="#16-FileSystemUtils" class="headerlink" title="16. FileSystemUtils"></a>16. FileSystemUtils</h3><p>提供文件系统操作工具，最值得注意的是递归复制和删除目录。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.FileSystemUtils;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 递归删除目录及其内容</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">deleted</span> <span class="operator">=</span> FileSystemUtils.deleteRecursively(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;/tmp/test&quot;</span>));</span><br><span class="line"><span class="comment">// 递归复制目录及其内容</span></span><br><span class="line">FileSystemUtils.copyRecursively(<span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;source&quot;</span>), <span class="keyword">new</span> <span class="title class_">File</span>(<span class="string">&quot;target&quot;</span>));</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="17-ResourcePatternUtils"><a href="#17-ResourcePatternUtils" class="headerlink" title="17. ResourcePatternUtils"></a>17. ResourcePatternUtils</h3><p>将资源模式（如 classpath*:**&#x2F;*.xml）解析为 Resource对象数组。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.io.Resource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.PathMatchingResourcePatternResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.ResourcePatternResolver;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.support.ResourcePatternUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在所有类路径位置的 META-INF 目录中查找所有 XML 文件</span></span><br><span class="line"><span class="type">ResourcePatternResolver</span> <span class="variable">resolver</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PathMatchingResourcePatternResolver</span>();</span><br><span class="line">Resource[] resources = resolver.getResources(<span class="string">&quot;classpath*:META-INF/*.xml&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="Web-相关"><a href="#Web-相关" class="headerlink" title="Web 相关"></a>Web 相关</h2><h3 id="18-WebUtils"><a href="#18-WebUtils" class="headerlink" title="18. WebUtils"></a>18. WebUtils</h3><p>各种 Web 实用程序的集合，适用于获取 Cookie 或请求参数等任务。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.util.WebUtils;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.Cookie;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 从请求中获取特定的 cookie</span></span><br><span class="line"><span class="type">Cookie</span> <span class="variable">cookie</span> <span class="operator">=</span> WebUtils.getCookie(request, <span class="string">&quot;sessionId&quot;</span>);</span><br><span class="line"><span class="comment">// 获取带有默认值的请求参数</span></span><br><span class="line"><span class="type">int</span> <span class="variable">pageSize</span> <span class="operator">=</span> WebUtils.getIntParameter(request, <span class="string">&quot;pageSize&quot;</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="19-UriUtils"><a href="#19-UriUtils" class="headerlink" title="19. UriUtils"></a>19. UriUtils</h3><p>根据 RFC 3986 对 URI 组件进行编码和解码的辅助工具。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.util.UriUtils;</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 编码 URI 路径段</span></span><br><span class="line"><span class="type">String</span> <span class="variable">encoded</span> <span class="operator">=</span> UriUtils.encodePathSegment(<span class="string">&quot;path with spaces&quot;</span>, StandardCharsets.UTF_8);</span><br><span class="line"><span class="comment">// 解码回原始段</span></span><br><span class="line"><span class="type">String</span> <span class="variable">decoded</span> <span class="operator">=</span> UriUtils.decode(encoded, StandardCharsets.UTF_8);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="20-UriComponentsBuilder"><a href="#20-UriComponentsBuilder" class="headerlink" title="20. UriComponentsBuilder"></a>20. UriComponentsBuilder</h3><p>一个可变构建器，用于从头开始创建 UriComponents或通过修改现有 URI 来操作它。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.util.UriComponentsBuilder;</span><br><span class="line"><span class="keyword">import</span> java.net.URI;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以流畅的方式构建复杂的 URI</span></span><br><span class="line"><span class="type">URI</span> <span class="variable">uri</span> <span class="operator">=</span> UriComponentsBuilder.fromHttpUrl(<span class="string">&quot;http://example.com&quot;</span>)</span><br><span class="line">    .path(<span class="string">&quot;/products/&#123;id&#125;&quot;</span>)</span><br><span class="line">    .queryParam(<span class="string">&quot;category&quot;</span>, <span class="string">&quot;books&quot;</span>)</span><br><span class="line">    .build(<span class="string">&quot;123&quot;</span>);</span><br><span class="line"><span class="comment">// 结果: http://example.com/products/123?category=books</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="21-ContentCachingRequestWrapper"><a href="#21-ContentCachingRequestWrapper" class="headerlink" title="21. ContentCachingRequestWrapper"></a>21. ContentCachingRequestWrapper</h3><p>包装 HttpServletRequest以缓存其主体，允许读取多次请求负载。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.util.ContentCachingRequestWrapper;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 包装请求，例如在过滤器中</span></span><br><span class="line"><span class="type">ContentCachingRequestWrapper</span> <span class="variable">wrapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentCachingRequestWrapper</span>(request);</span><br><span class="line"><span class="comment">// ... 稍后，在处理完请求之后</span></span><br><span class="line"><span class="type">byte</span>[] body = wrapper.getContentAsByteArray();</span><br><span class="line"><span class="type">String</span> <span class="variable">bodyAsString</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(body, wrapper.getCharacterEncoding());</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="22-HtmlUtils"><a href="#22-HtmlUtils" class="headerlink" title="22. HtmlUtils"></a>22. HtmlUtils</h3><p>用于 HTML 转义和反转义的工具，有助于防止跨站脚本 (XSS) 攻击。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.util.HtmlUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 转义 HTML 以防止浏览器渲染它</span></span><br><span class="line"><span class="type">String</span> <span class="variable">escaped</span> <span class="operator">=</span> HtmlUtils.htmlEscape(<span class="string">&quot;&lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;&quot;</span>);</span><br><span class="line"><span class="comment">// &lt;script&gt;alert(&#x27;XSS&#x27;)&lt;/script&gt;</span></span><br><span class="line"><span class="comment">// 将 HTML 实体反转义回字符</span></span><br><span class="line"><span class="type">String</span> <span class="variable">unescaped</span> <span class="operator">=</span> HtmlUtils.htmlUnescape(<span class="string">&quot;&lt;b&gt;Bold&lt;/b&gt;&quot;</span>);</span><br><span class="line"><span class="comment">// &lt;b&gt;Bold&lt;/b&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<h2 id="验证与断言"><a href="#验证与断言" class="headerlink" title="验证与断言"></a>验证与断言</h2><h3 id="23-Assert"><a href="#23-Assert" class="headerlink" title="23. Assert"></a>23. Assert</h3><p>提供静态断言方法来检查前置条件。如果断言失败，它会抛出 IllegalArgumentException。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.Assert;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 验证参数的常用断言</span></span><br><span class="line">Assert.notNull(object, <span class="string">&quot;Object must not be null&quot;</span>);</span><br><span class="line">Assert.hasText(name, <span class="string">&quot;Name must not be empty&quot;</span>);</span><br><span class="line">Assert.isTrue(amount &gt; <span class="number">0</span>, <span class="string">&quot;Amount must be positive&quot;</span>);</span><br><span class="line">Assert.notEmpty(items, <span class="string">&quot;Items collection must not be empty&quot;</span>);</span><br><span class="line">Assert.state(isInitialized, <span class="string">&quot;Service is not initialized&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="24-ObjectUtils"><a href="#24-ObjectUtils" class="headerlink" title="24. ObjectUtils"></a>24. ObjectUtils</h3><p>用于处理对象的工具，特别是用于空安全操作和检查各种类型（数组、集合等）是否为空。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.ObjectUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查对象是否为空（null、空字符串、空数组或空集合）</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEmpty1</span> <span class="operator">=</span> ObjectUtils.isEmpty(<span class="literal">null</span>);       <span class="comment">// true</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isEmpty2</span> <span class="operator">=</span> ObjectUtils.isEmpty(<span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">0</span>]); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// 空安全的 equals 比较</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">equals</span> <span class="operator">=</span> ObjectUtils.nullSafeEquals(obj1, obj2);</span><br><span class="line"><span class="comment">// 如果对象为 null，则获取默认值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> ObjectUtils.getOrDefault(<span class="literal">null</span>, <span class="string">&quot;default&quot;</span>); <span class="comment">// &quot;default&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="25-NumberUtils"><a href="#25-NumberUtils" class="headerlink" title="25. NumberUtils"></a>25. NumberUtils</h3><p>用于在不同数字类型之间转换并将字符串解析为数字的工具。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.NumberUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将字符串解析为特定的数字类型</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">parsedInt</span> <span class="operator">=</span> NumberUtils.parseNumber(<span class="string">&quot;42&quot;</span>, Integer.class);</span><br><span class="line"><span class="comment">// 将一种数字类型转换为另一种</span></span><br><span class="line"><span class="type">Double</span> <span class="variable">convertedDouble</span> <span class="operator">=</span> NumberUtils.convertNumberToTargetClass(<span class="number">42</span>, Double.class);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="日期与时间"><a href="#日期与时间" class="headerlink" title="日期与时间"></a>日期与时间</h2><h3 id="26-DateFormatter"><a href="#26-DateFormatter" class="headerlink" title="26. DateFormatter"></a>26. DateFormatter</h3><p>一个灵活的 java.util.Date对象格式化程序，用于日期和字符串之间的转换。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.format.datetime.DateFormatter;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">import</span> java.util.Locale;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意：Spring 倾向于使用 formatters 而不是静态的 DateTimeUtils 类。</span></span><br><span class="line"><span class="type">DateFormatter</span> <span class="variable">formatter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DateFormatter</span>(<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">formattedDate</span> <span class="operator">=</span> formatter.print(<span class="keyword">new</span> <span class="title class_">Date</span>(), Locale.getDefault());</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="27-StopWatch"><a href="#27-StopWatch" class="headerlink" title="27. StopWatch"></a>27. StopWatch</h3><p>一个简单的任务计时工具，提供了一种方便的方法来测量不同代码块的执行时间。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.StopWatch;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一个简单的性能计时工具</span></span><br><span class="line"><span class="type">StopWatch</span> <span class="variable">watch</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StopWatch</span>(<span class="string">&quot;MyTask&quot;</span>);</span><br><span class="line">watch.start(<span class="string">&quot;Phase 1: Data Loading&quot;</span>);</span><br><span class="line"><span class="comment">// ... 执行数据加载任务</span></span><br><span class="line">Thread.sleep(<span class="number">100</span>);</span><br><span class="line">watch.stop();</span><br><span class="line">watch.start(<span class="string">&quot;Phase 2: Data Processing&quot;</span>);</span><br><span class="line"><span class="comment">// ... 执行处理任务</span></span><br><span class="line">Thread.sleep(<span class="number">200</span>);</span><br><span class="line">watch.stop();</span><br><span class="line"><span class="comment">// 打印格式化的计时摘要</span></span><br><span class="line">System.out.println(watch.prettyPrint());</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="安全相关"><a href="#安全相关" class="headerlink" title="安全相关"></a>安全相关</h2><h3 id="28-DigestUtils"><a href="#28-DigestUtils" class="headerlink" title="28. DigestUtils"></a>28. DigestUtils</h3><p>提供创建消息摘要（哈希）（如 MD5）的静态方法。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.DigestUtils;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建字符串的 MD5 哈希</span></span><br><span class="line"><span class="type">String</span> <span class="variable">md5Hex</span> <span class="operator">=</span> DigestUtils.md5DigestAsHex(<span class="string">&quot;password&quot;</span>.getBytes());</span><br><span class="line"><span class="comment">// 创建文件内容的 MD5 哈希</span></span><br><span class="line"><span class="keyword">try</span> (<span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;file.txt&quot;</span>)) &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">fileMd5</span> <span class="operator">=</span> DigestUtils.md5DigestAsHex(is);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="29-Base64Utils"><a href="#29-Base64Utils" class="headerlink" title="29. Base64Utils"></a>29. Base64Utils</h3><p>用于 Base64 编码和解码数据的工具。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.Base64Utils;</span><br><span class="line"></span><br><span class="line"><span class="type">byte</span>[] data = <span class="string">&quot;Hello World&quot;</span>.getBytes();</span><br><span class="line"><span class="comment">// 将数据编码为 Base64 字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">encoded</span> <span class="operator">=</span> Base64Utils.encodeToString(data);</span><br><span class="line"><span class="comment">// 将 Base64 字符串解码回数据</span></span><br><span class="line"><span class="type">byte</span>[] decoded = Base64Utils.decodeFromString(encoded);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="30-TextEncryptor"><a href="#30-TextEncryptor" class="headerlink" title="30. TextEncryptor"></a>30. TextEncryptor</h3><p>Spring Security 提供的接口，用于文本的双向加密和解密。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.security.crypto.encrypt.Encryptors;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.crypto.encrypt.TextEncryptor;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意：需要 spring-security-crypto 依赖</span></span><br><span class="line"><span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;my-secret-password&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">salt</span> <span class="operator">=</span> <span class="string">&quot;deadbeef&quot;</span>; <span class="comment">// hex-encoded</span></span><br><span class="line"><span class="type">TextEncryptor</span> <span class="variable">encryptor</span> <span class="operator">=</span> Encryptors.text(password, salt);</span><br><span class="line"><span class="type">String</span> <span class="variable">encryptedText</span> <span class="operator">=</span> encryptor.encrypt(<span class="string">&quot;This is a secret message&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">decryptedText</span> <span class="operator">=</span> encryptor.decrypt(encryptedText);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="JSON-与数据转换"><a href="#JSON-与数据转换" class="headerlink" title="JSON 与数据转换"></a>JSON 与数据转换</h2><h3 id="31-JsonParserFactory"><a href="#31-JsonParserFactory" class="headerlink" title="31. JsonParserFactory"></a>31. JsonParserFactory</h3><p>用于获取 JsonParser实例的工厂，提供了一种简单的方法来解析 JSON 字符串，而无需完整的数据绑定库。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.json.JsonParser;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.json.JsonParserFactory;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取默认的 JSON 解析器</span></span><br><span class="line"><span class="type">JsonParser</span> <span class="variable">parser</span> <span class="operator">=</span> JsonParserFactory.getJsonParser();</span><br><span class="line"><span class="comment">// 将 JSON 对象解析为 Map</span></span><br><span class="line">Map&lt;String, Object&gt; map = parser.parseMap(<span class="string">&quot;&#123;\&quot;name\&quot;:\&quot;John\&quot;, \&quot;age\&quot;:30&#125;&quot;</span>);</span><br><span class="line"><span class="comment">// 将 JSON 数组解析为 List</span></span><br><span class="line">List&lt;Object&gt; list = parser.parseList(<span class="string">&quot;[1, 2, 3]&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="32-ResolvableType"><a href="#32-ResolvableType" class="headerlink" title="32. ResolvableType"></a>32. ResolvableType</h3><p>提供一种机制来在运行时处理 java.lang.Class无法单独处理的复杂泛型类型。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.ResolvableType;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取集合的泛型类型</span></span><br><span class="line"><span class="type">ResolvableType</span> <span class="variable">listType</span> <span class="operator">=</span> ResolvableType.forField(getClass().getDeclaredField(<span class="string">&quot;myList&quot;</span>));</span><br><span class="line"><span class="type">ResolvableType</span> <span class="variable">elementType</span> <span class="operator">=</span> listType.getGeneric(<span class="number">0</span>); <span class="comment">// 例如，对于 List&lt;String&gt; 是 String</span></span><br><span class="line"><span class="comment">// 为泛型类创建可解析类型</span></span><br><span class="line"><span class="type">ResolvableType</span> <span class="variable">mapType</span> <span class="operator">=</span> ResolvableType.forClassWithGenerics(Map.class, String.class, Integer.class);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="33-MappingJackson2HttpMessageConverter"><a href="#33-MappingJackson2HttpMessageConverter" class="headerlink" title="33. MappingJackson2HttpMessageConverter"></a>33. MappingJackson2HttpMessageConverter</h3><p>Spring MVC 中用于在 Java 对象和 JSON 之间进行转换的核心组件，可以进行自定义。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建并自定义 JSON 消息转换器</span></span><br><span class="line"><span class="type">ObjectMapper</span> <span class="variable">customMapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line"><span class="comment">// ... 配置 ObjectMapper 属性（例如，日期格式、特性）</span></span><br><span class="line"><span class="type">MappingJackson2HttpMessageConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MappingJackson2HttpMessageConverter</span>(customMapper);</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="其他实用工具"><a href="#其他实用工具" class="headerlink" title="其他实用工具"></a>其他实用工具</h2><h3 id="34-RandomStringUtils-Apache-Commons"><a href="#34-RandomStringUtils-Apache-Commons" class="headerlink" title="34. RandomStringUtils (Apache Commons)"></a>34. RandomStringUtils (Apache Commons)</h3><p>虽然不是 Spring 类，但在 Spring 项目中经常使用（通常通过 spring-boot-starter包含），值得一提的是它用于生成随机字符串。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意：来自 org.apache.commons.lang3 库</span></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.RandomStringUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生成随机字符串</span></span><br><span class="line"><span class="type">String</span> <span class="variable">randomAlpha</span> <span class="operator">=</span> RandomStringUtils.randomAlphabetic(<span class="number">10</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">randomAlphanumeric</span> <span class="operator">=</span> RandomStringUtils.randomAlphanumeric(<span class="number">10</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">randomNumeric</span> <span class="operator">=</span> RandomStringUtils.randomNumeric(<span class="number">6</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="35-CompletableFuture"><a href="#35-CompletableFuture" class="headerlink" title="35. CompletableFuture"></a>35. CompletableFuture</h3><p>标准 Java 类，但在现代异步 Spring 应用程序中必不可少。使用其静态方法来组合结果。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CompletableFuture;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 组合多个异步结果的常见模式</span></span><br><span class="line">List&lt;CompletableFuture&lt;String&gt;&gt; futures = <span class="comment">/* 异步调用的 future 列表 */</span>;</span><br><span class="line">CompletableFuture&lt;Void&gt; allOf = CompletableFuture.allOf(</span><br><span class="line">    futures.toArray(<span class="keyword">new</span> <span class="title class_">CompletableFuture</span>[<span class="number">0</span>]));</span><br><span class="line">CompletableFuture&lt;List&lt;String&gt;&gt; allResults = allOf.thenApply(v -&gt;</span><br><span class="line">    futures.stream()</span><br><span class="line">           .map(CompletableFuture::join)</span><br><span class="line">           .collect(Collectors.toList()));</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="36-CacheControl"><a href="#36-CacheControl" class="headerlink" title="36. CacheControl"></a>36. CacheControl</h3><p>一个构建器，用于以类型安全的方式创建 HTTP Cache-Control标头值。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.http.CacheControl;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构建 Cache-Control 标头值</span></span><br><span class="line"><span class="type">CacheControl</span> <span class="variable">cacheControl</span> <span class="operator">=</span> CacheControl.maxAge(<span class="number">1</span>, TimeUnit.HOURS)</span><br><span class="line">    .noTransform()</span><br><span class="line">    .mustRevalidate();</span><br><span class="line"><span class="type">String</span> <span class="variable">headerValue</span> <span class="operator">=</span> cacheControl.getHeaderValue(); <span class="comment">// &quot;max-age=3600, no-transform, must-revalidate&quot;</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="37-AnnotationUtils"><a href="#37-AnnotationUtils" class="headerlink" title="37. AnnotationUtils"></a>37. AnnotationUtils</h3><p>用于查找类、方法和字段上的注解的强大工具，包括支持元注解和合并注解属性。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.annotation.AnnotationUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查找类上的注解，向上搜索层次结构</span></span><br><span class="line"><span class="type">Component</span> <span class="variable">annotation</span> <span class="operator">=</span> AnnotationUtils.findAnnotation(MyService.class, Component.class);</span><br><span class="line"><span class="comment">// 从注解中获取特定的属性值</span></span><br><span class="line"><span class="type">String</span> <span class="variable">value</span> <span class="operator">=</span> (String) AnnotationUtils.getValue(annotation, <span class="string">&quot;value&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="38-DefaultConversionService"><a href="#38-DefaultConversionService" class="headerlink" title="38. DefaultConversionService"></a>38. DefaultConversionService</h3><p>Spring 对 ConversionService的默认实现，可以在许多标准类型之间进行转换（例如，字符串到整数）。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.convert.support.DefaultConversionService;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建转换服务实例</span></span><br><span class="line"><span class="type">DefaultConversionService</span> <span class="variable">conversionService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultConversionService</span>();</span><br><span class="line"><span class="comment">// 将字符串转换为整数</span></span><br><span class="line"><span class="type">Integer</span> <span class="variable">intValue</span> <span class="operator">=</span> conversionService.convert(<span class="string">&quot;42&quot;</span>, Integer.class);</span><br><span class="line"><span class="type">Boolean</span> <span class="variable">boolValue</span> <span class="operator">=</span> conversionService.convert(<span class="string">&quot;true&quot;</span>, Boolean.class);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="39-HttpHeaders"><a href="#39-HttpHeaders" class="headerlink" title="39. HttpHeaders"></a>39. HttpHeaders</h3><p>一个专门用于处理 HTTP 标头的 MultiValueMap，提供方便的常量和方法。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.http.HttpHeaders;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构建 HTTP 标头的便捷方式</span></span><br><span class="line"><span class="type">HttpHeaders</span> <span class="variable">headers</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HttpHeaders</span>();</span><br><span class="line">headers.setContentType(MediaType.APPLICATION_JSON);</span><br><span class="line">headers.setContentLength(<span class="number">1024</span>);</span><br><span class="line">headers.setCacheControl(<span class="string">&quot;max-age=3600&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="40-MediaTypeFactory"><a href="#40-MediaTypeFactory" class="headerlink" title="40. MediaTypeFactory"></a>40. MediaTypeFactory</h3><p>提供一种根据文件名确定资源的 MediaType（MIME 类型）的方法。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</span><br><span class="line"><span class="keyword">import</span> org.springframework.http.MediaTypeFactory;</span><br><span class="line"><span class="keyword">import</span> java.util.Optional;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据文件名猜测媒体类型</span></span><br><span class="line">Optional&lt;MediaType&gt; mediaType = MediaTypeFactory.getMediaType(<span class="string">&quot;document.pdf&quot;</span>);</span><br><span class="line"><span class="comment">// 返回 Optional[application/pdf]</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="41-MimeTypeUtils"><a href="#41-MimeTypeUtils" class="headerlink" title="41. MimeTypeUtils"></a>41. MimeTypeUtils</h3><p>包含常见 MIME 类型的常量，并提供处理它们的实用方法。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.util.MimeTypeUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 提供常见的 MIME 类型常量和实用程序</span></span><br><span class="line"><span class="type">MimeType</span> <span class="variable">a</span> <span class="operator">=</span> MimeTypeUtils.APPLICATION_JSON;</span><br><span class="line"><span class="type">MimeType</span> <span class="variable">b</span> <span class="operator">=</span> MimeType.valueOf(<span class="string">&quot;application/*&quot;</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">isCompatible</span> <span class="operator">=</span> a.isCompatibleWith(b); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></div>
+
+<h3 id="42-WebClient-Builder"><a href="#42-WebClient-Builder" class="headerlink" title="42. WebClient.Builder"></a>42. WebClient.Builder</h3><p>创建 WebClient（Spring 的现代非阻塞 HTTP 客户端）实例的主要工具。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.web.reactive.function.client.WebClient;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用构建器来配置和创建 WebClient 实例</span></span><br><span class="line"><span class="type">WebClient</span> <span class="variable">webClient</span> <span class="operator">=</span> WebClient.builder()</span><br><span class="line">    .baseUrl(<span class="string">&quot;https://api.example.com&quot;</span>)</span><br><span class="line">    .defaultHeader(<span class="string">&quot;Authorization&quot;</span>, <span class="string">&quot;Bearer my-token&quot;</span>)</span><br><span class="line">    .build();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="43-PropertySourceUtils"><a href="#43-PropertySourceUtils" class="headerlink" title="43. PropertySourceUtils"></a>43. PropertySourceUtils</h3><p>一个辅助工具，用于处理环境中所包含的 PropertySource对象中的属性值。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.core.env.ConfigurableEnvironment;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.MapPropertySource;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.env.PropertySource;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将属性源添加到环境的示例</span></span><br><span class="line">Map&lt;String, Object&gt; myProps = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">myProps.put(<span class="string">&quot;app.name&quot;</span>, <span class="string">&quot;MyApp&quot;</span>);</span><br><span class="line">PropertySource&lt;?&gt; myPropertySource = <span class="keyword">new</span> <span class="title class_">MapPropertySource</span>(<span class="string">&quot;my-properties&quot;</span>, myProps);</span><br><span class="line">environment.getPropertySources().addFirst(myPropertySource);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="44-ApplicationEventPublisher"><a href="#44-ApplicationEventPublisher" class="headerlink" title="44. ApplicationEventPublisher"></a>44. ApplicationEventPublisher</h3><p>Spring 中用于在应用程序上下文中发布事件的核心接口，支持解耦的事件驱动架构。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.ApplicationEventPublisher;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> ApplicationEventPublisher eventPublisher;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">doSomething</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// ... 逻辑 ...</span></span><br><span class="line">    <span class="type">MyCustomEvent</span> <span class="variable">event</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyCustomEvent</span>(<span class="built_in">this</span>, <span class="string">&quot;Something important happened&quot;</span>);</span><br><span class="line">    eventPublisher.publishEvent(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="45-LocaleContextHolder"><a href="#45-LocaleContextHolder" class="headerlink" title="45. LocaleContextHolder"></a>45. LocaleContextHolder</h3><p>保存当前线程的 Locale，对于国际化 (i18n) 至关重要。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.i18n.LocaleContextHolder;</span><br><span class="line"><span class="keyword">import</span> java.util.Locale;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取当前请求/线程的 locale</span></span><br><span class="line"><span class="type">Locale</span> <span class="variable">currentLocale</span> <span class="operator">=</span> LocaleContextHolder.getLocale();</span><br><span class="line"><span class="comment">// 以编程方式设置 locale</span></span><br><span class="line">LocaleContextHolder.setLocale(Locale.FRENCH);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="46-AopUtils"><a href="#46-AopUtils" class="headerlink" title="46. AopUtils"></a>46. AopUtils</h3><p>一组用于处理 AOP 代理的静态实用方法。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.aop.support.AopUtils;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 检查对象是否为 Spring AOP 代理</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isAopProxy</span> <span class="operator">=</span> AopUtils.isAopProxy(myBean);</span><br><span class="line"><span class="comment">// 检查是否为基于 CGLIB 的代理</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">isCglibProxy</span> <span class="operator">=</span> AopUtils.isCglibProxy(myBean);</span><br><span class="line"><span class="comment">// 获取代理的底层目标类</span></span><br><span class="line">Class&lt;?&gt; targetClass = AopUtils.getTargetClass(myBean);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="47-ProxyFactory"><a href="#47-ProxyFactory" class="headerlink" title="47. ProxyFactory"></a>47. ProxyFactory</h3><p>一种以编程方式创建 AOP 代理的方法，使你可以细粒度地控制应用哪些接口和建议。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.aop.framework.ProxyFactory;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 以编程方式为目标对象创建代理</span></span><br><span class="line"><span class="type">ProxyFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ProxyFactory</span>(myTargetObject);</span><br><span class="line">factory.addAdvice(<span class="keyword">new</span> <span class="title class_">MyMethodInterceptor</span>()); <span class="comment">// 添加建议 (Advice)</span></span><br><span class="line"><span class="type">MyInterface</span> <span class="variable">proxy</span> <span class="operator">=</span> (MyInterface) factory.getProxy();</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="48-ClassPathScanningCandidateComponentProvider"><a href="#48-ClassPathScanningCandidateComponentProvider" class="headerlink" title="48. ClassPathScanningCandidateComponentProvider"></a>48. ClassPathScanningCandidateComponentProvider</h3><p>一个强大的工具，用于扫描类路径以查找符合特定条件的组件（通常由过滤器定义）。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.type.filter.AnnotationTypeFilter;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.BeanDefinition;</span><br><span class="line"><span class="keyword">import</span> java.util.Set;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扫描类路径以查找带有 @Component 注解的类</span></span><br><span class="line"><span class="type">ClassPathScanningCandidateComponentProvider</span> <span class="variable">scanner</span> <span class="operator">=</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">ClassPathScanningCandidateComponentProvider</span>(<span class="literal">true</span>);</span><br><span class="line">scanner.addIncludeFilter(<span class="keyword">new</span> <span class="title class_">AnnotationTypeFilter</span>(Component.class));</span><br><span class="line">Set&lt;BeanDefinition&gt; components = scanner.findCandidateComponents(<span class="string">&quot;com.example.myapp&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="49-YamlPropertiesFactoryBean"><a href="#49-YamlPropertiesFactoryBean" class="headerlink" title="49. YamlPropertiesFactoryBean"></a>49. YamlPropertiesFactoryBean</h3><p>一个工厂 Bean，可以加载 YAML 文件并将其转换为 Properties对象。</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.config.YamlPropertiesFactoryBean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.core.io.ClassPathResource;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载 YAML 文件并将其视为 Properties 对象</span></span><br><span class="line"><span class="type">YamlPropertiesFactoryBean</span> <span class="variable">yamlFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">YamlPropertiesFactoryBean</span>();</span><br><span class="line">yamlFactory.setResources(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;application.yml&quot;</span>));</span><br><span class="line"><span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> yamlFactory.getObject();</span><br><span class="line"><span class="type">String</span> <span class="variable">appName</span> <span class="operator">=</span> properties.getProperty(<span class="string">&quot;spring.application.name&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> Spring Boot 常用自带工具</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2026-01-20 09:05:43</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-01-20 09:06:14
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2026/01/20/Spring-Boot-常用自带工具/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Spring/">#Spring</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/01/19/Java-%E7%9A%84%E6%9C%AA%E6%9D%A5%EF%BC%9A2026-%E5%B9%B4%E5%8F%8A%E4%BB%A5%E5%90%8E%E5%B1%95%E6%9C%9B-The-Future-of-Java-What-to-Expect-in-2026-and-Beyond/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Java 的未来：2026 年及以后展望 The Future of Java: What to Expect in 2026 and Beyond</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'ChaoSBYNN/chaosbynn.github.io',
+                'data-repo-id': 'MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDOBNbWcM4CgcsE',
+                'data-mapping': 'title',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">Spring Boot 常用自带工具</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">字符串处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-StringUtils"><span class="nav-number">1.1.</span> <span class="nav-text">1. StringUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-AntPathMatcher"><span class="nav-number">1.2.</span> <span class="nav-text">2. AntPathMatcher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-PatternMatchUtils"><span class="nav-number">1.3.</span> <span class="nav-text">3. PatternMatchUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-PropertyPlaceholderHelper"><span class="nav-number">1.4.</span> <span class="nav-text">4. PropertyPlaceholderHelper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E4%B8%8E%E6%95%B0%E7%BB%84%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">集合与数组处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-CollectionUtils"><span class="nav-number">2.1.</span> <span class="nav-text">5. CollectionUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-MultiValueMap"><span class="nav-number">2.2.</span> <span class="nav-text">6. MultiValueMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-ConcurrentReferenceHashMap"><span class="nav-number">2.3.</span> <span class="nav-text">7. ConcurrentReferenceHashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-SystemPropertyUtils"><span class="nav-number">2.4.</span> <span class="nav-text">8. SystemPropertyUtils</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84%E4%B8%8E%E7%B1%BB%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">反射与类操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#9-ReflectionUtils"><span class="nav-number">3.1.</span> <span class="nav-text">9. ReflectionUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-ClassUtils"><span class="nav-number">3.2.</span> <span class="nav-text">10. ClassUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-MethodInvoker"><span class="nav-number">3.3.</span> <span class="nav-text">11. MethodInvoker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-BeanUtils"><span class="nav-number">3.4.</span> <span class="nav-text">12. BeanUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O-%E6%93%8D%E4%BD%9C"><span class="nav-number">3.5.</span> <span class="nav-text">I&#x2F;O 操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-FileCopyUtils"><span class="nav-number">3.6.</span> <span class="nav-text">13. FileCopyUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-ResourceUtils"><span class="nav-number">3.7.</span> <span class="nav-text">14. ResourceUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-StreamUtils"><span class="nav-number">3.8.</span> <span class="nav-text">15. StreamUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-FileSystemUtils"><span class="nav-number">3.9.</span> <span class="nav-text">16. FileSystemUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-ResourcePatternUtils"><span class="nav-number">3.10.</span> <span class="nav-text">17. ResourcePatternUtils</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-%E7%9B%B8%E5%85%B3"><span class="nav-number">4.</span> <span class="nav-text">Web 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#18-WebUtils"><span class="nav-number">4.1.</span> <span class="nav-text">18. WebUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-UriUtils"><span class="nav-number">4.2.</span> <span class="nav-text">19. UriUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-UriComponentsBuilder"><span class="nav-number">4.3.</span> <span class="nav-text">20. UriComponentsBuilder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#21-ContentCachingRequestWrapper"><span class="nav-number">4.4.</span> <span class="nav-text">21. ContentCachingRequestWrapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-HtmlUtils"><span class="nav-number">4.5.</span> <span class="nav-text">22. HtmlUtils</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E4%B8%8E%E6%96%AD%E8%A8%80"><span class="nav-number">5.</span> <span class="nav-text">验证与断言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#23-Assert"><span class="nav-number">5.1.</span> <span class="nav-text">23. Assert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#24-ObjectUtils"><span class="nav-number">5.2.</span> <span class="nav-text">24. ObjectUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#25-NumberUtils"><span class="nav-number">5.3.</span> <span class="nav-text">25. NumberUtils</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E4%B8%8E%E6%97%B6%E9%97%B4"><span class="nav-number">6.</span> <span class="nav-text">日期与时间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#26-DateFormatter"><span class="nav-number">6.1.</span> <span class="nav-text">26. DateFormatter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#27-StopWatch"><span class="nav-number">6.2.</span> <span class="nav-text">27. StopWatch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3"><span class="nav-number">7.</span> <span class="nav-text">安全相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#28-DigestUtils"><span class="nav-number">7.1.</span> <span class="nav-text">28. DigestUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#29-Base64Utils"><span class="nav-number">7.2.</span> <span class="nav-text">29. Base64Utils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#30-TextEncryptor"><span class="nav-number">7.3.</span> <span class="nav-text">30. TextEncryptor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSON-%E4%B8%8E%E6%95%B0%E6%8D%AE%E8%BD%AC%E6%8D%A2"><span class="nav-number">8.</span> <span class="nav-text">JSON 与数据转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-JsonParserFactory"><span class="nav-number">8.1.</span> <span class="nav-text">31. JsonParserFactory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-ResolvableType"><span class="nav-number">8.2.</span> <span class="nav-text">32. ResolvableType</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-MappingJackson2HttpMessageConverter"><span class="nav-number">8.3.</span> <span class="nav-text">33. MappingJackson2HttpMessageConverter</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AE%9E%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="nav-number">9.</span> <span class="nav-text">其他实用工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#34-RandomStringUtils-Apache-Commons"><span class="nav-number">9.1.</span> <span class="nav-text">34. RandomStringUtils (Apache Commons)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-CompletableFuture"><span class="nav-number">9.2.</span> <span class="nav-text">35. CompletableFuture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#36-CacheControl"><span class="nav-number">9.3.</span> <span class="nav-text">36. CacheControl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#37-AnnotationUtils"><span class="nav-number">9.4.</span> <span class="nav-text">37. AnnotationUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#38-DefaultConversionService"><span class="nav-number">9.5.</span> <span class="nav-text">38. DefaultConversionService</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#39-HttpHeaders"><span class="nav-number">9.6.</span> <span class="nav-text">39. HttpHeaders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#40-MediaTypeFactory"><span class="nav-number">9.7.</span> <span class="nav-text">40. MediaTypeFactory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#41-MimeTypeUtils"><span class="nav-number">9.8.</span> <span class="nav-text">41. MimeTypeUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-WebClient-Builder"><span class="nav-number">9.9.</span> <span class="nav-text">42. WebClient.Builder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-PropertySourceUtils"><span class="nav-number">9.10.</span> <span class="nav-text">43. PropertySourceUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#44-ApplicationEventPublisher"><span class="nav-number">9.11.</span> <span class="nav-text">44. ApplicationEventPublisher</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#45-LocaleContextHolder"><span class="nav-number">9.12.</span> <span class="nav-text">45. LocaleContextHolder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#46-AopUtils"><span class="nav-number">9.13.</span> <span class="nav-text">46. AopUtils</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#47-ProxyFactory"><span class="nav-number">9.14.</span> <span class="nav-text">47. ProxyFactory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#48-ClassPathScanningCandidateComponentProvider"><span class="nav-number">9.15.</span> <span class="nav-text">48. ClassPathScanningCandidateComponentProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#49-YamlPropertiesFactoryBean"><span class="nav-number">9.16.</span> <span class="nav-text">49. YamlPropertiesFactoryBean</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 119 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
