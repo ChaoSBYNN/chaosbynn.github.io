@@ -12674,4 +12674,116 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Spring</tag>
       </tags>
   </entry>
+  <entry>
+    <title>MySQL 一条SQL是如何运行的</title>
+    <url>/2026/01/23/MySQL-%E4%B8%80%E6%9D%A1SQL%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E7%9A%84/</url>
+    <content><![CDATA[<p>一条 SQL 在 MySQL 中的“旅程”可以拆成两大阶段： </p>
+<ol>
+<li>Server 层（连接、权限、解析、优化、执行）  </li>
+<li>存储引擎层（InnoDB、MyISAM 等，真正读写磁盘）</li>
+</ol>
+<p>下面用一条最简单的 <code>UPDATE t SET c = c + 1 WHERE id = 10;</code> 带你走一遍完整流程，并给出每一步在源码&#x2F;日志中的落点，方便你实际跟踪。</p>
+<hr>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="一、连接与线程"><a href="#一、连接与线程" class="headerlink" title="一、连接与线程"></a>一、连接与线程</h2><ol>
+<li>客户端通过 TCP&#x2F;Unix Socket 连到 3306 端口。  </li>
+<li>MySQL 为每个连接分配一条<strong>系统线程</strong>（<code>sql/sql_connect.cc</code> 中的 <code>create_new_thread</code>）。  </li>
+<li>线程先检查 <code>mysql.user</code> 表做身份认证，再把连接放进线程池（<code>thread_pool</code> 插件）或保持单线程模式。  </li>
+<li>连接成功后，线程会分配一个 <code>THD</code> 对象（Thread Handler），它贯穿整条 SQL 的生命周期，保存了用户变量、临时表、诊断信息等。</li>
+</ol>
+<hr>
+<h2 id="二、解析与预处理（Server-层）"><a href="#二、解析与预处理（Server-层）" class="headerlink" title="二、解析与预处理（Server 层）"></a>二、解析与预处理（Server 层）</h2><ol>
+<li>接收网络包 → <code>my_net_read()</code> → 把原始文本放进 <code>THD::query_string</code>。  </li>
+<li><strong>词法分析</strong> (<code>sql/sql_lex.cc</code>, <code>lex_one_token</code>)：拆成 token（UPDATE &#x2F; t &#x2F; SET …）。  </li>
+<li><strong>语法分析</strong> (<code>sql/sql_yacc.yy</code>, bison 生成)：生成<strong>解析树</strong> <code>Parse_tree_root</code>。  </li>
+<li><strong>预处理器</strong> (<code>sql/sql_resolver.cc</code>)：  <ul>
+<li>检查表、列是否存在；  </li>
+<li>把 <code>*</code> 展开成列列表；  </li>
+<li>把视图替换成基表；  </li>
+<li>权限预检（<code>check_access()</code>）。<br>结果得到一条“语句对象” <code>sql_cmd</code>（本例是 <code>Sql_cmd_update</code>）。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="三、查询优化器（Server-层）"><a href="#三、查询优化器（Server-层）" class="headerlink" title="三、查询优化器（Server 层）"></a>三、查询优化器（Server 层）</h2><ol>
+<li>打开表 (<code>open_and_lock_tables</code>) → 加载 InnoDB 元数据，加 MDL（Metadata Lock）。  </li>
+<li>优化器入口：<code>handle_query()</code> → <code>JOIN::optimize()</code>  <ul>
+<li>规则优化：常量折叠、表达式简化、子查询转换（<code>IN→EXISTS</code> &#x2F; <code>derived table</code>）。  </li>
+<li>代价优化：<br>– 选择索引（<code>range/index_merge</code> 分析，<code>sql/opt_range.cc</code>）；<br>– 估算行数（<code>records_per_key</code> 来自 InnoDB 的统计表）；<br>– 生成执行计划（<code>AccessPath</code>，8.0 的新框架）。<br>本例 WHERE 走主键 <code>id=10</code>，优化器决定用 <code>ref access</code>。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="四、执行器（Server-层）"><a href="#四、执行器（Server-层）" class="headerlink" title="四、执行器（Server 层）"></a>四、执行器（Server 层）</h2><ol>
+<li>根据执行计划调用 <code>Sql_cmd_update::execute()</code> → <code>mysql_update()</code>。  </li>
+<li>执行器先请求 InnoDB：“给我 id&#x3D;10 的行”<br>– <code>ha_innobase::index_read()</code> → 把主键 10 传给 InnoDB 层。  </li>
+<li>InnoDB 返回行后，执行器把 c 字段加 1，再调用<br>– <code>ha_innobase::update_row()</code> 把新行写回去。  </li>
+<li>每改一行，先写<strong>回滚段 undo</strong>、再写<strong>聚集索引</strong>、再写<strong>二级索引</strong>，同时把<strong>修改前的镜像</strong>记入 undo log，用于回滚与 MVCC。  </li>
+<li>如果表上有触发器、外键、级联，执行器会递归调用相应逻辑。</li>
+</ol>
+<hr>
+<h2 id="五、存储引擎层（InnoDB）"><a href="#五、存储引擎层（InnoDB）" class="headerlink" title="五、存储引擎层（InnoDB）"></a>五、存储引擎层（InnoDB）</h2><ol>
+<li>Buffer Pool 查找  <ul>
+<li>主键 10 所在的 16 KB 页在 BP 命中则直接返回；  </li>
+<li>未命中则从 <code>.ibd</code> 文件读页，异步预读 (<code>read_ahead</code>)。</li>
+</ul>
+</li>
+<li>加锁  <ul>
+<li>先给聚簇索引记录加<strong>行锁</strong> (<code>lock_rec_lock</code>)，类型为 <code>LOCK_X | LOCK_REC_NOT_GAP</code>；  </li>
+<li>如果隔离级别是 RR 且走范围，还会加 <strong>gap lock &#x2F; next-key lock</strong>。</li>
+</ul>
+</li>
+<li>写 redo log（WAL）  <ul>
+<li>修改页前先写 redo log buffer (<code>mlog_write_ulint</code>…)；  </li>
+<li><code>trx_flush_log_later</code> 决定是否立即刷盘；  </li>
+<li>commit 时 <code>fsync()</code> 保证持久化（参数 <code>innodb_flush_log_at_trx_commit</code>）。</li>
+</ul>
+</li>
+<li>写 undo log  <ul>
+<li>在系统回滚段表空间 (<code>ibdata1</code> 或独立 undo tablespace) 插入一条 undo record；  </li>
+<li>undo 记录包含旧值和指向上一版本指针，用于一致性读与回滚。</li>
+</ul>
+</li>
+<li>修改页  <ul>
+<li>把 BP 页设为 dirty，加入 <code>flush_list</code>，由后台线程 <code>page_cleaner</code> 异步刷盘。</li>
+</ul>
+</li>
+<li>Change Buffer（二级索引延迟写）  <ul>
+<li>若二级索引页不在 BP，先写 insert buffer，后续读&#x2F;合并时再真正更新。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="六、二阶段提交（binlog-redo-一致性）"><a href="#六、二阶段提交（binlog-redo-一致性）" class="headerlink" title="六、二阶段提交（binlog &amp; redo 一致性）"></a>六、二阶段提交（binlog &amp; redo 一致性）</h2><ol>
+<li>执行器在真正 commit 前，先调用 <code>ha_prepare_low()</code> 让 InnoDB 进入 prepare 状态：<br>– 把事务 XID 写到 redo log，并置 <code>TRX_PREPARED</code> 标志。  </li>
+<li>Server 层把本次产生的 binlog 写入 binlog cache，并做一次 <code>fsync()</code>（<code>sync_binlog=1</code>）。  </li>
+<li>再调用 <code>ha_commit_low()</code> 让 InnoDB 把事务状态从 <code>TRX_PREPARED</code> → <code>TRX_COMMITTED_IN_MEMORY</code>，释放行锁、清理 undo。  </li>
+<li>若在第 2 步之后崩溃，重启时先扫 redo log 找到 prepared 事务，再扫 binlog：<br>– 如果 binlog 也存在该 XID → 提交；<br>– 如果 binlog 没有 → 回滚。<br>从而保证主从一致。</li>
+</ol>
+<hr>
+<h2 id="七、返回客户端"><a href="#七、返回客户端" class="headerlink" title="七、返回客户端"></a>七、返回客户端</h2><ol>
+<li>Server 层把受影响行数、warning 计数、last-insert-id 等写进协议包 → <code>my_net_write()</code></li>
+<li>线程把 <code>THD</code> 放回连接池（线程池模式）或继续等待下一条命令。  </li>
+<li>如果开启了 <code>general_log</code>，整条 SQL 文本和耗时会被记入 <code>mysql.general_log</code> 表；<br>如果 <code>slow_query_log</code> 打开且超过阈值，会写慢日志，并可通过 <code>mysqldumpslow</code> 分析。</li>
+</ol>
+<hr>
+<h2 id="八、常用跟踪姿势"><a href="#八、常用跟踪姿势" class="headerlink" title="八、常用跟踪姿势"></a>八、常用跟踪姿势</h2><ol>
+<li>看执行计划：<code>EXPLAIN FORMAT=JSON UPDATE t SET c=c+1 WHERE id=10;</code>  </li>
+<li>看加锁：<code>SHOW ENGINE INNODB STATUS\G</code> —— 输出 <code>TRANSACTIONS</code> 段。  </li>
+<li>看 redo&#x2F;undo 量：<code>SHOW GLOBAL STATUS LIKE &#39;Innodb_log_writes%&#39;;</code>  </li>
+<li>看是否用到 change buffer：<code>SHOW STATUS LIKE &#39;Innodb_ibuf%&#39;;</code>  </li>
+<li>跟踪源码断点：<br>– <code>Sql_cmd_update::execute()</code> → <code>mysql_update()</code> → <code>ha_innobase::update_row()</code><br>– <code>lock_rec_lock()</code> 看行锁；<br>– <code>log_write_up_to()</code> 看 redo 刷盘。</li>
+</ol>
+<hr>
+<blockquote>
+<p>一句话总结<br>Server 层负责“把 SQL 变成执行计划 + 协调各模块”，InnoDB 层负责“把行锁、redo、undo、buffer pool、索引”全部落地；二者通过二阶段提交让 binlog 与 redo log 永远同生共死，从而保证崩溃恢复和主从一致。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
 </search>
