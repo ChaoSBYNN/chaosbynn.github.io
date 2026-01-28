@@ -12844,4 +12844,103 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>HTTP</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Java 响应式编程</title>
+    <url>/2026/01/28/Java-%E5%93%8D%E5%BA%94%E5%BC%8F%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<p><strong>响应式编程（Reactive Programming）</strong> 是一种面向<strong>数据流</strong>和<strong>变化传播</strong>的编程范式。它的核心思想是：当数据发生变化时，自动将变化传播给所有依赖它的部分。</p>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>数据流（Stream）</strong></td>
+<td>随时间推移产生的一系列事件或数据</td>
+</tr>
+<tr>
+<td><strong>观察者模式</strong></td>
+<td>被观察者（Observable）发生变化时通知所有观察者</td>
+</tr>
+<tr>
+<td><strong>背压（Backpressure）</strong></td>
+<td>当生产者速度超过消费者时，防止系统过载的机制</td>
+</tr>
+<tr>
+<td><strong>非阻塞异步</strong></td>
+<td>不阻塞线程等待结果，通过回调处理响应</td>
+</tr>
+</tbody></table>
+<h2 id="生活中的类比"><a href="#生活中的类比" class="headerlink" title="生活中的类比"></a>生活中的类比</h2><blockquote>
+<p>传统编程像<strong>打电话</strong>：你拨号，等待对方接听，聊完才做下一件事（阻塞）</p>
+<p>响应式编程像<strong>发微信</strong>：你发送消息，不用等待回复，继续做事，收到回复时自动通知你（非阻塞）</p>
+</blockquote>
+<h2 id="Java-中的实现"><a href="#Java-中的实现" class="headerlink" title="Java 中的实现"></a>Java 中的实现</h2><h3 id="1-Project-Reactor（Spring-生态标配）"><a href="#1-Project-Reactor（Spring-生态标配）" class="headerlink" title="1. Project Reactor（Spring 生态标配）"></a>1. Project Reactor（Spring 生态标配）</h3><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> reactor.core.publisher.Mono;</span><br><span class="line"><span class="keyword">import</span> reactor.core.publisher.Flux;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ReactiveExample</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Mono: 0 或 1 个元素的异步序列</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;User&gt; <span class="title function_">getUser</span><span class="params">(String id)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Mono.fromCallable(() -&gt; userRepository.findById(id))</span><br><span class="line">                   .subscribeOn(Schedulers.boundedElastic());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Flux: 0 到 N 个元素的异步序列</span></span><br><span class="line">    <span class="keyword">public</span> Flux&lt;Order&gt; <span class="title function_">getUserOrders</span><span class="params">(String userId)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> getUser(userId)</span><br><span class="line">            .flatMapMany(user -&gt; Flux.fromIterable(orderRepository.findByUser(user)))</span><br><span class="line">            .filter(order -&gt; order.getStatus() == Status.ACTIVE)</span><br><span class="line">            .map(<span class="built_in">this</span>::enrichOrderData);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 链式操作：声明式处理数据流</span></span><br><span class="line">    <span class="keyword">public</span> Flux&lt;OrderSummary&gt; <span class="title function_">getOrderSummaries</span><span class="params">(String userId)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> getUser(userId)</span><br><span class="line">            .flatMapMany(user -&gt; orderRepository.findReactiveByUserId(user.getId()))  <span class="comment">// 异步查订单</span></span><br><span class="line">            .flatMap(order -&gt; itemRepository.findByOrderId(order.getId())             <span class="comment">// 异步查详情</span></span><br><span class="line">                .collectList()</span><br><span class="line">                .map(items -&gt; calculateTotal(order, items)))</span><br><span class="line">            .onErrorResume(e -&gt; &#123;                                                    <span class="comment">// 错误处理</span></span><br><span class="line">                log.error(<span class="string">&quot;获取订单失败&quot;</span>, e);</span><br><span class="line">                <span class="keyword">return</span> Flux.empty();</span><br><span class="line">            &#125;)</span><br><span class="line">            .subscribeOn(Schedulers.parallel());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="2-RxJava（Android-和传统-Java-常用）"><a href="#2-RxJava（Android-和传统-Java-常用）" class="headerlink" title="2. RxJava（Android 和传统 Java 常用）"></a>2. RxJava（Android 和传统 Java 常用）</h3><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> io.reactivex.rxjava3.core.Observable;</span><br><span class="line"><span class="keyword">import</span> io.reactivex.rxjava3.core.Single;</span><br><span class="line"><span class="keyword">import</span> io.reactivex.rxjava3.schedulers.Schedulers;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 网络请求 + 缓存 + 合并结果</span></span><br><span class="line"><span class="keyword">public</span> Observable&lt;List&lt;Product&gt;&gt; <span class="title function_">getProductsWithCache</span><span class="params">()</span> &#123;</span><br><span class="line">    Observable&lt;List&lt;Product&gt;&gt; network = api.getProducts()</span><br><span class="line">        .subscribeOn(Schedulers.io());</span><br><span class="line">    </span><br><span class="line">    Observable&lt;List&lt;Product&gt;&gt; cache = localDb.getProducts()</span><br><span class="line">        .subscribeOn(Schedulers.io());</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 先读缓存，再请求网络更新</span></span><br><span class="line">    <span class="keyword">return</span> Observable.concat(cache, network)</span><br><span class="line">        .distinctUntilChanged();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 防抖动搜索（用户停止输入 300ms 后才搜索）</span></span><br><span class="line"><span class="keyword">public</span> Disposable <span class="title function_">setupSearch</span><span class="params">(EditText searchBox)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> RxTextView.textChanges(searchBox)</span><br><span class="line">        .debounce(<span class="number">300</span>, TimeUnit.MILLISECONDS)      <span class="comment">// 防抖</span></span><br><span class="line">        .filter(text -&gt; text.length() &gt; <span class="number">2</span>)          <span class="comment">// 过滤短输入</span></span><br><span class="line">        .switchMap(text -&gt; api.search(text))        <span class="comment">// 取消旧请求，发起新请求</span></span><br><span class="line">        .observeOn(AndroidSchedulers.mainThread())  <span class="comment">// 切回主线程更新 UI</span></span><br><span class="line">        .subscribe(results -&gt; updateUI(results));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="3-Java-9-Flow-API（标准库）"><a href="#3-Java-9-Flow-API（标准库）" class="headerlink" title="3. Java 9+ Flow API（标准库）"></a>3. Java 9+ Flow API（标准库）</h3><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Flow.*;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.SubmissionPublisher;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 标准库实现，但功能较基础</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlowExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SubmissionPublisher&lt;String&gt; publisher = <span class="keyword">new</span> <span class="title class_">SubmissionPublisher</span>&lt;&gt;();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 订阅者</span></span><br><span class="line">        Subscriber&lt;String&gt; subscriber = <span class="keyword">new</span> <span class="title class_">Subscriber</span>&lt;&gt;() &#123;</span><br><span class="line">            <span class="keyword">private</span> Subscription subscription;</span><br><span class="line">            </span><br><span class="line">            <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSubscribe</span><span class="params">(Subscription s)</span> &#123;</span><br><span class="line">                <span class="built_in">this</span>.subscription = s;</span><br><span class="line">                s.request(<span class="number">1</span>); <span class="comment">// 背压：请求 1 个数据</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onNext</span><span class="params">(String item)</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;收到: &quot;</span> + item);</span><br><span class="line">                subscription.request(<span class="number">1</span>); <span class="comment">// 处理完再要下一个</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onError</span><span class="params">(Throwable t)</span> &#123; t.printStackTrace(); &#125;</span><br><span class="line">            <span class="meta">@Override</span> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onComplete</span><span class="params">()</span> &#123; System.out.println(<span class="string">&quot;完成&quot;</span>); &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        </span><br><span class="line">        publisher.subscribe(subscriber);</span><br><span class="line">        publisher.submit(<span class="string">&quot;Hello Reactive&quot;</span>);</span><br><span class="line">        publisher.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="响应式-vs-传统编程"><a href="#响应式-vs-传统编程" class="headerlink" title="响应式 vs 传统编程"></a>响应式 vs 传统编程</h2><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>传统编程</th>
+<th>响应式编程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>执行方式</strong></td>
+<td>同步，阻塞等待</td>
+<td>异步，非阻塞</td>
+</tr>
+<tr>
+<td><strong>代码结构</strong></td>
+<td>命令式（一步步指令）</td>
+<td>声明式（描述做什么）</td>
+</tr>
+<tr>
+<td><strong>错误处理</strong></td>
+<td>try-catch</td>
+<td>流式 error handler</td>
+</tr>
+<tr>
+<td><strong>并发</strong></td>
+<td>手动管理线程</td>
+<td>自动调度（Schedulers）</td>
+</tr>
+<tr>
+<td><strong>资源利用</strong></td>
+<td>一个请求一个线程</td>
+<td>少量线程处理大量请求</td>
+</tr>
+</tbody></table>
+<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><h3 id="WebFlux（Spring-响应式-Web）"><a href="#WebFlux（Spring-响应式-Web）" class="headerlink" title="WebFlux（Spring 响应式 Web）"></a>WebFlux（Spring 响应式 Web）</h3><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping(&quot;/users/&#123;id&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Mono&lt;User&gt; <span class="title function_">getUser</span><span class="params">(<span class="meta">@PathVariable</span> String id)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> userService.findById(id);  <span class="comment">// 不会阻塞 Tomcat 线程</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@GetMapping(value = &quot;/users/stream&quot;, produces = MediaType.TEXT_EVENT_STREAM_VALUE)</span></span><br><span class="line">    <span class="keyword">public</span> Flux&lt;User&gt; <span class="title function_">streamUsers</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> userService.findAll()</span><br><span class="line">            .delayElements(Duration.ofSeconds(<span class="number">1</span>)); <span class="comment">// 每秒推送一个用户</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="实时数据处理"><a href="#实时数据处理" class="headerlink" title="实时数据处理"></a>实时数据处理</h3><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 股票价格实时流处理</span></span><br><span class="line"><span class="keyword">public</span> Flux&lt;StockPrice&gt; <span class="title function_">analyzeStockPrices</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> stockPriceStream</span><br><span class="line">        .window(Duration.ofSeconds(<span class="number">5</span>))           <span class="comment">// 每 5 秒一个窗口</span></span><br><span class="line">        .flatMap(window -&gt; window.collectList())</span><br><span class="line">        .map(prices -&gt; calculateMovingAverage(prices))</span><br><span class="line">        .filter(avg -&gt; avg.getChangePercent() &gt; <span class="number">5</span>)  <span class="comment">// 只关注波动 &gt; 5%</span></span><br><span class="line">        .doOnNext(alert -&gt; sendNotification(alert));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<h2 id="关键优势"><a href="#关键优势" class="headerlink" title="关键优势"></a>关键优势</h2><ol>
+<li><strong>高并发</strong>：少量线程处理大量连接（Netty 模式）</li>
+<li><strong>资源效率</strong>：避免线程阻塞等待 I&#x2F;O</li>
+<li><strong>实时性</strong>：数据到达立即处理，无需轮询</li>
+<li><strong>可组合性</strong>：通过操作符（map&#x2F;filter&#x2F;flatMap 等）组合复杂逻辑</li>
+</ol>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><ul>
+<li>✅ 高并发 Web 服务（网关、API 聚合）</li>
+<li>✅ 实时数据流（IoT、股票行情、日志处理）</li>
+<li>✅ 微服务间异步通信</li>
+<li>❌ 简单 CRUD（过度设计）</li>
+<li>❌ 复杂事务处理（响应式事务管理较复杂）</li>
+</ul>
+<p>响应式编程的本质是<strong>以数据为中心，让数据的变化自动驱动程序的执行</strong>，而不是人工控制执行流程。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
 </search>
