@@ -12943,4 +12943,197 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>Java</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux 目录结构及作用</title>
+    <url>/2026/01/29/Linux-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E4%BD%9C%E7%94%A8/</url>
+    <content><![CDATA[<p>Linux 的目录结构遵循 <strong>FHS（Filesystem Hierarchy Standard，文件系统层次结构标准）</strong>，采用树形结构，以根目录 <code>/</code> 为起点。以下是主要目录及其作用的详细说明：</p>
+<h2 id="一、核心系统目录"><a href="#一、核心系统目录" class="headerlink" title="一、核心系统目录"></a>一、核心系统目录</h2><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>全称&#x2F;含义</th>
+<th>主要作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>/</code></strong></td>
+<td>Root</td>
+<td>根目录，所有文件和目录的起点，包含整个文件系统</td>
+</tr>
+<tr>
+<td><strong><code>/bin</code></strong></td>
+<td>Binaries</td>
+<td><strong>基本用户命令</strong>（Binary），存放所有用户都可执行的基本命令，如 <code>ls</code>, <code>cp</code>, <code>mv</code>, <code>cat</code>, <code>bash</code> 等。系统单用户模式（修复模式）下也可用</td>
+</tr>
+<tr>
+<td><strong><code>/sbin</code></strong></td>
+<td>System Binaries</td>
+<td><strong>系统管理命令</strong>，存放系统管理员使用的管理程序，如 <code>fdisk</code>, <code>fsck</code>, <code>reboot</code>, <code>iptables</code> 等。通常需 root 权限</td>
+</tr>
+<tr>
+<td><strong><code>/boot</code></strong></td>
+<td>Boot</td>
+<td><strong>启动文件</strong>，包含启动加载器（GRUB&#x2F;LILO）所需的文件，如内核文件（<code>vmlinuz</code>）、initramfs 镜像等。建议单独分区</td>
+</tr>
+<tr>
+<td><strong><code>/lib</code></strong></td>
+<td>Libraries</td>
+<td><strong>基本共享库</strong>，存放 <code>/bin</code> 和 <code>/sbin</code> 中程序所需的基本动态链接库（如 <code>libc.so</code>）和内核模块（<code>/lib/modules</code>）</td>
+</tr>
+<tr>
+<td><strong><code>/lib64</code></strong></td>
+<td>64-bit Libraries</td>
+<td>64 位系统的基本共享库（在 64 位系统中，<code>/lib</code> 可能是软链接到 <code>/lib64</code>）</td>
+</tr>
+</tbody></table>
+<h2 id="二、系统配置与数据目录"><a href="#二、系统配置与数据目录" class="headerlink" title="二、系统配置与数据目录"></a>二、系统配置与数据目录</h2><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>全称&#x2F;含义</th>
+<th>主要作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>/etc</code></strong></td>
+<td>Etcetera&#x2F;Editable Text Configuration</td>
+<td><strong>系统配置文件</strong>，存放系统级配置文件（纯文本），如：<br>• <code>/etc/passwd</code>（用户账户信息）<br>• <code>/etc/fstab</code>（文件系统表）<br>• <code>/etc/hosts</code>（主机名映射）<br>• <code>/etc/network/</code>（网络配置）</td>
+</tr>
+<tr>
+<td><strong><code>/var</code></strong></td>
+<td>Variable</td>
+<td><strong>可变数据文件</strong>，存放经常变化的文件：<br>• <code>/var/log/</code>：日志文件<br>• <code>/var/mail/</code>：用户邮件<br>• <code>/var/spool/</code>：打印队列、邮件队列<br>• <code>/var/cache/</code>：应用缓存<br>• <code>/var/lib/</code>：程序状态数据（如数据库文件）</td>
+</tr>
+<tr>
+<td><strong><code>/tmp</code></strong></td>
+<td>Temporary</td>
+<td><strong>临时文件</strong>，供系统和用户存放临时数据，<strong>重启后通常会被清空</strong>。所有用户都有写权限</td>
+</tr>
+<tr>
+<td><strong><code>/run</code></strong></td>
+<td>Run-time variable data</td>
+<td><strong>运行时数据</strong>（较新 FHS 标准），存放系统启动后的运行时信息，如 PID 文件（<code>/run/nginx.pid</code>）、套接字文件等，通常挂载为 tmpfs（内存中）</td>
+</tr>
+</tbody></table>
+<h2 id="三、用户环境目录"><a href="#三、用户环境目录" class="headerlink" title="三、用户环境目录"></a>三、用户环境目录</h2><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>全称&#x2F;含义</th>
+<th>主要作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>/home</code></strong></td>
+<td>Home</td>
+<td><strong>普通用户主目录</strong>，每个用户在此有一个子目录（如 <code>/home/username</code>），存放用户的个人文件、配置等</td>
+</tr>
+<tr>
+<td><strong><code>/root</code></strong></td>
+<td>Root</td>
+<td><strong>root 用户主目录</strong>，root 用户的家目录，区别于普通用户的 <code>/home/root</code></td>
+</tr>
+</tbody></table>
+<h2 id="四、软件与资源目录"><a href="#四、软件与资源目录" class="headerlink" title="四、软件与资源目录"></a>四、软件与资源目录</h2><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>全称&#x2F;含义</th>
+<th>主要作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>/usr</code></strong></td>
+<td>Unix System Resources</td>
+<td><strong>用户程序次要层级</strong>（历史上是 “User”），存放系统运行不需要的系统级应用程序和文件：<br>• <code>/usr/bin/</code>：非必要的用户命令（如 <code>gcc</code>, <code>firefox</code>）<br>• <code>/usr/sbin/</code>：非必要的系统管理命令<br>• <code>/usr/lib/</code>：非必要的库文件<br>• <code>/usr/local/</code>：本地安装的软件（手动编译安装默认路径）<br>• <code>/usr/share/</code>：架构无关的共享数据（文档、图标、字体等）<br>• <code>/usr/src/</code>：源代码</td>
+</tr>
+<tr>
+<td><strong><code>/opt</code></strong></td>
+<td>Optional</td>
+<td><strong>可选的附加软件包</strong>，用于安装第三方大型商业软件（如 Oracle、Google Chrome、JetBrains 等），通常是自包含的独立目录</td>
+</tr>
+<tr>
+<td><strong><code>/srv</code></strong></td>
+<td>Service</td>
+<td><strong>服务数据</strong>，存放系统提供的服务所需的数据，如 Web 服务器文件（<code>/srv/www/</code>）、FTP 文件（<code>/srv/ftp/</code>）</td>
+</tr>
+</tbody></table>
+<h2 id="五、设备与虚拟文件系统"><a href="#五、设备与虚拟文件系统" class="headerlink" title="五、设备与虚拟文件系统"></a>五、设备与虚拟文件系统</h2><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>全称&#x2F;含义</th>
+<th>主要作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>/dev</code></strong></td>
+<td>Devices</td>
+<td><strong>设备文件</strong>，包含系统设备和外设的特殊文件：<br>• <code>/dev/sda</code>（硬盘）<br>• <code>/dev/null</code>（空设备）<br>• <code>/dev/tty</code>（终端）<br>• <code>/dev/random</code>（随机数设备）</td>
+</tr>
+<tr>
+<td><strong><code>/proc</code></strong></td>
+<td>Process</td>
+<td><strong>虚拟文件系统</strong>，反映当前运行进程和内核状态，存于内存中：<br>• <code>/proc/[PID]/</code>：各进程信息<br>• <code>/proc/cpuinfo</code>：CPU 信息<br>• <code>/proc/meminfo</code>：内存信息</td>
+</tr>
+<tr>
+<td><strong><code>/sys</code></strong></td>
+<td>System</td>
+<td><strong>虚拟文件系统</strong>（sysfs），提供访问内核数据结构、设备驱动和总线等系统硬件信息的接口</td>
+</tr>
+</tbody></table>
+<h2 id="六、挂载点目录"><a href="#六、挂载点目录" class="headerlink" title="六、挂载点目录"></a>六、挂载点目录</h2><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>全称&#x2F;含义</th>
+<th>主要作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>/mnt</code></strong></td>
+<td>Mount</td>
+<td><strong>临时挂载点</strong>，系统管理员手动挂载文件系统的临时位置（如挂载磁盘分区、网络文件系统）</td>
+</tr>
+<tr>
+<td><strong><code>/media</code></strong></td>
+<td>Media</td>
+<td><strong>可移动媒体挂载点</strong>，系统自动挂载可移动设备（U盘、光盘、移动硬盘等），如 <code>/media/user/disk-label</code></td>
+</tr>
+</tbody></table>
+<h2 id="七、其他特殊目录"><a href="#七、其他特殊目录" class="headerlink" title="七、其他特殊目录"></a>七、其他特殊目录</h2><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>/lost+found</code></strong></td>
+<td><code>ext</code> 文件系统特有，用于文件系统修复时恢复丢失的碎片文件</td>
+</tr>
+<tr>
+<td><strong><code>/snap</code></strong></td>
+<td>Ubuntu 等发行版用于 Snap 包管理（自包含的应用程序包）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="记忆要点总结"><a href="#记忆要点总结" class="headerlink" title="记忆要点总结"></a>记忆要点总结</h2><ol>
+<li><strong>配置文件找 <code>/etc</code><strong>，</strong>日志文件找 <code>/var/log</code></strong></li>
+<li><strong>用户数据在 <code>/home</code><strong>，</strong>root 在 <code>/root</code></strong></li>
+<li><strong>软件安装</strong>：<ul>
+<li>包管理器安装的在 <code>/usr/bin</code>、<code>/usr/lib</code></li>
+<li>手动编译安装在 <code>/usr/local/</code></li>
+<li>第三方商业软件在 <code>/opt/</code></li>
+</ul>
+</li>
+<li><strong>重启清空</strong>：<code>/tmp</code> 和 <code>/run</code>（通常）</li>
+<li><strong>虚拟文件</strong>：<code>/proc</code> 和 <code>/sys</code> 不占用磁盘空间，是内存中的接口</li>
+</ol>
+<p>这个结构保证了系统文件与用户数据分离、可变数据与静态程序分离，便于系统维护和备份。</p>
+]]></content>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
 </search>
