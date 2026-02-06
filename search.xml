@@ -13156,13 +13156,18 @@ a postriori 一个后验 使用结果作为条件检测
 <p>你将得到一个 zip 文件。解压它，并在你的集成开发环境（IDE）中打开。</p>
 <p>I’m using IntelliJ IDEA, and it installs a command-line tool called <code>idea</code>.</p>
 <p>我正在使用 IntelliJ IDEA，它提供了一个名为 idea 的命令行工具。</p>
-<h2 id="source-shell"><a href="#source-shell" class="headerlink" title="[source,shell]"></a>[source,shell]</h2><h2 id="cd-serviceidea-build-gradlew-idea-pom-xml-if-you’re-using-Apache-Maven"><a href="#cd-serviceidea-build-gradlew-idea-pom-xml-if-you’re-using-Apache-Maven" class="headerlink" title="cd serviceidea build.gradlew# idea pom.xml if you’re using Apache Maven"></a>cd service<br>idea build.gradlew<br># idea pom.xml if you’re using Apache Maven</h2><p>If you’re using  Visual Studio Code, be sure to install the <a class="link"   href="https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack%5B_Spring" >https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack[_Spring<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> Boot Extension Pack_] on the <em>Visual Studio Code Marketplace</em>.</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">cd service</span><br><span class="line">idea build.gradlew</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">idea pom.xml <span class="keyword">if</span> you<span class="string">&#x27;re using Apache Maven</span></span></span><br></pre></td></tr></table></figure></div>
+
+<p>If you’re using  Visual Studio Code, be sure to install the <a class="link"   href="https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack%5B_Spring" >https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack[_Spring<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> Boot Extension Pack_] on the <em>Visual Studio Code Marketplace</em>.</p>
 <p>如果你使用 Visual Studio Code，一定要在 Visual Studio Code Marketplace 上安装 Spring Boot 扩展包。</p>
 <p>This  new application is going to be talking to a database; it’s a data-centric application. On the <em>Spring Initializr</em>, we added support for  PostgreSQL, but now we need to connect to it. The last thing we want is a long <code>README.md</code> with a section titled, <em>A Hundred Easy Steps to Development</em>. We want to live that <em><code>git clone</code> &amp; Run</em> life!</p>
 <p>这个新应用会与数据库交互，这是一个以数据为中心的应用。在 Spring Initializr 上，我们添加了对 PostgreSQL 的支持，但现在我们需要连接到它。我们不想要一个长长的 README.md 文件，里面有一个标题为“开发的一百个简单步骤”的章节。我们想要的是 git clone 然后马上运行的体验！</p>
 <p>To that end, the Spring Initializr generated a <a class="link"   href="https://github.com/docker/compose[Docker" >https://github.com/docker/compose[Docker<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> Compose] <code>compose.yml</code> file that contains a definition for Postgres, the amazing SQL database.</p>
 <p>为此，Spring Initializr 生成了一个 Docker Compose compose.yml 文件，其中包含了 Postgres 定义，Postgres 是一个优秀的 SQL 数据库。</p>
-<h2 id="the-Docker-Compose-file-compose-yaml-source-yaml"><a href="#the-Docker-Compose-file-compose-yaml-source-yaml" class="headerlink" title=".the Docker Compose file, compose.yaml[source,yaml]"></a>.the Docker Compose file, <code>compose.yaml</code><br>[source,yaml]</h2><h2 id="include-compose-yaml"><a href="#include-compose-yaml" class="headerlink" title="include::compose.yaml[]"></a>include::compose.yaml[]</h2><p>Even better, Spring Boot is configured to automatically run the Docker Compose (<code>docker compose up</code>) configuration  when the Spring Boot application starts up. No need to configure connectivity details like <code>spring.datasource.url</code> and <code>spring.datasource.password</code>, etc. It’s all done with Spring Boot’s amazing  autoconfiguration. Ya love to see it! And, never wanting to leave a mess, Spring Boot will shut down the Docker containers on application shutdown, too.</p>
+<p>.the Docker Compose file, <code>compose.yaml</code></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">link:compose.yaml[role=include]</span><br></pre></td></tr></table></figure></div>
+
+<p>Even better, Spring Boot is configured to automatically run the Docker Compose (<code>docker compose up</code>) configuration  when the Spring Boot application starts up. No need to configure connectivity details like <code>spring.datasource.url</code> and <code>spring.datasource.password</code>, etc. It’s all done with Spring Boot’s amazing  autoconfiguration. Ya love to see it! And, never wanting to leave a mess, Spring Boot will shut down the Docker containers on application shutdown, too.</p>
 <p>更棒的是，Spring Boot 配置了自动运行 Docker Compose (docker compose up)，无需手动配置连接细节如 spring.datasource.url 和 spring.datasource.password 等。这一切都通过 Spring Boot 的自动配置完成。这太令人喜欢了！而且，Spring Boot 在应用关闭时会自动停止 Docker 容器，不会留下任何混乱。</p>
 <p>We want to move as quickly as possible. To that end, we selected DevTools on the <em>Spring Initializr</em>. It’ll allow us to move quickly. The core conceit here is that restarting Java is pretty slow. Restarting Spring, however, is really quick. So, what if we had a process monitoring our project folder, and that could  take note of newly compiled <code>.class</code> files, load them into the classloader, and then create a new Spring <code>ApplicationContext</code>, discarding the old one, and giving us the appearance of a live reload? That’s exactly what Spring’s DevTools do. Run it during development and see your restart time diminish by huge fractions!</p>
 <p>我们希望尽可能迅速地进行开发。为了实现这一点，我们在 Spring Initializr 上选择了 DevTools，它可以让我们快速行动。这里的关键概念是 Java 重启相当慢，但重启 Spring 却非常快。那么，如果我们有一个过程监控我们的项目目录，并能够识别新编译的 .class 文件，将它们加载到类加载器中，然后创建一个新的 Spring ApplicationContext 并替换旧的，给我们一种实时重载的感觉呢？这正是 Spring 的 DevTools 所实现的。在开发中运行它，看看你的重启时间会缩短多少！</p>
@@ -13170,9 +13175,13 @@ a postriori 一个后验 使用结果作为条件检测
 <p>再次强调，这是因为 Spring 启动速度极快……除非，你每次重启都要启动 PostgreSQL 数据库。我喜欢 PostgreSQL，但是，嗯，它并不是为了每次你调整方法名、修改 HTTP 端点路径或微调一些 CSS 而频繁重启而设计的。因此，让我们配置 Spring Boot 仅启动 Docker Compose 文件，并保持其运行，而不是每次都重启。</p>
 <p>.add the property to <code>application.properties</code></p>
 <p>将属性添加到 application.properties</p>
-<h2 id="source-properties"><a href="#source-properties" class="headerlink" title="[source,properties]"></a>[source,properties]</h2><h2 id="spring-docker-compose-lifecycle-management-start-only"><a href="#spring-docker-compose-lifecycle-management-start-only" class="headerlink" title="spring.docker.compose.lifecycle-management&#x3D;start_only"></a>spring.docker.compose.lifecycle-management&#x3D;start_only</h2><p>We’ll start with a simple record.</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="code"><pre><span class="line">spring.docker.compose.lifecycle-management=start_only</span><br></pre></td></tr></table></figure></div>
+
+<p>We’ll start with a simple record.</p>
 <p>我们将从一个简单的实体开始。</p>
-<h2 id="source-java"><a href="#source-java" class="headerlink" title="[source,java]"></a>[source,java]</h2><h2 id="include-src-main-java-com-example-service-Customer-java"><a href="#include-src-main-java-com-example-service-Customer-java" class="headerlink" title="include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;Customer.java[]"></a>include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;Customer.java[]</h2><p>I love Java records! And you should too! Don’t sleep on records. This innocuous little <code>record</code> isn’t just a better way to do something like Lombok’s <code>@Data</code> annotation does, it’s actually part of a handful of features that, culminating in Java 21 and taken together, support something called <em>data-oriented programming</em>.</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">link:src/main/java/com/example/service/Customer.java[role=include]</span><br></pre></td></tr></table></figure></div>
+
+<p>I love Java records! And you should too! Don’t sleep on records. This innocuous little <code>record</code> isn’t just a better way to do something like Lombok’s <code>@Data</code> annotation does, it’s actually part of a handful of features that, culminating in Java 21 and taken together, support something called <em>data-oriented programming</em>.</p>
 <p>我喜欢 Java 的记录（record）功能！你也应该喜欢它们！不要忽视 record。这个简单的 record 不仅仅是像 Lombok 的 @Data 注解那样更好的做某事的方式，它实际上是 Java 21 中几个特性的一部分，这些特性共同支持一种称为 数据导向编程（data-oriented programming）的概念。</p>
 <p>Java language architect Brian Goetz talks about this in his <a class="link"   href="https://www.infoq.com/articles/data-oriented-programming-java/[InfoQ" >https://www.infoq.com/articles/data-oriented-programming-java/[InfoQ<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> article on Data-Oriented Programming] in 2022.</p>
 <p>Java 语言架构师 Brian Goetz 在他 2022 年的 InfoQ 文章 中讨论了这一点。</p>
@@ -13186,70 +13195,32 @@ a postriori 一个后验 使用结果作为条件检测
 <p>想象我们有一个名为 Loan 的接口。显然，贷款是受到严格监管的金融工具。我们不希望有人来添加 Loan 接口的匿名内部类实现，从而绕过我们辛勤构建的系统验证和保护机制。</p>
 <p>So, we’ll use <code>sealed</code> types. Sealed types are a new sort of access control or visibility modifier.</p>
 <p>因此，我们使用 sealed 类型。封闭类型是一种新的访问控制或可见性修饰符。</p>
-<h2 id="source-java-1"><a href="#source-java-1" class="headerlink" title="[source,java]"></a>[source,java]</h2><h2 id="include-src-main-java-com-example-service-Loan-java"><a href="#include-src-main-java-com-example-service-Loan-java" class="headerlink" title="include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;Loan.java[]"></a>include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;Loan.java[]</h2><p>In the example, we’re explicitly stipulating that there are two implementations of <code>Loan</code> in the system: <code>SecuredLoan</code> and <code>UnsecuredLoan</code>. Classes are open for subclassing by default, which violates the guarantees implied by a sealed hierarchy. So, we explicitly make the <code>SecuredLoan</code> <code>final</code>. The <code>UnsecuredLoan</code> is implemented as a record, and is implicitly final.</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">link:src/main/java/com/example/service/Loan.java[role=include]</span><br></pre></td></tr></table></figure></div>
+
+<p>In the example, we’re explicitly stipulating that there are two implementations of <code>Loan</code> in the system: <code>SecuredLoan</code> and <code>UnsecuredLoan</code>. Classes are open for subclassing by default, which violates the guarantees implied by a sealed hierarchy. So, we explicitly make the <code>SecuredLoan</code> <code>final</code>. The <code>UnsecuredLoan</code> is implemented as a record, and is implicitly final.</p>
 <p>在这个示例中，我们明确指定系统中有两种 Loan 的实现：SecuredLoan 和 UnsecuredLoan。默认情况下，类是开放继承的，这违反了密封层次结构所暗示的保证。因此，我们明确将 SecuredLoan 声明为 final。UnsecuredLoan 作为 record 实现，并且隐式为 final。</p>
 <p>Records are Java’s answer to tuples. They are tuples. It’s just that Java is a nominal language: <em>things have names</em>. This tuple has a name, too: <code>UnsecuredLoan</code>.  Records give us a lot of power if we agree to the contract they imply. The core conceit of records is that the identity of the object is equal to the identity of the fields, they’re called ‘components’, in a record. So in this case, the identity of the record is equal to the identity of the <code>interest</code> variable. If we agree to that, then the compiler can give us a constructor, it can give us storage for each of the components, it can give us a <code>toString</code> method, a <code>hashCode</code> method, and an <code>equals</code> method. And it’ll give us accessors for the components in the constructor. Nice! <em>And</em>, it supports destructuring! The language knows how to extract out the state for the record.</p>
 <p>记录是 Java 对元组的回应。它们本质上是元组。只是 Java 是一种名义语言：事物有名称。这个元组也有一个名称：UnsecuredLoan。如果我们同意它们所隐含的契约，那么记录就会给我们很大的权力。记录的核心理念是，对象的身份等于记录中字段的身份，它们被称为“组件”。所以在这个例子中，记录的身份等同于 interest 变量的身份。如果我们同意这一点，那么编译器就可以为我们提供构造函数，它可以为每个组件提供存储空间，它可以为我们提供 toString 方法、hashCode 方法和 equals 方法。它还会在构造函数中为组件提供访问器。太棒了！而且，它支持解构！语言知道如何从记录中提取状态。</p>
 <p>Now, let’s say I wanted to display a message for each type of <code>Loan</code>. I’ll code up a method. Here’s the naïve first implementation.</p>
 <p>现在，假设我想为每种 Loan 类型显示一条消息。我会编写一个方法。这是最初的实现尝试。</p>
-<h2 id="source-java-2"><a href="#source-java-2" class="headerlink" title="[source,java]"></a>[source,java]</h2><pre><code>@Deprecated
-String badDisplayMessageFor(Loan loan) &#123;
-    var message = &quot;&quot;;
-    if (loan instanceof SecuredLoan) &#123;
-        message = &quot;good job! &quot;;
-    &#125;
-    if (loan instanceof UnsecuredLoan) &#123;
-        var usl = (UnsecuredLoan) loan;
-        message = &quot;ouch! that &quot; + usl.interest() + &quot;% interest rate is going to hurt!&quot;;
-    &#125;
-    return message;
-&#125;
-</code></pre>
-<hr>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line">String <span class="title function_">badDisplayMessageFor</span><span class="params">(Loan loan)</span> &#123;</span><br><span class="line">    <span class="type">var</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span> (loan <span class="keyword">instanceof</span> SecuredLoan) &#123;</span><br><span class="line">        message = <span class="string">&quot;good job! &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (loan <span class="keyword">instanceof</span> UnsecuredLoan) &#123;</span><br><span class="line">        <span class="type">var</span> <span class="variable">usl</span> <span class="operator">=</span> (UnsecuredLoan) loan;</span><br><span class="line">        message = <span class="string">&quot;ouch! that &quot;</span> + usl.interest() + <span class="string">&quot;% interest rate is going to hurt!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
 <p>This works, sort of. But it’s not carrying its weight.</p>
 <p>这个方法有些用，但不够理想。</p>
 <p>We can clean it up. Let’s take advantage of pattern matching, like this:</p>
 <p>我们可以改进它。利用模式匹配，像这样：</p>
-<h2 id="source-java-3"><a href="#source-java-3" class="headerlink" title="[source,java]"></a>[source,java]</h2><pre><code>@Deprecated
-String notGreatDisplayMessageFor(Loan loan) &#123;
-    var message = &quot;&quot;;
-    if (loan instanceof SecuredLoan) &#123;
-        message = &quot;good job! &quot;;
-    &#125;
-    if (loan instanceof UnsecuredLoan usl) &#123;
-        message = &quot;ouch! that &quot; + usl.interest() + &quot;% interest rate is going to hurt!&quot;;
-    &#125;
-    return message;
-&#125;
-</code></pre>
-<hr>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line">String <span class="title function_">notGreatDisplayMessageFor</span><span class="params">(Loan loan)</span> &#123;</span><br><span class="line">    <span class="type">var</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span> (loan <span class="keyword">instanceof</span> SecuredLoan) &#123;</span><br><span class="line">        message = <span class="string">&quot;good job! &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (loan <span class="keyword">instanceof</span> UnsecuredLoan usl) &#123;</span><br><span class="line">        message = <span class="string">&quot;ouch! that &quot;</span> + usl.interest() + <span class="string">&quot;% interest rate is going to hurt!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
 <p>Better. Note that we’re using pattern matching to match the shape of the object and then extract the definitively cast-able thing into a variable, <code>usl</code>. We don’t even really need the <code>usl</code> variable, though, do we. Instead, we want to dereference the <code>interest</code> variable. So we can change the pattern matching to extract that variable, like this.</p>
 <p>更好。注意我们使用模式匹配来匹配对象的形状，然后将明确可转换的对象提取到变量 usl 中。其实我们不真正需要变量 usl，对吧？我们想要引用 interest 变量。因此，我们可以改变模式匹配来直接提取该变量，像这样。</p>
-<h2 id="source-java-4"><a href="#source-java-4" class="headerlink" title="[source,java]"></a>[source,java]</h2><pre><code>@Deprecated
-String notGreatDisplayMessageFor(Loan loan) &#123;
-    var message = &quot;&quot;;
-    if (loan instanceof SecuredLoan) &#123;
-        message = &quot;good job! &quot;;
-    &#125;
-    if (loan instanceof UnsecuredLoan(var interest) ) &#123;
-        message = &quot;ouch! that &quot; + interest + &quot;% interest rate is going to hurt!&quot;;
-    &#125;
-    return message;
-&#125;
-</code></pre>
-<hr>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line">String <span class="title function_">notGreatDisplayMessageFor</span><span class="params">(Loan loan)</span> &#123;</span><br><span class="line">    <span class="type">var</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span> (loan <span class="keyword">instanceof</span> SecuredLoan) &#123;</span><br><span class="line">        message = <span class="string">&quot;good job! &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (loan <span class="keyword">instanceof</span> <span class="title function_">UnsecuredLoan</span><span class="params">(<span class="keyword">var</span> interest)</span> ) &#123;</span><br><span class="line">        message = <span class="string">&quot;ouch! that &quot;</span> + interest + <span class="string">&quot;% interest rate is going to hurt!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
 <p>What happens if I comment out one of the branches? Nothing! The compiler doesn’t care.  We’re not handling one of the critical paths through which this code could pass.</p>
 <p>如果我注释掉其中一个分支会发生什么？没什么！编译器不会报错。我们没有处理这段代码可能走过的一个关键路径。</p>
 <p>Likewise, I have this value stored in a variable, <code>message</code>, and I’m assigning it as a side effect of some condition. Wouldn’t it be nice if I could cut out the intermediate value and just return some expression? Let’s look at a cleaner implementation using smart switch expressions, another nifty novelty in Java.</p>
 <p>同样，我将一个值存储在变量 message 中，并将其作为某条件的副作用进行赋值。如果我能直接返回某个表达式而不是中间值，那不是很好吗？让我们看看使用智能 switch 表达式的更清晰实现，这是 Java 中的另一种新特性。</p>
-<h2 id="source-java-5"><a href="#source-java-5" class="headerlink" title="[source,java]"></a>[source,java]</h2><pre><code>String displayMessageFor(Loan loan) &#123;
-    return switch (loan) &#123;
-        case SecuredLoan sl -&gt; &quot;good job! &quot;;
-        case UnsecuredLoan(var interest) -&gt; &quot;ouch! that &quot; + interest + &quot;% interest rate is going to hurt!&quot;;
-    &#125;;
-&#125;
-</code></pre>
-<hr>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">String <span class="title function_">displayMessageFor</span><span class="params">(Loan loan)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">switch</span> (loan) &#123;</span><br><span class="line">        <span class="keyword">case</span> SecuredLoan sl -&gt; <span class="string">&quot;good job! &quot;</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="title function_">UnsecuredLoan</span><span class="params">(<span class="keyword">var</span> interest)</span> -&gt; <span class="string">&quot;ouch! that &quot;</span> + interest + <span class="string">&quot;% interest rate is going to hurt!&quot;</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
 <p>This version uses smart switch expressions to return a value and pattern matching. If you comment out one of the branches, the compiler will bark, because - thanks to sealed types - it knows that you haven’t exhausted all possible options. Nice! The compiler is doing a lot of work for us! The result is both cleaner and more expressive. Mostly.</p>
 <p>这个版本利用智能 switch 表达式来返回值，并使用模式匹配。如果你省略一个分支，编译器会警告，因为 – 多亏了封闭类型 – 它知道你还没有考虑所有可能的情况。太好了！编译器帮我们做了很多工作！结果既更整洁也更具表现力。大多数情况下。</p>
 <p>So, back to our regularly scheduled programming.  Add an interface for the Spring Data JDBC repository and a Spring MVC controller class. Then start the application up. Notice that this takes an exceedingly long period of time! That’s because behind the scenes, it’s using the Docker daemon to start up the PostgreSQL instance.</p>
@@ -13262,11 +13233,17 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>添加 schema.sql 和 data.sql。</p>
 <p>.the DDL for our application, <code>schema.sql</code></p>
 <p>应用程序的 DDL schema.sql</p>
-<h2 id="source-java-6"><a href="#source-java-6" class="headerlink" title="[source,java]"></a>[source,java]</h2><h2 id="include-src-main-resources-schema-sql"><a href="#include-src-main-resources-schema-sql" class="headerlink" title="include::src&#x2F;main&#x2F;resources&#x2F;schema.sql[]"></a>include::src&#x2F;main&#x2F;resources&#x2F;schema.sql[]</h2><p>.some sample data for the application, <code>data.sql</code></p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">link:src/main/resources/schema.sql[role=include]</span><br></pre></td></tr></table></figure></div>
+
+<p>.some sample data for the application, <code>data.sql</code></p>
 <p>应用程序的样本数据 data.sql</p>
-<h2 id="source-java-7"><a href="#source-java-7" class="headerlink" title="[source,java]"></a>[source,java]</h2><h2 id="include-src-main-resources-data-sql"><a href="#include-src-main-resources-data-sql" class="headerlink" title="include::src&#x2F;main&#x2F;resources&#x2F;data.sql[]"></a>include::src&#x2F;main&#x2F;resources&#x2F;data.sql[]</h2><p>Make sure to tell Spring Boot to run the SQL files on startup by adding the following property to <code>application.properties</code>:</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">link:src/main/resources/data.sql[role=include]</span><br></pre></td></tr></table></figure></div>
+
+<p>Make sure to tell Spring Boot to run the SQL files on startup by adding the following property to <code>application.properties</code>:</p>
 <p>通过将以下属性添加到 application.properties 中，告诉 Spring Boot 在启动时运行 SQL 文件：</p>
-<h2 id="source-properties-1"><a href="#source-properties-1" class="headerlink" title="[source,properties]"></a>[source,properties]</h2><h2 id="spring-sql-init-mode-always"><a href="#spring-sql-init-mode-always" class="headerlink" title="spring.sql.init.mode&#x3D;always"></a>spring.sql.init.mode&#x3D;always</h2><p>Reload the application: CMD+Shift+F9, on macOS. On my computer, that reload is about 1&#x2F;3rd the time, or 66% less, than it takes to restart both the JVM and the application itself. Huge.</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">spring.sql.init.mode=always</span><br></pre></td></tr></table></figure></div>
+
+<p>Reload the application: CMD+Shift+F9, on macOS. On my computer, that reload is about 1&#x2F;3rd the time, or 66% less, than it takes to restart both the JVM and the application itself. Huge.</p>
 <p>在 macOS 上使用 CMD+Shift+F9 重新加载应用程序。在我的计算机上，这次重载大约是重新启动 JVM 和应用程序本身所需时间的三分之一，或减少了 66%。非常显著。</p>
 <p>It’s up and running. Visit <code>http://localhost:8080/customers</code> to see the results. It worked! Of course, it worked. It was a demo. It was always going to work.</p>
 <p>它已经启动并运行。访问 <a class="link"   href="http://localhost:8080/customers" >http://localhost:8080/customers<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 查看结果。它工作了！当然，它工作了。这是一个演示，它总是会成功的。</p>
@@ -13294,7 +13271,9 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>我们在 Spring Initializr 上添加了 OpenAI 支持，因此 Spring AI 已经在类路径上。添加一个新的控制器，如下所示：</p>
 <p>.an AI-powered Spring MVC controller</p>
 <p>一个 AI 驱动的 Spring MVC 控制器</p>
-<h2 id="source-java-8"><a href="#source-java-8" class="headerlink" title="[source,java]"></a>[source,java]</h2><h2 id="include-src-main-java-com-example-service-StoryController-java"><a href="#include-src-main-java-com-example-service-StoryController-java" class="headerlink" title="include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;StoryController.java[]"></a>include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;StoryController.java[]</h2><p>Pretty straightforward! Inject Spring AI’s <code>ChatClient</code>, use it to send a request to the LLM, get the response, and return it as JSON to the HTTP client.</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">link:src/main/java/com/example/service/StoryController.java[role=include]</span><br></pre></td></tr></table></figure></div>
+
+<p>Pretty straightforward! Inject Spring AI’s <code>ChatClient</code>, use it to send a request to the LLM, get the response, and return it as JSON to the HTTP client.</p>
 <p>过程相当直观！注入 Spring AI 的 ChatClient，使用它向 LLM 发送请求，获取响应，并以 JSON 格式返回给 HTTP 客户端。</p>
 <p>You’ll need to configure your connection to OpenAI’s API with a property, <code>spring.ai.openai.api-key=</code>. I exported it as an environment variable, <code>SPRING_AI_OPENAI_API_KEY</code>, before I ran the program. I won’t reproduce my key here. Forgive me for not leaking my API credential.</p>
 <p>你需要用属性 spring.ai.openai.api-key&#x3D; 配置你对 OpenAI API 的连接。我将其作为环境变量 SPRING_AI_OPENAI_API_KEY 导出，然后运行程序。我不会在这里公开我的密钥，请原谅我不泄露我的 API 凭据。</p>
@@ -13302,22 +13281,20 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>使用 CMD+Shift+F9 重新加载应用程序，然后访问端点：<a class="link"   href="http://localhost:8080/story%E3%80%82LLM" >http://localhost:8080/story。LLM<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 可能需要几秒钟来产生响应，所以准备好一杯咖啡或一杯水，享受这短暂但令人满足的时刻。</p>
 <p>.the JSON response in my browser, with a JSON formatter plugin enabled</p>
 <p>我浏览器中的 JSON 响应，启用了 JSON 格式化插件。</p>
-<p>image::{images-url}story-time-ai-response.png[]</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/story-time-ai-response.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
 <p>There it is! We live in an age of miracles! The age of the freaking singularity! You can do anything now.</p>
 <p>就在那里！我们生活在一个奇迹的时代！奇迹的时代！现在你可以做任何事情。</p>
 <p>But it did take a few seconds, didn’t it? I don’t begrudge the computer that time! It did a splendid job! I couldn’t do that any faster. Just look at the story it generated! It’s a work of art.</p>
 <p>但这确实花了一些时间，不是吗？我不怪计算机花了这么长时间！它做得很好！我做不到这么快。只是看看它生成的故事！这是艺术品。</p>
 <p>But it did take a while. And that has scalability implications for our applications. Behind the scenes when we make a call to our LLM, we’re making a network call. Somewhere, deep in the bowels of the code, there’s a <code>java.net.Socket</code> from which we’ve obtained a  <code>java.io.InputStream</code> that represents the <code>byte[]</code> data coming from the service. I don’t know if you remember using <code>InputStream</code> directly. Here’s an example:</p>
 <p>但这确实花了一段时间。这对我们的应用程序有可扩展性的影响。在幕后，当我们向我们的 LLM 发出请求时，我们正在进行网络调用。在代码的深处，有一个 java.net.Socket，我们从中获得了一个 java.io.InputStream，代表来自服务的数据的 byte 数组。我不知道你是否还记得直接使用 InputStream。这是一个例子：</p>
-<h2 id="show-a-while-loop-reading-from-an-InputStream-one-byte-at-a-time-source-java"><a href="#show-a-while-loop-reading-from-an-InputStream-one-byte-at-a-time-source-java" class="headerlink" title="&#x2F;&#x2F; :: show a while loop reading from an InputStream one byte at a time::[source,java]"></a>&#x2F;&#x2F; :: show a while loop reading from an InputStream one byte at a time::<br>[source,java]</h2><pre><code>try (var is = new FileInputStream(&quot;afile.txt&quot;)) &#123;
-    var next = -1;
-    while ((next = is.read()) != -1) &#123;
-        next = is.read();
-        // do something with read
-    &#125;
-&#125;
-</code></pre>
-<hr>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">try</span> (<span class="type">var</span> <span class="variable">is</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;afile.txt&quot;</span>)) &#123;</span><br><span class="line">    <span class="type">var</span> <span class="variable">next</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> ((next = is.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">        next = is.read();</span><br><span class="line">        <span class="comment">// do something with read</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
 <p>See that part where we read bytes in from the <code>InputStream</code> by calling <code>InputStream.read</code>? We call that a <em>blocking operation</em>. If we call <code>InputStream.read</code> on line four, then we must wait until the call returns until we can get to line five.</p>
 <p>看到我们通过调用 InputStream.read 从 InputStream 中读取字节的那部分了吗？我们称之为阻塞操作。如果我们在第四行调用 InputStream.read，那么我们必须等到调用返回才能到达第五行。</p>
 <p>What if the service to which we’re connecting   simply returns too much data? What if the service is down? What if it never returns? What if we’re stuck, waiting, in perpetuity? <em>What if</em>?</p>
@@ -13334,7 +13311,9 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>如果我们可以既要非阻塞蛋糕又要吃它怎么办？现在我们可以使用 Java 21！有一个名为虚拟线程的新特性使这些东西变得容易得多！如果你在这些新的虚拟线程上做一些阻塞的事情，运行时将检测到你正在做一些阻塞的事情 – 像 java.io.InputStream.read、java.io.OutputStream.write 和 java.lang.Thread.sleep – 并将那个阻塞的、空闲的活动从线程移出并移到 RAM 中。然后，它基本上会为 sleep 设定一个蛋形计时器，或监视文件描述符进行 IO，并让运行时在此期间将线程用于其他东西。当阻塞动作完成时，运行时将其移回到线程上，并让它从停止的地方继续运行，几乎不需要更改代码。这很难理解，所以让我们通过一个例子来看看。我毫不羞愧地借用了这个示例，来自 Oracle Developer Advocate José Paumard。</p>
 <p>.this example demonstrates creating 1,000 threads and sleeping for 400 milliseconds on each one, while noting the name of the first of those 1,000 threads.</p>
 <p>此示例演示创建 1000 个线程并在每个线程上 sleep 400 毫秒，同时注意这 1000 个线程中的第一个的名称。</p>
-<h2 id="source-java-9"><a href="#source-java-9" class="headerlink" title="[source,java]"></a>[source,java]</h2><h2 id="include-src-main-java-com-example-service-Threads-java"><a href="#include-src-main-java-com-example-service-Threads-java" class="headerlink" title="include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;Threads.java[]"></a>include::src&#x2F;main&#x2F;java&#x2F;com&#x2F;example&#x2F;service&#x2F;Threads.java[]</h2><p>We’re using the <code>Thread.ofPlatform</code> factory method to create regular  ol’ platform threads, identical in nature to the threads we’ve created basically since Java’s debut in the 1990’s. The program creates 1,000 threads. In each thread, we sleep for 100 milliseconds, four times. In between, we test if we’re on the first of the 1000 threads, and if we are, we note the current thread’s name by adding it to a set. A set dedupes its elements; if the same name appears more than once, there’ll still only be one element in the set.</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">link:src/main/java/com/example/service/Threads.java[role=include]</span><br></pre></td></tr></table></figure></div>
+
+<p>We’re using the <code>Thread.ofPlatform</code> factory method to create regular  ol’ platform threads, identical in nature to the threads we’ve created basically since Java’s debut in the 1990’s. The program creates 1,000 threads. In each thread, we sleep for 100 milliseconds, four times. In between, we test if we’re on the first of the 1000 threads, and if we are, we note the current thread’s name by adding it to a set. A set dedupes its elements; if the same name appears more than once, there’ll still only be one element in the set.</p>
 <p>我们使用 Thread.ofPlatform 工厂方法创建常规的平台线程，这与我们自 1990 年代以来创建的线程没有什么不同。该程序创建了 1000 个线程。在每个线程中，sleep 100 毫秒，四次。在此期间，我们检查我们是否是 1000 个线程中的第一个，如果是，我们通过将其添加到集合中来记录当前线程的名称。集合通过其元素去重；如果相同的名称出现多次，集合中仍然只有一个元素。</p>
 <p>Run the program (CMD+Shift+F9!) and you’ll see that the physics of the program are unchanged. There is only one name in the <code>Set&lt;String&gt;</code>. Why wouldn’t there be? We only tested the same thread, over and over.</p>
 <p>运行程序（CMD+Shift+F9！）你会看到程序的物理特性没有改变。Set<String> 中只有一个名称。为什么不会呢？我们一次又一次地测试同一个线程。</p>
@@ -13346,7 +13325,9 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>你可能会抗议，好吧，我不想改变所有的代码。首先，这是一个荒谬的论点，变化是微不足道的。你可能会抗议：我也不想从事创建线程的业务。好观点。托尼·霍尔（Tony Hoare）在 1970 年代写道，NULL 是一个 10 亿美元的错误。他错了。事实上，是 PHP。但是，他还长篇大论地讨论了使用线程构建系统是多么不可行。你将想要使用更高阶的抽象，如 saga、actors，或者至少是一个 ExecutorService。</p>
 <p>And there’s a new virtual thread executor as well: <code>Executors.newVirtualThreadPerTaskExecutor</code>. Nice! If you’re using Spring Boot, it’s trivial to override the default bean of that type for use in parts of the system. Spring Boot will pull that in and defer to it instead. Easy enough. But if you’re using Spring Boot 3.2 You are, surely, using Spring Boot 3.2, right? You realize that each release is only support for like a year, right? Make sure to check out an given <a class="link"   href="https://spring.io/projects/spring-boot#support[Spring" >https://spring.io/projects/spring-boot#support[Spring<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> projects’ support policy]. If you are using 3.2,  then you need only add one property to <code>application.properties</code> and we’ll plugin the virtual thread support for you.</p>
 <p>还有一个新的虚拟线程执行器：Executors.newVirtualThreadPerTaskExecutor。太好了！如果你正在使用 Spring Boot，将系统中的这种类型的默认 bean 替换为非常简单。Spring Boot 将引入它并改用它。很容易。但是如果你在使用 Spring Boot 3.2，你当然在使用 Spring Boot 3.2，对吧？你意识到每个版本只支持大约一年，对吧？确保查看任何给定 Spring 项目的支持政策。如果你在使用 3.2，那么你只需要将一个属性添加到 application.properties 中，我们将为你插入虚拟线程支持。</p>
-<h2 id="source-properties-2"><a href="#source-properties-2" class="headerlink" title="[source,properties]"></a>[source,properties]</h2><h2 id="spring-threads-virtual-enabled-true"><a href="#spring-threads-virtual-enabled-true" class="headerlink" title="spring.threads.virtual.enabled&#x3D;true"></a>spring.threads.virtual.enabled&#x3D;true</h2><p>Nice! No code changes required. And now you should see much improved scalability, and might be able to scale down some of the instances in your load balancer, if your services are IO bound. My suggestion? Tell your boss you’re gonna save the company a ton of cash but insist you want that money in your paycheck. Then deploy this change. Voilà!</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="code"><pre><span class="line">spring.threads.virtual.enabled=<span class="literal">true</span></span><br></pre></td></tr></table></figure></div>
+
+<p>Nice! No code changes required. And now you should see much improved scalability, and might be able to scale down some of the instances in your load balancer, if your services are IO bound. My suggestion? Tell your boss you’re gonna save the company a ton of cash but insist you want that money in your paycheck. Then deploy this change. Voilà!</p>
 <p>太好了！不需要更改代码。现在你应该看到大大改善的可扩展性，并且可能能够缩减负载均衡器中的一些实例，如果你的服务是 IO 绑定的。我的建议？告诉你的老板你将为公司节省大量现金，但坚持要求将那笔钱放在你的工资单上。然后部署这个更改。瞧！</p>
 <p>Alright, we’re moving quickly. We’ve got <code>git clone</code> &amp; run-ability. We’ve got Docker compose support. We’ve got DevTools. We have a very nice language and syntax. We’ve got the freaking singularity. We’re moving quickly. We’ve got scalability. Add the Spring Boot Actuator to the build and now you’ve got observability. I think it’s time we turned to production.</p>
 <p>好的，我们正在快速行动。我们有 git clone 和运行能力。我们有 Docker compose 支持。我们有 DevTools。我们有一个非常好的语言和语法。我们拥有奇迹。我们正在快速行动，我们有可扩展性。将 Spring Boot Actuator 添加到构建中，现在你就拥有了可观察性。我认为是时候我们转向生产了。</p>
@@ -13360,8 +13341,12 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>然后我们有 Rust 和它的零成本抽象。做得好。</p>
 <p>Then we have C++…</p>
 <p>然后我们有 C++…</p>
-<p>ifdef::backend-pdf[]<br>image::{images-url}gross.png[]<br>endif::[]</p>
-<p>ifndef::backend-pdf[]<br>image::{images-url}gross.gif[]<br>endif::[]</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/gross.gif"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
 <p>C++ is disgusting! Moving on…</p>
 <p>C++ 是恶心的！继续……</p>
 <p>Then we have the Ada language, but.. who cares?</p>
@@ -13378,7 +13363,12 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>然后我们有 JRuby 和 Ruby。朋友们，记住 JRuby 是用 Java 编写的 Ruby。Ruby 是用 C 编写的 Ruby。然而 JRuby 几乎比 Ruby 高效三分之一！只是因为它是用 Java 编写的，并运行在 JVM 上。JVM 是一个了不起的套件。绝对非凡。</p>
 <p>Then.. we have Python. And this, well this makes me very sad indeed! I <em>love</em> Python! I’ve been using Python since the 1990’s! Bill Clinton was president when I first learned Python! But these numbers are <em>not</em> great. Think about it. 75.88. Let’s round up to 76. I’m not great at math. But you know what is? Freakin’ Python! Let’s ask it.</p>
 <p>然后..我们有 Python。而这，嗯，这确实让我非常难过！我爱 Python！我从 1990 年代开始使用 Python！比尔·克林顿是总统当我第一次学习 Python 时！但这些数字不 是很棒。想想看。75.88。我们就四舍五入到 76。我数学不太好。但你知道谁数学好吗？该死的 Python！让我们问它。</p>
-<p>image::{images-url}python-doing-math.png[]</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/python-doing-math.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
 <p>38! That means that if you ran a program in Java, and the generation of the energy required to run it creates a bit of carbon that ends up  trapped in the atmosphere, raising the temperature, and that heightened temperature in turn kills ONE tree, then the equivalent program in Python would kill THIRTY-EIGHT trees! That’s a forest! That’s worse than Bitcoin! We need to do something about this, and soon. I don’t know what, but something.</p>
 <p>38！这意味着如果你在 Java 中运行一个程序，并且运行它所需的能量产生了一些碳，这些碳最终被困在大气中，提高了温度，这种升高的温度反过来又杀死了一棵树，那么在 Python 中运行的等效程序将会杀死三十八棵树！这是一片森林！这比比特币还糟！我们需要尽快做些什么，我不知道是什么，但需要做些什么。</p>
 <p>Anyway, what I’m trying to say is that Java is already <em>amazing</em>. I think this is because of two things that people take for granted: garbage collection and the Just In Time (JIT) compiler.</p>
@@ -13409,29 +13399,49 @@ String notGreatDisplayMessageFor(Loan loan) &#123;
 <p>一个建议，来自我们的朋友，我们应该从 Nintendo 64 视频游戏的原声带中播放这首电梯音乐，皮尔斯·布鲁斯南（Pierce Brosnan）首次扮演詹姆斯·邦德（James Bond），Goldeneye。我喜欢它。</p>
 <p>.<em>Goldeneye</em> had some amazing elevator music!</p>
 <p>Goldeneye 有一些了不起的电梯音乐！</p>
-<p>image::{images-url}adinn-elevator-music.png[]</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/adinn-elevator-music.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
 <p>One response suggested that having a beeping sound would be useful. Couldn’t agree more. My stupid microwave will make a <em>ding!</em> sound when it’s done. Why couldn’t my multi-million line compiler?</p>
 <p>有一个回应建议有一个哔哔声会很有用。完全同意。我的愚蠢微波炉在完成时会发出 叮！ 声。我的多百万行编译器为什么不行呢？</p>
-<p>.<em>DING!</em><br>image::{images-url}ivan-beeps.png[]</p>
+<p>.<em>DING!</em><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/ivan-beeps.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
 <p>And then we got this response, from another one of my favorite doctors, <a class="link"   href="https://twitter.com/fniephaus[Dr" >https://twitter.com/fniephaus[Dr<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>. Niephaus], who works on the GraalVM team. He said that adding elevator music would only just fix the symptoms, and not the cause of the problem, which is making GraalVM even more efficient in terms of time and memory.</p>
 <p>然后我们得到了这个回应，来自我最喜欢的专家之一，Dr. Niephaus，他在 GraalVM 团队工作。他说增加电梯音乐只会修复问题的症状，而不是导致问题的原因，即使 GraalVM 在时间和内存方面更加高效。</p>
-<p>image::{images-url}doctor-niephaus.png[]</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/doctor-niephaus.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
 <p>Ok. But he did share this promising prototype!</p>
 <p>好吧。但他确实分享了这个有前景的原型！</p>
-<p>image::{images-url}graalvm-prototype.png[]</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/spring/graalvm-prototype.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
 <p>I’m sure it’ll get merged any day now…</p>
 <p>我敢肯定它很快就会合并……</p>
 <p>Anyway! If you check the compilation, it should be done now. It’s in the <code>./build/native/nativeCompile/</code> folder, and it’s called <code>service</code>. On my machine, the compilation took 52 seconds. Yeesh!</p>
 <p>无论如何！如果你检查编译，现在应该完成了。它在 .&#x2F;build&#x2F;native&#x2F;nativeCompile&#x2F; 文件夹中，名为 service。在我的机器上，编译花了 52 秒。哎呀！</p>
 <p>Run it. It’ll fail because, again, we’re living that <code>git clone</code> &amp; run lifestyle! We didn’t specify any connectivity credentials! So, run it with   environment variables specifying your SQL database connectivity details. Here’s the script I used on my Machine. This will work only on a Unix-flavored operating system, and works for either Maven or Gradle.</p>
 <p>运行它。它会失败，因为，我们生活在 git clone 然后运行的生活方式中！我们没有指定任何连接凭证！所以，用环境变量运行它，指定你的 SQL 数据库连接详细信息。这是我在我的机器上使用的脚本。这只适用于类 Unix 操作系统，并且适用于 Maven 或 Gradle。</p>
-<h2 id="source-shell-1"><a href="#source-shell-1" class="headerlink" title="[source,shell]"></a>[source,shell]</h2><p>#!&#x2F;usr&#x2F;bin&#x2F;env bash</p>
-<p>export SPRING_DATASOURCE_URL&#x3D;jdbc:postgresql:&#x2F;&#x2F;localhost&#x2F;mydatabase<br>export SPRING_DATASOURCE_PASSWORD&#x3D;secret<br>export SPRING_DATASOURCE_USERNAME&#x3D;myuser</p>
-<p>SERVICE&#x3D;.<br>MVN&#x3D;$SERVICE&#x2F;target&#x2F;service<br>GRADLE&#x3D;$SERVICE&#x2F;build&#x2F;native&#x2F;nativeCompile&#x2F;service<br>ls -la $GRADLE &amp;&amp; $GRADLE || $MVN</p>
-<hr>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">export SPRING_DATASOURCE_URL=jdbc:postgresql://localhost/mydatabase</span><br><span class="line">export SPRING_DATASOURCE_PASSWORD=secret</span><br><span class="line">export SPRING_DATASOURCE_USERNAME=myuser</span><br><span class="line"></span><br><span class="line">SERVICE=.</span><br><span class="line">MVN=$SERVICE/target/service</span><br><span class="line">GRADLE=$SERVICE/build/native/nativeCompile/service</span><br><span class="line">ls -la $GRADLE &amp;&amp; $GRADLE || $MVN</span><br></pre></td></tr></table></figure></div>
+
 <p>On my machine, it starts up in ~100 milliseconds! Like a rocket! And, obviously, it would be much faster still if I were using something like Spring Cloud Function to build AWS Lamba-style functions-as-a-service, because I wouldn’t need for example to package an HTTP server. Indeed, if pure startup speed were <em>all</em> that I really wanted, then I might even use Spring’s amazing support for <a class="link"   href="https://www.youtube.com/watch?v=dMhpDdR6nHw&t=2658s%5BProject" >https://www.youtube.com/watch?v=dMhpDdR6nHw&amp;t=2658s[Project<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> CRaC]. That’s neither here no there. I don’t really care all that much about that because this is a standalone, long-lived service. What I care about is the resource usage, as represented by the <a class="link"   href="https://en.wikipedia.org/wiki/RSS[Resident" >https://en.wikipedia.org/wiki/RSS[Resident<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> Set Size (RSS)]. Note the process identifier (PID) - it’ll be in the logs. If the PID is, let’s say, <code>55</code>, then get the RSS like this using the <code>ps</code> utility, available on virtually all Unixes:</p>
 <p>在我的机器上，它在大约 100 毫秒内启动！像火箭一样！显然，如果我使用的是 Spring Cloud Function 来构建 AWS Lambda 风格的函数即服务（FaaS），因为我不需要打包 HTTP 服务器，它会更快。事实上，如果纯粹的启动速度是我真正想要的全部，那么我甚至可能使用 Spring 对 Project CRaC 的惊人支持。那不是这里的重点。我并不真正关心那个，因为这是一个独立的、长寿命的服务。我关心的是资源使用情况，由 驻留集大小 (RSS) 代表。注意进程标识符 (PID) – 它会在日志中。如果 PID 是，比方说，55，那么使用 ps 实用程序获取 RSS，几乎在所有 Unix 上都可用：</p>
-<h2 id="source-shell-2"><a href="#source-shell-2" class="headerlink" title="[source,shell]"></a>[source,shell]</h2><h2 id="ps-o-rss-55"><a href="#ps-o-rss-55" class="headerlink" title="ps -o rss 55"></a>ps -o rss 55</h2><p>It’ll dump out a number in kilobytes;  divide by a thousand and you’ll get the number in megabytes. On my machine, it takes just over 100MB to run. You can’t run Slack in that tiny amount of memory! I bet you’ve got individual browser tabs in Chrome taking that much, or more!</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">ps -o rss 55</span><br></pre></td></tr></table></figure></div>
+
+<p>It’ll dump out a number in kilobytes;  divide by a thousand and you’ll get the number in megabytes. On my machine, it takes just over 100MB to run. You can’t run Slack in that tiny amount of memory! I bet you’ve got individual browser tabs in Chrome taking that much, or more!</p>
 <p>它会以千字节为单位输出一个数字；除以一千，你会得到以兆字节为单位的数字。在我的机器上，运行它只需要稍微超过 100MB 的内存。你甚至无法在那么少的内存中运行 Slack！我敢打赌你在 Chrome 中的单个浏览器标签占用的内存就有这么多，或者更多！</p>
 <p>So, we have a program that is as concise as can be while being easy to develop and iterate on. And it uses virtual threads to give us unparalleled scalability. It runs as a standalone, self-contained, operating system and architecture-specific native image. Oh! And, it supports the freaking singularity!</p>
 <p>所以，我们有一个程序，尽可能简洁，同时易于开发和迭代。并且它使用虚拟线程来提供无与伦比的可扩展性。它作为一个独立的、自包含的、特定于操作系统和架构的 Native Image 运行。哦！而且，它支持奇妙的奇迹！</p>
