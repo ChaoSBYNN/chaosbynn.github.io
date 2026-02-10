@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2026/02/10/unmaintainable-code-如何写出无法维护的代码-文档/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unmaintainable code 如何写出无法维护的代码 - 文档">
+<meta property="og:url" content="https://chaosbynn.github.io/2026/02/10/unmaintainable-code-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81-%E6%96%87%E6%A1%A3/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-02-10T02:12:21.000Z">
+<meta property="article:modified_time" content="2026-02-10T02:13:45.811Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="unmaintainable code">
+<meta property="article:tag" content="代码质量">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            unmaintainable code 如何写出无法维护的代码 - 文档 | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/ChaoSBYNN","instagram":"https://www.instagram.com/entropy_42_zhang","zhihu":"https://www.zhihu.com/people/Bee7zEBubChaoS","twitter":"https://x.com/Bee7zEBub","email":"t7_chaos@163.com"},"qrs":{"weixin":null}},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1"}},"version":"2.8.5","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footerStart":"2017/2/13 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">62</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">128</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/code.jpg" alt="unmaintainable code 如何写出无法维护的代码 - 文档" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">unmaintainable code 如何写出无法维护的代码 - 文档</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-02-10 10:12:21</span>
+        <span class="mobile">2026-02-10 10:12:21</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-02-10 10:13:45</span>
+            <span class="mobile">2026-02-10 10:13:45</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Program/">Program</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/unmaintainable-code/">unmaintainable code</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/">代码质量</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="Documentation-文档"><a href="#Documentation-文档" class="headerlink" title="Documentation  文档"></a>Documentation  文档</h2><blockquote>
+<p>Any fool can tell the truth, but it requires a man of some sense to know how to lie well.<br>任何傻瓜都能说实话，但要懂得撒谎，就得有点头脑。<br>Samuel Butler 塞缪尔·巴特勒</p>
+</blockquote>
+<blockquote>
+<p>Incorrect documentation is often worse than no documentation.<br>错误的文档往往比没有文档更糟糕。<br>Bertrand Meyer 贝特朗·迈耶</p>
+</blockquote>
+<p>Since the computer ignores comments and documentation, you can lie outrageously and do everything in your power to befuddle the poor maintenance programmer.</p>
+<p>由于电脑会无视评论和文档，你可以大肆撒谎，竭尽全力让可怜的维护程序员困惑。</p>
+<h3 id="Lie-in-the-comments-在注释撒谎"><a href="#Lie-in-the-comments-在注释撒谎" class="headerlink" title="Lie in the comments 在注释撒谎"></a>Lie in the comments 在注释撒谎</h3><p>: You don’t have to actively lie, just fail to keep comments as up to date with the code.</p>
+<p>你不必刻意撒谎，只要不让注释和保持代码同步更新即可。</p>
+<h3 id="Document-the-obvious-记录显而易见的事情"><a href="#Document-the-obvious-记录显而易见的事情" class="headerlink" title="Document the obvious  记录显而易见的事情"></a>Document the obvious  记录显而易见的事情</h3><p>: Pepper the code with comments like <code>/* add 1 to i */</code> however, never document wooly stuff like the overall purpose of the package or method.</p>
+<p>： 在代码中添加诸如 <code>/* 加 1 到 i * /</code> 的注释，但切勿记录包或方法的整体目的。</p>
+<h3 id="Document-How-Not-Why-记录文档但不写为什么"><a href="#Document-How-Not-Why-记录文档但不写为什么" class="headerlink" title="Document How Not Why 记录文档但不写为什么"></a>Document How Not Why 记录文档但不写为什么</h3><p>: Document only the details of what a program does, not what it is attempting to accomplish. That way, if there is a bug, the fixer will have no clue what the code should be doing.</p>
+<p>只记录程序具体做了什么，而不是它试图实现什么。这样一来，如果有 bug，修复者就不知道代码应该做什么。</p>
+<h3 id="Avoid-Documenting-the-Obvious-避免记录显而易见的事情"><a href="#Avoid-Documenting-the-Obvious-避免记录显而易见的事情" class="headerlink" title="Avoid Documenting the Obvious 避免记录显而易见的事情"></a>Avoid Documenting the <code>Obvious</code> 避免记录显而易见的事情</h3><p>: If, for example, you were writing an airline reservation system, make sure there are at least 25 places in the code that need to be modified if you were to add another airline. Never document where they are. People who come after you have no business modifying your code without thoroughly understanding every line of it.</p>
+<p>例如，如果你在编写航空预订系统，确保代码中至少有25个需要修改的地方，以便添加另一家航空公司。绝不要记录它们的位置。在你之后的人，没有充分理解你的代码每行，都没有权利修改你的代码。</p>
+<h3 id="On-the-Proper-Use-of-Documentation-Templates-关于文档模板的正确使用"><a href="#On-the-Proper-Use-of-Documentation-Templates-关于文档模板的正确使用" class="headerlink" title="On the Proper Use of Documentation Templates 关于文档模板的正确使用"></a>On the Proper Use of Documentation Templates 关于文档模板的正确使用</h3><p>: Consider function documentation prototypes used to allow automated documentation of the code. These prototypes should be copied from one function (or method or class) to another, but never fill in the fields. If for some reason you are forced to fill in the fields make sure that all parameters are named the same for all functions and all cautions are the same but, of course, not related to the current function at all.</p>
+<p>考虑函数文档原型，用于实现代码的自动化文档。这些原型应从一个函数（或方法或类）复制到另一个函数，但绝不填充字段。如果因为某些原因被迫填写字段，确保所有参数的名称都相同，所有注意事项也相同，但当然，这些参数与当前函数无关。</p>
+<h3 id="On-the-Proper-Use-of-Design-Documents-关于设计文档的正确使用"><a href="#On-the-Proper-Use-of-Design-Documents-关于设计文档的正确使用" class="headerlink" title="On the Proper Use of Design Documents 关于设计文档的正确使用"></a>On the Proper Use of Design Documents 关于设计文档的正确使用</h3><p>: When implementing a very complicated algorithm, use the classic software engineering principles of doing a sound design before beginning coding. Write an extremely detailed design document that describes each step in a very complicated algorithm. The more detailed this document is, the better.</p>
+<p>：在实现非常复杂的算法时，采用经典软件工程原则，先做声音设计再开始编码。写一份极其详细的设计文档，描述一个非常复杂算法中的每一步。这份文件越详细越好。</p>
+<p>In fact, the design doc should break the algorithm down into a hierarchy of structured steps, described in a hierarchy of auto-numbered individual paragraphs in the document. Use headings at least 5 deep. Make sure that when you are done, you have broken the structure down so completely that there are over 500 such auto-numbered paragraphs. For example, one paragraph might be: (this is a real example)</p>
+<p>事实上，设计文档应将算法拆分为结构化步骤的层级结构，文档中以自动编号的单个段落层级描述。航向至少要有5层深。确保完成后，你已经把结构拆得非常完整，超过500个这样的自动编号段落。例如，一段可能是：（这是一个真实的例子）</p>
+<p>1.2.4.6.3.13 — Display all impacts for activity where selected mitigations can apply (short pseudocode omitted).</p>
+<p>1.2.4.6.3.13 — 显示所有可适用特定缓解措施的活动影响（省略简短伪代码）。</p>
+<p>then… (and this is the kicker) when you write the code, for each of these paragraphs you write a corresponding</p>
+<p>然后 ……（这才是关键）写代码时，每段都要写对应的段落</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Act1_2_4_6_3_13</span>()</span><br></pre></td></tr></table></figure></div>
+
+<p>Do not document these functions. After all, that’s what the design document is for!</p>
+<p>不要记录这些功能。毕竟，设计文档就是为此而设！</p>
+<p>Since the design doc is auto-numbered, it will be extremely difficult to keep it up to date with changes in the code (because the function names, of course, are static, not auto-numbered.) This isn’t a problem for you because you will not try to keep the document up to date. In fact, do everything you can to destroy all traces of the document.</p>
+<p>由于设计文档是自动编号的，要保持代码更新非常困难（因为函数名当然是静态的，不是自动编号的）。这对你来说不是问题，因为你不会努力保持文档的更新。事实上，尽一切可能销毁所有文件痕迹。</p>
+<p>Those who come after you should only be able to find one or two contradictory, early drafts of the design document hidden on some dusty shelving in the back room near the dead 286 computers.</p>
+<p>后来跟进你的人应该只能在后屋里某个布满灰尘的架子上，靠近那台死去的286台电脑里，找到一两个相互矛盾的早期设计草案。</p>
+<h3 id="Units-of-Measure-计量单位"><a href="#Units-of-Measure-计量单位" class="headerlink" title="Units of Measure  计量单位"></a>Units of Measure  计量单位</h3><p>: Never document the units of measure of any variable, input, output or parameter, e. g. feet, metres, cartons. This is not so important in bean counting, but it is very important in engineering work. As a corollary, never document the units of measure of any conversion constants, or how the values were derived. It is mild cheating, but very effective, to salt the code with some incorrect units of measure in the comments. If you are feeling particularly malicious, make up your own unit of measure; name it after yourself or some obscure person and never define it. If somebody challenges you, tell them you did so that you could use integer rather than floating point arithmetic.</p>
+<p>：永远不要记录任何变量的度量单位， 输入、输出或参数，例如英尺、米、纸箱。这在 算豆子，但在工程工作中非常重要。作为推论，永远不会 记录任何转换常数的计量单位，或其值的具体情况 衍生。在代码中加盐虽然有点小作弊，但非常有效 评论区的计量单位不正确。如果你感觉特别特别 恶意，自己制定计量单位; 用你自己或某个鲜为人知的人来命名，永远不要给它下定义。如果有人质疑你，告诉他们你是因为这样可以用整数而不是浮点数运算。</p>
+<h3 id="Gotchas-陷阱"><a href="#Gotchas-陷阱" class="headerlink" title="Gotchas  陷阱"></a>Gotchas  陷阱</h3><p>: <code>Never</code> document gotchas in the code. If you suspect there may be a bug in a class, keep it to yourself. If you have ideas about how the code should be reorganised or rewritten, for heaven’s sake, do not write them down. Remember the words of Thumper in the movie Bambi “If you can’t say anything nice, don’t say anything at all”. What if the programmer who wrote that code saw your comments? What if the owner of the company saw them? What if a customer did? You could get yourself fired. An anonymous comment that says This needs to be fixed! can do wonders, especially if it’s not clear what the comment refers to. Keep it vague and nobody will feel personally criticised.</p>
+<p>绝不要在代码中记录陷阱。如果你怀疑可能有 课堂里有 bug，自己留着。如果你对代码应该是什么样子有想法 重组或重写的，拜托，千万别写下来。记住 电影《小鹿斑比》中跳跳者的话 ：“如果你不能说好话，那就什么都别说。” 如果写作的程序员会怎样 那个代码看到了你的评论吗？如果公司的老板看到了怎么办？如果 是客户做的吗？你可能会被解雇。一条匿名评论说 这必须被解决！ 这能带来奇效，尤其是当评论不清楚具体指什么时。保持模糊，没人会觉得被针对。</p>
+<h3 id="Documenting-Variables-变量文档"><a href="#Documenting-Variables-变量文档" class="headerlink" title="Documenting Variables  变量文档"></a>Documenting Variables  变量文档</h3><p>: <code>Never</code> put a comment on a variable declaration. Facts about how the variable is used, its bounds, its legal values, its implied&#x2F;displayed number of decimal points, its units of measure, its display format, its data entry rules (e.g. total fill, must enter), when its value can be trusted etc. should be gleaned from the procedural code. If your boss forces you to write comments, lard method bodies with them, but never comment a variable declaration, not even a temporary!</p>
+<p>：<code>永远不要</code>在变量声明上添加评论。关于变量的使用方式、界限、法律值、隐含&#x2F;显示的小数点数、计量单位、显示格式、数据录入规则（如总填充、必须输入）、何时可信值等事实，应从程序代码中获得。如果你的老板强迫你写注释，就用它们做 lard 方法的主体，但绝不要评论变量声明，哪怕是临时声明！</p>
+<h3 id="Disparage-In-the-Comments-评论区的贬低"><a href="#Disparage-In-the-Comments-评论区的贬低" class="headerlink" title="Disparage In the Comments 评论区的贬低"></a>Disparage In the Comments 评论区的贬低</h3><p>: Discourage any attempt to use external maintenance contractors by peppering your code with insulting references to other leading software companies, especially anyone who might be contracted to do the work, e. g.:</p>
+<p>：通过在代码中大量使用侮辱性词语来阻止任何使用外部维护承包商的尝试，尤其是针对任何可能受雇执行维护工作的公司，例如：</p>
+<div class="code-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** The optimised inner loop.</span></span><br><span class="line"><span class="comment"> * This stuff is too clever for the dullard at Software Services Inc., who would</span></span><br><span class="line"><span class="comment"> * probably use 50 times as memory &amp; time using the dumb routines in &lt;math.h&gt;.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">clever_SSInc</span></span><br><span class="line">   &#123;</span><br><span class="line">   ...</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>If possible, put insulting stuff in syntactically significant parts of the code, as well as just the comments so that management will probably break the code if they try to sanitise it before sending it out for maintenance.</p>
+<p>：阻止任何尝试使用外部 维护承包商通过在你的代码中充斥侮辱性引用他人 领先的软件公司，尤其是那些可能承包完成这项工作的企业， 例如： 如果可能的话，在代码中语法重要部分放侮辱性内容，比如 其实只是注释，这样管理层如果尝试，可能会破坏代码 在送去维护前消毒。</p>
+<h3 id="COMMENT-AS-IF-IT-WERE-COBOL-ON-PUNCH-CARDS-像在穿孔卡上评论科博尔一样"><a href="#COMMENT-AS-IF-IT-WERE-COBOL-ON-PUNCH-CARDS-像在穿孔卡上评论科博尔一样" class="headerlink" title="COMMENT AS IF IT WERE CØBØL ON PUNCH CARDS 像在穿孔卡上评论科博尔一样"></a>COMMENT AS IF IT WERE CØBØL ON PUNCH CARDS 像在穿孔卡上评论科博尔一样</h3><p>: Always refuse to accept advances in the development environment arena, especially SCIDs. Disbelieve rumors that all function and variable declarations are never more than one click away and always assume that code developed in Visual Studio 6.0 will be maintained by someone using edlin or vi. Insist on Draconian commenting rules to bury the source code proper.</p>
+<p>：永远拒绝 接受开发环境领域的进步，尤其是 SCIDs。不要相信那些关于所有函数和变量声明都不超过一次点击距离的传言，并且总是假设在 Visual Studio 6.0 开发的代码会由使用 edlin 或 vi 的人维护。坚持使用严苛的注释规则来掩盖源代码。</p>
+<h3 id="Monty-Python-Comments-喜剧式注释"><a href="#Monty-Python-Comments-喜剧式注释" class="headerlink" title="Monty Python Comments 喜剧式注释"></a>Monty Python Comments 喜剧式注释</h3><p>(揭秘Python命名由来：为什么编程语言要以蟒蛇命名？)[<a class="link"   target="_blank" rel="noopener" href="https://www.oryoy.com/news/jie-mi-python-ming-ming-you-lai-wei-shen-me-bian-cheng-yu-yan-yao-yi-mang-she-ming-ming.html]" >https://www.oryoy.com/news/jie-mi-python-ming-ming-you-lai-wei-shen-me-bian-cheng-yu-yan-yao-yi-mang-she-ming-ming.html]<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>: On a method called makeSnafucated insert only the Javadoc <code>/* make snafucated */</code>. Never define what snafucated means anywhere. Only a fool does not already know, with complete certainty, what snafucated means. For classic examples of this technique, consult the Sun AWT (Advanced Windowing Toolkit) Javadoc.</p>
+<p>： 在一个叫 makeSnafucated 的方法上，只插入 Javadoc <code>/* make snafucated */</code>。永远不要在任何地方定义 “snafuced”是什么意思。只有傻瓜才不会完全确定“snafucated”是什么意思。关于该技术的经典示例，可参考 Sun AWT（Advanced Windowing Toolkit）Javadoc。</p>
+<h3 id="Obsolete-Code-过时代码"><a href="#Obsolete-Code-过时代码" class="headerlink" title="Obsolete Code  过时代码"></a>Obsolete Code  过时代码</h3><p>Be sure to comment out unused code instead of deleting it and relying on version control to bring it back if necessary. In no way document whether the new code was intended to supplement or completely replace the old code, or whether the old code worked at all, what was wrong with it, why it was replaced etc. Comment it out with a lead <code>/*</code> and trail <code>*/</code> rather than a <code>//</code> on each line. That way it might more easily be mistaken for live code and partially maintained.<br>一定要注释掉未使用的代码，而不是删除它， 依赖版本控制在必要时恢复。绝不能记录 新代码旨在补充或完全取代旧代码，或者 旧代码是否能正常工作，问题出在哪里，为什么被替换等等。 用引言<code>/*</code> 和尾<code>*/</code> 来注释，而不是每行都加注释。这样更容易被误认为是实时代码，从而部分维护。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> unmaintainable code 如何写出无法维护的代码 - 文档</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2026-02-10 10:12:21</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-02-10 10:13:45
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2026/02/10/unmaintainable-code-如何写出无法维护的代码-文档/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/unmaintainable-code/">#unmaintainable code</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/">#代码质量</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/02/10/unmaintainable-code-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81-%E4%BC%AA%E8%A3%85%E6%AC%BA%E8%AF%88/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">unmaintainable code 如何写出无法维护的代码 - 伪装欺诈</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'ChaoSBYNN/chaosbynn.github.io',
+                'data-repo-id': 'MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDOBNbWcM4CgcsE',
+                'data-mapping': 'title',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">unmaintainable code 如何写出无法维护的代码 - 文档</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Documentation-%E6%96%87%E6%A1%A3"><span class="nav-number">1.</span> <span class="nav-text">Documentation  文档</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lie-in-the-comments-%E5%9C%A8%E6%B3%A8%E9%87%8A%E6%92%92%E8%B0%8E"><span class="nav-number">1.1.</span> <span class="nav-text">Lie in the comments 在注释撒谎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-the-obvious-%E8%AE%B0%E5%BD%95%E6%98%BE%E8%80%8C%E6%98%93%E8%A7%81%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-number">1.2.</span> <span class="nav-text">Document the obvious  记录显而易见的事情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Document-How-Not-Why-%E8%AE%B0%E5%BD%95%E6%96%87%E6%A1%A3%E4%BD%86%E4%B8%8D%E5%86%99%E4%B8%BA%E4%BB%80%E4%B9%88"><span class="nav-number">1.3.</span> <span class="nav-text">Document How Not Why 记录文档但不写为什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoid-Documenting-the-Obvious-%E9%81%BF%E5%85%8D%E8%AE%B0%E5%BD%95%E6%98%BE%E8%80%8C%E6%98%93%E8%A7%81%E7%9A%84%E4%BA%8B%E6%83%85"><span class="nav-number">1.4.</span> <span class="nav-text">Avoid Documenting the Obvious 避免记录显而易见的事情</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#On-the-Proper-Use-of-Documentation-Templates-%E5%85%B3%E4%BA%8E%E6%96%87%E6%A1%A3%E6%A8%A1%E6%9D%BF%E7%9A%84%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8"><span class="nav-number">1.5.</span> <span class="nav-text">On the Proper Use of Documentation Templates 关于文档模板的正确使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#On-the-Proper-Use-of-Design-Documents-%E5%85%B3%E4%BA%8E%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3%E7%9A%84%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">On the Proper Use of Design Documents 关于设计文档的正确使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Units-of-Measure-%E8%AE%A1%E9%87%8F%E5%8D%95%E4%BD%8D"><span class="nav-number">1.7.</span> <span class="nav-text">Units of Measure  计量单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gotchas-%E9%99%B7%E9%98%B1"><span class="nav-number">1.8.</span> <span class="nav-text">Gotchas  陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Documenting-Variables-%E5%8F%98%E9%87%8F%E6%96%87%E6%A1%A3"><span class="nav-number">1.9.</span> <span class="nav-text">Documenting Variables  变量文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Disparage-In-the-Comments-%E8%AF%84%E8%AE%BA%E5%8C%BA%E7%9A%84%E8%B4%AC%E4%BD%8E"><span class="nav-number">1.10.</span> <span class="nav-text">Disparage In the Comments 评论区的贬低</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COMMENT-AS-IF-IT-WERE-COBOL-ON-PUNCH-CARDS-%E5%83%8F%E5%9C%A8%E7%A9%BF%E5%AD%94%E5%8D%A1%E4%B8%8A%E8%AF%84%E8%AE%BA%E7%A7%91%E5%8D%9A%E5%B0%94%E4%B8%80%E6%A0%B7"><span class="nav-number">1.11.</span> <span class="nav-text">COMMENT AS IF IT WERE CØBØL ON PUNCH CARDS 像在穿孔卡上评论科博尔一样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Monty-Python-Comments-%E5%96%9C%E5%89%A7%E5%BC%8F%E6%B3%A8%E9%87%8A"><span class="nav-number">1.12.</span> <span class="nav-text">Monty Python Comments 喜剧式注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Obsolete-Code-%E8%BF%87%E6%97%B6%E4%BB%A3%E7%A0%81"><span class="nav-number">1.13.</span> <span class="nav-text">Obsolete Code  过时代码</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 128 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
