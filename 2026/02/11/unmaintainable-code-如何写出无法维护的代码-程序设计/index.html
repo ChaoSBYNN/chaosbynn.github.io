@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set data attribute for CSS variables
+                root.setAttribute("data-theme", theme);
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes once DOM is ready
+            if (document.readyState !== "loading") {
+                document.body.classList.add(theme + "-mode");
+            } else {
+                document.addEventListener("DOMContentLoaded", () => {
+                    document.body.classList.add(theme + "-mode");
+                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+                });
+            }
+        })();
+    </script>
+    
+    <!-- Critical CSS to prevent flash -->
+    <style>
+        :root[data-theme="dark"] {
+            --background-color: #202124;
+            --background-color-transparent: rgba(32, 33, 36, 0.6);
+            --second-background-color: #2d2e32;
+            --third-background-color: #34353a;
+            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #ffffff;
+            --second-text-color: #eeeeee;
+            --third-text-color: #bebec6;
+            --fourth-text-color: #999999;
+            --default-text-color: #bebec6;
+            --invert-text-color: #373D3F;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(255, 255, 255, 0.08);
+            --shadow-color-2: rgba(255, 255, 255, 0.05);
+        }
+        
+        :root[data-theme="light"] {
+            --background-color: #fff;
+            --background-color-transparent: rgba(255, 255, 255, 0.6);
+            --second-background-color: #f8f8f8;
+            --third-background-color: #f2f2f2;
+            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
+            --primary-color: #0066CC;
+            --first-text-color: #16171a;
+            --second-text-color: #2f3037;
+            --third-text-color: #5e5e5e;
+            --fourth-text-color: #eeeeee;
+            --default-text-color: #373D3F;
+            --invert-text-color: #bebec6;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --selection-color: #0066CC;
+            --shadow-color-1: rgba(0, 0, 0, 0.08);
+            --shadow-color-2: rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+        
+        /* Apply body classes as soon as DOM is ready */
+        :root[data-theme="dark"] body {
+            background-color: var(--background-color);
+            color: var(--default-text-color);
+        }
+    </style>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2026/02/11/unmaintainable-code-如何写出无法维护的代码-程序设计/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="unmaintainable code 如何写出无法维护的代码 - 程序设计">
+<meta property="og:url" content="https://chaosbynn.github.io/2026/02/11/unmaintainable-code-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-02-11T01:17:58.000Z">
+<meta property="article:modified_time" content="2026-02-11T01:18:20.523Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="unmaintainable code">
+<meta property="article:tag" content="代码质量">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            unmaintainable code 如何写出无法维护的代码 - 程序设计 | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/ChaoSBYNN","instagram":"https://www.instagram.com/entropy_42_zhang","zhihu":"https://www.zhihu.com/people/Bee7zEBubChaoS","twitter":"https://x.com/Bee7zEBub","email":"t7_chaos@163.com"},"qrs":{"weixin":null}},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1"}},"version":"2.8.5","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footerStart":"2017/2/13 11:45:14"};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">62</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">129</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/code.jpg" alt="unmaintainable code 如何写出无法维护的代码 - 程序设计" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">unmaintainable code 如何写出无法维护的代码 - 程序设计</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-02-11 09:17:58</span>
+        <span class="mobile">2026-02-11 09:17:58</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-02-11 09:18:20</span>
+            <span class="mobile">2026-02-11 09:18:20</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Program/">Program</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/unmaintainable-code/">unmaintainable code</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/">代码质量</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h2 id="Program-Design-程序设计"><a href="#Program-Design-程序设计" class="headerlink" title="Program Design  程序设计"></a>Program Design  程序设计</h2><blockquote>
+<p>The cardinal rule of writing unmaintainable code is to specify each fact in as many places as possible and in as many ways as possible.<br>编写不可维护代码的基本规则是尽可能多地、以尽可能多的方式指定每个事实。<br>Roedy 罗迪</p>
+</blockquote>
+<p>The key to writing maintainable code is to specify each fact about the application in only one place. To change your mind, you need change it in only one place and you are guaranteed the entire program will still work. Therefore, the key to writing unmaintainable code is to specify a fact over and over, in as many places as possible, in as many variant ways as possible. Happily, languages like Java go out of their way to make writing this sort of unmaintainable code easy. For example, it is almost impossible to change the type of a widely used variable because all the casts and conversion functions will no longer work and the types of the associated temporary variables will no longer be appropriate. Further, if the variable is displayed on the screen, all the associated display and data entry code has to be tracked down and manually modified. The Algol family of languages which include C and Java treat storing data in an array, Hashtable, flat file and database with totally different syntax. In languages like Abundance and to some extent Smalltalk, the syntax is identical; just the declaration changes. Take advantage of Java’s ineptitude. Put data you know will grow too large for RAM (Random Access Memory), for now into an array. That way the maintenance programmer will have a horrendous task converting from array to file access later. Similarly place tiny files in databases so the maintenance programmer can have the fun of converting them to array access when it comes time to performance tune.</p>
+<p>编写可维护代码的关键是将关于应用程序的每个事实都集中在一个地方。要改变主意，只需在一个地方修改，就能保证整个程序依然有效。因此，编写不可维护代码的关键是反复指定一个事实，尽可能多地在各种地方，以各种变体方式。幸运的是，像 Java 这样的语言会尽力让写这种难以维护的代码变得简单。例如，几乎不可能更改一个广泛使用的变量的类型，因为所有铸造和转换函数都不再工作，相关临时变量的类型也不再适用。此外，如果变量显示在屏幕上，所有相关的显示和数据录入代码都必须被追踪并手动修改。包括 C 和 Java 在内的 Algol 语言家族将数据存储在数组、哈希表、平面文件和数据库中 ，完全是 不同的语法。在像 Abundance 和某种程度上的 Smalltalk 这样的语言中，语法 是相同的;只是声明内容变了。利用 Java 的笨拙。 暂时把你知道会对内存 （Random Access Memory）来说太大的数据放进一个数组。这样维护程序员以后从数组转换到文件访问会非常麻烦。同样地，把小文件放进数据库，让维护程序员在性能调优时可以把它们转换成数组访问。</p>
+<h3 id="Java-Casts-类型转换"><a href="#Java-Casts-类型转换" class="headerlink" title="Java Casts 类型转换"></a>Java Casts 类型转换</h3><p>: Java’s casting scheme is a gift from the Gods. You can use it without guilt since the language requires it. Every time you retrieve an object from a Collection you must cast it back to its original type. Thus the type of the variable may be specified in dozens of places. If the type later changes, all the casts must be changed to match. The compiler may or may not detect if the hapless maintenance programmer fails to catch them all (or changes one too many). In a similar way, all matching casts to (short) need to be changed to (int) if the type of a variable changes from short to int. There is a movement afoot in invent a generic cast operator (cast) and a generic conversion operator (convert) that would require no maintenance when the type of variable changes. Make sure this heresy never makes it into the language specification. Vote no on RFE 114691 and on genericity which would eliminate the need for many casts.</p>
+<p>：Java 的类型转换方案是神赐的礼物。你可以使用 因为语言要求，所以没有内疚感。每次你取回一个物体 你必须从集合中将其铸造回原始类型。因此 的类型 变量可以在数十个地方指定。如果类型后来发生变化，所有 必须更换铸件以匹配。编译器可能会检测到，也可能不会检测到…… 维护程序员没能全部抓到（或者改了太多）。在 同理，所有匹配到 （short） 的投射，如果变量类型从变换，则需要将所有匹配的投射改为 （int）。 短到智。 目前正在推动发明通用铸算符 （铸造 ）和通用转换算符 （转换 ）的趋势，这些算子在变量类型变化时无需维护。确保这种异端永远不要出现在语言规范中。反对 RFE 的反对 114691 和泛泛性投票，这样就不用再多投了一次票。</p>
+<h3 id="Exploit-Java’s-Redundancy-利用-Java-的冗余"><a href="#Exploit-Java’s-Redundancy-利用-Java-的冗余" class="headerlink" title="Exploit Java’s Redundancy 利用 Java 的冗余"></a>Exploit Java’s Redundancy 利用 Java 的冗余</h3><p>: Java insists you specify the type of every variable twice. Java programmers are so used to this redundancy they won’t notice if you make the two types slightly different, as in this example:</p>
+<p>： Java 要求你指定每个 的类型 变量为两次。Java 程序员已经习惯了这种冗余，他们不会 注意如果你把这两种类型稍微不同，比如这个例子：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// note subtle spelling change</span></span><br><span class="line"><span class="type">Bubblegum</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bubblegom</span>();</span><br></pre></td></tr></table></figure></div>
+
+<p>Unfortunately the popularity of the ++ operator makes it harder to get away with pseudo-redundant code like this:</p>
+<p>不幸的是，++作符的流行使得像这样伪冗余代码变得更难被利用：</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// note subtle spelling change</span></span><br><span class="line">swimmer = swimner + <span class="number">1</span>;</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Never-Validate-永远不要验证"><a href="#Never-Validate-永远不要验证" class="headerlink" title="Never Validate  永远不要验证"></a>Never Validate  永远不要验证</h3><p>: Never check input data for any kind of correctness or discrepancies. It will demonstrate that you absolutely trust the company’s equipment as well as that you are a perfect team player who trusts all project partners and system operators. Always return reasonable values even when data inputs are questionable or erroneous.</p>
+<p>切勿检查输入数据是否有任何正确性或差异。这会表明你完全信任公司的设备，同时你是一个信任所有项目合作伙伴和系统的完美团队成员。即使数据输入存在疑问或错误，也应始终返回合理的数值。</p>
+<h3 id="Be-polite-Never-Assert-要有礼貌，绝不Assert"><a href="#Be-polite-Never-Assert-要有礼貌，绝不Assert" class="headerlink" title="Be polite, Never Assert 要有礼貌，绝不Assert"></a>Be polite, Never Assert 要有礼貌，绝不Assert</h3><p>: Avoid the assert() mechanism because it could turn a three-day debug fest into a ten minute one.</p>
+<p>避免使用 assert() 机制，因为这可能会让三天的调试环节变成十分钟的调试。</p>
+<h3 id="Avoid-Encapsulation-避免封装"><a href="#Avoid-Encapsulation-避免封装" class="headerlink" title="Avoid Encapsulation  避免封装"></a>Avoid Encapsulation  避免封装</h3><p>: In the interests of efficiency, avoid encapsulation. Callers of a method need all the external clues they can get to remind them how the method works inside.</p>
+<p>：为了效率，避免封装。调用方法的人需要尽可能多的外部线索来提醒他们方法内部的工作原理。</p>
+<h3 id="Clone-Modify-克隆与修改"><a href="#Clone-Modify-克隆与修改" class="headerlink" title="Clone &amp; Modify  克隆与修改"></a>Clone &amp; Modify  克隆与修改</h3><p>: In the name of efficiency, use cut&#x2F;paste&#x2F;clone&#x2F;modify. This works much faster than using many small reusable modules. This is especially useful in shops that measure your progress by the number of lines of code you’ve written.</p>
+<p>： 为了效率，使用剪切&#x2F;粘贴&#x2F;克隆&#x2F;修改。这比使用许多小型可重复使用模块快得多。这在那些通过你写了多少行代码来衡量进度的店里尤其有用。</p>
+<h3 id="Use-Static-Arrays-使用静态数组"><a href="#Use-Static-Arrays-使用静态数组" class="headerlink" title="Use Static Arrays  使用静态数组"></a>Use Static Arrays  使用静态数组</h3><p>: If a module in a library needs an array to hold an image, just define a static array. Nobody will ever have an image bigger than 512 × 512, so a fixed-size array is OK. For best precision, make it an array of doubles. Bonus effect for hiding a 2 Meg static array which causes the program to exceed the memory of the client’s machine and thrash like crazy even if they never use your routine.</p>
+<p>：如果库中的模块需要数组来存储图像，只需定义静态数组即可。没有人会看到比512×512更大的图像，所以固定大小的数组是可以接受的。为了获得最佳精度，可以让它变成双倍数组。隐藏2兆静态数组的额外效果，这会让程序超过客户端机器的内存，即使他们从未使用你的例程也会疯狂抖动。</p>
+<h3 id="Dummy-Interfaces-虚拟接口"><a href="#Dummy-Interfaces-虚拟接口" class="headerlink" title="Dummy Interfaces  虚拟接口"></a>Dummy Interfaces  虚拟接口</h3><p>: Write an empty interface called something like WrittenByMe and make all of your classes implement it. Then, write wrapper classes for any of Java’s built-in classes that you use. The idea is to make sure that every single object in your program implements this interface. Finally, write all methods so that both their arguments and return types are WrittenByMe. This makes it nearly impossible to figure out what some methods do, and introduces all sorts of entertaining casting requirements. For a further extension, have each team member have his&#x2F;her own personal interface (e.g., WrittenByJoe); any class worked on by a programmer gets to implement his&#x2F;her interface. You can then arbitrarily refer to objects by any one of a large number of meaningless interfaces!</p>
+<p>写一个空接口，叫做类似这样的 WrittenByMe，让你所有的课程都实现它。然后，为你使用的 Java 内置类写封装类。关键是确保程序中的每一个对象都实现了这个接口。最后，写所有方法使其参数和返回类型均为 WrittenByMe。这几乎让人无法弄清某些方法的作用，并引入了各种有趣的选角要求。进一步扩展，让<br>每个团队成员拥有自己的个人界面（例如，WrittenByJoe）;程序员完成的任何类都可以实现他&#x2F;她的接口。然后你可以任意地用大量无意义的接口来指代对象！</p>
+<h3 id="Giant-Listeners-全能监听器"><a href="#Giant-Listeners-全能监听器" class="headerlink" title="Giant Listeners  全能监听器"></a>Giant Listeners  全能监听器</h3><p>: Never create separate Listeners for each Component. Always have one listener for every button in your project and simply use massive if…else statements to test for which button was pressed.</p>
+<p>：切勿为每个组件单独创建监听器。项目中的每个按钮都要有一个监听器，然后用 massive if…否则 语句用来测试按下了哪个按钮。</p>
+<h3 id="Too-Much-of-A-Good-Thing™-好事™太多了"><a href="#Too-Much-of-A-Good-Thing™-好事™太多了" class="headerlink" title="Too Much of A Good Thing™ 好事™太多了"></a>Too Much of A Good Thing™ 好事™太多了</h3><p>: Go</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">myPanel.add( getMyButton() );</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> JButton <span class="title function_">getMyButton</span><span class="params">()</span></span><br><span class="line">   &#123;</span><br><span class="line">   <span class="keyword">return</span> myButton;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>That one probably did not even seem funny. Don’t worry. It will some day.</p>
+<p>那句话可能一点都不好笑。别担心。总有一天会的。</p>
+<h3 id="Friendly-Friend-友好的朋友"><a href="#Friendly-Friend-友好的朋友" class="headerlink" title="Friendly Friend  友好的朋友"></a>Friendly Friend  友好的朋友</h3><p>: Use as often as possible the friend-declaration in C++. Combine this with handing the pointer of the creating class to a created class. Now you don’t need to fritter away your time in thinking about interfaces. Additionally you should use the keywords private and protected to prove that your classes are well encapsulated.</p>
+<p>：尽可能多地在 C++。结合使用指针 创建类到已创建的类。现在你不用再浪费时间了 在思考接口时。此外，你还应使用关键词 私密且受保护 ，证明你的课程内容被很好地收纳。</p>
+<h3 id="Use-Three-Dimensional-Arrays-使用三维数组"><a href="#Use-Three-Dimensional-Arrays-使用三维数组" class="headerlink" title="Use Three Dimensional Arrays 使用三维数组"></a>Use Three Dimensional Arrays 使用三维数组</h3><p>: Lots of them. Move data between the arrays in convoluted ways, say, filling the columns in arrayB with the rows from arrayA. Doing it with an offset of 1, for no apparent reason, is a nice touch. Makes the maintenance programmer nervous.</p>
+<p>：很多。以复杂的方式在数组之间移动数据，比如用 arrayA 的行填充 arrayB 的列。无缘无故地用 1 的偏移量来做，是个不错的细节。这让维护程序员感到紧张。</p>
+<h3 id="Mix-and-Match-混搭"><a href="#Mix-and-Match-混搭" class="headerlink" title="Mix and Match  混搭"></a>Mix and Match  混搭</h3><p>: Use both accessor methods and public variables. That way, you can change an object’s variable without the overhead of calling the accessor, but still claim that the class is a Java Bean. This has the additional advantage of frustrating the maintenence programmer who adds a logging function to try to figure out who is changing the value.</p>
+<p>：同时使用访问方法和公共变量。这样，你 可以更改对象变量，而无需调用该访问者， 但仍声称该类是 Java Bean。这还有一个额外的好处，就是会让维护程序员感到沮丧，因为他们添加了日志功能来试图找出是谁在更改数值。</p>
+<h3 id="Wrap-wrap-wrap-包裹，包裹，包裹"><a href="#Wrap-wrap-wrap-包裹，包裹，包裹" class="headerlink" title="Wrap, wrap, wrap  包裹，包裹，包裹"></a>Wrap, wrap, wrap  包裹，包裹，包裹</h3><p>: Whenever you have to use methods in code you did not write, insulate your code from that other dirty code by at least one layer of wrapper. After all, the other author might some time in the future recklessly rename every method. Then where would you be? You could of course, if he did such a thing, insulate your code from the changes by writing a wrapper or you could let VAJ (Visual Age for Java) handle the global rename. However, this is the perfect excuse to preemptively cut him off at the pass with a wrapper layer of indirection, before he does anything idiotic. One of Java’s main faults is that there is no way to solve many simple problems without dummy wrapper methods that do nothing but call another method of the same name, or a closely related name. This means it is possible to write wrappers four-levels deep that do absolutely nothing, and almost no one will notice. To maximise the obscuration, at each level, rename the methods, selecting random synonyms from a thesaurus. This gives the illusion something of note is happening. Further, the renaming helps ensure the lack of consistent project terminology. To ensure no one attempts to prune your levels back to a reasonable number, invoke some of your code bypassing the wrappers at each of the levels.</p>
+<p>： 每当你必须在代码中使用方法时，你就没有 写出来，至少用一层包装来保护你的代码和那些脏代码。毕竟，另一位作者未来可能会鲁莽地重新命名所有方法。那你会在哪里？当然，如果他真的这么做了，你也可以通过写一个包装器来隔离代码免受更改的影响，或者让 VAJ（Visual Age for Java）来处理全局重命名。不过，这正是完美的 借口在通道处用一层间接包装封堵他， 在他做出愚蠢的事之前 。Java 的一个主要缺点是，没有虚假包装方法，无法解决许多简单问题，这些方法只会调用同名或密切相关的方法。这意味着你可以写出四层深度的封装器，完全没有任何作用，几乎没人会注意到。为了最大化模糊效果，在每个层级中重新命名方法，随机从同义词库中选择同义词。这给人一种有值得注意的事情正在发生的错觉。此外，更名有助于确保项目术语缺乏一致性。为了确保没有人试图把你的关卡修剪回合理的数量，可以在每个关卡调用部分代码绕过封装。</p>
+<h3 id="Wrap-Wrap-Wrap-Some-More-包裹，包裹，再包裹"><a href="#Wrap-Wrap-Wrap-Some-More-包裹，包裹，再包裹" class="headerlink" title="Wrap Wrap Wrap Some More 包裹，包裹，再包裹"></a>Wrap Wrap Wrap Some More 包裹，包裹，再包裹</h3><p>: Make sure all API (Application Programming Interface) functions are wrapped at least 6 to 8 times, with function definitions in separate source files. Using #defines to make handy shortcuts to these functions also helps.</p>
+<p>确保所有 API（ 应用程序 P 字形 ） 函数至少被包裹 6 到 8 次，函数定义分别放在不同的源文件中。使用 #defines 来设置这些功能的便捷快捷方式也很有帮助。</p>
+<h3 id="No-Secrets-没有秘密"><a href="#No-Secrets-没有秘密" class="headerlink" title="No Secrets!  没有秘密"></a>No Secrets!  没有秘密</h3><p>: Declare every method and variable public. After all, somebody, sometime might want to use it. Once a method has been declared public, it can’t very well be retracted, now can it? This makes it very difficult to later change the way anything works under the covers. It also has the delightful side effect of obscuring what a class is for. If the boss asks if you are out of your mind, tell him you are following the classic principles of transparent interfaces.</p>
+<p>：将每个方法和变量声明为公共。毕竟，总有人，某个时候，可能会想用它。一旦方法被声明为公开，就很难被撤回，对吧？这让以后很难改变被窝里的运作方式。这还有一个令人愉快的副作用，就是模糊了职业的用途。如果老板问你是不是疯了，就告诉他你遵循的是透明界面的经典原则。</p>
+<h3 id="The-Kama-Sutra-《爱经》"><a href="#The-Kama-Sutra-《爱经》" class="headerlink" title="The Kama Sutra  《爱经》"></a>The Kama Sutra  《爱经》</h3><p>: This technique has the added advantage of driving any users or documenters of the package to distraction as well as the maintenance programmers. Create a dozen overloaded variants of the same method that differ in only the most minute detail. I think it was Oscar Wilde who observed that positions 47 and 115 of the Kama Sutra were the same except in 115 the woman had her fingers crossed. Users of the package then have to carefully peruse the long list of methods to figure out just which variant to use. The technique also balloons the documentation and thus ensures it will more likely be out of date. If the boss asks why you are doing this, explain it is solely for the convenience of the users. Again for the full effect, clone any common logic and sit back and wait for it the copies to gradually get out of sync.</p>
+<p>： 这种技术还有一个额外好处，就是会让软件包的用户或文档作者以及维护程序员分心。制作十几种同样方法的超载变体，它们仅在最细微的细节上有所不同。我记得是奥斯卡·王尔德观察到，《爱经》第47和第115段其实是一样的，只是第115段那位女士交叉了手指。软件包的用户随后需要仔细浏览一长串方法，确定该使用哪种变体。这种技术还会膨胀文档，确保文档更可能过时。如果老板问你为什么这么做，就说明这纯粹是为了用户的方便。同样，为了达到完整效果，克隆任何通用逻辑，坐等复制品逐渐不同步。</p>
+<h3 id="Permute-and-Baffle-变换与挡板"><a href="#Permute-and-Baffle-变换与挡板" class="headerlink" title="Permute and Baffle  变换与挡板"></a>Permute and Baffle  变换与挡板</h3><p>: Reverse the parameters on a method called drawRectangle(height, width) to drawRectangle(width, height) without making any change whatsoever to the name of the method. Then a few releases later, reverse it back again. The maintenance programmers can’t tell by quickly looking at any call if it has been adjusted yet. Generalisations are left as an exercise for the reader.</p>
+<p>：将名为 drawRectangle（height， width） 的方法参数反转为 drawRectangle（width， height），且不更改方法名称。然后几次释放后，再倒转回去。维护程序员无法快速查看任何通话是否已经调整。泛化部分留给读者练习。</p>
+<h3 id="Theme-and-Variations-主题与变奏"><a href="#Theme-and-Variations-主题与变奏" class="headerlink" title="Theme and Variations  主题与变奏"></a>Theme and Variations  主题与变奏</h3><p>: Instead of using a parameter to a single method, create as many separate methods as you can. For example instead of setAlignment(int alignment) where alignment is an enumerated constant, for left, right, center, create three methods: setLeftAlignment, setRightAlignment and setCenterAlignment. Of course, for the full effect, you must clone the common logic to make it hard to keep in sync.</p>
+<p>：不再使用单一方法的参数， 尽可能多地创建独立的方法。例如，对于左、右、中心，替代 setAlignment（int alignment） 中，alignment 是枚举常数，而是创建三个方法：setLeftAlignment、setRightAlignment 和 setCenterAlignment。当然，为了达到最大效果，你必须克隆通用逻辑，这样才能让它难以保持同步。</p>
+<h3 id="Static-Is-Good-静态是好事"><a href="#Static-Is-Good-静态是好事" class="headerlink" title="Static Is Good  静态是好事"></a>Static Is Good  静态是好事</h3><p>: Make as many of your variables as possible static. If you don’t need more than one instance of the class in this program, no one else ever will either. Again, if other coders in the project complain, tell them about the execution speed improvement you’re getting.</p>
+<p>：尽可能多的变量保持静态。如果 这个项目不需要多于一个课程实例，其他人也不需要。同样，如果项目中的其他程序员抱怨，告诉他们你得到了的执行速度提升。</p>
+<h3 id="Cargill’s-Quandry-Cargill困境"><a href="#Cargill’s-Quandry-Cargill困境" class="headerlink" title="Cargill’s Quandry  Cargill困境"></a>Cargill’s Quandry  Cargill困境</h3><p>: Take advantage of Cargill’s quandary (I think this was his): “any design problem can be solved by adding an additional level of indirection, except for too many levels of indirection.” Decompose OO (Object Oriented) programs until it becomes nearly impossible to find a method which actually updates program state. Better yet, arrange all such occurrences to be activated as callbacks from by traversing pointer forests which are known to contain every function pointer used within the entire system. Arrange for the forest traversals to be activated as side-effects from releasing reference counted objects previously created via deep copies which aren’t really all that deep.</p>
+<p>：利用Cargill困境（我认为是这样） 这是他的 <code>)：</code>“任何设计问题都可以通过增加一层来解决 间接的，除了间接层面过多。”分解 OO（Object Oriented）程序，直到几乎找不到真正更新程序状态的方法。更好的是，通过遍历包含整个系统中所有函数指针的指针森林，安排所有此类事件作为回调激活。安排森林穿越作为释放之前通过深度副本创建的参考计数对象的副作用来激活，这些深度副本其实并不算太深。</p>
+<h3 id="Packratting-包装狂潮"><a href="#Packratting-包装狂潮" class="headerlink" title="Packratting  包装狂潮"></a>Packratting  包装狂潮</h3><p>: Keep all of your unused and outdated methods and variables around in your code. After all — if you needed to use it once in 1976, who knows if you will want to use it again sometime? Sure the program’s changed since then, but it might just as easily change back, you “don’t want to have to reinvent the wheel” (supervisors love talk like that). If you have left the comments on those methods and variables untouched, and sufficiently cryptic, anyone maintaining the code will be too scared to touch them.</p>
+<p>保留所有未使用和过时的方法和变量 在你的代码里。毕竟——如果你在 1976 年用过一次，谁知道你以后还会想用它呢？虽然项目后来变了，但也可能随时变回去，你“不想重新发明轮子”（主管们喜欢这样说）。如果你对这些方法和变量的注释保持原样，且足够隐晦，维护代码的人会害怕去碰它们。</p>
+<h3 id="And-That’s-Final-这就是最终决定"><a href="#And-That’s-Final-这就是最终决定" class="headerlink" title="And That’s Final  这就是最终决定"></a>And That’s Final  这就是最终决定</h3><p>: Make all of your leaf classes final. After all, you’re done with the project — certainly no one else could possibly improve on your work by extending your classes. And it might even be a security flaw — after all, isn’t java.lang.String final for just this reason? If other coders in your project complain, tell them about the execution speed improvement you’re getting.</p>
+<p>：让你所有的叶子职业都定型。毕竟， 你已经完成了这个项目——当然，没有人能通过延长你的课程来提升你的作品。这甚至可能是安全漏洞——毕竟，java.lang.String 不正是因为这个原因才是最终版的吗？如果项目中的其他程序员抱怨，告诉他们你获得了的执行速度提升。</p>
+<h3 id="Eschew-The-Interface-避免使用界面"><a href="#Eschew-The-Interface-避免使用界面" class="headerlink" title="Eschew The Interface  避免使用界面"></a>Eschew The Interface  避免使用界面</h3><p>: In Java, disdain the interface. If your supervisors complain, tell them that Java interfaces force you to cut-and-paste code between different classes that implement the same interface the same way and they know how hard that would be to maintain. Instead, do as the Java AWT (Advanced Windowing Toolkit) designers did — put lots of functionality in your classes that can only be used by classes that inherit from them and use lots of instanceof checks in your methods. This way, if someone wants to reuse your code, they have to extend your classes. If they want to reuse your code from two different classes — tough luck, they can’t extend both of them at once! If an interface is unavoidable, make an all-purpose one and name it something like ImplementableIface. Another gem from academia is to append Impl to the names of classes that implement interfaces. This can be used to great advantage, e.g. with classes that implement Runnable.</p>
+<p>在 Java 中，可以轻视界面。如果你的主管 抱怨他们，告诉他们 Java 界面强制你在不同类之间复制粘贴代码，而这些类实现相同界面，他们知道维护这有多难。相反，像 Java AWT（ 高级 W 输入 Toolkit）设计者那样——在你的类中加入大量只能被继承类使用的功能，并在方法中使用大量实例检查。这样，如果有人想复用你的代码，就必须扩展你的类。如果他们想重复使用你两个不同类别的代码——那就倒霉了，他们不能同时扩展两个类别！如果某个界面不可避免，就做一个通用的，并命名类似 ImplementableIface 之类。 学术界的另一个宝藏是附录 实现到实现接口的类名称中。这可以被极大利用，例如在实现 Runnable 的类中。</p>
+<h3 id="Avoid-Layouts-避免布局"><a href="#Avoid-Layouts-避免布局" class="headerlink" title="Avoid Layouts  避免布局"></a>Avoid Layouts  避免布局</h3><p>: Never use layouts. That way when the maintenance programmer adds one more field he will have to manually adjust the absolute coordinates of every other thing displayed on the screen. If your boss forces you to use a layout, use a single giant GridBagLayout and hard code in absolute grid coordinates.</p>
+<p>：千万别用布局。这样当维护程序员添加一个字段时，他就得手动调整屏幕上显示的每个内容的绝对坐标。如果你的老板强迫你用布局，就用一个巨大的 GridBagLayout，再用绝对网格坐标硬编码。</p>
+<h3 id="Environment-variables-环境变量"><a href="#Environment-variables-环境变量" class="headerlink" title="Environment variables  环境变量"></a>Environment variables  环境变量</h3><p>: If you have to write classes for some other programmer to use, put environment-checking code (getenv() in C++ &#x2F; System.getProperty() in Java ) in your classes’ nameless static initializers, and pass all your arguments to the classes this way, rather than in the constructor methods. The advantage is that the initializer methods get called as soon as the class program binaries get loaded, even before any of the classes get instantiated, so they will usually get executed before the program main(). In other words, there will be no way for the rest of the program to modify these parameters before they get read into your classes — the users better have set up all their environment variables just the way you had them!</p>
+<p>：如果你必须为别人写课程 程序员用的方法是，在类的无名静态初始化器中放置环境检查代码（getenv（） 在 C++ 中 &#x2F; System.getProperty（） 在 Java 中），并将所有参数通过这种方式传递给类，而不是在构造函数方法中。优点是，初始化方法在类程序二进制文件加载后立即调用，甚至在任何类实例化之前，因此通常会在程序主程序（）之前执行。换句话说，程序的其他部分在这些参数被读入你的类之前，根本无法修改它们——用户最好已经按照你设置的方式设置了所有环境变量！</p>
+<h3 id="Table-Driven-Logic-表驱动业务逻辑"><a href="#Table-Driven-Logic-表驱动业务逻辑" class="headerlink" title="Table Driven Logic  表驱动业务逻辑"></a>Table Driven Logic  表驱动业务逻辑</h3><p>: Eschew any form of table-driven logic. It starts out innocently enough, but soon leads to end users proofreading and then shudder, even modifying the tables for themselves.</p>
+<p>摒弃任何形式的表驱动逻辑。一开始 这看似无害，但很快会促使最终用户进行校对，然后 打了个寒颤 ，甚至自己动手改装桌子。</p>
+<h3 id="Modify-Mom’s-Fields-修改父级的字段"><a href="#Modify-Mom’s-Fields-修改父级的字段" class="headerlink" title="Modify Mom’s Fields  修改父级的字段"></a>Modify Mom’s Fields  修改父级的字段</h3><p>: In Java, all primitives passed as parameters are effectively read-only because they are passed by value. The callee can modify the parameters, but that has no effect on the caller’s variables. In contrast all objects passed are read-write. The reference is passed by value, which means the object itself is effectively passed by reference. The callee can do whatever it wants to the fields in your object. Never document whether a method actually modifies the fields in each of the passed parameters. Name your methods to suggest they only look at the fields when they actually change them.</p>
+<p>在 Java 中，所有作为参数传递的原语实际上都是只读的，因为它们是通过值传递的。被调用方可以修改参数，但这对调用方的变量没有影响。相比之下，所有传递的对象都是读写的。引用是通过值传递的，这意味着对象本身实际上是通过引用传递的。被被调用者可以对你对象中的字段做任何它想做的事。切勿记录方法是否实际修改了每个传递参数的字段。请指出你的方法，建议他们只有在实际更改字段时才查看。</p>
+<h3 id="The-Magic-of-Global-Variables-全局变量的魔力"><a href="#The-Magic-of-Global-Variables-全局变量的魔力" class="headerlink" title="The Magic of Global Variables 全局变量的魔力"></a>The Magic of Global Variables 全局变量的魔力</h3><p>: Instead of using exceptions to handle error processing, have your error message routine set a global variable. Then make sure that every long-running loop in the system checks this global flag and terminates if an error occurs. Add another global variable to signal when a user presses the ‘reset’ button. Of course, all the major loops in the system also have to check this second flag. Hide a few loops that don’t terminate on demand.</p>
+<p>：而不是使用例外来处理错误 处理中，让你的错误消息例程设置一个全局变量。那就确保 系统中每个长时间运行的环路都会检查该全局标志，并且如果 发生了错误。添加另一个全局变量来表示用户按下 “重置”按钮。当然，系统中所有主要环路也必须 检查这个第二个旗帜。隐藏几个不会按需终止的循环。</p>
+<h3 id="Globals-We-Can’t-Stress-These-Enough-全局，我们必须强调这一点！"><a href="#Globals-We-Can’t-Stress-These-Enough-全局，我们必须强调这一点！" class="headerlink" title="Globals, We Can’t Stress These Enough! 全局，我们必须强调这一点！"></a>Globals, We Can’t Stress These Enough! 全局，我们必须强调这一点！</h3><p>: If God didn’t want us to use global variables, he wouldn’t have invented them. Rather than disappoint God, use and set as many global variables as possible. Each function should use and set at least two of them, even if there’s no reason to do this. After all, any good maintenance programmer will soon figure out this is an exercise in detective work and she’ll be happy for the exercise that separates real maintenance programmers from the dabblers.</p>
+<p>：如果上帝不想让我们使用全局变量，他就不会发明它们。与其让上帝失望，不如尽可能多地使用并设置全局变量。每个函数至少应该使用并设置其中两个，即使没有必要这样做。毕竟，任何优秀的维护程序员很快就会发现这是一场侦探工作，她会为这场区分真正维护程序员和粗略作者感到高兴。</p>
+<h3 id="Globals-One-More-Time-Boys-全局，再来一次，伙计们"><a href="#Globals-One-More-Time-Boys-全局，再来一次，伙计们" class="headerlink" title="Globals, One More Time, Boys 全局，再来一次，伙计们"></a>Globals, One More Time, Boys 全局，再来一次，伙计们</h3><p>: Global variables save you from having to specify arguments in functions. Take full advantage of this. Elect one or more of these global variables to specify what kinds of processes to do on the others. Maintenance programmers foolishly assume that C functions will not have side effects. Make sure they squirrel results and internal state information away in global variables.</p>
+<p>：全局变量省去了函数中指定参数的省略。充分利用这一点。选择一个或多个全局变量来指定对其他变量执行哪些流程。维护程序员愚蠢地认为 C 函数不会有副作用。确保他们把结果和内部状态信息存进全局变量。</p>
+<h3 id="Side-Effects-副作用"><a href="#Side-Effects-副作用" class="headerlink" title="Side Effects  副作用"></a>Side Effects  副作用</h3><p>: In C, functions are supposed to be idempotent, (without side effects). I hope that hint is sufficient.</p>
+<p>在 C 中，函数应当是幂级的，（无副作用）。希望这个提示足够了。</p>
+<h3 id="Backing-Out-退出"><a href="#Backing-Out-退出" class="headerlink" title="Backing Out  退出"></a>Backing Out  退出</h3><p>: Within the body of a loop, assume that the loop action is successful and immediately update all pointer variables. If an exception is later detected on that loop action, back out the pointer advancements as side effects of a conditional expression following the loop body.</p>
+<p>：在循环正体内，假设循环动作成功，立即更新所有指针变量。如果在该循环动作中后来检测到异常，则将指针推进作为循环正体后条件表达式的副作用退回。</p>
+<h3 id="Local-Variables-局部变量"><a href="#Local-Variables-局部变量" class="headerlink" title="Local Variables  局部变量"></a>Local Variables  局部变量</h3><p>: Never use local variables. Whenever you feel the temptation to use one, make it into an instance or static variable instead to unselfishly share it with all the other methods of the class. This will save you work later when other methods need similar declarations. C++ programmers can go a step further by making all variables global.</p>
+<p>：绝不要使用局部变量。每当你感到诱惑时 如果要用一个，可以把它做成实例或静态变量，这样可以无私地分享 它与该类中的所有其他方法一起进行。这将节省你以后的工作量 方法需要类似的声明。C++ 程序员还可以更进一步，将所有变量设置为全局。</p>
+<h3 id="Reduce-Reuse-Recycle-减少、重复使用、回收"><a href="#Reduce-Reuse-Recycle-减少、重复使用、回收" class="headerlink" title="Reduce, Reuse, Recycle  减少、重复使用、回收"></a>Reduce, Reuse, Recycle  减少、重复使用、回收</h3><p>: If you have to define a structure to hold data for callbacks, always call the structure PRIVDATA. Every module can define it’s own PRIVDATA. In VC++, this has the advantage of confusing the debugger so that if you have a PRIVDATA variable and try to expand it in the watch window, it doesn’t know which PRIVDATA you mean, so it just picks one.</p>
+<p>如果你需要定义一个结构来存储回调数据，请务必调用 PRIVDATA。每个模块都可以定义自己的 PRIVDATA。在 VC++ 中，这种设计的优点是会让调试器感到困惑，比如如果你有一个 PRIVDATA 变量，试图在 watch 窗口中展开它，它不知道你指的是哪个 PRIVDATA，所以它就直接选一个。</p>
+<h3 id="Configuration-Files-配置文件"><a href="#Configuration-Files-配置文件" class="headerlink" title="Configuration Files  配置文件"></a>Configuration Files  配置文件</h3><p>: These usually have the form keyword&#x3D;value. The values are loaded into Java variables at load time. The most obvious obfuscation technique is to use slightly different names for the keywords and the Java variables. Use configuration files even for constants that never change at run time. Parameter file variables require at least five times as much code to maintain as a simple variable would.</p>
+<p>： 这些通常形式为 keyword &#x3D;value。这些值在加载时被加载到 Java 变量中。最明显的混淆技术是为关键词和 Java 变量使用略有不同的名称。即使是运行时从未改变的常量，也要使用配置文件。参数文件变量维护所需的代码量至少是简单变量的五倍。</p>
+<h3 id="Bloated-classes-臃肿的类别"><a href="#Bloated-classes-臃肿的类别" class="headerlink" title="Bloated classes  臃肿的类别"></a>Bloated classes  臃肿的类别</h3><p>: To ensure your classes are bounded in the most obtuse way possible, make sure you include peripheral, obscure methods and attributes in every class. For example, a class that defines astrophysical orbit geometry really should have a method that computes ocean tide schedules and attributes that comprise a Crane weather model. Not only does this over-define the class, it makes finding these methods in the general system code like looking for a guitar pick in a landfill.</p>
+<p>： 为了确保你的类以最晦涩的方式被界定，确保每个类都包含外围、晦涩的方法和属性。例如，定义天体轨道几何的类实际上应该有一种方法来计算构成 Crane 天气模型的海洋潮汐时刻表和属性。这不仅过度定义了类，还让在通用系统代码中找到这些方法就像在垃圾填埋场找吉他拨片一样难。</p>
+<h3 id="Subclass-With-Abandon-放纵子类"><a href="#Subclass-With-Abandon-放纵子类" class="headerlink" title="Subclass With Abandon  放纵子类"></a>Subclass With Abandon  放纵子类</h3><p>: Object oriented programming is a godsend for writing unmaintainable code. If you have a class with 10 properties (member&#x2F;method) in it, consider a base class with only one property and subclassing it 9 levels deep so that each descendant adds one property. By the time you get to the last descendant class, you’ll have all 10 properties. If possible, put each class declaration in a separate file. This has the added effect of bloating your INCLUDE or USES statements, and forces the maintainer to open that many more files in his or her editor. Make sure you create at least one instance of each subclass.</p>
+<p>面向对象编程对于编写无法维护的代码来说简直是福音。如果你有一个有 10 个属性（成员&#x2F;方法）的类，考虑一个只有一个属性的基类，并将其子类到 9 层深，每个后代都添加一个属性。等你达到最后一个后代类别时，你会拥有全部 10 个属性。如果可能，将每个类声明单独放到一个文件里。这还会让你的 INCLUDE 或 USES 语句变得臃肿，并迫使维护者在编辑器中打开更多文件。确保你至少为每个子类创建一个实例。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> unmaintainable code 如何写出无法维护的代码 - 程序设计</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2026-02-11 09:17:58</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-02-11 09:18:20
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2026/02/11/unmaintainable-code-如何写出无法维护的代码-程序设计/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/unmaintainable-code/">#unmaintainable code</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E4%BB%A3%E7%A0%81%E8%B4%A8%E9%87%8F/">#代码质量</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/02/10/unmaintainable-code-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81-%E6%96%87%E6%A1%A3/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">unmaintainable code 如何写出无法维护的代码 - 文档</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        async function loadGiscus() {
+            const giscusConfig = {
+                'src': 'https://giscus.app/client.js',
+                'data-repo': 'ChaoSBYNN/chaosbynn.github.io',
+                'data-repo-id': 'MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==',
+                'data-category': 'Announcements',
+                'data-category-id': 'DIC_kwDOBNbWcM4CgcsE',
+                'data-mapping': 'title',
+                'data-strict': '0',
+                'data-reactions-enabled': '1',
+                'data-emit-metadata': '1',
+                'data-theme': 'preferred_color_scheme',
+                'data-lang': 'zh-CN',
+                'data-input-position': 'bottom',
+                'data-loading': 'lazy',
+                'crossorigin': 'anonymous',
+                'async': true
+            }
+            const giscusScript = document.createElement('script');
+            for (const key in giscusConfig) {
+                giscusScript.setAttribute(key, giscusConfig[key]);
+            }
+            document.getElementById('giscus-container').appendChild(giscusScript);
+        }
+        if ('true') {
+            let loadGiscusTimeout = setTimeout(() => {
+                loadGiscus();
+                clearTimeout(loadGiscusTimeout);
+            }, 1000);
+        } else {
+            document.addEventListener('DOMContentLoaded', loadGiscus);
+        }
+    </script>
+
+
+        
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">unmaintainable code 如何写出无法维护的代码 - 程序设计</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Program-Design-%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">Program Design  程序设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-Casts-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">Java Casts 类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exploit-Java%E2%80%99s-Redundancy-%E5%88%A9%E7%94%A8-Java-%E7%9A%84%E5%86%97%E4%BD%99"><span class="nav-number">1.2.</span> <span class="nav-text">Exploit Java’s Redundancy 利用 Java 的冗余</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Never-Validate-%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E9%AA%8C%E8%AF%81"><span class="nav-number">1.3.</span> <span class="nav-text">Never Validate  永远不要验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Be-polite-Never-Assert-%E8%A6%81%E6%9C%89%E7%A4%BC%E8%B2%8C%EF%BC%8C%E7%BB%9D%E4%B8%8DAssert"><span class="nav-number">1.4.</span> <span class="nav-text">Be polite, Never Assert 要有礼貌，绝不Assert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoid-Encapsulation-%E9%81%BF%E5%85%8D%E5%B0%81%E8%A3%85"><span class="nav-number">1.5.</span> <span class="nav-text">Avoid Encapsulation  避免封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Clone-Modify-%E5%85%8B%E9%9A%86%E4%B8%8E%E4%BF%AE%E6%94%B9"><span class="nav-number">1.6.</span> <span class="nav-text">Clone &amp; Modify  克隆与修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-Static-Arrays-%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E6%95%B0%E7%BB%84"><span class="nav-number">1.7.</span> <span class="nav-text">Use Static Arrays  使用静态数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dummy-Interfaces-%E8%99%9A%E6%8B%9F%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.8.</span> <span class="nav-text">Dummy Interfaces  虚拟接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Giant-Listeners-%E5%85%A8%E8%83%BD%E7%9B%91%E5%90%AC%E5%99%A8"><span class="nav-number">1.9.</span> <span class="nav-text">Giant Listeners  全能监听器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Too-Much-of-A-Good-Thing%E2%84%A2-%E5%A5%BD%E4%BA%8B%E2%84%A2%E5%A4%AA%E5%A4%9A%E4%BA%86"><span class="nav-number">1.10.</span> <span class="nav-text">Too Much of A Good Thing™ 好事™太多了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Friendly-Friend-%E5%8F%8B%E5%A5%BD%E7%9A%84%E6%9C%8B%E5%8F%8B"><span class="nav-number">1.11.</span> <span class="nav-text">Friendly Friend  友好的朋友</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-Three-Dimensional-Arrays-%E4%BD%BF%E7%94%A8%E4%B8%89%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.12.</span> <span class="nav-text">Use Three Dimensional Arrays 使用三维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mix-and-Match-%E6%B7%B7%E6%90%AD"><span class="nav-number">1.13.</span> <span class="nav-text">Mix and Match  混搭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wrap-wrap-wrap-%E5%8C%85%E8%A3%B9%EF%BC%8C%E5%8C%85%E8%A3%B9%EF%BC%8C%E5%8C%85%E8%A3%B9"><span class="nav-number">1.14.</span> <span class="nav-text">Wrap, wrap, wrap  包裹，包裹，包裹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wrap-Wrap-Wrap-Some-More-%E5%8C%85%E8%A3%B9%EF%BC%8C%E5%8C%85%E8%A3%B9%EF%BC%8C%E5%86%8D%E5%8C%85%E8%A3%B9"><span class="nav-number">1.15.</span> <span class="nav-text">Wrap Wrap Wrap Some More 包裹，包裹，再包裹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Secrets-%E6%B2%A1%E6%9C%89%E7%A7%98%E5%AF%86"><span class="nav-number">1.16.</span> <span class="nav-text">No Secrets!  没有秘密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Kama-Sutra-%E3%80%8A%E7%88%B1%E7%BB%8F%E3%80%8B"><span class="nav-number">1.17.</span> <span class="nav-text">The Kama Sutra  《爱经》</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Permute-and-Baffle-%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%8C%A1%E6%9D%BF"><span class="nav-number">1.18.</span> <span class="nav-text">Permute and Baffle  变换与挡板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Theme-and-Variations-%E4%B8%BB%E9%A2%98%E4%B8%8E%E5%8F%98%E5%A5%8F"><span class="nav-number">1.19.</span> <span class="nav-text">Theme and Variations  主题与变奏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-Is-Good-%E9%9D%99%E6%80%81%E6%98%AF%E5%A5%BD%E4%BA%8B"><span class="nav-number">1.20.</span> <span class="nav-text">Static Is Good  静态是好事</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cargill%E2%80%99s-Quandry-Cargill%E5%9B%B0%E5%A2%83"><span class="nav-number">1.21.</span> <span class="nav-text">Cargill’s Quandry  Cargill困境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Packratting-%E5%8C%85%E8%A3%85%E7%8B%82%E6%BD%AE"><span class="nav-number">1.22.</span> <span class="nav-text">Packratting  包装狂潮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#And-That%E2%80%99s-Final-%E8%BF%99%E5%B0%B1%E6%98%AF%E6%9C%80%E7%BB%88%E5%86%B3%E5%AE%9A"><span class="nav-number">1.23.</span> <span class="nav-text">And That’s Final  这就是最终决定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eschew-The-Interface-%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%95%8C%E9%9D%A2"><span class="nav-number">1.24.</span> <span class="nav-text">Eschew The Interface  避免使用界面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoid-Layouts-%E9%81%BF%E5%85%8D%E5%B8%83%E5%B1%80"><span class="nav-number">1.25.</span> <span class="nav-text">Avoid Layouts  避免布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Environment-variables-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.26.</span> <span class="nav-text">Environment variables  环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Table-Driven-Logic-%E8%A1%A8%E9%A9%B1%E5%8A%A8%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91"><span class="nav-number">1.27.</span> <span class="nav-text">Table Driven Logic  表驱动业务逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Modify-Mom%E2%80%99s-Fields-%E4%BF%AE%E6%94%B9%E7%88%B6%E7%BA%A7%E7%9A%84%E5%AD%97%E6%AE%B5"><span class="nav-number">1.28.</span> <span class="nav-text">Modify Mom’s Fields  修改父级的字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Magic-of-Global-Variables-%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E9%AD%94%E5%8A%9B"><span class="nav-number">1.29.</span> <span class="nav-text">The Magic of Global Variables 全局变量的魔力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Globals-We-Can%E2%80%99t-Stress-These-Enough-%E5%85%A8%E5%B1%80%EF%BC%8C%E6%88%91%E4%BB%AC%E5%BF%85%E9%A1%BB%E5%BC%BA%E8%B0%83%E8%BF%99%E4%B8%80%E7%82%B9%EF%BC%81"><span class="nav-number">1.30.</span> <span class="nav-text">Globals, We Can’t Stress These Enough! 全局，我们必须强调这一点！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Globals-One-More-Time-Boys-%E5%85%A8%E5%B1%80%EF%BC%8C%E5%86%8D%E6%9D%A5%E4%B8%80%E6%AC%A1%EF%BC%8C%E4%BC%99%E8%AE%A1%E4%BB%AC"><span class="nav-number">1.31.</span> <span class="nav-text">Globals, One More Time, Boys 全局，再来一次，伙计们</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Side-Effects-%E5%89%AF%E4%BD%9C%E7%94%A8"><span class="nav-number">1.32.</span> <span class="nav-text">Side Effects  副作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backing-Out-%E9%80%80%E5%87%BA"><span class="nav-number">1.33.</span> <span class="nav-text">Backing Out  退出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Local-Variables-%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">1.34.</span> <span class="nav-text">Local Variables  局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reduce-Reuse-Recycle-%E5%87%8F%E5%B0%91%E3%80%81%E9%87%8D%E5%A4%8D%E4%BD%BF%E7%94%A8%E3%80%81%E5%9B%9E%E6%94%B6"><span class="nav-number">1.35.</span> <span class="nav-text">Reduce, Reuse, Recycle  减少、重复使用、回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuration-Files-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">1.36.</span> <span class="nav-text">Configuration Files  配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bloated-classes-%E8%87%83%E8%82%BF%E7%9A%84%E7%B1%BB%E5%88%AB"><span class="nav-number">1.37.</span> <span class="nav-text">Bloated classes  臃肿的类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subclass-With-Abandon-%E6%94%BE%E7%BA%B5%E5%AD%90%E7%B1%BB"><span class="nav-number">1.38.</span> <span class="nav-text">Subclass With Abandon  放纵子类</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 129 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/tools/localSearch.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+    
+<script src="/js/build/plugins/mermaid.js"></script>
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js"></script>
+
+    
+<script src="/js/build/plugins/masonry.js" type="module"></script>
+
+
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
