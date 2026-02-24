@@ -14056,4 +14056,37 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>代码质量</tag>
       </tags>
   </entry>
+  <entry>
+    <title>unmaintainable code 如何写出无法维护的代码 - 语言选择</title>
+    <url>/2026/02/24/unmaintainable-code-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81-%E8%AF%AD%E8%A8%80%E9%80%89%E6%8B%A9/</url>
+    <content><![CDATA[<h2 id="Choice-of-Language-语言选择"><a href="#Choice-of-Language-语言选择" class="headerlink" title="Choice of Language  语言选择"></a>Choice of Language  语言选择</h2><blockquote>
+<p>Philosophy is a battle against the bewitchment of our intelligence by means of language.<br>哲学是一场对抗语言对我们智慧迷惑的斗争。<br>Ludwig Wittgenstein 路德维希·维特根斯坦</p>
+</blockquote>
+<p>Computer languages are gradually evolving to become more fool proof. Using state of the art languages is unmanly. Insist on using the oldest language you can get away with, octal machine language if you can (Like Hans und Frans, I am no girlie man; I am so virile I used to code by plugging gold tipped wires into a plugboard of IBM (International Business Machines) unit record equipment (punch cards), or by poking holes in paper tape with a hand punch), failing that assembler, failing that FØRTRAN or COBOL, failing that C and BASIC, failing that C++.</p>
+<p>计算机语言正在逐步发展，变得更加万无一失。使用状态 艺术语言不够男子气概。坚持使用你能逃避的古老语言， 如果可以的话，八进制机器语言（像汉斯和弗朗斯一样，我不是女孩子;我很喜欢 我以前用金色尖线插在插座板上编程 IBM（I nternational Business Machines）单位记录设备（穿孔卡），或者用手打孔器在纸带上戳孔），如果该汇编器失败，失败该 FØRTRAN 或 COBOL，失败 C 和 BASIC，失败 C++。</p>
+<h3 id="FORTRAN"><a href="#FORTRAN" class="headerlink" title="FØRTRAN"></a>FØRTRAN</h3><p>Write all your code in FØRTRAN. If your boss ask why, you can reply that there are lots of very useful libraries that you can use thus saving time. However, the chances of writing maintainable code in FØRTRAN are zero and therefore following the unmaintainable coding guidelines is a lot easier.</p>
+<p>把所有代码都用 FØRTRAN 写。如果你的老板问为什么，你可以回答说有很多非常有用的库可以用，这样可以节省时间。然而，在 FØRTRAN 中编写可维护代码的可能性为零，因此遵循难以维护的编码指南要容易得多。</p>
+<h3 id="Avoid-Ada-避开Ada"><a href="#Avoid-Ada-避开Ada" class="headerlink" title="Avoid Ada  避开Ada"></a>Avoid Ada  避开Ada</h3><p>About 20% of these techniques can’t be used in Ada. Refuse to use Ada. If your manager presses you, insist that no-one else uses it and point out that it doesn’t work with your large suite of tools like lint and plummer that work around C’s failings.</p>
+<p>大约 20% 的这些技术在Ada语中无法使用。拒绝使用 Ada。如果你的经理催促你，坚持别人不用它，并指出它不适合你那套绕过 C 缺陷的大量工具，比如绒毛和管路器。</p>
+<h3 id="Use-ASM-Assembler"><a href="#Use-ASM-Assembler" class="headerlink" title="Use ASM (Assembler)"></a>Use ASM (Assembler)</h3><p>Convert all common utility functions into asm.</p>
+<p>将所有常见的效用函数转换为 asm。</p>
+<h3 id="Use-QBASIC"><a href="#Use-QBASIC" class="headerlink" title="Use QBASIC"></a>Use QBASIC</h3><p>Leave all important library functions written in QBASIC, then just write an asm wrapper to handle the large-&gt;medium memory model mapping.</p>
+<p>所有重要的库函数都用 QBASIC 写，然后写一个 ASM 包装器来处理大&gt;中型内存模型映射。</p>
+<h3 id="Inline-Assembler-在线汇编器"><a href="#Inline-Assembler-在线汇编器" class="headerlink" title="Inline Assembler  在线汇编器"></a>Inline Assembler  在线汇编器</h3><p>Sprinkle your code with bits of inline assembler just for fun. Almost no one understands assembler anymore. Even a few lines of it can stop a maintenance programmer cold.</p>
+<p>在代码里加点内联汇编工具，纯粹是个乐趣。几乎没人再懂汇编器了。哪怕只有几行，也能让维护程序员彻底停工。</p>
+<h3 id="MASM-Microsoft-Assembler-call-C"><a href="#MASM-Microsoft-Assembler-call-C" class="headerlink" title="MASM (Microsoft Assembler) call C"></a>MASM (<code>M</code>icrosoft <code>As</code>se<code>m</code>bler) call C</h3><p>If you have assembler modules which are called from C, try to call C back from the assembler as often as possible, even if it’s only for a trivial purpose and make sure you make full use of the goto, bcc and other charming obfuscations of assembler.</p>
+<p>如果你有汇编模块需要从 C 调用，尽量多从汇编器回调用 C，即使只是出于琐碎的目的，也要充分利用汇编器的 goto、BCC 和其他迷人的混淆功能。</p>
+<h3 id="Regex-正则表达式"><a href="#Regex-正则表达式" class="headerlink" title="Regex  正则表达式"></a>Regex  正则表达式</h3><p>Regexes are notoriously hard to proofread and debug. Use them copiously, the longer and more convoluted the better.</p>
+<p>正则表达式以校对和调试难度著称。多用它们，越长越复杂越好。</p>
+<h3 id="Avoid-Maintainability-Tools-避免使用可维护性工具"><a href="#Avoid-Maintainability-Tools-避免使用可维护性工具" class="headerlink" title="Avoid Maintainability Tools 避免使用可维护性工具"></a>Avoid Maintainability Tools 避免使用可维护性工具</h3><p>: Avoid coding in Abundance, or using any of its principles kludged into other languages. It was designed from the ground up with the primary goal of making the maintenance programmer’s job easier. Similarly avoid Eiffel or Ada since they were designed to catch bugs before a program goes into production.</p>
+<p>避免在 《丰盛 》中编码，或使用其任何被拼凑到其他语言中的原则。它从零开始设计 ，主要目标是让维护程序员的工作更轻松。同样，避免使用 Eiffel 或 Ada，因为它们设计用于在程序投入生产前捕捉漏洞。</p>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>unmaintainable code</tag>
+        <tag>代码质量</tag>
+      </tags>
+  </entry>
 </search>
