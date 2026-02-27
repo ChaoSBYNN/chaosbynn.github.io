@@ -14145,4 +14145,50 @@ a postriori 一个后验 使用结果作为条件检测
         <tag>代码质量</tag>
       </tags>
   </entry>
+  <entry>
+    <title>unmaintainable code 如何写出无法维护的代码 - 非主流语言的语法糖</title>
+    <url>/2026/02/27/unmaintainable-code-%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E6%97%A0%E6%B3%95%E7%BB%B4%E6%8A%A4%E7%9A%84%E4%BB%A3%E7%A0%81-%E9%9D%9E%E4%B8%BB%E6%B5%81%E8%AF%AD%E8%A8%80%E7%9A%84%E8%AF%AD%E6%B3%95%E7%B3%96/</url>
+    <content><![CDATA[<h2 id="Tricks-In-Offbeat-Languages-非主流语言的语法糖"><a href="#Tricks-In-Offbeat-Languages-非主流语言的语法糖" class="headerlink" title="Tricks In Offbeat Languages 非主流语言的语法糖"></a>Tricks In Offbeat Languages 非主流语言的语法糖</h2><blockquote>
+<p>Programming in Basic causes brain damage.<br>用 Basic 编程会造成脑损伤。<br>Edsger Wybe Dijkstra 埃兹格·怀贝·迪克斯特拉</p>
+</blockquote>
+<h3 id="SQL-Standard-Query-Language-Aliasing"><a href="#SQL-Standard-Query-Language-Aliasing" class="headerlink" title="SQL (Standard Query Language) Aliasing"></a>SQL (<code>S</code>tandard <code>Q</code>uery <code>L</code>anguage) Aliasing</h3><p>: Alias table names to one or two letters. Better still alias them to the names of other unrelated existing tables.</p>
+<p>：别名表名称可改为一两个字母。更好的是把它们别名到其他无关的现有表上。</p>
+<h3 id="SQL-Outer-Join-SQL-外接"><a href="#SQL-Outer-Join-SQL-外接" class="headerlink" title="SQL Outer Join SQL 外接"></a>SQL Outer Join SQL 外接</h3><p>: Mix the various flavours of outer join syntax just to keep everyone on their toes.</p>
+<p>混合各种外接语法，让大家保持警觉。</p>
+<h3 id="JavaScript-Scope"><a href="#JavaScript-Scope" class="headerlink" title="JavaScript Scope"></a>JavaScript Scope</h3><p>: Optimise JavaScript code taking advantage of the fact a function can access all local variables in the scope of the caller.</p>
+<p>：利用函数可以访问调用者作用域内所有本地变量的特性， 优化 JavaScript 代码。</p>
+<h3 id="Visual-Basic-Declarations-可视化基本声明"><a href="#Visual-Basic-Declarations-可视化基本声明" class="headerlink" title="Visual Basic Declarations 可视化基本声明"></a>Visual Basic Declarations 可视化基本声明</h3><p>: Instead of:</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">dim Count_num as string</span><br><span class="line">dim Color_var as string</span><br><span class="line">dim counter as integer</span><br></pre></td></tr></table></figure></div>
+
+<p>use:</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">Dim Count_num$, Color_var$, counter%</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Delphi-Pascal-Only"><a href="#Delphi-Pascal-Only" class="headerlink" title="Delphi&#x2F;Pascal Only"></a>Delphi&#x2F;Pascal Only</h3><p>: Don’t use functions and procedures. Use the label&#x2F;goto statements then jump around a lot inside your code using this. It’ll drive ’em mad trying to trace through this. Another idea, is just to use this for the hang of it and scramble your code up jumping to and fro in some haphazard fashion.</p>
+<p>：不要使用函数和程序。用 label&#x2F;goto 语句，然后在代码里多跳转。他们追踪这些会抓狂的。另一个想法是，用它来熟悉，随意地跳来跳去，把代码打乱。</p>
+<h3 id="Perl"><a href="#Perl" class="headerlink" title="Perl"></a>Perl</h3><p>: Use trailing if’s and unless’s especially at the end of really long lines.</p>
+<p>：在很长的队伍末尾，使用尾随的 if 和 ununless 。</p>
+<h3 id="Lisp"><a href="#Lisp" class="headerlink" title="Lisp"></a>Lisp</h3><p>: LISP (<code>Lis</code>t <code>P</code>rocessing language) is a dream language for the writer of unmaintainable code. Consider these baffling fragments:</p>
+<p>： LISP（List Processing language）是作家梦寐以求的语言 无法维护的代码。请看这些令人困惑的片段：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">(lambda (*&lt;8-]= *&lt;8-[= ) (or *&lt;8-]= *&lt;8-[= ))</span><br><span class="line">(defun :-] (&lt;) (= &lt; 2))</span><br><span class="line"></span><br><span class="line">(defun !(!)(if(and(funcall(lambda(!)(if(and &#x27;(&lt; 0)(&lt; ! 2))1 nil))(1+ !))</span><br><span class="line">(not(null &#x27;(lambda(!)(if(&lt; 1 !)t nil)))))1(* !(!(1- !)))))</span><br></pre></td></tr></table></figure></div>
+
+<h3 id="Visual-Foxpro"><a href="#Visual-Foxpro" class="headerlink" title="Visual Foxpro"></a>Visual Foxpro</h3><p>: This one is specific to Visual Foxpro. A variable is undefined and can’t be used unless you assign a value to it. This is what happens when you check a variable’s type:</p>
+<p>：这个专属 Visual Foxpro。变量是未定义的，除非你赋予它一个值，否则无法使用。检查变量类型时会发生这样的情况：</p>
+<div class="code-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="code"><pre><span class="line">lcx = TYPE(<span class="string">&#x27;somevariable&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+
+<p>The value of lcx will be ‘U’ or undefined. BUT if you assign scope to the variable it sort of defines it and makes it a logical FALSE. Neat, huh!?</p>
+<p>lcx 的价值为“U”或未定义。但是如果你给变量赋值范围，它就在某种程度上定义了它，并使其成为逻辑上的 FALSE。很酷吧！？</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">LOCAL lcx</span><br><span class="line">lcx = TYPE(&#x27;somevariable&#x27;)</span><br></pre></td></tr></table></figure></div>
+
+<p>The value of lcx is now ‘L’ or logical. It is further defined the value of FALSE. Just imagine the power of this in writing unmaintainable code.</p>
+<p>lcx 的值现在是“L”或逻辑。它进一步定义了 FALSE 的值。想象一下它写出无法维护的代码有多强大。</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="code"><pre><span class="line">LOCAL lc_one, lc_two, lc_three…, lc_n</span><br><span class="line">IF lc_one</span><br><span class="line">DO some_incredibly_complex_operation_that_will_neverbe_executed WITH</span><br><span class="line">make_sure_to_pass_parameters</span><br><span class="line">ENDIF</span><br><span class="line"></span><br><span class="line">IF lc_two</span><br><span class="line">DO some_incredibly_complex_operation_that_will_neverbe_executed WITH</span><br><span class="line">make_sure_to_pass_parameters</span><br><span class="line">ENDIF</span><br><span class="line"></span><br><span class="line">PROCEDURE some_incredibly_complex_oper…</span><br><span class="line">* put tons of code here that will never be executed</span><br><span class="line">* why not cut and paste your main procedure!</span><br><span class="line">ENDIF</span><br></pre></td></tr></table></figure></div>
+]]></content>
+      <categories>
+        <category>Program</category>
+      </categories>
+      <tags>
+        <tag>unmaintainable code</tag>
+        <tag>代码质量</tag>
+      </tags>
+  </entry>
 </search>
