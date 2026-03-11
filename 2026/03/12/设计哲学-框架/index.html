@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2026/03/12/设计哲学-框架/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计哲学 框架">
+<meta property="og:url" content="https://chaosbynn.github.io/2026/03/12/%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6-%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-03-11T17:23:19.000Z">
+<meta property="article:modified_time" content="2026-03-11T17:23:35.788Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="Program">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            设计哲学 框架 | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.xml"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/ChaoSBYNN","name":"github"},{"icon":"fa-brands fa-instagram","url":"https://www.instagram.com/entropy_42_zhang","name":"instagram"},{"icon":"fa-brands fa-zhihu","url":"https://www.zhihu.com/people/Bee7zEBubChaoS","name":"zhihu"},{"icon":"fa-brands fa-twitter","url":"https://x.com/Bee7zEBub","name":"twitter"},{"icon":"fa-solid fa-envelope","url":"mailto:t7_chaos@163.com","name":"email"}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null,"name":"weixin","image":null},{"icon":"/images/custom-icon.svg","qr":null}]},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-cog fa-spin\" style=\"--fa-animation-duration: 15s;\"></i>","start":"2017/2/13 11:45:14","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2017/2/13 11:45:14","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">62</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">142</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">设计哲学 框架</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-03-12 01:23:19</span>
+        <span class="mobile">2026-03-12 01:23:19</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-03-12 01:23:35</span>
+            <span class="mobile">2026-03-12 01:23:35</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Program/">Program</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Program/">Program</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>这是一个非常深刻的技术哲学问题。让我从<strong>设计哲学</strong>的维度，重新解构这13个框架的本质差异：</p>
+<hr>
+<h2 id="第一梯队：云原生原教旨主义（性能即正义）"><a href="#第一梯队：云原生原教旨主义（性能即正义）" class="headerlink" title="第一梯队：云原生原教旨主义（性能即正义）"></a>第一梯队：云原生原教旨主义（性能即正义）</h2><h3 id="1-Quarkus-——-“编译时即运行时”"><a href="#1-Quarkus-——-“编译时即运行时”" class="headerlink" title="1. Quarkus —— “编译时即运行时”"></a>1. <strong>Quarkus</strong> —— “编译时即运行时”</h3><p><strong>核心哲学</strong>：<strong>AOT（Ahead-of-Time）至上</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">传统Java: 源码 → 字节码 → JVM解释/JIT → 运行</span><br><span class="line">Quarkus:   源码 → 字节码 →  GraalVM Native Image → 机器码</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 启动时间从秒级降到毫秒级（0.049s）</li>
+<li>✅ 内存占用减少80%+</li>
+<li>❌ 反射受限（需配置反射列表）</li>
+<li>❌ 动态代理无法实现（CGLIB失效）</li>
+<li>❌ 构建时间变长（Native Image编译慢）</li>
+</ul>
+<p><strong>一句话</strong>：*”牺牲开发时的灵活性，换取运行时的极致性能”*</p>
+<hr>
+<h3 id="2-Micronaut-——-“编译时依赖注入”"><a href="#2-Micronaut-——-“编译时依赖注入”" class="headerlink" title="2. Micronaut —— “编译时依赖注入”"></a>2. <strong>Micronaut</strong> —— “编译时依赖注入”</h3><p><strong>核心哲学</strong>：<strong>零反射、零代理</strong></p>
+<table>
+<thead>
+<tr>
+<th>框架</th>
+<th>依赖注入时机</th>
+<th>实现方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Spring</td>
+<td>运行时</td>
+<td>反射 + CGLIB代理</td>
+</tr>
+<tr>
+<td>Micronaut</td>
+<td>编译时</td>
+<td>APT注解处理器生成字节码</td>
+</tr>
+</tbody></table>
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 无运行时反射开销</li>
+<li>✅ 启动即峰值性能（无JIT预热）</li>
+<li>✅ GraalVM原生支持完美</li>
+<li>❌ 编译时错误检查严格（灵活性降低）</li>
+<li>❌ 生态不如Spring丰富</li>
+</ul>
+<p><strong>一句话</strong>：*”Spring的语法，Go的性能”*</p>
+<hr>
+<h3 id="3-Vert-x-——-“事件循环原教旨主义”"><a href="#3-Vert-x-——-“事件循环原教旨主义”" class="headerlink" title="3. Vert.x —— “事件循环原教旨主义”"></a>3. <strong>Vert.x</strong> —— “事件循环原教旨主义”</h3><p><strong>核心哲学</strong>：<strong>Reactor模式 + 非阻塞I&#x2F;O</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">传统Servlet:  1请求 = 1线程（阻塞）</span><br><span class="line">Vert.x:        1事件循环线程 = N请求（非阻塞）</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 单核就能处理10K+并发</li>
+<li>✅ 内存占用极低（无线程栈开销）</li>
+<li>❌ 回调地狱（Callback Hell）</li>
+<li>❌ 阻塞操作会杀死性能（必须全异步）</li>
+<li>❌ 调试困难（堆栈跟踪混乱）</li>
+</ul>
+<p><strong>一句话</strong>：*”要么全异步，要么别用我”*</p>
+<hr>
+<h2 id="第二梯队：企业级实用主义（稳字当头）"><a href="#第二梯队：企业级实用主义（稳字当头）" class="headerlink" title="第二梯队：企业级实用主义（稳字当头）"></a>第二梯队：企业级实用主义（稳字当头）</h2><h3 id="4-Spring-Boot-——-“约定优于配置，生态即正义”"><a href="#4-Spring-Boot-——-“约定优于配置，生态即正义”" class="headerlink" title="4. Spring Boot —— “约定优于配置，生态即正义”"></a>4. <strong>Spring Boot</strong> —— “约定优于配置，生态即正义”</h3><p><strong>核心哲学</strong>：<strong>开发效率 &gt; 运行效率</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">设计公式：注解 + 自动配置 + 起步依赖 = 开箱即用</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 开发速度最快（5分钟跑通CRUD）</li>
+<li>✅ 生态无敌（Spring Data&#x2F;Security&#x2F;Cloud全家桶）</li>
+<li>✅ 人才储备最多（90% Java开发者熟悉）</li>
+<li>❌ 运行时反射开销大</li>
+<li>❌ 启动慢、内存高</li>
+<li>❌ 云原生时代显得”笨重”</li>
+</ul>
+<p><strong>一句话</strong>：*”企业级开发的’安全牌’，不是最优解但是最稳妥解”*</p>
+<hr>
+<h3 id="5-Jakarta-EE-——-“标准即权力”"><a href="#5-Jakarta-EE-——-“标准即权力”" class="headerlink" title="5. Jakarta EE —— “标准即权力”"></a>5. <strong>Jakarta EE</strong> —— “标准即权力”</h3><p><strong>核心哲学</strong>：<strong>规范驱动开发</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Servlet规范 → 所有服务器必须实现</span><br><span class="line">JPA规范     → 所有ORM必须兼容</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 厂商无关（可切换WebLogic&#x2F;WebSphere&#x2F;Tomcat）</li>
+<li>✅ 银行&#x2F;电信等保守行业的”免死金牌”</li>
+<li>❌ 标准制定慢（5-10年一版）</li>
+<li>❌ 实现臃肿（为了兼容而兼容）</li>
+<li>❌ 配置繁琐（XML地狱）</li>
+</ul>
+<p><strong>一句话</strong>：*”标准化是保护伞，也是紧箍咒”*</p>
+<hr>
+<h3 id="6-Play-Framework-——-“Rails-for-Java”"><a href="#6-Play-Framework-——-“Rails-for-Java”" class="headerlink" title="6. Play Framework —— “Rails for Java”"></a>6. <strong>Play Framework</strong> —— “Rails for Java”</h3><p><strong>核心哲学</strong>：<strong>全栈 + 热加载 + 无状态</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">灵感来源：Ruby on Rails</span><br><span class="line">核心特性：状态less、反应式、Scala优先</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 热加载极快（开发体验好）</li>
+<li>✅ RESTful设计原生支持</li>
+<li>❌ Scala优先，Java是”二等公民”</li>
+<li>❌ 社区萎缩（被Spring Boot碾压）</li>
+<li>❌ 2.x与1.x完全不兼容（升级灾难）</li>
+</ul>
+<p><strong>一句话</strong>：*”生不逢时的Rails模仿者”*</p>
+<hr>
+<h2 id="第三梯队：历史遗产主义（时代的眼泪）"><a href="#第三梯队：历史遗产主义（时代的眼泪）" class="headerlink" title="第三梯队：历史遗产主义（时代的眼泪）"></a>第三梯队：历史遗产主义（时代的眼泪）</h2><h3 id="7-Struts-2-——-“拦截器链的滥用”"><a href="#7-Struts-2-——-“拦截器链的滥用”" class="headerlink" title="7. Struts 2 —— “拦截器链的滥用”"></a>7. <strong>Struts 2</strong> —— “拦截器链的滥用”</h3><p><strong>核心哲学</strong>：<strong>AOP一切</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请求 → 拦截器1 → 拦截器2 → Action → 拦截器2 → 拦截器1 → 响应</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计缺陷</strong>：</p>
+<ul>
+<li>OGNL表达式注入漏洞（安全灾难）</li>
+<li>配置繁琐（struts.xml地狱）</li>
+<li>与Servlet API耦合过深</li>
+</ul>
+<p><strong>一句话</strong>：*”拦截器模式被用成了 spaghetti code”*</p>
+<hr>
+<h3 id="8-JSF-——-“服务端UI组件化”"><a href="#8-JSF-——-“服务端UI组件化”" class="headerlink" title="8. JSF —— “服务端UI组件化”"></a>8. <strong>JSF</strong> —— “服务端UI组件化”</h3><p><strong>核心哲学</strong>：<strong>让后端工程师写前端</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;h:form&gt;</span><br><span class="line">    &lt;h:inputText value=&quot;#&#123;user.name&#125;&quot; /&gt;</span><br><span class="line">    &lt;h:commandButton action=&quot;#&#123;user.save&#125;&quot; /&gt;</span><br><span class="line">&lt;/h:form&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计缺陷</strong>：</p>
+<ul>
+<li>前后端耦合（页面刷新体验差）</li>
+<li>状态管理复杂（ViewState爆炸）</li>
+<li>不符合现代前后端分离趋势</li>
+</ul>
+<p><strong>一句话</strong>：*”试图用Java写HTML，结果两头不讨好”*</p>
+<hr>
+<h3 id="9-Grails-——-“Groovy的动态魔法”"><a href="#9-Grails-——-“Groovy的动态魔法”" class="headerlink" title="9. Grails —— “Groovy的动态魔法”"></a>9. <strong>Grails</strong> —— “Groovy的动态魔法”</h3><p><strong>核心哲学</strong>：<strong>约定 + 动态语言</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Groovy特性：可选类型、元编程、DSL</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 代码极简洁（比Java少50%）</li>
+<li>✅ 脚手架生成快</li>
+<li>❌ Groovy性能差（动态类型）</li>
+<li>❌ 类型安全弱（重构困难）</li>
+<li>❌ Groovy语言本身衰落</li>
+</ul>
+<p><strong>一句话</strong>：*”动态语言的灵活，也是维护的噩梦”*</p>
+<hr>
+<h2 id="第四梯队：极简主义实验（小而美但不够用）"><a href="#第四梯队：极简主义实验（小而美但不够用）" class="headerlink" title="第四梯队：极简主义实验（小而美但不够用）"></a>第四梯队：极简主义实验（小而美但不够用）</h2><h3 id="10-Spark-Framework-——-“Sinatra-for-Java”"><a href="#10-Spark-Framework-——-“Sinatra-for-Java”" class="headerlink" title="10. Spark Framework —— “Sinatra for Java”"></a>10. <strong>Spark Framework</strong> —— “Sinatra for Java”</h3><p><strong>核心哲学</strong>：<strong>一行代码一个路由</strong></p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">get(<span class="string">&quot;/hello&quot;</span>, (req, res) -&gt; <span class="string">&quot;Hello World&quot;</span>);</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 极简API（200行看懂源码）</li>
+<li>✅ 适合微服务原型</li>
+<li>❌ 无依赖注入</li>
+<li>❌ 无数据库集成</li>
+<li>❌ 超过500行代码就失控</li>
+</ul>
+<p><strong>一句话</strong>：*”Demo神器，生产毒药”*</p>
+<hr>
+<h3 id="11-Javalin-——-“无魔法透明”"><a href="#11-Javalin-——-“无魔法透明”" class="headerlink" title="11. Javalin —— “无魔法透明”"></a>11. <strong>Javalin</strong> —— “无魔法透明”</h3><p><strong>核心哲学</strong>：<strong>显式优于隐式</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">反对：注解、反射、自动配置</span><br><span class="line">拥护：显式路由、显式中间件、显式依赖</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 学习曲线极平（1小时上手）</li>
+<li>✅ Kotlin&#x2F;Java双友好</li>
+<li>❌ 功能简陋（需自己组装一切）</li>
+<li>❌ 生态几乎为零</li>
+</ul>
+<p><strong>一句话</strong>：*”干净得像白开水，但也淡得没味道”*</p>
+<hr>
+<h3 id="12-Helidon-——-“Oracle的云原生赌注”"><a href="#12-Helidon-——-“Oracle的云原生赌注”" class="headerlink" title="12. Helidon —— “Oracle的云原生赌注”"></a>12. <strong>Helidon</strong> —— “Oracle的云原生赌注”</h3><p><strong>核心哲学</strong>：<strong>MicroProfile标准 + 双模式</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Helidon SE:  函数式，类似Vert.x</span><br><span class="line">Helidon MP:  注解式，类似Spring</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计缺陷</strong>：</p>
+<ul>
+<li>Oracle背书但资源投入不足</li>
+<li>社区活跃度低（GitHub star少）</li>
+<li>生态匮乏（连文档都不完整）</li>
+</ul>
+<p><strong>一句话</strong>：*”Oracle的亲儿子，但爹不疼娘不爱”*</p>
+<hr>
+<h3 id="13-Vaadin-——-“服务端渲染的坚持”"><a href="#13-Vaadin-——-“服务端渲染的坚持”" class="headerlink" title="13. Vaadin —— “服务端渲染的坚持”"></a>13. <strong>Vaadin</strong> —— “服务端渲染的坚持”</h3><p><strong>核心哲学</strong>：<strong>单页应用，但用Java写</strong></p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">浏览器 ←→ Vaadin Servlet ←→ 服务端UI状态</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>设计取舍</strong>：</p>
+<ul>
+<li>✅ 后端工程师不写JavaScript</li>
+<li>✅ 状态自动同步（类似ASP.NET WebForms）</li>
+<li>❌ 网络延迟敏感（每次交互都需通信）</li>
+<li>❌ 定制化困难（CSS&#x2F;JS注入受限）</li>
+<li>❌ 移动端体验差</li>
+</ul>
+<p><strong>一句话</strong>：*”让后端假装会前端，结果UI像2005年的ERP”*</p>
+<hr>
+<h2 id="哲学光谱总结"><a href="#哲学光谱总结" class="headerlink" title="哲学光谱总结"></a>哲学光谱总结</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">极端性能 ←————————————————→ 极端易用</span><br><span class="line">Vert.x    Quarkus Micronaut  Spring Boot  Jakarta EE</span><br><span class="line">(事件循环) (AOT编译) (编译时DI)   (运行时反射)   (标准规范)</span><br><span class="line"></span><br><span class="line">极简主义 ←————————————————→ 全栈主义</span><br><span class="line">Spark   Javalin   Play    Grails    Vaadin</span><br><span class="line">(裸机)   (透明)   (MVC)   (约定)    (组件)</span><br></pre></td></tr></table></figure></div>
+
+<hr>
+<h2 id="选型决策树"><a href="#选型决策树" class="headerlink" title="选型决策树"></a>选型决策树</h2><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">需要极致性能（10万+QPS）？</span><br><span class="line">├─ 是 → 熟悉异步？→ 是 → Vert.x</span><br><span class="line">│            └─ 否 → Quarkus/Micronaut</span><br><span class="line">└─ 否 → 需要快速开发？</span><br><span class="line">         ├─ 是 → 已有Spring经验？→ 是 → Spring Boot</span><br><span class="line">         │                      └─ 否 → Javalin（快速上手）</span><br><span class="line">         └─ 否 → 需要企业级支持？→ 是 → Jakarta EE</span><br><span class="line">                              └─ 否 → Play/Quarkus</span><br></pre></td></tr></table></figure></div>
+
+<p><strong>一句话总结设计哲学差异</strong>：</p>
+<ul>
+<li><strong>Vert.x&#x2F;Quarkus&#x2F;Micronaut</strong>：*”先苦后甜，性能换效率”*</li>
+<li><strong>Spring Boot</strong>：*”先甜后苦，效率换性能”*</li>
+<li><strong>Jakarta EE</strong>：*”不求有功，但求无过”*</li>
+<li><strong>其他</strong>：*”要么过时，要么太小众”*</li>
+</ul>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 设计哲学 框架</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2026-03-12 01:23:19</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-03-12 01:23:35
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2026/03/12/设计哲学-框架/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Program/">#Program</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2026/03/10/%E8%AE%BE%E8%AE%A1%E5%93%B2%E5%AD%A6-%E8%BD%AF%E4%BB%B6/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">设计哲学 - 框架</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        (function() {
+            const containerId = "giscus-container";
+            const mapping = "title";
+            const lang = "zh-CN";
+            const inputPosition = "bottom";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "ChaoSBYNN/chaosbynn.github.io",
+                    "data-repo-id": "MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==",
+                    "data-category": "Announcements",
+                    "data-category-id": "DIC_kwDOBNbWcM4CgcsE",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
+                loadGiscus();
+            };
+
+            runGiscus();
+        })();
+    </script>
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">设计哲学 框架</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%A2%AF%E9%98%9F%EF%BC%9A%E4%BA%91%E5%8E%9F%E7%94%9F%E5%8E%9F%E6%95%99%E6%97%A8%E4%B8%BB%E4%B9%89%EF%BC%88%E6%80%A7%E8%83%BD%E5%8D%B3%E6%AD%A3%E4%B9%89%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">第一梯队：云原生原教旨主义（性能即正义）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Quarkus-%E2%80%94%E2%80%94-%E2%80%9C%E7%BC%96%E8%AF%91%E6%97%B6%E5%8D%B3%E8%BF%90%E8%A1%8C%E6%97%B6%E2%80%9D"><span class="nav-number">1.1.</span> <span class="nav-text">1. Quarkus —— “编译时即运行时”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Micronaut-%E2%80%94%E2%80%94-%E2%80%9C%E7%BC%96%E8%AF%91%E6%97%B6%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E2%80%9D"><span class="nav-number">1.2.</span> <span class="nav-text">2. Micronaut —— “编译时依赖注入”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Vert-x-%E2%80%94%E2%80%94-%E2%80%9C%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E5%8E%9F%E6%95%99%E6%97%A8%E4%B8%BB%E4%B9%89%E2%80%9D"><span class="nav-number">1.3.</span> <span class="nav-text">3. Vert.x —— “事件循环原教旨主义”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%A2%AF%E9%98%9F%EF%BC%9A%E4%BC%81%E4%B8%9A%E7%BA%A7%E5%AE%9E%E7%94%A8%E4%B8%BB%E4%B9%89%EF%BC%88%E7%A8%B3%E5%AD%97%E5%BD%93%E5%A4%B4%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">第二梯队：企业级实用主义（稳字当头）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Spring-Boot-%E2%80%94%E2%80%94-%E2%80%9C%E7%BA%A6%E5%AE%9A%E4%BC%98%E4%BA%8E%E9%85%8D%E7%BD%AE%EF%BC%8C%E7%94%9F%E6%80%81%E5%8D%B3%E6%AD%A3%E4%B9%89%E2%80%9D"><span class="nav-number">2.1.</span> <span class="nav-text">4. Spring Boot —— “约定优于配置，生态即正义”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Jakarta-EE-%E2%80%94%E2%80%94-%E2%80%9C%E6%A0%87%E5%87%86%E5%8D%B3%E6%9D%83%E5%8A%9B%E2%80%9D"><span class="nav-number">2.2.</span> <span class="nav-text">5. Jakarta EE —— “标准即权力”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Play-Framework-%E2%80%94%E2%80%94-%E2%80%9CRails-for-Java%E2%80%9D"><span class="nav-number">2.3.</span> <span class="nav-text">6. Play Framework —— “Rails for Java”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%A2%AF%E9%98%9F%EF%BC%9A%E5%8E%86%E5%8F%B2%E9%81%97%E4%BA%A7%E4%B8%BB%E4%B9%89%EF%BC%88%E6%97%B6%E4%BB%A3%E7%9A%84%E7%9C%BC%E6%B3%AA%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">第三梯队：历史遗产主义（时代的眼泪）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Struts-2-%E2%80%94%E2%80%94-%E2%80%9C%E6%8B%A6%E6%88%AA%E5%99%A8%E9%93%BE%E7%9A%84%E6%BB%A5%E7%94%A8%E2%80%9D"><span class="nav-number">3.1.</span> <span class="nav-text">7. Struts 2 —— “拦截器链的滥用”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-JSF-%E2%80%94%E2%80%94-%E2%80%9C%E6%9C%8D%E5%8A%A1%E7%AB%AFUI%E7%BB%84%E4%BB%B6%E5%8C%96%E2%80%9D"><span class="nav-number">3.2.</span> <span class="nav-text">8. JSF —— “服务端UI组件化”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-Grails-%E2%80%94%E2%80%94-%E2%80%9CGroovy%E7%9A%84%E5%8A%A8%E6%80%81%E9%AD%94%E6%B3%95%E2%80%9D"><span class="nav-number">3.3.</span> <span class="nav-text">9. Grails —— “Groovy的动态魔法”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%A2%AF%E9%98%9F%EF%BC%9A%E6%9E%81%E7%AE%80%E4%B8%BB%E4%B9%89%E5%AE%9E%E9%AA%8C%EF%BC%88%E5%B0%8F%E8%80%8C%E7%BE%8E%E4%BD%86%E4%B8%8D%E5%A4%9F%E7%94%A8%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">第四梯队：极简主义实验（小而美但不够用）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#10-Spark-Framework-%E2%80%94%E2%80%94-%E2%80%9CSinatra-for-Java%E2%80%9D"><span class="nav-number">4.1.</span> <span class="nav-text">10. Spark Framework —— “Sinatra for Java”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-Javalin-%E2%80%94%E2%80%94-%E2%80%9C%E6%97%A0%E9%AD%94%E6%B3%95%E9%80%8F%E6%98%8E%E2%80%9D"><span class="nav-number">4.2.</span> <span class="nav-text">11. Javalin —— “无魔法透明”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-Helidon-%E2%80%94%E2%80%94-%E2%80%9COracle%E7%9A%84%E4%BA%91%E5%8E%9F%E7%94%9F%E8%B5%8C%E6%B3%A8%E2%80%9D"><span class="nav-number">4.3.</span> <span class="nav-text">12. Helidon —— “Oracle的云原生赌注”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-Vaadin-%E2%80%94%E2%80%94-%E2%80%9C%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93%E7%9A%84%E5%9D%9A%E6%8C%81%E2%80%9D"><span class="nav-number">4.4.</span> <span class="nav-text">13. Vaadin —— “服务端渲染的坚持”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%B2%E5%AD%A6%E5%85%89%E8%B0%B1%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">哲学光谱总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E5%9E%8B%E5%86%B3%E7%AD%96%E6%A0%91"><span class="nav-number">6.</span> <span class="nav-text">选型决策树</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 142 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
+</div>
+
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
+</script>
+
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
+</body>
+
+</html>
