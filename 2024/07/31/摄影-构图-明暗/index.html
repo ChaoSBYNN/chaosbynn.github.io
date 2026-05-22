@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2024/07/31/摄影-构图-明暗/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="摄影 构图 明暗">
+<meta property="og:url" content="https://chaosbynn.github.io/2024/07/31/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E6%98%8E%E6%9A%97/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2024-07-31T04:32:24.000Z">
+<meta property="article:modified_time" content="2026-05-22T07:18:46.045Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="摄影">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            摄影 构图 明暗 | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/ChaoSBYNN","name":"github"},{"icon":"fa-brands fa-instagram","url":"https://www.instagram.com/entropy_42_zhang","name":"instagram"},{"icon":"fa-brands fa-zhihu","url":"https://www.zhihu.com/people/Bee7zEBubChaoS","name":"zhihu"},{"icon":"fa-brands fa-twitter","url":"https://x.com/Bee7zEBub","name":"twitter"},{"icon":"fa-solid fa-envelope","url":"mailto:t7_chaos@163.com","name":"email"}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null,"name":"weixin","image":null},{"icon":"/images/custom-icon.svg","qr":null}]},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-cog fa-spin\" style=\"--fa-animation-duration: 15s;\"></i>","start":"2017/2/13 11:45:14","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2017/2/13 11:45:14","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">63</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">143</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens.webp" alt="摄影 构图 明暗" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">摄影 构图 明暗</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-07-31 12:32:24</span>
+        <span class="mobile">2024-07-31 12:32:24</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-05-22 15:18:46</span>
+            <span class="mobile">2026-05-22 15:18:46</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%91%84%E5%BD%B1/">摄影</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E6%91%84%E5%BD%B1/%E6%9E%84%E5%9B%BE/">构图</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%91%84%E5%BD%B1/">摄影</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>在构成视觉艺术的各种要素中，明和暗对摄影具有特殊的重要性。<br>因为有了明和暗，照片中各种物体才成为可以看得见的影像；<br>所有其它要素，包括形状、线条、质感和立体感等，实际上都是明和暗的不同表现形式而已。<br>时至今日，事实已经证明，摄影的实质就是在于依靠光线发生作用，也就是依靠光线通过镜头对感光材材料发生作用。</p>
+<p>摄影家从快门打开的一瞬间到照片离开显影盆的整个过程中，也就是明和暗这个范围之内，发挥他的影响和控制作用的。</p>
+<p>摄影过程的每一个细小的环节，包括胶片选择、滤镜使用、底片曝光、药液特性、显影时间等，都对明暗的再现有着相当大的影响，从而也相当大地影响着作品的表现力。</p>
+<p>在放大照片时，有遮挡经验的人都知道，对照片的局部遮光和加光会给作品的清晰度和立体感带来多么大的影响！<br>如果再把相纸的反差和显影剂的强弱考虑在内，可以说控制明暗的机会是相当多的。</p>
+<p>从根本上说，明暗只是色的三大特征之一，其它两个是色别和色艳度。因为本书只论黑白摄影构图，所以明暗是当作独立的构图讨论的。</p>
+<h2 id="照片的质量"><a href="#照片的质量" class="headerlink" title="照片的质量"></a>照片的质量</h2><p>从早期的摄影教育开始，人们就教导摄影者说，照片必须表现从明到暗（包括少量纯白纯黑在内）的整套灰色层次。<br>每本摄影手册也都告诉读者，一定要把明暗两个部分的影调等级和层次充分细致地表现出来。<br>毫无疑问，这正是摄影比其它视觉艺术独到的地方。这也是照片质量问题的核心所在。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123352.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="明和暗的造型作用"><a href="#明和暗的造型作用" class="headerlink" title="明和暗的造型作用"></a>明和暗的造型作用</h2><p>没有哪一种造型手段能像摄影那样，用从纯白到纯黑的无数个灰色层次的变化，把物体的立体感那样生动地表现出来。<br>没有哪一种造型手段能像摄影那样，在一个平面上向人们提供凸起和凹下的幻觉，从而构成一个逼真的立体形状。</p>
+<p>下面的人像是故意颠倒过来的，为的是分析它的形状而不是去注意人物的特征。<br>请注意眉毛下面的凹处和眼睑下面的圆形眼球。<br>鼻子是渐渐隆起的，鼻尖达到最高点，耸立于周围的颧骨之上，然后突然下降到上嘴唇的平面上。<br>嘴的形状紧随着下面牙齿的圆筒状。<br>两片嘴唇形成了隆起的弧线，由中间的分界线上下分开。<br>下巴从嘴唇下面的凹处突起，形成一个高丘，然后下降，先缓后急，直抵下颌。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123430.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>没有其它造型手段能够记录象下图这样微妙的明暗变化；<br>正是这种明暗变化表现了光线和空气构成的神秘的环境气氛，给人一种树木似乎沐浴在气流之中的感觉。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123451.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在记录物体的透明度、半透明度的反光特性的能力方面，任何其它造型手段都无法与摄影相媲美。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-31/20240731123516.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="灰色级谱"><a href="#灰色级谱" class="headerlink" title="灰色级谱"></a>灰色级谱</h2><p>能觉察到的灰色色调是无限多的。用摄影方法能记录下来的色调也是难以计数的。<br>为了对色调进行大致分类，人们设计了这个图谱，并用它作为识别和记录色调的依据。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122859.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>像实际生活中其它方面一样，艺术需要多样化，就是公认的事实。<br>艺术风格需要不断变化的最主要的理由也许是：任何一种特定式样要是用得过久，就会引起厌烦。<br>不断观赏一个形象会使人的精神疲倦，这时候会要求调换不同的形式来进行调剂。</p>
+<p>在使用色调方面也需要多样化。<br>当许多照片在一个展览会上展出或一种出版物中出现的时候，色调的多样化特别重要。</p>
+<p>如果大部分照片是以灰色级谱上的中间色调为主，很少有极浅灰、白、深暗灰和黑，这种色调的雷同将会使人觉得沉闷乏味。</p>
+<p>在一张照片或一组照片里，怎样运用级谱里的数值，是影响作品气氛的因素之一。<br>在艺术中和在生活中一样，气氛的改变不仅是可能的，而且是竭力追求的。</p>
+<h2 id="高调和低调"><a href="#高调和低调" class="headerlink" title="高调和低调"></a>高调和低调</h2><p>一张照片，如果它主要包括了灰色级谱的上半部分（白、极浅灰、浅灰、深浅灰和中灰），一般说它表现的是轻松愉快的气氛，这样的照片被称为高调照片。<br>但要注意这样一种危险：没有包括灰色级谱上所有等级(那怕是一点痕迹)的高调照片，看起来会像曝光不足或显影不足一样。</p>
+<p>当然，如果从纯白到中灰的所有等级都能充分表现出来的话，暗调部分可以省掉。<br>也就是说，如果从极浅灰到中灰之间最少能分辨出十个灰色等级时，这样的高调照片从色调上说是可以接受的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122912.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122926.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>同样，一张照片如果主要包括灰色级谱的下半部分（中灰、浅暗灰、暗灰、深暗灰、和黑色），<br>它表现的是阴沉忧郁的氛，这样的照片被称为低调照片，也常常要有一些较亮色调，<br>以便使人相信就张照片是有意这样处理的而不是失手弄黑的，<br>假如包含较亮色调后对所要表现的气氛所有干扰的话，也可不要较亮色调，但必须具有极丰富而明显的暗调层次。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122941.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="对自然界明暗的联想作用"><a href="#对自然界明暗的联想作用" class="headerlink" title="对自然界明暗的联想作用"></a>对自然界明暗的联想作用</h2><p>我们总是不可避免地要把照片上的色调和实物、经验以及情绪联系起来。<br>砖墙或是混凝土墙的颜色会唤起人们内心已有的那种明暗概念。<br>人们会自动地把特定的颜色和固定的色调联系在一起，所以我们可以料想一只桔子拍成照片以后表现的色调比一只柠檬要深些，一只苹果则比一只桔子更深，而茄子是它们当中最深的。</p>
+<p>我们说到雪、牛奶、亚麻布床单会联想到白色，说到岩石会联想到灰色，说到夜晚、寂静、空间、煤炭会联想到黑色。<br>愉快的情绪是和明亮的调子相联系的。<br>压抑忧郁的情绪是和接近黑色的调子相联系的。荒凉是和灰色相联系的。</p>
+<p>虽然这种联想在大多数情况下是正确的，但不是在所有情况下都是适用的。<br>有时候会出现这样的情况：一个物体经过影调处理后才能符合常规的联想。<br>这时候摄影家就得控制光线、加用滤镜、调整曝光或通过印放处理来达到自己的目的。</p>
+<p>在另外一些情况下，为了构图或表现上的需要，牺牲或打破这种常规的联想关系更为有利；<br>浅色的物体可以处理成暗调的，深色的物可以处理成浅调的。</p>
+<p>这种联想关系还被扩大到伦理道德范畴中去。<br>明与暗经常被用来和正面事物与反面事物、善与恶相联系。<br>在人类历史的早期，上帝被认为就是光明。<br>因而，亮调就代表无形之物、非物质精灵，经常用大片空间和天空来表示。</p>
+<p>相反，黑暗只和忧伤的情绪相联系，用来表示抑郁和悲伤。</p>
+<p>如果我们认真考虑一下这种联想作用，我们会发现，它既不是一成不变的，甚至也是没有道理可讲的。<br>难道黑暗不是冒险精神、宗教迷信和神秘主义的环境气氛吗？不是也有很多诗情画意的作品是用暗调来表现的吗？<br>甚至爱情和沉思这些带神秘感的生活片断，也是和黑暗或近乎黑暗的环境相联系，而不是用中午的耀眼阳光来衬托的。<br>强烈的阳光使一切暴露无遗，没有一点含蓄回味的余地。<br>阴暗的教堂比起明亮的教堂来，是宗教忏悔的更合适的环境。</p>
+<p>黎明和黄昏的朦胧光线似乎适宜于渲染宗教精神，而光天化日却能使人们摆脱神秘和离奇的想象。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801122955.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>艺术家在表现他的主题的时候，必须能够不受约束地选择它的调子。<br>艺术上的墨守成规是创造力的障碍。<br>拘泥于简单地反映，屈从于公众的低级趣味，只能产生乏味的，没有特色的作品。夸张是艺术的有机组成部分。<br>在摄影艺术中，夸张的机会主要存在于明暗控制之中。<br>如果把晴天雪地上黑色影子强调出来会有利于你的美学设想，那就让它变黑，必要的话还可以在放大时加光。<br>如果在表现采矿的照片上，煤的颜色干扰了你想要强调的东西，你设法让它亮一些是合理的。</p>
+<p>几乎可以说，不加夸张地处理色调只能落入俗套，而打破常规的处理却会因为它的新颖大胆而博得赞赏。</p>
+<p>艺术家应该具有独特的观察力，能够越过常规和成见去观察事物，创造出扣人心弦的作品来。</p>
+<h2 id="明和暗在美学上的运用——气氛"><a href="#明和暗在美学上的运用——气氛" class="headerlink" title="明和暗在美学上的运用——气氛"></a>明和暗在美学上的运用——气氛</h2><p>在明暗的运用方面，摄影家的眼界必须更加开阔；<br>不要认为它只是清晰地记录影象的一种手段。<br>除了构成画面和产生立体效果之外，明和暗还有很强大的艺术表现力。<br>它是一个有效而独立的构图要素，是表现和烘托气氛的最有力手段。</p>
+<p>为了造成特定主体的适当气氛，并像你所希望的那样表达感情，往往不必拘泥于实际情况，而把明和暗看成独立的实体。<br>我们不可能也不愿意制订出一个一览表列出通过明暗配置造成的气氛的方法。<br>处理方法是多种多样的，这要根据每个人的经历、经验、风格和判断能力来决定。</p>
+<p>虽然亮调能够表现温暧，但也能表现寒气、遥远、空虚、清晰明快和暴露无遗。<br>暗调可以表现宁静，也可以表现寂寞；可以表现停滞，也可以表现危险。</p>
+<p>从许多方面来看，光线和音乐有相似之处。<br>它能够变换轻重和强弱。自然光有着很大的调节可能和适应性。<br>人工光能产生极为丰富的层次变化，效果如何，取决于灯具和应用方式。</p>
+<p>当一个物体被充分照明，它的每个部分由于明暗分明而能清楚地辨别出来时，这时所强调的是被摄体而不是整个画面。<br>我们不禁会注意到它的突出轮廓。<br>它是那样地明显，以至于我们不去留心照片的整个构图。<br>这种情况，在完全正面照明时，或者当一个明亮的图形衬着暗调背景时，是经常遇到的。<br>逆光照明下，黑色剪影衬在明亮的背景上也是如此。<br>突出轮廓，能给人以明晰精确的印象。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123009.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123023.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>相反地，如果光与影的配置没有把每个具体形状分别强调出来，这时整个画面的整体感就加强了。<br>光线是使物体能被看见的力量，也具有湮没物体的能力。<br>边界能被隐藏，轮廓会变模糊。</p>
+<p>在一个统一的画面中，一个形状的光与影和另外一个形状的光与影混淆了起来。<br>用亮调的、中间调子的和暗调的色块组成画面，并不要求每个形状的界限分明，这时线条和立体感的作用就会减弱，整个画面显得模糊不清。但整体感加强了。<br>观众不再注意每个局部，而是把照片当作一个整体来看了。<br>每个被摄体的形状和由明暗色块组成的整个照片不大区分得开了。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123032.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123045.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="明暗配置"><a href="#明暗配置" class="headerlink" title="明暗配置"></a>明暗配置</h2><p>把亮调的、暗调的中间调子的色块集中在一个不规则的画面上，排除形状和线条的作用，那么构图美学的另外一个重方面，即整个画面的明暗就显得突出了。</p>
+<p>如果我们把下面一组照片顛倒过来加以研究，就能比较清楚地理解这个问题。<br>这些照片是在一天之内不同时间，从同一位置<br>拍摄的同一景物。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123058.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>像图一六五那幅肖像一样，颠倒过来观察，你就不会把它当作实物看待，过多地注意它的结构了。<br>一幅作品的构图好坏，往往当你不去注意主体为何物时才能看得更清楚此。<br>当然这并不意味着主体与构图不需要紧密配合。<br>而是说把照片倒过来，你便能够集中注意它的明暗配置，看出它对整个画面的影响。</p>
+<p>每幅成功的作品必须具备几个条件：</p>
+<blockquote>
+<p>一个是主题的表达和包含的内容，一个是构图，还有一个是印放质量。当然还有其它许多方面。</p>
+</blockquote>
+<p>伟大的作品，是那些把画面中每件事物以及它们相互的关系结合得极为高明的那些作品。</p>
+<p>从前面一系列照片中，我们学到的最重要的一条经验是：</p>
+<blockquote>
+<p>必须认识到，明和暗的意义远远不止是使被摄物具有立全感或者美化被摄物。明暗配置对整个照片的结构有着巨大的影响。</p>
+</blockquote>
+<p>一般说来，对被摄体的处理越发细致具体，例如清晰地照明和逼真地反映，作品的艺术效果就可能越发浅薄单调。</p>
+<p>有时候美化被摄体是摄影的重要作用。正因为摄影在这方面的作用要比其它造型手段有效得多，所以它才受到重视。</p>
+<p>作品的艺术性关系到整个画面空间，绝不是主要物体得到满意的表现就算了事。<br>正像画面中多余的物体能降低主体的感染力一样，明暗配置不当也能削弱构图效果。<br>因此、摄影家不能只限于判断画面上主要部分的明暗，他必须对照片每个部分的明和暗给以同等重视，才能判断哪些有利于整体效果，哪些不利于整体效果。</p>
+<p>因为构图要素和构图原理都是抽象的概念，所以需要从完全抽象的角度去考察它的性质和作用。<br>如果把具体可辨的物体从画面上排除掉的话，这种概念才能表现得更清楚，理解得更明确。<br>因为这样做的结果使我们有可能以更大的注意力去研究某一个别的构图原理。</p>
+<p>在下列各图中，线条结构是相同的。它们之间最大的区别是明暗配置不同。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123127.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>第一种明暗配置是把中间那块大图形涂得比周围色调更加以突出。大图形边界之内的色调变了。<br>虽然画面的一角也有块相同的色调，但它并未接触大图形的边缘。<br>把深色调集中在一个大范围之内，就能把观众的视线紧紧抓住，因为比起其它部分来，它有更大的吸引力。<br>注意力被集中在深色图案部分，它压倒了周围的浅调区域。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123140.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>对同一图形，也可用颠倒黑白的办法，就是让中间图形亮，周围环境暗的办法，使它仍然占据优势。</p>
+<p>用这种加强对比的手法，我们能把观众注意力引向画面的任何一部分。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123155.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123218.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>明暗配置并不要求以基本图形为依据，它是可以随意安排的。<br>有些图形的色调可以局部改变，有些图形的色调可以全部改变。<br>把基本图形交错形成的那些小图形搭配起来，我们就能创造出新的图形。</p>
+<p>从构图上说，可以让画面的一半是亮调，一半是暗调。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123229.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>也可让画面从亮到暗逐渐变化。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123239.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>让明暗各点适当地分布在画面上，就能在画面不同部位形成对比强烈、明暗交错的生动影调。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-01/20240801123256.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>有人可能认为，只有在手绘图画中才能不受约束地配置明暗。<br><strong>完全不是这样！</strong><br>虽然摄影家要控制照片中每个明暗变化并非易事，但实际余地要比人们想象的多。</p>
+<p>想要取得上列照片所表现的那些变化，只要把自然光线稍加改变，就可以达到目的。<br>此外，还可以自由选择拍摄位置以增加变化的机会。</p>
+<p>在静物摄影构图中，为了改变色调，可以调换被摄物品。<br>调整光线不仅能够改变色调，还可以利用阴和影来构成各种图案。<br>选择适当的背景，又为摄影家提供了一个构图的机会，这里除了利用大量素色材素和有图案的材料以外，还可以用周围的环境。<br>在肖像和人体摄影构图中，作为构图要素的色调，能够通过衣着、照明、背景以及画面点缀物来进行调整。<br>一张成功的作品，往往需要事前周密地安排。</p>
+<p>最后，在印放过程中，我们经常还要进行机动灵活的加工处理。<br>明暗配置在表现感情方面是很有影响的一个手段。<br>平静还是活跃，强烈还是温柔，整齐还是不规则⋯⋯所有这些，甚至不止这些，都可以通过有效的明暗配置来达到。<br>这方面的潜力是无限的；如果说有限的话，那是因为摄影者本身的洞察力有限。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 摄影 构图 明暗</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2024-07-31 12:32:24</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-05-22 15:18:46
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2024/07/31/摄影-构图-明暗/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%91%84%E5%BD%B1/">#摄影</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/08/02/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%B4%A8%E6%84%9F/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">摄影 构图 质感</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/07/30/Linux-%E5%AE%9A%E6%97%B6%E4%B8%8A%E6%8A%A5%E5%85%AC%E7%BD%91IP%E5%88%B0Github/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">Linux 定时上报公网IP到Github</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        (function() {
+            const containerId = "giscus-container";
+            const mapping = "title";
+            const lang = "zh-CN";
+            const inputPosition = "bottom";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "ChaoSBYNN/chaosbynn.github.io",
+                    "data-repo-id": "MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==",
+                    "data-category": "Announcements",
+                    "data-category-id": "DIC_kwDOBNbWcM4CgcsE",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
+                loadGiscus();
+            };
+
+            runGiscus();
+        })();
+    </script>
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">摄影 构图 明暗</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%85%A7%E7%89%87%E7%9A%84%E8%B4%A8%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">照片的质量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%8E%E5%92%8C%E6%9A%97%E7%9A%84%E9%80%A0%E5%9E%8B%E4%BD%9C%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">明和暗的造型作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%81%B0%E8%89%B2%E7%BA%A7%E8%B0%B1"><span class="nav-number">3.</span> <span class="nav-text">灰色级谱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E8%B0%83%E5%92%8C%E4%BD%8E%E8%B0%83"><span class="nav-number">4.</span> <span class="nav-text">高调和低调</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%87%AA%E7%84%B6%E7%95%8C%E6%98%8E%E6%9A%97%E7%9A%84%E8%81%94%E6%83%B3%E4%BD%9C%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">对自然界明暗的联想作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%8E%E5%92%8C%E6%9A%97%E5%9C%A8%E7%BE%8E%E5%AD%A6%E4%B8%8A%E7%9A%84%E8%BF%90%E7%94%A8%E2%80%94%E2%80%94%E6%B0%94%E6%B0%9B"><span class="nav-number">6.</span> <span class="nav-text">明和暗在美学上的运用——气氛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%8E%E6%9A%97%E9%85%8D%E7%BD%AE"><span class="nav-number">7.</span> <span class="nav-text">明暗配置</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 143 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
+</div>
+
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
+</script>
+
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
+</body>
+
+</html>

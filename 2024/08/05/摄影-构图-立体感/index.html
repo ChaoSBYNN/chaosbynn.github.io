@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2024/08/05/摄影-构图-立体感/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="摄影 构图 立体感">
+<meta property="og:url" content="https://chaosbynn.github.io/2024/08/05/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E7%AB%8B%E4%BD%93%E6%84%9F/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2024-08-05T04:27:31.000Z">
+<meta property="article:modified_time" content="2026-05-22T07:18:46.046Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="摄影">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            摄影 构图 立体感 | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/ChaoSBYNN","name":"github"},{"icon":"fa-brands fa-instagram","url":"https://www.instagram.com/entropy_42_zhang","name":"instagram"},{"icon":"fa-brands fa-zhihu","url":"https://www.zhihu.com/people/Bee7zEBubChaoS","name":"zhihu"},{"icon":"fa-brands fa-twitter","url":"https://x.com/Bee7zEBub","name":"twitter"},{"icon":"fa-solid fa-envelope","url":"mailto:t7_chaos@163.com","name":"email"}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null,"name":"weixin","image":null},{"icon":"/images/custom-icon.svg","qr":null}]},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-cog fa-spin\" style=\"--fa-animation-duration: 15s;\"></i>","start":"2017/2/13 11:45:14","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2017/2/13 11:45:14","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">63</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">143</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens.webp" alt="摄影 构图 立体感" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">摄影 构图 立体感</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-08-05 12:27:31</span>
+        <span class="mobile">2024-08-05 12:27:31</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-05-22 15:18:46</span>
+            <span class="mobile">2026-05-22 15:18:46</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%91%84%E5%BD%B1/">摄影</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E6%91%84%E5%BD%B1/%E6%9E%84%E5%9B%BE/">构图</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%91%84%E5%BD%B1/">摄影</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p>人们只要看看汽车展览或帆船展览，就会认识到人类对于有趣而美好的造型是多么敏感。<br>就像过去欣欣赏优秀雕塑和建筑一样，人们现在也开始欣赏比例、凹形和凸形的各种变化了。<br>这种对外形美的欣赏已经超出了对交通工具自身功能的要求，因为，交通工具的外形设计可能只是考虑到空气阻力和有效空间而已。<br>人们很容易理解，为什么纽约市一家享有盛誉的美术馆曾一度把几部精致的汽车作为现代雕塑艺术的杰出范例拿来展出。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122231.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>同样，对于许多实用工业产品的设计，包括电冰箱、面包烤炉、洗衣机、电视机、食物搅拌器、家具以及各种工具的设计，人们也有类似的感受。<br>人们不仅欣赏它们使用方便，也欣赏它们的造型美观。</p>
+<p>这绝非新的社会现象。<br>自远古文明以来，造型优美的物体就一直受到推崇。<br>最初，好看的石头、长矛、投镖、棍棒、篮子、泥罐都成为珍藏品。<br>后来，随着文明历史的发展，雕塑、摹冢、建筑物以及家具等都加入了这个行列。<br>尽管给这些东西加上装饰品，但人们首先注意的还是那些动人的立体造型。</p>
+<h2 id="空间对气氛的塑造作用"><a href="#空间对气氛的塑造作用" class="headerlink" title="空间对气氛的塑造作用"></a>空间对气氛的塑造作用</h2><p>在人类文明的早期，原始人认识到某些洞穴的空间能够使人产生某种情绪。<br>有些洞穴看起来高大庄严，造成一种神秘奥妙的气氛。<br>有些则能引起宁静、舒适的感觉，使人愿意把它变为家园。<br>还有一些酝蓄险情，诱人探索。有些空间则散发出阴郁凄凉的气氛，只适于留作坟墓。</p>
+<p>空间是指一个包容物中的内容，空间里含有一定量的气体、液体或者是真空的；它们被容纳在包容物中，并和包容物的形状相一致。<br>由于它不是固体形态的，而且其线度随着包容物的线度而发生变化，所以人们很难把空间纳入立体形状的定义中去。</p>
+<p>但是对于艺术家来说，空间和形状之间有着共同的内容需要考虑。<br>因此，我们确定了“立体物——立体感”这个名词，它包括了“空间”和“形状”两者的意思。</p>
+<h2 id="在平面上表现立体物"><a href="#在平面上表现立体物" class="headerlink" title="在平面上表现立体物"></a>在平面上表现立体物</h2><p>在一个平面上，像在纸张、画布或灰泥墙面上，如何表现立体物，这是许多世纪以来不少伟大的思想家一直在思考的一个课题。<br>和其它手段相比，摄影术为此提供了最为满意的解决办法。<br>然而，要把立体物作为一种艺术感觉表现出来，却有很多问题有待研究。</p>
+<p>优美的立体物除了给人以良好的触觉感受外，还蕴蓄着许多乐趣，最受盲人的赏识。<br>盲人通过触觉，摸索物体的形状，追寻物体的高低起伏，体会它的厚度和曲折，探索它的凹陷和孔洞，并从中得到极大的满足。<br>他们虽然看不见，却能了解空间的特点，并产生和明眼人极为相似的反应。</p>
+<p>由于立体物是一种既能看到，也能摸到的东西，又具有引起情感反应的力量，所以了解立体物的本质就成为摄影构图学中必不可少的一项内容了。</p>
+<h2 id="实心立体物和空心立全物"><a href="#实心立体物和空心立全物" class="headerlink" title="实心立体物和空心立全物"></a>实心立体物和空心立全物</h2><p>石头、木头和混凝土是实心的立体物，茶杯、饭碗、贝壳和房屋是空心的立体物。<br>当然，要给一个术语下严格不变的定义是不可能的，也不必力求多么精确。<br>例如，石头本身确确实实是实心的立体物，但却可以筑墙成屋，这房屋又成了空心的立体物。<br>玻璃和陶瓷花瓶显然是空心立体物，它们往往有不同形状的厚壁，这厚壁本身又属于实心立体物。</p>
+<h2 id="形状和立体物"><a href="#形状和立体物" class="headerlink" title="形状和立体物"></a>形状和立体物</h2><p>人们往往错误地把立体物当作形状来看待。<br>形状是平面的，没有可见的厚度或深度。而立体物最明确的特点就是它有厚度。<br>从纸上剪下一个圆形，不管质地如何，也不论表面如何装饰，终究只是一个形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122401.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>一个球体的轮廓，无论从哪个角度观察都是一个圆形。<br>在一定的光线条件下，特别是使用背面光和正面光的时候，球形的特点消失，结果看起来形成了一个平面圆形，像纸做的圆形一样。</p>
+<p>在另外的光线条件下，球形的特点便突出了。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122412.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>研究一下明暗层次可以得到不少有益的启示：明暗层次能给人造成球体感而不是平面感。<br>同时还要弄清楚如何避免平面感而表现立体感。</p>
+<p>请看图二三五，注意强光是如何射在每个球体左半部的边缘附近的。<br>左半球虽然都是亮调，但光的影调向各个方向逐渐暗淡下去，直到边缘；<br>在右半球上，影调继续变暗，到右侧底部变得最暗。<br>这是暗部的最低端，它集中在右侧附近。<br>周围物体上的反射光射到阴暗区域，又照亮了右侧边缘。</p>
+<p>我们研究立方体或矩形棱柱体之后，也可得出类似结果。<br>尽管对棱柱体的线性分析表明，这里可以看出通常透视现象所体现出来的深度和体积，但在一定的光线条件下，特别是在直接的正面光或背面光的照射下，棱柱体给人印象只是一个平面的形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122423.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>如果通过照明区分影调，清楚地展现出三个方向的阴暗面，就能清楚地看出这是一个立体物了。<br>影子有助于明确显示一个物体是实在的和丰满的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122432.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>球体的层次是连续性的，而立方体或棱柱体的层次则是非连续性的。<br>不连贯的层次变化能显现出平面的各个边缘。</p>
+<p>圆柱体是一种立体物，它既有连续性的特点，也有非连续的特点。<br>它那椭圆的轮廓部分就象立方体的透视线条一样，很难完全隐藏它那三线度的性质。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122448.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>然而，这些图形显现出相对的平面感，使它们更接近于平面形状，而不大像立体物。</p>
+<p>当加以照明而显示其立体特点时，我们能看到它曲面外表的影调层次是连贯的，而底部表面层次则是不连贯的。<br>还要注意：强光部分是在亮面的边缘附近。<br>但最暗的部位并不是正在右面边缘上，而是在边缘附近。<br>边缘是被周围物体向暗处反射的光照亮的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122459.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>当看到具有不同影调层次的球体、立方体和圆柱体照片时，我们的眼睛会向脑子传送一种形体的感觉，就种感觉和我们触摸这些实物时的感觉是相似的。<br>对于我们就些生活在二十世纪并习惯于在平面上表现立体形状的人来说，除了会产生这种明显的感觉之外，不会有什么特殊的反应了。<br>而一百五十年以前，这种立体的感觉会被认为是不可思议的，就象在立体镜中第一次看到物体的深度一样地不可思议。</p>
+<h2 id="意义不明确的轮廓"><a href="#意义不明确的轮廓" class="headerlink" title="意义不明确的轮廓"></a>意义不明确的轮廓</h2><p>当我们认识到从很多不同的形体可以得出一个同样的轮廓图形时，便会明白两线度形状的表现力是不充分的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122524.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>但对于一个摄影家来说，这并不一定就是个缺陷，摄影家倒可以因此获得更灵活的表现手法和更丰富的表现机会。<br>把外形类似的形状和实际的立体物并放在一起，加以照明。<br>所得结果将是很有趣的。</p>
+<p>重视技术的摄影家对于立体物的平面化颇有感受，这种效果在使用远摄镜头拍摄时尤为明显。<br>用长焦距镜头拍摄的照片，其深度感显著减少，以至于立体物看起来接近平面形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-05/20240805122537.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>相反，短焦距镜头增加了景深，有时会增加到线性失真的程度。</p>
+<h2 id="立体性质的表现"><a href="#立体性质的表现" class="headerlink" title="立体性质的表现"></a>立体性质的表现</h2><p>为了加强对立体感的理解和鉴赏能力，不妨在你的附近选出各样的物体并努力表现它们丰满的立体感。<br>花瓶、盒子、灯座、装饰品、瓶子、罐子、废纸篓、小收音机、玩具、儿童积木等等都是很好的观察对象。<br>尽量寻找不同轮廓和不同形体的物体以便于研究。</p>
+<p>开始时，只研究单个物体，看看以什么视角进行观察才能最好地表现它的立体感。<br>如果它的造型是不规则的，则可加以转动，找出一个你自己认为最满意的角度，以便充分表现它的总体。<br>然后加以照明。但照明不是为了突出边缘的轮廓，而是要突出形体。<br>光线要集中在边缘之间的隆起和凹陷处。<br>一般说来，全部设备只用一个光源加上一个白纸反光板就足够了。</p>
+<p>待布光满意之后，通过相机的毛玻璃或取景器仔细研究照明对象，作一些调整，以便增强立体感。<br>凡能使你受到感动的研究结果总是值得拍成照片的。<br>这不一定是为了展出，而是为了验证你对立体物的感受，并确定一套记录这种感受的拍摄方法。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122557.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>直到不久前，雕塑的实践还是按照绘画的传统方式，只限于表现人物、动物和物体。<br>对雕塑特点的欣赏主要根据其逼真程度，体态的动感以及感情的形象表现。</p>
+<p>但是，很多观赏者都不会情不自禁地注意他们认为不属于雕塑的那些特点。<br>他们不仅忍不住想触摸一下材料的质地，并且还想用手到外抚摸，去感受那有趣的外形，体会一下它的起伏、凹陷、弯曲、薄厚变化、并探索它的孔眼。<br>很多人从石头、木头、陶瓷或金属的材料特性中，从它们上面显而易见的颜色、纹理和质地中，不仅发现有视觉上的美感，而且还体会到触觉上的美感。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122613.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>现代抽象派雕塑能够满足这些感官上的要求，而又故意不去理会过去关于逼真的要求。图二四七是布良朗卡􀂷斯特恩的石雕。<br>从这个作品中我们能感觉到这位艺术家是如何吸引我们的眼晴和手去探索那不断变化的曲曲弯弯的表面的。<br>这是一种探索性的尝试，滑进不规则的洼处，然后突然上升到一个波峰似的隆起处，随后又穿过孔道。<br>随着我们的手指在物体表面徐徐前进，不断地由于新的诱惑和内心的冲动而变换方向时，我们会体会到整个物体的轮廓是变化莫测的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122634.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>摄影家要想去表现一个优美的立体物固有的视觉美感，就必须首先会欣赏它，如果可能的话，首先通过触摸，然后再通过视觉观察。<br>尽管现代抽象雕塑品是很好的启蒙手段，但它们毕竟是难以得到的；<br>要是参观者在美术馆里擅自触摸陈列的雕塑品，服务人员会立即制止的。</p>
+<p>卵石和小石子的形状变化无穷，利用它们培养敏感性会使你流连忘返。<br>物色一些带有孔眼的从不同角度观察时具有不同外形的卵石。<br>有些石头上有深深的锯齿和耐人寻味的隆起、凹陷、蜂窝或小丘，有些则是带圆形的平扁石。<br>我们会情不自禁地转移兴趣，而去欣赏它们的色调，质地和反光特性，所以要克制自己的闲情逸致而集中研究它们的外形。</p>
+<p>在对它们的外形有了一定的感受之后，选出一块拳头大小的石头，通过触摸和视觉观察再研究它的形体。<br>这样做会培养出你对石头的感觉，并在头脑中确定你喜欢拍摄的那些特定形状。<br>现在，把石头放在一个简单的背景上，加以照明，作进一步研究。<br>不断地变换背景的色调，使之满意：既不要反差太强以致夸张了石头的轮廓，也不要反差过分相近，以致石头和背景难以区分。</p>
+<p>先用一个光源，用反光板来调节影子。<br>以后，如果必要，就再加上一个光源，目的是用明、暗手法来表现你感觉中的形体。<br>一旦找到了满意的布光，足以表现出你的触觉感受时，便可通过你的相机取景器仔细地加以验证。<br>等你完全满意时，就拍成照片。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122650.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在转动石头和试验布光的过程中，你可能会发现，有些新的外形十分动人，可以和你最初欣赏的外形媲美，甚至更胜一筹。<br>这时，一定要进一步研究你的新发现。这才是创作的实质。<br>从确定课题，到培养敏感性和对普通的物体有深刻的认识，需要花费一定的时间。<br>但是一旦闯过了这一关，你会得出不只一种，而是多种有价值的构图方案——你并没有虚度时光。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122705.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>现在可以到野外或公园里，在树干、树技和裸露的树根中去探寻有趣的立体感。<br>你凑近树木，就会发现那些远看像圆筒似的树干却原来千姿百态，形状各异。<br>有些形态是因为枝杈和树干自身的盘根错节而形成的。<br>另一些形态之间的差异则更为明显，是天气、昆虫、兽类以及病虫留下的创伤。</p>
+<p>在现代雕雕塑中，你会发现一些具有强烈的视觉效果的造型、凹陷和切痕。<br>同样，在摄影方面仅仅强调物体形态及其质地变化的照片也可以成为优秀作品。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122724.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>遗憾的是，许多摄影家的习惯是只注意拍摄题材，而忽略了在挖掘题材和表现手法这两方面，视觉感受才是最本质的东西。<br>他们把自己对树木的观察局限在一般特点的识别上，通过树干、枝杈和树叶的特点，看它们是哪一种树种：<br>是柳树、橡树、榆树、苹果树、松树还是枫树，很多人对于每棵树本身的特色无动于衷。</p>
+<p>这个道理不仅仅适用于一棵树木。<br>几乎任何一个自然物体或人造物体都具有许多可以发掘的特质，可用以拍成优秀的摄影作品。<br>在这里，你能赋予拍摄主题的东西要比这个主题展现给你的东西重要得多。<br>你对于形状、线条、立体感和质感的感受越是敏锐，你就越加不必去专门搜寻有趣的拍摄题材，因为有趣的题材在你的周围比比皆是。</p>
+<h2 id="用轮廓表现立体感"><a href="#用轮廓表现立体感" class="headerlink" title="用轮廓表现立体感"></a>用轮廓表现立体感</h2><p>表现立体形态的一个方法是造成阴和影。<br>如果是不规则的形状，像大块成层岩那样断断续续的，则可以在表面上勾画轮廓线，这是表现立体形态的又一种方法。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122740.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>像图二五一中的成层岩，由于线条明显，轮廓线的前、后运动表现了凸凹变化。<br>有时把轮廓线以及阴和影结合运用，比各自单独使用时，能表现出更强烈的立体感。</p>
+<p>被水冲到岸边的木头是研究立体感的又一种好材料。<br>水流的冲蚀使它更为复杂，凹陷、裂纹和孔洞也更加突出和显著。往往，由于水流冲掉了无关紧要的小枝杈后，会给木头留下一些奇特的轮廓；<br>而这些轮廓又给复杂的立体形态增添了奇妙的线条形式。</p>
+<p>我们说这种立体的形态带有复杂性，是因为这些形态必须通过明暗处理和利用木头的轮廓线这两主面才能表现出来。<br>这些线条是在长期浸泡后又经干缩的过程中形成的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122800.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="立体物的相互关系"><a href="#立体物的相互关系" class="headerlink" title="立体物的相互关系"></a>立体物的相互关系</h2><p>研究单个物体的立体感会体验到它内在的魅力。<br>当我们开始探索立体物之间的关系时，就更入迷了。</p>
+<p>收集七、八只盒子，它们的大小、比例和几何图形应该各不相同。<br>为了避免因色调和质地不同而给研究工作造成麻烦，可用同样的或相似的纸张把盒子包起来。<br>甚至可以自己动手用卡片纸板做一些盒子。<br>这些盒子在各种摄影实验中都会用得到。<br>把木块用纸包起来同样可以做成盒子形状。</p>
+<p>现在把这些盒子好好布置一下，主要目的是要获得满意的立体物的相互关系。<br>先用两三只盒子布置，必要时增加或更换一些盒子。<br>让大的盒子衬小的，高的衬托矮的，横的衬托竖的，长方形的衬托圆筒形的。<br>注意观察使用几只同样大小的盒子会产生什么样的效果。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122812.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>把两个盒子摞起来，使其轴线方向各不相同。<br>有些盒子可以斜放，从而进一步造成方向的变化和空间的伸展。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122823.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>要把盒子组合得很巧妙，使观众总想围绕着它的四周去观看，而不要只拿正面来吸引人。<br>但无论如何不要弄得太复杂。</p>
+<p>这种娱乐方式可增强摄影者的感受能力、创造发明能力和探索精神。<br>有些最动人的照片往往正是得自这种简单的方法和试验活动。</p>
+<p>当你对自己的布置感到满意时，便可开始布光，以便表现纵深。<br>试着把一个物体的影子投到另一个物体上去。<br>看看长方形的影子落在圆形纸盒上时，是如何加强了筒状物的圆形感的。<br>每当你组成一个特别动人的画面结构时，就要通过取影器研究其组合情况，再加以调整并拍摄下来。</p>
+<p>再找一些具有几何图形的物体，如水皮球、漏斗、角锥体和碗一类东西，把它们和前边使用的物体组合起来。<br>突出各立体物之间的相互区别。<br>在照明下，把一个立体物的影子投向另一个不同形状的立体物，继续试验投影的效果，看看影子的形状是如可影响形状的表现力的。<br>然后，变换大小、位置和方向，使构图，特别在立体物的相互关系上，达到满意为止。</p>
+<p>曝光、洗印，并研究洗印后的结果。<br>从这些试验中你很可能会学到很多东西，并愿意继续试验。<br>如果是这样的话，请你务必继续下去。</p>
+<p>下一步，可以把一些静物，如装饰用盒子、花瓶、花盆、水果、蛋类、壶和平底锅之类组进构图中。<br>土豆、黄瓜、西葫芦、葫芦、南瓜、鲜胡椒和甜瓜都是研究立体感的好材料。<br>只要你的目标是集中研究这些物体之间立体感的相互作用，而不是从室内装饰或烹饪的角度来布置它们，那么你对这些物体的布置和拍出的照片就会有更大的兴趣。<br>把上述的实用物品变换一下，着手拍摄一般的题材，像食品、乐谱、艺术品、文具、时装、书籍或金属器械。<br>根据主题的需要把有关用具布置在一起，可以创作各种构图来。</p>
+<h2 id="户外题材的立体感"><a href="#户外题材的立体感" class="headerlink" title="户外题材的立体感"></a>户外题材的立体感</h2><p>现在，只要迈出一小步，便可以从研究静物构图发展到研究人造物的组合了。<br>我们对周围环境中的人造物是如此的熟悉，以至很少去注意它们。<br>首先，物色一些几何形状的物体。<br>在城市里能找到这种材料的理想处所是房顶上面。<br>那里，有和通道、排烟、储水、空调等有关的各种几何结构。<br>楼群、建筑物的某一部分、胸墙、阳台和塔楼都可作为这些形状的背景。</p>
+<p>工厂和工业建筑群常常由稀奇古怪的几何形状的结构组成；<br>煤气储存厂、充气圆屋顶、农场建筑（特别是有锥形顶棚的圆柱形地窖）、铁路设施和建筑以及各种塔台都是研究立体构图的极好题材。<br>水滨的商业区和游乐区也是很好的研究对象。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122840.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122852.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在你通过照明试验立体物的构图时，可能已经注意到，要表现立体感，最有效的照明是有一定角度的光源。<br>这个道理也可以应用于户外的构图研究中。<br>如果你的目的是专门为了表现立体感，那么，你的拍摄时机就要选在上午或下午较为适中的一段时间里。<br>这时阳光是斜射的。</p>
+<p>我们所见到的或接触到的一切物体都是立体的。<br>最细的金属丝，最薄的纸张都有可感的厚度和体积。<br>可供研究立体感的物体是无究无尽的，无法一一列举。</p>
+<h2 id="自然界的立体感"><a href="#自然界的立体感" class="headerlink" title="自然界的立体感"></a>自然界的立体感</h2><p>摄影家对云彩有特殊的兴趣，因为它们的形状千变万化，并能激发人们的情感。<br>云彩有时象各种线条，有时呈色调均匀的大团。<br>有时变成明暗不同、质感各异的细缕，有时又是大片的平面形状。<br>积云和积雨云则形同怒涛。<br>云彩时聚时散，变化无穷，为摄影家提供了取之不尽的创作源泉。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122906.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>地貌也可以被看作是各种形状、线条、色调、质感和立体感的组合。<br>在圆石、砂丘、风化岩石、溪谷、山峡和冰蚀山谷这些静物之中也可以找到动人的立体感。<br>除了供科学研究用的一般地文学照片以外，人们能够从地貎中发现独特的立体组合而创作出杰出的摄影作品。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122916.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在斜射光线的作用下，乔木和灌木都可以呈现出立体的形态。<br>对立体感有深刻认识的艺术家知道怎样把它们用于摄影构图。</p>
+<h2 id="深度空间和浅度空间"><a href="#深度空间和浅度空间" class="headerlink" title="深度空间和浅度空间"></a>深度空间和浅度空间</h2><p>讨论空间象讨论立体物一样，绝不能忽略深度空间的问题。<br>这个问题有时称作线性透视和空气透视。</p>
+<p>线性透视感最明显的是平行线的会聚，象公路和铁路伸向远方那样。<br>它还表现在视觉对物体逐渐变小，即越远越小的感觉上。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122931.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>空气透视是指远处物体细节模糊不清的一种现象。<br>观察者和物体之间的距离越大，该物体的光线需要穿透的空气层就越厚。<br>远处的物体看来好象是沉浸在一片濛濛雾气之中。</p>
+<p>摄影家有机会创作出使远近立体物有戏剧对比的照片。<br>可惜这个拍摄方法用得太多而流于公式。<br>结果，很多追求较为流行风格的摄影家，常常对这种表现空间的方法避而不用。<br>然而，这种题材并没有失去效用。<br>任何一个独树一帜的人，只要他的见解能够概括地体现近处立体物和深度空间的相互作用，他就会取得出色的成就。</p>
+<p>在现代艺术中，摄影和绘画，雕塑和印刷艺术相互渗透，十分倾向于表现浅度空间。</p>
+<h2 id="含蓄的立体感"><a href="#含蓄的立体感" class="headerlink" title="含蓄的立体感"></a>含蓄的立体感</h2><p>以上，我们研究的立体物都是有形的。<br>现在不妨考虑一下螺旋浆或风扇叶子的运动。<br>在静止时，可以清晰地看出，它们是由两个或多个叶片构成的。<br>而运动中，叶片的结构看不见了，我们看到的只是一个模糊的圆筒，圆的深度等于叶片的螺距。<br>旋转门或旋转木马也有类似的效果。</p>
+<p>尽管这种立体感是蕴藏在运动状态之中的，而不是体现在固体形状或包容空间中，但它确实是可以用摄影方法记录下来的立体物。<br>它的实际存在和一显即逝的特点，可以用来构成一幅非同寻常的画面。</p>
+<p>拿一个金属丝制成的挂衣桇，不均匀地拧它几下，然后把它吊在一根绳子上。<br>现在，把绳子捻上很多转，当捻紧的绳子被松开往回转的时候，拧过去的挂衣架就会随之旋转起来。<br>这时用低速快门把旋转着的衣架拍下来。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807122951.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>然后，在绳子往回转时，轻轻地推它一下，使它在旋转的同时来回摆动，所用速度应保证能摄入摆动的全部扫描轮廓。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807123009.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>最后，换一根橡皮绳子，把跳动、旋转和摆动三种运动的扫描轮廓都结合在一起，拍成照片。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807123019.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>做了这些初步的试验之后，你会了解某些金属丝的结构，特别会了解它们的旋转运动(自转式的)和绕转运动（公转式的）以及其它一些协同运动。<br>如果增加不同粗细的金属丝，变换悬挂物体和悬挂形状，以及增加玻璃垂饰这样的反光材料，则可获得千变万化的效果。<br>如果再加上不太平衡的活动方式，还可以产生出一些摇摆和绕转的变化。</p>
+<p>安排一个时间去游乐场转一下，在那里，使用中的各种骑乘玩具能产生含蓄的立体感。<br>当夜幕降临，各种结构上灯火通明时，你还能发现种种奇异的构图。<br>如果把几种含蓄的立体物结合在一起，或者把含蓄的立体物衬在有形的立体物上，更可以创作出风格独特的作品。</p>
+<h2 id="肖像和人体摄影的立体感"><a href="#肖像和人体摄影的立体感" class="headerlink" title="肖像和人体摄影的立体感"></a>肖像和人体摄影的立体感</h2><p>人类的形象，包括肖像和人体摄影，在摄影中，如同在任何其它视觉艺术中一样，仍然是最有趣的主题。这决非偶然。<br>从穴居时代开始，观赏那些表现熟悉的和陌生的人们的作品，就给人带来了很大的愉快和乐趣。人体的差异，以及外表和表情的不同，几乎是无穷无尽的。</p>
+<p>我们大家在很多方面是如此地相象，同时又是如此地不同。</p>
+<p>我们每个人各自的外表和比例、凸度和凹度、皮肤质地和皮肤色调不仅是各有特点，而且它们也随着我们的每个动作，以及我们内心的每个想法、情绪和感情的不同而发生变化。</p>
+<p>本章前述的经验也有助于我们表现肖像的立体感。</p>
+<p>我们不去美化人物，不想表现他的个性，也不求惟妙惟肖，甚至不管他的感情表现或皮肤纹理——我们只是研究纯粹的人体结构的外形。<br>我们首先观察一个面孔瘦削，面部轮廓清晰的中年模特儿。<br>观察他面孔的细节：<br>前额和鬓角交接处的角度清晰明显，突出的眉骨，深陷的眼窝里一对清澈的眼晴，突出的鼻子，端正的鼻梁和惹人注目的鼻翼，两颊的颧骨适当突起，下颏轮廓鲜明。<br>这个要求也许偏高，但找到这样的模特儿实际上是并不困难的。</p>
+<p>你他细研究这个头形，确定一个合适的观察点，以便最有效地突出这个模特儿的面容特征。<br>仔细布光，以便能强调出各部分的立体感，使整个头和脸尽可能地成几何图形。<br>你很可能会发现，为刻划这个外貌，只用一个调焦聚光灯或者一个摄影聚光灯就足够了。<br>但如果你想刻划那更细微的特点，可能需要其他类型的反光器或辅助光。<br>这里无法规定任何照明计划，因为每个人的体形都不相同，因而照明方法也不能千篇一律。<br>只要你决心去生动地表现立体感，经过一些尝试和失败，你总会找到适当的途径的。</p>
+<p>曝光，并冲出胶卷。<br>在洗印过程中你需要牢记你的主要目的是什么，并通过洗印的控制来达到那个目的。<br>研究一下你的洗印结果。<br>看一看你拍成的照片多么富有新鲜感！<br>你选择模特儿的指导思想，摆出的姿势和用光都会在照片中体现得清清楚楚。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-08-07/20240807123030.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>把你的照片顛倒过来，使底部朝上，检查每个部位的形状。<br>鼻子是不是象一块突出的岩石，几乎要从照片上伸出来，眼睛是不是好像装在一个球形的曲面上？<br>嘴唇之间牙齿周围是不是给人给人以筒状感觉？<br>下颏是否明显地突出于脖子上？<br>你是否仍然能够明确辨别出前额和鬓角的连接处？<br>能否明显地感觉到颧骨从眼睛的外侧延伸到耳朵，形成了面颊和颜面前部的交界点呢？</p>
+<p>以此为例，你可以选择任何一个模特儿并按同一办法去做。</p>
+<p>重要的是你要把构成模特儿头型各部分外形的特点认识清楚，并通过照明设法加以突出。</p>
+<p>要记住，这只是肖像摄影的多种方法之一。<br>根据不同的拍摄目的，选用不同的方法能取得不同的结果。<br>究竟采用哪种方法取决于预期结果和指导思想。</p>
+<p>穿衣服和裸体的人体都是表现立体感的良好题材。<br>躯干和四肢的每一部分都可以和一个近似的几何图形联系起来。</p>
+<p>为了获得更强烈的立体效果，可以把人体布置成扭转的姿势，使头、肩和臀每个部分的方向稍有不同，这时，观察者的兴趣便从正面开始，绕过侧面，然后转向背面。<br>于是又形成了另一种含蓄的立体感。</p>
+<p>当人体的一个突出的立体部位衬托在一个凹陷的背景空档上的时候，能产生效果极好的照片。<br>这也是利用背景进行对比，造成动感，表现立体感的一个手法。</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 摄影 构图 立体感</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2024-08-05 12:27:31</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-05-22 15:18:46
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2024/08/05/摄影-构图-立体感/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%91%84%E5%BD%B1/">#摄影</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/08/05/RabbitMQ-%E5%BB%B6%E6%97%B6%E9%98%9F%E5%88%97/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">RabbitMQ 延时队列</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/08/02/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%B4%A8%E6%84%9F/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">摄影 构图 质感</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        (function() {
+            const containerId = "giscus-container";
+            const mapping = "title";
+            const lang = "zh-CN";
+            const inputPosition = "bottom";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "ChaoSBYNN/chaosbynn.github.io",
+                    "data-repo-id": "MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==",
+                    "data-category": "Announcements",
+                    "data-category-id": "DIC_kwDOBNbWcM4CgcsE",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
+                loadGiscus();
+            };
+
+            runGiscus();
+        })();
+    </script>
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">摄影 构图 立体感</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%AF%B9%E6%B0%94%E6%B0%9B%E7%9A%84%E5%A1%91%E9%80%A0%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">空间对气氛的塑造作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%B9%B3%E9%9D%A2%E4%B8%8A%E8%A1%A8%E7%8E%B0%E7%AB%8B%E4%BD%93%E7%89%A9"><span class="nav-number">2.</span> <span class="nav-text">在平面上表现立体物</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E5%BF%83%E7%AB%8B%E4%BD%93%E7%89%A9%E5%92%8C%E7%A9%BA%E5%BF%83%E7%AB%8B%E5%85%A8%E7%89%A9"><span class="nav-number">3.</span> <span class="nav-text">实心立体物和空心立全物</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E7%8A%B6%E5%92%8C%E7%AB%8B%E4%BD%93%E7%89%A9"><span class="nav-number">4.</span> <span class="nav-text">形状和立体物</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%8F%E4%B9%89%E4%B8%8D%E6%98%8E%E7%A1%AE%E7%9A%84%E8%BD%AE%E5%BB%93"><span class="nav-number">5.</span> <span class="nav-text">意义不明确的轮廓</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%8B%E4%BD%93%E6%80%A7%E8%B4%A8%E7%9A%84%E8%A1%A8%E7%8E%B0"><span class="nav-number">6.</span> <span class="nav-text">立体性质的表现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E8%BD%AE%E5%BB%93%E8%A1%A8%E7%8E%B0%E7%AB%8B%E4%BD%93%E6%84%9F"><span class="nav-number">7.</span> <span class="nav-text">用轮廓表现立体感</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%8B%E4%BD%93%E7%89%A9%E7%9A%84%E7%9B%B8%E4%BA%92%E5%85%B3%E7%B3%BB"><span class="nav-number">8.</span> <span class="nav-text">立体物的相互关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%B7%E5%A4%96%E9%A2%98%E6%9D%90%E7%9A%84%E7%AB%8B%E4%BD%93%E6%84%9F"><span class="nav-number">9.</span> <span class="nav-text">户外题材的立体感</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E7%95%8C%E7%9A%84%E7%AB%8B%E4%BD%93%E6%84%9F"><span class="nav-number">10.</span> <span class="nav-text">自然界的立体感</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E7%A9%BA%E9%97%B4%E5%92%8C%E6%B5%85%E5%BA%A6%E7%A9%BA%E9%97%B4"><span class="nav-number">11.</span> <span class="nav-text">深度空间和浅度空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AB%E8%93%84%E7%9A%84%E7%AB%8B%E4%BD%93%E6%84%9F"><span class="nav-number">12.</span> <span class="nav-text">含蓄的立体感</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%82%96%E5%83%8F%E5%92%8C%E4%BA%BA%E4%BD%93%E6%91%84%E5%BD%B1%E7%9A%84%E7%AB%8B%E4%BD%93%E6%84%9F"><span class="nav-number">13.</span> <span class="nav-text">肖像和人体摄影的立体感</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 143 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
+</div>
+
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
+</script>
+
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
+</body>
+
+</html>

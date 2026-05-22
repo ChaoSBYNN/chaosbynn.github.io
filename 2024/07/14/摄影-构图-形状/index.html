@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    
+    <meta name="author" content="Spike Zhang">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://chaosbynn.github.io/2024/07/14/摄影-构图-形状/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Run">
+<meta property="og:type" content="article">
+<meta property="og:title" content="摄影 构图 形状">
+<meta property="og:url" content="https://chaosbynn.github.io/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E5%BD%A2%E7%8A%B6/index.html">
+<meta property="og:site_name" content="Spike_Zhang Site">
+<meta property="og:description" content="Run">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2024-07-14T06:39:15.000Z">
+<meta property="article:modified_time" content="2026-05-22T07:18:46.044Z">
+<meta property="article:author" content="Spike Zhang">
+<meta property="article:tag" content="摄影">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://chaosbynn.github.io/images/avatar.jpg">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/favicon.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+    <meta name="theme-color" content="#004a7c">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            摄影 构图 形状 | Spike_Zhang Site
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"chaosbynn.github.io","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":true,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"2.7rem","h2":"2.0rem","h3":"1.6rem","h4":"1.4rem","h5":"1.2rem","h6":"1.1rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":false,"auto":"T-T","list":["T-T"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":7,"number":true,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#004a7c","secondary":null,"default_mode":"dark"},"global":{"fonts":{"chinese":{"enable":true,"family":"Noto Sans SC","url":"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap"},"english":{"enable":true,"family":"Noto Sans","url":"https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&display=swap"},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":true,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":true,"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/avatar.jpg","description":null},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallpaper.jpg","dark":"/images/wallpaper.jpg"},"title":"Spike Zhang","subtitle":{"text":["Loading..."],"hitokoto":{"enable":true,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/ChaoSBYNN","name":"github"},{"icon":"fa-brands fa-instagram","url":"https://www.instagram.com/entropy_42_zhang","name":"instagram"},{"icon":"fa-brands fa-zhihu","url":"https://www.zhihu.com/people/Bee7zEBubChaoS","name":"zhihu"},{"icon":"fa-brands fa-twitter","url":"https://x.com/Bee7zEBub","name":"twitter"},{"icon":"fa-solid fa-envelope","url":"mailto:t7_chaos@163.com","name":"email"}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null,"name":"weixin","image":null},{"icon":"/images/custom-icon.svg","qr":null}]},"lang":"zh-CN"},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":"mermaid","version":"10.9.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":true,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Cameras":{"icon":"fa-regular fa-camera","submenus":{"Camera":"/masonry/"}},"About":{"icon":"fa-regular fa-user","submenus":{"Github":"https://github.com/ChaoSBYNN","Blog":"https://chaosbynn.github.io"}}},"search":{"enable":true,"preload":true},"lang":"zh-CN","categories":{"Categories":{"icon":"fa-solid fa-folder","path":"/categories/"}},"tags":{"Tags":{"icon":"fa-solid fa-tags","path":"/tags/"}}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"Tags":{"path":"/tags","icon":"fa-regular fa-tags"},"Categories":{"path":"/categories","icon":"fa-regular fa-folder"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":7},"tags":{"enable":true,"limit":7}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-cog fa-spin\" style=\"--fa-animation-duration: 15s;\"></i>","start":"2017/2/13 11:45:14","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2017/2/13 11:45:14","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":true};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+        
+<link rel="stylesheet" href="/fontawesome/duotone.min.css">
+
+    
+    
+<!-- hexo injector head_end start --><script type="module" src="https://cdn.jsdelivr.net/npm/mermaid@7.1.2/dist/mermaid.esm.min.mjs">
+    mermaid.initialize(
+      startOnLoad: true,
+    );
+    </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+	<span class="scroll-progress-bar"></span>
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        Spike_Zhang Site
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Spike_Zhang Site
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/archives"
+                                        >
+                                    <i class="fa-regular fa-archive fa-fw"></i>
+                                    归档
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-camera fa-fw"></i>
+                                    CAMERAS
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a href="/masonry/">
+                                                    CAMERA
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="has-dropdown"
+                                   href="#"
+                                        onClick=&#34;return false;&#34;>
+                                    <i class="fa-regular fa-user fa-fw"></i>
+                                    关于
+                                    <i class="fa-solid fa-chevron-down fa-fw"></i>
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                                    <ul class="sub-menu">
+                                        
+                                            <li>
+                                                <a target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">
+                                                    GITHUB
+                                                </a>
+                                            </li>
+                                        
+                                            <li>
+                                                <a href="https://chaosbynn.github.io">
+                                                    BLOG
+                                                </a>
+                                            </li>
+                                        
+                                    </ul>
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/archives"
+                        >
+                            <span>
+                                归档
+                            </span>
+                            
+                                <i class="fa-regular fa-archive fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-Cameras"
+                        >
+                            <span>
+                                CAMERAS
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-Cameras">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="/masonry/">CAMERA</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item-sub text-base my-1.5 flex flex-col w-full">
+                        
+                        <div class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary cursor-pointer text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                             navbar-data-toggle="submenu-About"
+                        >
+                            <span>
+                                关于
+                            </span>
+                            
+                                <i class="fa-solid fa-chevron-right fa-sm fa-fw transition-all"></i>
+                            
+                        </div>
+                        
+
+                        
+                            <div class="flex-col items-start px-2 py-2 hidden" data-target="submenu-About">
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           target="_blank" rel="noopener" href="https://github.com/ChaoSBYNN">GITHUB</a>
+                                    </div>
+                                
+                                    <div class="drawer-navbar-item text-base flex flex-col justify-center items-start hover:underline active:underline hover:underline-offset-1 rounded-3xl">
+                                        <a class=" text-third-text-color text-xl"
+                                           href="https://chaosbynn.github.io">BLOG</a>
+                                    </div>
+                                
+                            </div>
+                        
+                    </li>
+            
+
+            
+            
+                
+                    
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/tags"
+                        >
+                            <span>Tags</span>
+                            <i class="fa-regular fa-tags fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+                    
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                           href="/categories"
+                        >
+                            <span>Categories</span>
+                            <i class="fa-regular fa-folder fa-sm fa-fw"></i>
+                        </a>
+                    </li>
+                
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">63</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">33</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">143</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			
+			
+			<img src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/lens.webp" alt="摄影 构图 形状" class="w-full h-60 sm:h-72 md:h-80 object-cover sm:rounded-t-large dark:brightness-75" />
+			
+			<div class="w-full flex items-center absolute bottom-0 justify-start">
+				<h1 class="article-title-cover text-center mx-6 my-6 text-second-text-color bg-background-color-transparent px-4 py-3 text-3xl sm:text-4xl md:text-5xl font-semibold backdrop-blur-lg rounded-xl border border-border-color ">摄影 构图 形状</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/avatar.jpg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">Spike Zhang</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-07-14 14:39:15</span>
+        <span class="mobile">2024-07-14 14:39:15</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-05-22 15:18:46</span>
+            <span class="mobile">2026-05-22 15:18:46</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/%E6%91%84%E5%BD%B1/">摄影</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E6%91%84%E5%BD%B1/%E6%9E%84%E5%9B%BE/">构图</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E6%91%84%E5%BD%B1/">摄影</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<blockquote>
+<p>在构图的所有要素中，形状可能是一个最基本的要素。相当多的摄影杰作之所以获得成功，或者是凭它单个物体的形状具有戏剧性的效果，或者是依靠几个物体的形状微妙地相互作用；所以我们很容易得出这样的结论：只有形状才是构图的基本要素。<br>另一方面，在许多优秀照片中，物体的形状却又无关紧要。在艺术上这类问题经常出现，它和手工技艺不同，并没有什行固定标准可言。经常是一旦发现某一原理至关重要，就会有人出来雄辩地证明说，艺术创作本来可以不要那个原理，甚至可以和它背道而驰。</p>
+</blockquote>
+<p>从圆开始:</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144131.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在摄影时，这个圆形可能是一个硬币，一个球，一块圆饼或是一只盘子。</p>
+<p>生活中不存在孤立的物体，我们所遇到的，看到的和感受到的每件物体都和其它物体相互联系而存在。<br>如果我们在这个圆形(硬币或馅饼)的四周加个边框，由于和边框的相对位置发生了变化，它便呈现出不同的视觉效果。虽然下面图例中的边框都是一般照片通用的矩形，但它们所包容的物体形状可以各不相同。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144241.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>边框所包容的空间叫作画面。<br>画面里的形状或物体叫图形。</p>
+<h2 id="画面和图形的相互关系"><a href="#画面和图形的相互关系" class="headerlink" title="画面和图形的相互关系"></a>画面和图形的相互关系</h2><p>只要图形一进入画面，就会出现形状设计中第三个极其重要的要素，即背景空间。这个第三要素与前两个要素——图形与画面一样，也是一个不可忽视的积极因素。在下边的例子中，较暗的区域就是背景空间。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144327.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>如果我们利用同一图形和画面，只是把图形放在画面的不同位置上，使背景空间发生变化，我们就能清楚看出背景空间的重要性。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144357.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>图形在画面上稍一移动，背景空间的形状也就随之改变，从而影响了构图。这种影响虽然不易察觉，但起的作用却相当巨大。</p>
+<p>摄影者往往只把注意力集中在图形上而忽略了画面。这是由于他们只能买到固定尺寸的底片和相纸，所以有一定的局限性。下面是用同一个简单的圆形所构成的不同画面。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144428.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>画面每变化一次所形成的对圆形的包围圈就不相同，给人的视觉感受也不同，而且也使背景空间的形状截然不同。</p>
+<p>通过控制光线，我们可以:</p>
+<ol>
+<li>强调圆形物体的轮廓<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144530.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>通过布光，在一侧投出影子，以强调它的立体感。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144538.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调轮廓的不规则性。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144550.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调轮廓的圆滑。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144723.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调圆形和画面之间的明暗对比。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144730.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+<li>强调表面的图案或质感。<br> <figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144744.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></li>
+</ol>
+<p>根据拍摄对象的色调和我们希望强调的程度，上述各种安排可作如下的变化:</p>
+<ol>
+<li>亮调物体衬在暗调的背景上。</li>
+<li>亮调物体衬在中等色调的背景上。</li>
+<li>中等色调的物体衬在亮调的背景上。</li>
+<li>中等色调的物体衬在暗调的背景上。</li>
+<li>暗调物体衬在亮调的背景上。</li>
+<li>暗调物体衬在中等色调的背景上。</li>
+</ol>
+<p>改变画面中的图形的大小，还可以获得更多的变化形式。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144756.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在摄影中，任何一个要素如果离开其它要素，都不可能得到充分的表现。<br>色调、质感和大小三者相互作用极为重要，不得稍有偏废。<br>在下面的讨论中，我们的确稍有侧重，但我们的目的不过是为了对那些引起视觉兴趣的物征集中地分别进行研究而已。<br>通过这种方法，我们可以深入理解这个原理并提高视觉的洞察力。<br>现在，摄影者不妨选择一些圆形物体并给以照明，使它们发生有趣的变化。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144836.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144843.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144854.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure><br><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144901.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>把相机凑近圆形物体所在高度的平面,拍摄其透视图并观察其结果。这样拍出来的是个椭圆形，它和圆形还有相似之处，然而它的图形设计特点却显著不同了。</p>
+<p>一个圆形没有特殊的方向性，但是椭圆或它的同族——卵形却有一个长轴，这个长轴赋予图形本身一种特殊的方向感。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714144902.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>把这种图形放在画面里，如果改变图形的方向，就能使背景空间发生显著的变化，从而加强了方向变化的效果。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714145009.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在人工制造的和自然存在的物体中，人们常常发现含一个直边（或两个直边）的弓形。这些弓形使形状变化和方向变化更加多样化，从而有可能设计出更多，更有趣的背景空间。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714145033.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>这还可以使方向变化的效果更为强烈。请比较下面两个图形的视觉效果。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-14/20240714145053.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="形状的创造"><a href="#形状的创造" class="headerlink" title="形状的创造"></a>形状的创造</h2><p>当我们开始涉及三角形时，形状变化的机会就更多了。首先，我们还是在纸上画草图，所画草图可以稍大于下面的图样。<br>形状的变化是无穷无尽的，首先，我们使用下列各种三角形。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715120922.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>利用三角形的大小和方向的变化可以布置出各种形状的画面。<br>培养构图灵感的一个有效方法如下：先选定一个特定形状的三角形，制作几个不同尺寸和不同比例的矩形，矩形的尺寸应足以容纳这个三角形的各种姿势。把三角形放在矩形画面之中并到处移动其位置，考察不同的位置所产生的效果。</p>
+<p>这个方法看来很简单，但可以提高敏感性，认识形状之间的有趣关系，其结果意味深长的。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715120948.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="对自然界各种形状的观察"><a href="#对自然界各种形状的观察" class="headerlink" title="对自然界各种形状的观察"></a>对自然界各种形状的观察</h2><p>在研究上述几何图形的时候，你会发现自己能看到视觉世界中许多有趣的形象，这些形象过去你也曾多次遇到，但却未予注意。这种新培养出来的意识正是一个摄影家最宝贵的才能，这就是透过表面观察事物的能力。</p>
+<p>在你的自我训练中，不能看一眼了事，而要仔细实地观察。在初期，作为自我训练的一个部分，可选定一个题目，并尽可能找到最多的答案。这并不需要安排特殊的时间，可以利用旅行、散步、凭窗眺望，或室内小坐的时间，而且完全可以作为一种不用相机的观察练习。</p>
+<p>设法发掘你周围环境中的三角形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121116.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>不要忽略实物之间的空隙所形成的三角形。</p>
+<p>我们从圆形和三角形谈到四边形时，形状变化的机会是逐渐递增的。<br>我们用圆形和三角形所做的每个试验都可继续用于四边形。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121207.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>四边形的比例有无穷的变化，所以能够用来构成无穷尽的形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121218.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>你如果出去观察或拍照，在城市里是不难找到四边形的。在城市建筑中到处都有四边形，它们几乎占据着统治地位。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121400.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>以上，我们只是讨论了规则的几何形状，这种形状往往使照片看来整齐匀称。<br>再用铅笔作试验，用四条长短不同的直线创作出各种有趣的形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121414.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>请注意，其中有些形状妙趣横生，而有此则毫不动人。环顾一下你的工作室，你会发现在实际物体中，在阴影里，在背景空间里，或者在两个或多个物体之间的背景上，到处都会看到上面所画的一些形状。<br>试用上述方法，勾画五条直线连接成的各种图形。你画得越多，就越富有创造性。每次都可以创造出无数的形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121425.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="自由形状和复合形状"><a href="#自由形状和复合形状" class="headerlink" title="自由形状和复合形状"></a>自由形状和复合形状</h2><p>艺术上很多有价值的东西都是从某些简单题材发展变化而来的。设计或创造四边形和五边形的图形不过是图形变化的一个简单的练习，但是要创造C形曲线的变化图形,其程序要多少复杂一些。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121438.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>现在，把几条直线和一条C形曲线结合在一起。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121448.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>然后，我们再使用两条C形曲线。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121500.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>有些形状是由多条C形曲线结合而成的，里面一条直线也没有。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121510.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>这类形状要尽量简单明快，如果纠缠不清，就不足以动人。你能创造出多少S形曲线呢？</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121518.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>现在用几条S形曲线和几条直线设计几种形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121528.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>然后，把几条S形曲线和几条C形曲线结合起来。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-15/20240715121539.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在设计各种形状时，除了采用线条组合法之外，还可以采用下述方法。</p>
+<h2 id="减图造形法"><a href="#减图造形法" class="headerlink" title="减图造形法"></a>减图造形法</h2><p>先用纸做一个基本图形，如圆、三角形、正方形或或矩形，从角上或边上剪下一些较小的形状，如直线、C形曲线或S形曲线，直到形成一个满意的新形状为止。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716122907.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="增图造形法"><a href="#增图造形法" class="headerlink" title="增图造形法"></a>增图造形法</h2><p>选用一些小的形状，把它们结合在一起，形成一个全新的形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716122926.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="剪纸造形法"><a href="#剪纸造形法" class="headerlink" title="剪纸造形法"></a>剪纸造形法</h2><p>用剪刀或锋利的刀片作一系列的自由式剪纸。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716122936.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="烧纸造形法"><a href="#烧纸造形法" class="headerlink" title="烧纸造形法"></a>烧纸造形法</h2><p>烧烤一个基本形状的边和角。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716122947.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="随意造形法"><a href="#随意造形法" class="headerlink" title="随意造形法"></a>随意造形法</h2><p>随意造形，然后从中选出一个单个形状或一个复合形状。把选好的形状剪下来或涂成黑色以资鉴别。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716122956.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>在做了这样一些简单练习之后，你会对自己鉴赏力和观察力提高的程度感到惊讶。</p>
+<p>原来在物体和物质的平凡的外表下面隐藏着的耐人寻味的各种形状，现在都展现在你的面前并且受到鉴赏。</p>
+<p>你发现得越多，你就越要去探索，于是，你就越加为自己新养成的感受能力和观察觉能力而感到欣慰。</p>
+<h2 id="单个形状的拍摄"><a href="#单个形状的拍摄" class="headerlink" title="单个形状的拍摄"></a>单个形状的拍摄</h2><p>现在正是大好时机，可以开始拍摄由单一形状控制画面的照片了。<br>但是需要提醒一句，当你通过取景器观察的时候，单纯的以录像为目的的老习惯时时有抬头的危险。<br>有一种偏见，认为摄影的主要目的就是要无比清晰地捕捉每一个细节，从而显示你的镜头质量是如何高超。<br>摄影家必须不断地和这样的想法作斗争。</p>
+<p>拍摄单个形状时，我们的目的是发现有意义的形状，并把它突出出来。<br>找到这种形状之后，往往因它所处环境不够理想，就要上下左右地调整你的位置，直到取景器中出现的形状满意为止。<br>然后就要集中精力简化背景，以突出这个形状。这个过程可能可迫使你作出必要的让步和调整，迫使你作出决定：究竟需要作怎样的删节才能达到突出主体或简化背景的目的。</p>
+<p>为了简化背景，也许不得不拍摄一个姿态不太理想的形状，如果现有光线不能使形状和背景分开，不能使两者保持足够的对比，可以使用人工辅助光以达到预期的效果。常常可以加大光圈，限制景深以大大简化背景，这样做能使背景的细部显得模糊。</p>
+<p>你可能会考虑到图形与画面的相互关系，但是在拍摄当时要做出明确的决定是不太可能的。以后，在印制照片的过程中，会有适当的机会来试验各种布局、尺寸和画面安排，以便找出一个最满意的相互关系。</p>
+<p>现在所以考虑到图形与画面的关系，无非是要表明应该注意从多方面去考虑，因为从多方面考虑才是艺术摄影所必需的和应当培养的一种思想方法。除了变化迅速的场合之外，拍摄一张照片花费多少时间都无关紧要。有时候，一切构图要素都能迅速安排妥当，很快就能拍摄完成。然而，有时候为了寻求最佳形状，要移动位置；为了使背景简化和柔化，要在主体和背景之间进行调整；为了完美地再现主题，要等待最理想的光线。这一切都需要花费很长的时间，然而却十分引人入胜。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123159.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="直观构图"><a href="#直观构图" class="headerlink" title="直观构图"></a>直观构图</h2><p>到这里为止我们所介绍的大多数材料完全是通过直观，通过构图设计过程中的即兴安排来控制的。每一个活动都完全听命于个人的感受和判断，而不是受通常的衡量标准的支配。</p>
+<p>完全直观的构图设想包括:</p>
+<ol>
+<li>形状的设计。</li>
+<li>画面的设计。</li>
+<li>形状对画面的相对尺寸。</li>
+<li>形状在画面中的布局。</li>
+<li>背景空间的安排。</li>
+</ol>
+<p>其实，大量的艺术创作都是直观的，大部分构图也是如此。不可能有什么规则，因为任可规则只能抑制个人的即兴表现力，并导致作品题材陈旧、千篇一律而令人生厌。</p>
+<p>很多卓越的摄影家创作出的优秀作品，并且自己也认识到这一点之后，他们才开始分析那些艺术作品所遵循的标准，并提出指导他们今后工作的一些原则。</p>
+<p>自从摄影变成了文化的组成部分以后，摄影家们也一直考虑同样的问题。特别在过去的一百年里人们花费了很多心思，去研究那些影响构图要素的设计原理。有些原理，如大小、方向、明暗的对比和突出地位等，在摄影练习指南上都曾提及。这些原理，以及一些类似的原理都将在以后的各章中充分展开讨论。</p>
+<p>清楚地了解这些原理，对于解决任何构图问题都大有裨益。<br>特别当牵涉到两个或更多形状的结合问题时尤其如此。尽管读者现在对这些原理还没有充分理解，但并不是说对它们毫无体会。</p>
+<p>因此，姑且把本章下面要提出的一些问题放在纯綷直观的基础上去讨论。以后，当读者对这些原理充分理解和接受时，再对本章所述的直观构图及其效果重新评价。我们常常发现，潜在意识会引导我们获得新奇的成果，而这些成果最终是能理论化并得到充分论证的。</p>
+<h2 id="两个或多个形状的构图"><a href="#两个或多个形状的构图" class="headerlink" title="两个或多个形状的构图"></a>两个或多个形状的构图</h2><p>虽然在自然界人们偶然也能发现只有单个形状的画面，但是很多拍摄题材则包含两个或更多的形状。这里，简单的绘图和剪纸仍是我们作试验的有效手段。</p>
+<p>剪下两个不同比例的矩形，一个用黑纸，另一个用白纸。然后用灰纸剪下很多不同尺寸和比例的画面，画面的大小要能容纳得下这两个形状。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123235.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>首先试验两个矩形在画面中的各种布局，两个矩形不要相接触。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123253.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>然后布置这两个形状使它们在边、角处互相接触。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123303.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>随后，安排它们互相遮挡。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123315.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>现在，我们再选各种画面，继续试试布局。任一形状稍一移动都会使背景空间发生变化，这些变化都要一一牢记。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123327.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="空间的划分"><a href="#空间的划分" class="headerlink" title="空间的划分"></a>空间的划分</h2><p>下面的课题表明，要想用一些横线，竖线构成各种矩形以达到有效地划分空间的目的，需要进行何等强度的思考和判断练习。</p>
+<p>先画一个画面。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123338.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>加上一条竖线，构成两个矩形，使两者保持适当的关系。其中一个矩形应充分突出同时并不埋没另一个矩形。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123345.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>加上一条横线，形成四个有趣的矩形——各不相同，却十分协调。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123352.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>继续增加竖的和横的单线和双线，有些延伸到边框的最外沿，有些延伸到图形内部的线上。在加上每一个线条之前，应仔细考虑新出现的矩形，以及整个构图是否富有情趣。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123406.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>用铅笔把某些形状涂成暗调或中等色调，试看会发生什么变化。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123413.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>这个方面是由二十世纪一个荷兰艺术家皮埃特􀂷蒙德里安发展起来的，他认识到把艺术简化成最简单的形式的价值。<br>大多数初学者看到了蒙德里安的作品都认为它们并不难画，然而那些模仿者（而不是抄袭者）却发现，要创造一个满意的布局比他们所想象的要难得多；而且还发现通过这种练习获得的学问是相当奥妙也是十分有用的。</p>
+<p>上述的设计图是由一些交叉的线条构成的，在线条之间小心地留出间隔，从而构成很多矩形。它们的大小、方向和比例各不相同，但却互有联系。<br>下面讲的构图是这个方法的变化形式，但是和前边一样也要考虑如何使图形的相互关系富于变化和情趣。这个图形的整个印象是人们在任何城市环境中都能感受到的。</p>
+<p>用黑纸或白纸剪出一些不同尺寸和不同比例的矩形，其中有些形状可剪出两份，有些则可剪出三份。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123422.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>把这些形状垂直地或水平地布置在灰纸作成的画面中，这些形状可以分开安排，也可以在边上或角上互相接触。<br>你给每个矩形定位时都要考虑如果把它放在毗邻矩形的旁边会成什么样子，并要考虑它对整个构图的外观产生什么影响，尤其要考虑背景空间的大小和形状。<br>由于每个矩形都起着分界线的作用，现在的背景空间就是灰色部分。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123432.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>前面两上问题都以横竖矩形为构图基础，这种构图原理在实际摄影中十分重要。</p>
+<ol>
+<li>收集大量的矩形盒子和盒盖，它们的高度、颜色和比例要各不相同；可以是空白的，也可以是印过的。把它们布置在地板上或桌子上，用灰色、白色或黑色的纸或桌布做底子。<ol>
+<li>首先用反射光拍照，反射光从正上方照射画面。</li>
+<li>再用直接光拍照，光源应有适当的角度，使高盒子的影子投在矮盒子上，构成半透明的矩形，这样会使构图更加有趣。</li>
+</ol>
+</li>
+<li>通过一间屋子的门道观察另一间屋子，注意观察各种矩形，如家具、照片、窗户、窗帘、阴影、装饰线条以及地面所形成的矩形。选择一个观察点，以便能够看到这些矩形的有趣变化，稍微带上一点墙壁的会聚点的变化，拍一张照片。</li>
+<li>每一个居民区、商业中心、办公地区，事实上也是建筑物的集中的地方，都充满了门、窗、楼道、路标、壁板和台阶。所有这些都是矩形。在这种区域中选出一个拍摄主体，使它尽量包括各种有趣的矩形，拍成照片。</li>
+</ol>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123444.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<h2 id="各种艺术风格的相互依存关系"><a href="#各种艺术风格的相互依存关系" class="headerlink" title="各种艺术风格的相互依存关系"></a>各种艺术风格的相互依存关系</h2><p>每一个专门从事某一门艺术的人，往往由于对他那门艺术过分专心致志，以致忽略了各门艺术只有互相依存才能形成文化的整体这样一个事实。<br>艺术是各个时期占统治地位的社会的、政治和经济力量的反映。当这些力量发生变革时（它们确实是不断变革的），必然要在艺术上反映出来。</p>
+<p>在过去的年代里，一些重要的变革最初需要几百年才觉察得到；后来，便缩短为一百年；而最后，到了十九世纪，则只隔大约二十五年的时间。每次变革都给各种艺术的表现形式带来了实质性的变化。<br>音乐、戏剧、舞蹈、文学、建筑以及绘画和雕塑都同时受到类似的影响。一代人认为是重要的东西，下一代人认为已经过时了。当然也有许多人总是喜欢老作品，而不喜欢“稀奇古怪”的新东西，而且在大多数情况下，保守主义受到有钱人的支持。<br>然而，新的风格最终是要确立的，但它又会随着时间的推移而过时。</p>
+<p>在二十世纪，特别在二十世纪后半期，这个进度加快了。我们刚刚习惯于某一艺术风格，就发现它又被新的所取代，没有一种风格能在十年以后仍然保持盛而不衰。<br>所以，二十至二十五年以前的照片就显得过时了，而且要比照片的内容，如建筑、室内设计和服装等过时得多。这里面部分原因可归结为构图风格的不同。</p>
+<p>有一个时期，照片上出现了大片黑暗区域，明暗对比强烈，边缘模糊不清。又有一个时期，强调的可能是起伏的曲线，使人联想到植物的形状。<br>而在以后的时期，可能转而注重衰败和毁灭，内心的奥秘，非人类所表现出来的人类外观，互不相关的瞎涂乱画以及人类生活中那些最为平庸陈腐的细节。</p>
+<p>在研究矩形设计时，学习摄影构图的人应该培养自己善于意识到生活中所存在的矩形形状，如公共汽车和火车、室内和室外、图书馆中、火车站里、商店里、街道上、标牌上以及建筑工地上的各种矩形。</p>
+<p>此外，还应该观察画家和雕塑家们在做些什么，观察商店的内部和外部是如何设计的，特别是要注意那些为广告和社论材料设计版面的艺术家们在创作些什么。<br>为图书、杂志、报纸和电视而工作的艺术家以及广告画设计师，具有长期研究矩形形状的经验，往往可以从他们那里获得对摄影有益的启示。即使别无所获，至少也可学会如何鉴赏好的和时兴的艺术形式。</p>
+<h2 id="规则形状和不规则形状相结合的构图"><a href="#规则形状和不规则形状相结合的构图" class="headerlink" title="规则形状和不规则形状相结合的构图"></a>规则形状和不规则形状相结合的构图</h2><p>请设计出一个不规则的形状或者从前面的试验中选出一个，用铅笔把它画出，使它的尺寸在画面中占据显要的地位。试验多种布局方法，直到你认为满意为止。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123457.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>再增加一些几何形状或自己设计的形状，记住它们互相搭配之后的形象和整个构图的效果。在图形上加些铅笔色调，造成黑、白和灰的效果。</p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123504.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p>再用剪好的纸像以前那样操作，灵活地移动画面中各个形状，使布局更加协调。用黑、白、灰纸剪出一些几何形状，或自己设计的形状，使尺寸和形状各不相同。<br>把它们配置在一个矩形画面里，如果有必要的话，可再加以剪切或移动，直到构图满意为止。然后用浆糊把它们定位。<br>完成之，把构成的图形挂在墙上，研究形状、色调和背景空间的相互作用。要十分留意整个构图的协调性：哪一部分效果最好，哪一部分需要改进，以及如何改进。</p>
+<p>这种自己评价的办法是一重要的创作方法。它可以不断发展，并且为你奠定一个基础以便不断提高敏感性、创造性和构图水平。</p>
+<p>做这些试验的目的，是为了提高对几何形状设计和不规则形状设计的鉴赏能力，并且认识这类形状对构图的影响。<br>虽然我们在前面把铅笔画和剪纸作为初步经验向大家作了介绍，但我们的主要目标是要培养对自然界和文明世界的更敏锐的审美感。<br>这样，当摄影家遇到自然存在的各种杂乱的细节时，便能够根据个人的判断，选择那些有用的要素，以加强拍摄对象的视觉效果。<br>在下面各章中，我们将讨论的原理是如何使构图和谐并富有表现力。</p>
+<h2 id="表现各种形状的照片"><a href="#表现各种形状的照片" class="headerlink" title="表现各种形状的照片"></a>表现各种形状的照片</h2><p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123513.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+<p><figure class="image-caption"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/photography/2024-07-16/20240716123526.png"
+                      alt="-"
+                ><figcaption>-</figcaption></figure></p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 摄影 构图 形状</li>
+        <li><strong>作者:</strong> Spike Zhang</li>
+        <li><strong>创建于
+                :</strong> 2024-07-14 14:39:15</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-05-22 15:18:46
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://chaosbynn.github.io/2024/07/14/摄影-构图-形状/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E6%91%84%E5%BD%B1/">#摄影</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2024/07/15/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98-%E5%BA%8F/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">数据挖掘 序</span>
+						<span class="post-nav-item">上一篇</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2024/07/14/%E6%91%84%E5%BD%B1-%E6%9E%84%E5%9B%BE-%E8%89%BA%E6%9C%AF/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item truncate max-w-48">摄影 构图 艺术</span>
+						<span class="post-nav-item">下一篇</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="giscus-container"></div>
+    <script data-swup-reload-script defer>
+        (function() {
+            const containerId = "giscus-container";
+            const mapping = "title";
+            const lang = "zh-CN";
+            const inputPosition = "bottom";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "ChaoSBYNN/chaosbynn.github.io",
+                    "data-repo-id": "MDEwOlJlcG9zaXRvcnk4MTE4ODQ2NA==",
+                    "data-category": "Announcements",
+                    "data-category-id": "DIC_kwDOBNbWcM4CgcsE",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
+                loadGiscus();
+            };
+
+            runGiscus();
+        })();
+    </script>
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">摄影 构图 形状</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%BB%E9%9D%A2%E5%92%8C%E5%9B%BE%E5%BD%A2%E7%9A%84%E7%9B%B8%E4%BA%92%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">画面和图形的相互关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BD%A2%E7%8A%B6%E7%9A%84%E5%88%9B%E9%80%A0"><span class="nav-number">2.</span> <span class="nav-text">形状的创造</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%87%AA%E7%84%B6%E7%95%8C%E5%90%84%E7%A7%8D%E5%BD%A2%E7%8A%B6%E7%9A%84%E8%A7%82%E5%AF%9F"><span class="nav-number">3.</span> <span class="nav-text">对自然界各种形状的观察</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E7%94%B1%E5%BD%A2%E7%8A%B6%E5%92%8C%E5%A4%8D%E5%90%88%E5%BD%A2%E7%8A%B6"><span class="nav-number">4.</span> <span class="nav-text">自由形状和复合形状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%9B%BE%E9%80%A0%E5%BD%A2%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">减图造形法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%9B%BE%E9%80%A0%E5%BD%A2%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">增图造形法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%AA%E7%BA%B8%E9%80%A0%E5%BD%A2%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">剪纸造形法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%A7%E7%BA%B8%E9%80%A0%E5%BD%A2%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">烧纸造形法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%8F%E6%84%8F%E9%80%A0%E5%BD%A2%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">随意造形法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA%E5%BD%A2%E7%8A%B6%E7%9A%84%E6%8B%8D%E6%91%84"><span class="nav-number">10.</span> <span class="nav-text">单个形状的拍摄</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E8%A7%82%E6%9E%84%E5%9B%BE"><span class="nav-number">11.</span> <span class="nav-text">直观构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E4%B8%AA%E6%88%96%E5%A4%9A%E4%B8%AA%E5%BD%A2%E7%8A%B6%E7%9A%84%E6%9E%84%E5%9B%BE"><span class="nav-number">12.</span> <span class="nav-text">两个或多个形状的构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E7%9A%84%E5%88%92%E5%88%86"><span class="nav-number">13.</span> <span class="nav-text">空间的划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E7%A7%8D%E8%89%BA%E6%9C%AF%E9%A3%8E%E6%A0%BC%E7%9A%84%E7%9B%B8%E4%BA%92%E4%BE%9D%E5%AD%98%E5%85%B3%E7%B3%BB"><span class="nav-number">14.</span> <span class="nav-text">各种艺术风格的相互依存关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%84%E5%88%99%E5%BD%A2%E7%8A%B6%E5%92%8C%E4%B8%8D%E8%A7%84%E5%88%99%E5%BD%A2%E7%8A%B6%E7%9B%B8%E7%BB%93%E5%90%88%E7%9A%84%E6%9E%84%E5%9B%BE"><span class="nav-number">15.</span> <span class="nav-text">规则形状和不规则形状相结合的构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E7%8E%B0%E5%90%84%E7%A7%8D%E5%BD%A2%E7%8A%B6%E7%9A%84%E7%85%A7%E7%89%87"><span class="nav-number">16.</span> <span class="nav-text">表现各种形状的照片</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2017</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-cog fa-spin" style="--fa-animation-duration: 15s;"></i>&nbsp;&nbsp;<a href="/">Spike Zhang</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 143 篇文章
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
+</div>
+
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
+</script>
+
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+    
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+    
+
+
+
+
+
+    
+<script src="/js/build/libs/minimasonry.min.js" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
+</body>
+
+</html>
