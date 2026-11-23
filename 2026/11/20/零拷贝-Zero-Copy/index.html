@@ -94,7 +94,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://chaosbynn.github.io/images/avatar.jpg">
 <meta property="article:published_time" content="2026-11-20T07:45:59.000Z">
-<meta property="article:modified_time" content="2026-11-20T08:11:17.284Z">
+<meta property="article:modified_time" content="2026-11-23T05:24:49.355Z">
 <meta property="article:author" content="Spike Zhang">
 <meta property="article:tag" content="Program">
 <meta property="article:tag" content="算法">
@@ -685,8 +685,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-11-20 16:11:17</span>
-            <span class="mobile">2026-11-20 16:11:17</span>
+            <span class="desktop">2026-11-23 13:24:49</span>
+            <span class="mobile">2026-11-23 13:24:49</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -746,7 +746,13 @@
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
 			<h2 id="一、什么是零拷贝"><a href="#一、什么是零拷贝" class="headerlink" title="一、什么是零拷贝"></a>一、什么是零拷贝</h2><p>零拷贝指是一种高效的数据传输技术, 在数据传输过程中,尽量减少或避免 CPU 对数据在用户态与内核态之间的拷贝,从而降低 CPU 开销、减少内存带宽占用、降低延迟、提高吞吐量。</p>
 <p>这里的”零”并不是真的”一次都不拷贝”,而是指减少不必要的 CPU 参与的拷贝,把数据搬移的工作尽量交给 DMA（直接内存访问）或硬件去做。</p>
-<h2 id="二、为什么会有这个问题（传统读取的拷贝开销）"><a href="#二、为什么会有这个问题（传统读取的拷贝开销）" class="headerlink" title="二、为什么会有这个问题（传统读取的拷贝开销）"></a>二、为什么会有这个问题（传统读取的拷贝开销）</h2><p>以”从磁盘读文件并发送到网络”为例,传统方式（read() + write()）通常经历 4 次拷贝 + 4 次上下文切换：</p>
+<h2 id="二、为什么会有这个问题（传统读取的拷贝开销）"><a href="#二、为什么会有这个问题（传统读取的拷贝开销）" class="headerlink" title="二、为什么会有这个问题（传统读取的拷贝开销）"></a>二、为什么会有这个问题（传统读取的拷贝开销）</h2><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/zerocopy/zerocopy0.png"
+                     
+                ></p>
+<p>以”从磁盘读文件并发送到网络”为例,传统方式（read() + write()）通常经历 4 次拷贝 + 4 次上下文切换：</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">磁盘 → ①DMA     → 内核缓冲区（page cache）</span><br><span class="line">内核缓冲区 → ②CPU → 用户缓冲区</span><br><span class="line">用户缓冲区 → ③CPU → 内核 socket 缓冲区</span><br><span class="line">内核 socket 缓冲区 → ④DMA → 网卡</span><br></pre></td></tr></table></figure></div>
 
 <ul>
@@ -754,22 +760,46 @@
 <li>用户态&#x2F;内核态之间来回切换 4 次。</li>
 </ul>
 <p>零拷贝的目标,就是去掉 ②③ 这两次 CPU 拷贝。</p>
-<h2 id="三、实现原理"><a href="#三、实现原理" class="headerlink" title="三、实现原理"></a>三、实现原理</h2><h3 id="1-mmap-write"><a href="#1-mmap-write" class="headerlink" title="1. mmap + write"></a>1. mmap + write</h3><p>用 <code>mmap()</code> 把内核缓冲区和用户进程的地址空间映射到同一块物理内存,省掉”内核 → 用户”的 CPU 拷贝（②）。</p>
+<h2 id="三、实现原理"><a href="#三、实现原理" class="headerlink" title="三、实现原理"></a>三、实现原理</h2><h3 id="1-mmap-write"><a href="#1-mmap-write" class="headerlink" title="1. mmap + write"></a>1. mmap + write</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/zerocopy/zerocopy1.png"
+                     
+                ></p>
+<p>用 <code>mmap()</code> 把内核缓冲区和用户进程的地址空间映射到同一块物理内存,省掉”内核 → 用户”的 CPU 拷贝（②）。</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">读：磁盘 →DMA→ page cache（mmap 映射后用户可直接读）</span><br><span class="line">写：page cache →CPU→ socket 缓冲区 →DMA→ 网卡</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>相比传统方式少 1 次 CPU 拷贝,但仍需 4 次上下文切换。</li>
 </ul>
-<h3 id="2-sendfile（核心方案）"><a href="#2-sendfile（核心方案）" class="headerlink" title="2. sendfile（核心方案）"></a>2. sendfile（核心方案）</h3><p><code>sendfile()</code> 系统调用直接在内核态完成”文件 → socket”的传输,应用完全不需要碰数据。</p>
+<h3 id="2-sendfile（核心方案）"><a href="#2-sendfile（核心方案）" class="headerlink" title="2. sendfile（核心方案）"></a>2. sendfile（核心方案）</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/zerocopy/zerocopy2.png"
+                     
+                ></p>
+<p><code>sendfile()</code> 系统调用直接在内核态完成”文件 → socket”的传输,应用完全不需要碰数据。</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sendfile(fd_in, fd_out)：</span><br><span class="line">磁盘 →DMA→ page cache →CPU→ socket 缓冲区 →DMA→ 网卡</span><br></pre></td></tr></table></figure></div>
 
 <ul>
 <li>只需 2 次上下文切换、2 次 DMA + 1 次 CPU 拷贝。</li>
 <li>真正”零拷贝”的版本：当网卡支持 SG-DMA（Scatter-Gather DMA,分散&#x2F;聚集 DMA）,CPU 只把描述信息（文件位置、长度）传给 socket 缓冲区,连最后一次 CPU 拷贝也省掉,DMA 直接从 page cache 把数据搬到网卡。</li>
 </ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/zerocopy/zerocopy3.png"
+                     
+                ></p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">磁盘 →DMA→ page cache（CPU 仅传递元数据）→SG-DMA→ 网卡</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="3-splice"><a href="#3-splice" class="headerlink" title="3. splice"></a>3. splice</h3><p>Linux 2.6 引入的 <code>splice()</code>,在两个文件描述符之间建立管道,数据在内核内部搬移,不经过用户态内存。</p>
+<h3 id="3-splice"><a href="#3-splice" class="headerlink" title="3. splice"></a>3. splice</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://raw.githubusercontent.com/ChaoSBYNN/image-hosting/main/program/zerocopy/zerocopy4.png"
+                     
+                ></p>
+<p>Linux 2.6 引入的 <code>splice()</code>,在两个文件描述符之间建立管道,数据在内核内部搬移,不经过用户态内存。</p>
 <h3 id="4-DMA-与硬件辅助"><a href="#4-DMA-与硬件辅助" class="headerlink" title="4. DMA 与硬件辅助"></a>4. DMA 与硬件辅助</h3><ul>
 <li>DMA：让外设（磁盘、网卡）直接读写内存,绕开 CPU。</li>
 <li>SG-DMA：支持把不连续的内存块一次性发出,是 sendfile 实现真正零拷贝的关键。</li>
@@ -835,7 +865,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-11-20 16:11:17
+                    :</strong> 2026-11-23 13:24:49
             </li>
         
         <li>
